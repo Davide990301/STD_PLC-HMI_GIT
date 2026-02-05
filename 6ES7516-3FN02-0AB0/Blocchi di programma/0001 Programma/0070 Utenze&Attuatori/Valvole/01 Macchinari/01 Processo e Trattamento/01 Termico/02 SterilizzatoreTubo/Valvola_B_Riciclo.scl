@@ -1,0 +1,27 @@
+﻿FUNCTION "Valvola_B_Riciclo" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	REGION Riciclo
+	    REGION Ingressi
+	        "Valvola".V["K_Valvola_B"].In.Feedback_SensorePos := "ValvolaB_SensoreChiuso";
+	        "Valvola".V["K_Valvola_B"].In.Feedback_SensoreNeg := "ValvolaB_SensoreAperto";
+	        
+	        "Valvola".V["K_Valvola_B"].In.ConsMovimentoPos := //Quando il pressostato in uscita alla pompa pistoni supera la soglia intermedia massima
+	        NOT "Analogica".A["K_Analogica_PressioneSicurezzaIngressoSterilizzatore"].Allarmi.A["KAllAnalog_IntMax"].Stato; //Devio la valvola B.
+	    END_REGION ;
+	    REGION Parametri
+	        "Valvola".V["K_Valvola_B"].Prm.SensorLess := False;
+	    END_REGION ;
+	    REGION Gestione
+	        "GestValvola"(K_Valvola := "K_Valvola_B",
+	                      K_TipoValvola := "K_TipoValvola_Monostabile",
+	                      K_Zona := "K_Zona_Sterilizzatore");
+	    END_REGION ;
+	    REGION Uscite
+	        "Valvola_B_ComandoPositivo" := "Valvola".V["K_Valvola_B"].Out.CmdPos;
+	    END_REGION ;
+	END_REGION ;
+END_FUNCTION
+

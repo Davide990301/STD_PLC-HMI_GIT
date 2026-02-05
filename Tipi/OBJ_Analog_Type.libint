@@ -1,0 +1,9 @@
+﻿DocumentHash:
+  - FileName: OBJ_Analog_Type.xml
+    Hash: VWSd7dOsGgAkxr5IzswetSsPCLUtm0iaSWW11LEkKk8=
+LibraryMetaFileHash: VdqV8httGzTbKIBZ7rRl7j/E9cMckT1tTYeooMoQicw=
+LibraryVersion:
+  Guid: 5508505e-9e39-4487-8022-194f7eca4ca4
+  DependsOn:
+    - TypeName: OBJ_Timer_Type
+      VersionNumber: 1.0.0

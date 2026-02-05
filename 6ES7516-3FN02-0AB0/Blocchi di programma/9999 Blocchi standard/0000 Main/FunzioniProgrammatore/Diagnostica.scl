@@ -1,0 +1,56 @@
+﻿FUNCTION "Diagnostica" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_Attuale_ArrayInCuiAccediamo : Int;   // Indicare la costante che si intende controllare e correggere
+      K_NumMax_MassimoValoreDellArrayInCuiAccediamo : Int;   // Indicare il suo K_Num di riferiemento
+      K_Tipo_ArrayInCuiAccediamo : Int;   // Indicare il tipo di costante
+      K_Attuale_DiChiAccede : Int;   // Indicare la costante attuale del blocco attuale
+      K_Tipo_DiChiAccede : Int;   // Indicare il tipo di costante e quindi il tipo di blocco processato
+   END_VAR
+
+   VAR_OUTPUT 
+      K_AttualeInterno : Int;
+   END_VAR
+
+   VAR_TEMP 
+      CounterArray : Int;
+   END_VAR
+
+
+BEGIN
+	IF "Zona".DiagnosticaProgrammatore.Comandi.AbilitaDiagnosticaProgrammatore THEN
+	    IF #K_Attuale_ArrayInCuiAccediamo > #K_NumMax_MassimoValoreDellArrayInCuiAccediamo THEN
+	        "Zona".DiagnosticaProgrammatore.ErroriRichiami[#K_Tipo_ArrayInCuiAccediamo].LimiteArraySuperato.Stato := True;
+	        "Zona".DiagnosticaProgrammatore.ErroriRichiami[#K_Tipo_ArrayInCuiAccediamo].LimiteArraySuperato."Da(Tipo)" := #K_Tipo_DiChiAccede;
+	        "Zona".DiagnosticaProgrammatore.ErroriRichiami[#K_Tipo_ArrayInCuiAccediamo].LimiteArraySuperato."Num(Indice)" := #K_Attuale_DiChiAccede;
+	        #K_AttualeInterno := 0;
+	    ELSE
+	        #K_AttualeInterno := #K_Attuale_ArrayInCuiAccediamo;
+	        CASE #K_Tipo_ArrayInCuiAccediamo OF
+	            "K_TipoMotore":
+	                IF "Motore".M[#K_Attuale_ArrayInCuiAccediamo].Dati.BloccoRichiamato THEN
+	                    "Zona".DiagnosticaProgrammatore.ErroriRichiami[#K_Tipo_ArrayInCuiAccediamo].MultiRichiamo.Allarme := True;
+	                    "Zona".DiagnosticaProgrammatore.ErroriRichiami[#K_Tipo_ArrayInCuiAccediamo].MultiRichiamo.TipoUtenza := #K_Tipo_DiChiAccede;
+	                    "Zona".DiagnosticaProgrammatore.ErroriRichiami[#K_Tipo_ArrayInCuiAccediamo].MultiRichiamo.IndiceUtenza := #K_Attuale_DiChiAccede;
+	                END_IF;
+	             //Continuare con i successivi   
+	        END_CASE;
+	    END_IF;
+	    IF "Zona".DiagnosticaProgrammatore.Comandi.ResettaAllarmi THEN
+	        "Zona".DiagnosticaProgrammatore.ErroriRichiami[#K_Tipo_ArrayInCuiAccediamo].LimiteArraySuperato.Stato := False;
+	        "Zona".DiagnosticaProgrammatore.ErroriRichiami[#K_Tipo_ArrayInCuiAccediamo].LimiteArraySuperato."Da(Tipo)" :=
+	        "Zona".DiagnosticaProgrammatore.ErroriRichiami[#K_Tipo_ArrayInCuiAccediamo].LimiteArraySuperato."Num(Indice)" := 0;
+	        "Zona".DiagnosticaProgrammatore.ErroriRichiami[#K_Tipo_ArrayInCuiAccediamo].MultiRichiamo.Allarme := False;
+	        "Zona".DiagnosticaProgrammatore.ErroriRichiami[#K_Tipo_ArrayInCuiAccediamo].MultiRichiamo.TipoUtenza :=
+	        "Zona".DiagnosticaProgrammatore.ErroriRichiami[#K_Tipo_ArrayInCuiAccediamo].MultiRichiamo.IndiceUtenza := 0;
+	    END_IF;
+	ELSE
+	    #K_AttualeInterno := #K_Attuale_ArrayInCuiAccediamo;
+	END_IF;
+	                
+	            
+	    
+	    
+END_FUNCTION
+

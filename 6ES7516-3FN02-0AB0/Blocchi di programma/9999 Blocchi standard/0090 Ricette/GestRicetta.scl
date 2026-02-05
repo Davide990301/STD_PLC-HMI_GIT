@@ -1,0 +1,157 @@
+﻿FUNCTION "GestRicetta" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_MacchinaARicetta : Int;
+      K_CodiceMacchinario : Int;
+   END_VAR
+
+   VAR_TEMP 
+      CounterFormato : Int;
+      FormatoAttuale : Int;
+      SelezioneAdHmi : Int;
+      CounterAllarme : Int;
+      AppoErr : Int;
+      RicettaModificata : Bool;
+      ModificaInCorso : Bool;
+      AbilitaCarica : Bool;
+   END_VAR
+
+
+BEGIN
+	REGION Carica ricetta
+	    "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.AbilitaCarica := True;
+	    IF "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Esegui_Carica THEN                                                                             //Se ho il carica da pannello operatore
+	//        IF "GestPopup_Ack"(K_Popup := "K_Popup_ConfermareCambioAttrezzatura") THEN
+	            "MacchinaARicetta".M[#K_MacchinaARicetta].Lavoro := "MacchinaARicetta".M[#K_MacchinaARicetta].Archivio["MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Indice_Selezionata];                                       //Prendo la ricetta dall'archivio selezionata ad hmi e la carico
+	            "MacchinaARicetta".M[#K_MacchinaARicetta].Modifica := "MacchinaARicetta".M[#K_MacchinaARicetta].Lavoro;
+	            "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Indice_RicettaAttuale := "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Indice_Selezionata;                                    //Salvo l'indice di ricetta attuale per sapere quale ricetta è in corso
+	            "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Esegui_Carica := False;                                                                             //Resetto memoria impostata ad HMI
+	            "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Archivio.SelezioneHmi["MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Indice_Selezionata] := False;
+	//        ELSIF "GestPopup_Nack"(K_Popup := "K_Popup_ConfermareCambioAttrezzatura") THEN
+	//            "Ricetta".R[#K_MacchinaARicetta].Hmi.Esegui_Carica := False;
+	//        END_IF;
+	        END_IF;
+	END_REGION ;
+	REGION Modifica ricetta
+	    REGION Abilitazione modifica
+	        "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Abilita_ModificaRicettaInLavoro := NOT "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.InCorso_ModificaRicettaInArchivio;
+	        "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Abilita_ModificaRicettaInArchivio := NOT "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.InCorso_ModificaRicettaInLavoro;
+	    END_REGION ;
+	    REGION Modifica ricetta in lavoro
+	        IF "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Esegui_ModificaRicettaInLavoro THEN
+	            "MacchinaARicetta".M[#K_MacchinaARicetta].Modifica := "MacchinaARicetta".M[#K_MacchinaARicetta].Archivio["MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Indice_RicettaAttuale];
+	            "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.InCorso_ModificaRicettaInLavoro := True;
+	            "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Esegui_ModificaRicettaInLavoro := False;
+	            "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Indice_Selezionata := "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Indice_RicettaAttuale;
+	        END_IF;
+	        //Se la ricetta in lavoro è in modifica tengo sovrascritta la ricetta in lavoro con quella in modifica
+	        IF "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.InCorso_ModificaRicettaInLavoro THEN   
+	            "MacchinaARicetta".M[#K_MacchinaARicetta].Lavoro := "MacchinaARicetta".M[#K_MacchinaARicetta].Modifica;
+	        END_IF;
+	    END_REGION ;
+	    REGION Modifica ricetta in archivio
+	        IF "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Esegui_ModificaRicettaInArchivio THEN
+	            "MacchinaARicetta".M[#K_MacchinaARicetta].Modifica := "MacchinaARicetta".M[#K_MacchinaARicetta].Archivio["MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Indice_Selezionata];
+	            "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.InCorso_ModificaRicettaInArchivio := True;
+	            "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Esegui_ModificaRicettaInArchivio := False;
+	        END_IF;
+	    END_REGION ;
+	    REGION Mostra originali
+	        IF "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.MostraOriginali THEN
+	            IF "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.InCorso_ModificaRicettaInLavoro THEN
+	                "MacchinaARicetta".M[#K_MacchinaARicetta].Originali := "MacchinaARicetta".M[#K_MacchinaARicetta].Archivio["MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Indice_RicettaAttuale];
+	            END_IF;
+	            IF "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.InCorso_ModificaRicettaInArchivio THEN
+	                "MacchinaARicetta".M[#K_MacchinaARicetta].Originali := "MacchinaARicetta".M[#K_MacchinaARicetta].Archivio["MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Indice_Selezionata];
+	            END_IF;
+	        END_IF;
+	    END_REGION ;
+	END_REGION ;
+	REGION Salvataggio ricetta
+	    #RicettaModificata := "MacchinaARicetta".M[#K_MacchinaARicetta].Archivio["MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Indice_Selezionata] <>"MacchinaARicetta".M[#K_MacchinaARicetta].Modifica;     //Se la ricetta attuale e quella in archivio sono diverse
+	    #ModificaInCorso := "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.InCorso_ModificaRicettaInArchivio OR "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.InCorso_ModificaRicettaInLavoro;
+	    
+	    "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.RichiediSalvataggio := #RicettaModificata OR #ModificaInCorso;
+	    
+	    IF "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.RichiediSalvataggio AND "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Esegui_Annulla THEN
+	        IF "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.InCorso_ModificaRicettaInLavoro THEN
+	            "MacchinaARicetta".M[#K_MacchinaARicetta].Modifica := "MacchinaARicetta".M[#K_MacchinaARicetta].Archivio["MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Indice_RicettaAttuale];
+	        END_IF;
+	        IF "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.InCorso_ModificaRicettaInArchivio THEN
+	            "MacchinaARicetta".M[#K_MacchinaARicetta].Modifica := "MacchinaARicetta".M[#K_MacchinaARicetta].Archivio["MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Indice_Selezionata];
+	        END_IF;
+	        "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Esegui_Annulla := False;
+	        "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.InCorso_ModificaRicettaInLavoro := False;
+	        "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.InCorso_ModificaRicettaInArchivio := False;
+	    END_IF;
+	    IF "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Esegui_Salva THEN                                                                                     //Se ho il salva da pannello operatore
+	        "MacchinaARicetta".M[#K_MacchinaARicetta].Archivio["MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Indice_Selezionata] := "MacchinaARicetta".M[#K_MacchinaARicetta].Modifica;                                      //Prendo la ricetta attuale e sovrascivo l'archivio
+	        "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Esegui_Salva := False;                                                                               //Resetto memoria impostata ad HMI
+	        "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.InCorso_ModificaRicettaInLavoro := False;
+	        "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.InCorso_ModificaRicettaInArchivio := False;
+	    END_IF;
+	END_REGION ;
+	REGION Gestione della visualizzazione HMI
+	    REGION Codice macchinario
+	        "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.CodiceMacchinario := #K_CodiceMacchinario;
+	    END_REGION ;
+	    REGION Formati dell'archivio
+	        IF "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Archivio.IndiceFormatoVisualizzato < 0 THEN
+	            "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Archivio.IndiceFormatoVisualizzato := 0;
+	        END_IF;
+	        IF "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Archivio.IndiceFormatoVisualizzato > "K_NumRicettaPerMacchina" - "K_RicetteAdHmi" THEN
+	            "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Archivio.IndiceFormatoVisualizzato := "K_NumRicettaPerMacchina" - "K_RicetteAdHmi" + 1;
+	        END_IF;
+	        "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Archivio.AbilitaDecrementoRicetta := "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Archivio.IndiceFormatoVisualizzato > 0;
+	        "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Archivio.AbilitaIncrementoRicetta := "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Archivio.IndiceFormatoVisualizzato < "K_NumRicettaPerMacchina" - "K_RicetteAdHmi" + 1;
+	        
+	        FOR #CounterFormato := 0 TO "K_RicetteAdHmi" DO
+	            #FormatoAttuale := #CounterFormato + "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Archivio.IndiceFormatoVisualizzato;
+	            "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Archivio.IndiceHmi[#CounterFormato] := #FormatoAttuale;
+	            "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Archivio.NomeHmi[#CounterFormato] := "MacchinaARicetta".M[#K_MacchinaARicetta].Archivio[#FormatoAttuale].NomeFormato;
+	        END_FOR;
+	    END_REGION ;
+	END_REGION ;
+	REGION Copia ricetta
+	    IF "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Esegui_Copia THEN                                                                                     //Se ho il copia da pannello operatore
+	        "MacchinaARicetta".M[#K_MacchinaARicetta].Archivio["MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Indice_CopiaIn] := "MacchinaARicetta".M[#K_MacchinaARicetta].Archivio["MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Indice_CopiaDa];         //Copio dall'archivio sorhente nell'archvio destinazione
+	        "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Esegui_Copia := False;                                                                               //Resetto memoria impostata ad HMI
+	        "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.AvviaCopia := False;
+	    END_IF;
+	    "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.FocusArchivio := "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Scelta_CopiaDa OR "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Scelta_CopiaIn;
+	    "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.AbilitaCopia := True;
+	    FOR #CounterFormato := 0 TO "K_RicetteAdHmi" DO
+	        IF "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Archivio.SelezioneHmi[#CounterFormato] THEN
+	            IF "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Scelta_CopiaDa THEN
+	                "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Indice_CopiaDa := #CounterFormato;
+	                "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Scelta_CopiaDa := False;
+	            END_IF;
+	            IF "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Scelta_CopiaIn THEN
+	                "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Indice_CopiaIn := #CounterFormato;
+	                "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Scelta_CopiaIn := False;
+	            END_IF;
+	            IF "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.MemoOldSelezione <> #CounterFormato THEN
+	                "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Archivio.SelezioneHmi["MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.MemoOldSelezione] := False;
+	                "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.MemoOldSelezione := #CounterFormato;
+	                "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Indice_Selezionata := #CounterFormato;
+	            END_IF;
+	        END_IF;
+	        IF "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.AvviaCopia THEN
+	            IF NOT "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Scelta_CopiaDa AND NOT "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Scelta_CopiaIn THEN
+	                "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.Archivio.SelezioneHmi[#CounterFormato] := False;
+	            END_IF;
+	        END_IF;
+	    END_FOR;
+	END_REGION ;
+	REGION Caduta ciclo automatico della zona di riferimento   
+	    FOR #CounterAllarme := 1 TO "K_NumAllarmiPerRicette" DO
+	        "GestAllarme_Std"(GestioneSirena := False,
+	                          Allarme := "MacchinaARicetta".M[#K_MacchinaARicetta].Allarmi.A[#CounterAllarme],
+	                          NumAllarme := #CounterAllarme,
+	                          K_Zona := 0,
+	                          WordHmi := "MacchinaARicetta".M[#K_MacchinaARicetta].Allarmi.WordHMI);
+	    END_FOR;
+	END_REGION
+END_FUNCTION
+

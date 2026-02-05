@@ -1,0 +1,20 @@
+﻿FUNCTION "Filtro" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Setpoint : Real;   // Valore da raggiungere
+   END_VAR
+
+   VAR_IN_OUT 
+      IO_DatiFiltro : "Std_Lpf";   // Uscita filtrata
+   END_VAR
+
+
+BEGIN
+	REGION Filtro 
+	    #IO_DatiFiltro.Setpoint := #Setpoint;
+	    #IO_DatiFiltro.ValoreFiltrato  :=  #IO_DatiFiltro.FattoreFiltro * #IO_DatiFiltro.Setpoint + ((1.0 - #IO_DatiFiltro.FattoreFiltro) * #IO_DatiFiltro.ValoreFiltrato );
+	    
+	END_REGION ;
+END_FUNCTION
+

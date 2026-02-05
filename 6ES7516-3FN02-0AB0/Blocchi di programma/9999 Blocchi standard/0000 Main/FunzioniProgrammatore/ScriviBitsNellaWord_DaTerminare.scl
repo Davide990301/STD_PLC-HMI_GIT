@@ -1,0 +1,65 @@
+﻿FUNCTION "ScriviBitsNellaWord_DaTerminare" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      iValue : Int;
+      iStartBit : Int;
+      iEndBit : Int;
+   END_VAR
+
+   VAR_IN_OUT 
+      wDataWord : Word;
+   END_VAR
+
+
+BEGIN
+	IF #iStartBit <= 0 AND #iEndBit >= 0 THEN
+	    #wDataWord.%X8 := #iValue.%X0;
+	END_IF;
+	IF #iStartBit <= 1 AND #iEndBit >= 1 THEN
+	    #wDataWord.%X9 := #iValue.%X1;
+	END_IF;
+	IF #iStartBit <= 2 AND #iEndBit >= 2 THEN
+	    #wDataWord.%X10 := #iValue.%X2;
+	END_IF;
+	IF #iStartBit <= 3 AND #iEndBit >= 3 THEN
+	    #wDataWord.%X11 := #iValue.%X3;
+	END_IF;
+	IF #iStartBit <= 4 AND #iEndBit >= 4 THEN
+	    #wDataWord.%X12 := #iValue.%X4;
+	END_IF;
+	IF #iStartBit <= 5 AND #iEndBit >= 5 THEN
+	    #wDataWord.%X13 := #iValue.%X5;
+	END_IF;
+	IF #iStartBit <= 6 AND #iEndBit >= 6 THEN
+	    #wDataWord.%X14 := #iValue.%X6;
+	END_IF;
+	IF #iStartBit <= 7 AND #iEndBit >= 7 THEN
+	    #wDataWord.%X15 := #iValue.%X7;
+	END_IF;
+	IF #iStartBit <= 8 AND #iEndBit >= 8 THEN
+	    #wDataWord.%X0 := #iValue.%X8;
+	END_IF;
+	IF #iStartBit <= 9 AND #iEndBit >= 9 THEN
+	    #wDataWord.%X1 := #iValue.%X9;
+	END_IF;
+	IF #iStartBit <= 10 AND #iEndBit >= 10 THEN
+	    #wDataWord.%X2 := #iValue.%X10;
+	END_IF;
+	IF #iStartBit <= 11 AND #iEndBit >= 11 THEN
+	    #wDataWord.%X3 := #iValue.%X11;
+	END_IF;
+	IF #iStartBit <= 12 AND #iEndBit >= 12 THEN
+	    #wDataWord.%X4 := #iValue.%X12;
+	END_IF;
+	IF #iStartBit <= 13 AND #iEndBit >= 13 THEN
+	    #wDataWord.%X5 := #iValue.%X13;
+	END_IF;
+	IF #iStartBit <= 14 AND #iEndBit >= 14 THEN
+	    #wDataWord.%X6 := #iValue.%X14;
+	END_IF;
+	IF #iStartBit <= 15 AND #iEndBit >= 15 THEN
+	    #wDataWord.%X7 := #iValue.%X15;
+	END_IF;
+END_FUNCTION
+

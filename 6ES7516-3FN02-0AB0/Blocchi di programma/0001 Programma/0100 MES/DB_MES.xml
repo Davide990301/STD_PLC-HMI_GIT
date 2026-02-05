@@ -1,0 +1,710 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document>
+  <Engineering version="V21" />
+  <SW.Blocks.InstanceDB ID="0">
+    <AttributeList>
+      <AutoNumber>false</AutoNumber>
+      <HeaderVersion>0.0</HeaderVersion>
+      <InstanceOfName>AUX MES</InstanceOfName>
+      <InstanceOfType>FB</InstanceOfType>
+      <Interface>
+        <Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v5">
+          <Section Name="Input" />
+          <Section Name="Output" />
+          <Section Name="InOut" />
+          <Section Name="Static">
+            <Member Name="DATI" Datatype="&quot;UDT_MES&quot;" Remanence="Retain">
+              <AttributeList>
+                <BooleanAttribute Name="SetPoint" SystemDefined="true">true</BooleanAttribute>
+              </AttributeList>
+              <Sections>
+                <Section Name="None">
+                  <Member Name="aux_to" Datatype="Struct">
+                    <Member Name="_0_0" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_0_1" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_0_2" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_0_3" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_0_4" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_0_5" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_0_6" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_0_7" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_1_0" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_1_1" Datatype="Bool">
+                      <StartValue>TRUE</StartValue>
+                    </Member>
+                    <Member Name="_1_2" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_1_3" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_1_4" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_1_5" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_1_6" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_1_7" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                  </Member>
+                  <Member Name="to" Datatype="Struct">
+                    <Member Name="_bit" Datatype="Struct">
+                      <Member Name="_0_0" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_0_1" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_0_2" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_0_3" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_0_4" Datatype="Bool">
+                        <StartValue>TRUE</StartValue>
+                      </Member>
+                      <Member Name="_0_5" Datatype="Bool">
+                        <Comment>
+                          <MultiLanguageText Lang="it-IT">Funzionamento Pompa Mono/Pistoni</MultiLanguageText>
+                        </Comment>
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_0_6" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_0_7" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_1_0" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_1_1" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_1_2" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_1_3" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_1_4" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_1_5" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_1_6" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_1_7" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_2_0" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_2_1" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_2_2" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_2_3" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_2_4" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_2_5" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_2_6" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_2_7" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_3_0" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_3_1" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_3_2" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_3_3" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_3_4" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_3_5" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_3_6" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_3_7" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                    </Member>
+                    <Member Name="_dint" Datatype="Struct">
+                      <Member Name="_0_00" Datatype="DInt">
+                        <StartValue>1</StartValue>
+                      </Member>
+                      <Member Name="_0_01" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_02" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_03" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_04" Datatype="Real">
+                        <StartValue>62.80744</StartValue>
+                      </Member>
+                      <Member Name="_0_05" Datatype="Real">
+                        <StartValue>41.04094</StartValue>
+                      </Member>
+                      <Member Name="_0_06" Datatype="Real">
+                        <StartValue>69.92146</StartValue>
+                      </Member>
+                      <Member Name="_0_07" Datatype="Real">
+                        <StartValue>58.15972</StartValue>
+                      </Member>
+                      <Member Name="_0_08" Datatype="Real">
+                        <StartValue>0.0</StartValue>
+                      </Member>
+                      <Member Name="_0_09" Datatype="Real">
+                        <StartValue>116.0</StartValue>
+                      </Member>
+                      <Member Name="_0_010" Datatype="Real">
+                        <StartValue>109.4016</StartValue>
+                      </Member>
+                      <Member Name="_0_011" Datatype="Real">
+                        <StartValue>35.8</StartValue>
+                      </Member>
+                      <Member Name="_0_012" Datatype="Real">
+                        <StartValue>5505.907</StartValue>
+                      </Member>
+                      <Member Name="_0_013" Datatype="Real">
+                        <StartValue>0.1989294</StartValue>
+                      </Member>
+                      <Member Name="_0_014" Datatype="Real">
+                        <StartValue>0.0</StartValue>
+                      </Member>
+                      <Member Name="_0_015" Datatype="Real">
+                        <StartValue>0.0</StartValue>
+                      </Member>
+                      <Member Name="_0_016" Datatype="Real">
+                        <StartValue>0.0</StartValue>
+                      </Member>
+                      <Member Name="_0_017" Datatype="Real">
+                        <StartValue>3.255208</StartValue>
+                      </Member>
+                      <Member Name="_0_018" Datatype="Real">
+                        <StartValue>0.0</StartValue>
+                      </Member>
+                      <Member Name="_0_019" Datatype="Real">
+                        <StartValue>0.0</StartValue>
+                      </Member>
+                      <Member Name="_0_020" Datatype="Real">
+                        <StartValue>0.0</StartValue>
+                      </Member>
+                      <Member Name="_0_021" Datatype="Real">
+                        <StartValue>0.0</StartValue>
+                      </Member>
+                      <Member Name="_0_022" Datatype="Real">
+                        <StartValue>0.0</StartValue>
+                      </Member>
+                      <Member Name="_0_023" Datatype="Real">
+                        <StartValue>16.27604</StartValue>
+                      </Member>
+                      <Member Name="_0_024" Datatype="Real">
+                        <StartValue>13.02083</StartValue>
+                      </Member>
+                      <Member Name="_0_025" Datatype="Real">
+                        <StartValue>13.02083</StartValue>
+                      </Member>
+                      <Member Name="_0_026" Datatype="Real">
+                        <StartValue>0.0</StartValue>
+                      </Member>
+                      <Member Name="_0_027" Datatype="Real">
+                        <StartValue>7.595486</StartValue>
+                      </Member>
+                      <Member Name="_0_028" Datatype="Real">
+                        <StartValue>9.765625</StartValue>
+                      </Member>
+                      <Member Name="_0_029" Datatype="Real">
+                        <StartValue>7.595486</StartValue>
+                      </Member>
+                      <Member Name="_0_030" Datatype="Real">
+                        <StartValue>2.170139</StartValue>
+                      </Member>
+                      <Member Name="_0_031" Datatype="Real">
+                        <StartValue>2.170139</StartValue>
+                      </Member>
+                      <Member Name="_0_032" Datatype="Real">
+                        <StartValue>0.0</StartValue>
+                      </Member>
+                      <Member Name="_0_033" Datatype="Real">
+                        <StartValue>23.7</StartValue>
+                      </Member>
+                      <Member Name="_0_034" Datatype="Real">
+                        <StartValue>24.0</StartValue>
+                      </Member>
+                      <Member Name="_0_035" Datatype="Real">
+                        <StartValue>23.0</StartValue>
+                      </Member>
+                    </Member>
+                    <Member Name="_string" Datatype="Struct">
+                      <Member Name="_0_00" Datatype="String[48]">
+                        <StartValue>'passata'</StartValue>
+                      </Member>
+                      <Member Name="_0_01" Datatype="String[48]">
+                        <StartValue>''</StartValue>
+                      </Member>
+                      <Member Name="_0_02" Datatype="String[48]">
+                        <StartValue>''</StartValue>
+                      </Member>
+                      <Member Name="_0_03" Datatype="String[48]">
+                        <StartValue>''</StartValue>
+                      </Member>
+                      <Member Name="_0_04" Datatype="String[48]">
+                        <StartValue>''</StartValue>
+                      </Member>
+                      <Member Name="_0_05" Datatype="String[48]">
+                        <StartValue>''</StartValue>
+                      </Member>
+                      <Member Name="_0_06" Datatype="String[48]">
+                        <StartValue>''</StartValue>
+                      </Member>
+                    </Member>
+                  </Member>
+                  <Member Name="_aux_from" Datatype="Struct">
+                    <Member Name="_0_0" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_0_1" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_0_2" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_0_3" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_0_4" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_0_5" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_0_6" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_0_7" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_1_0" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_1_1" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_1_2" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_1_3" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_1_4" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_1_5" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_1_6" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                    <Member Name="_1_7" Datatype="Bool">
+                      <StartValue>FALSE</StartValue>
+                    </Member>
+                  </Member>
+                  <Member Name="from" Datatype="Struct">
+                    <Member Name="_bit" Datatype="Struct">
+                      <Member Name="_0_0" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_0_1" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_0_2" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_0_3" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_0_4" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_0_5" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_0_6" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_0_7" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_1_0" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_1_1" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_1_2" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_1_3" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_1_4" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_1_5" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_1_6" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_1_7" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_2_0" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_2_1" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_2_2" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_2_3" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_2_4" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_2_5" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_2_6" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_2_7" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_3_0" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_3_1" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_3_2" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_3_3" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_3_4" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_3_5" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_3_6" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                      <Member Name="_3_7" Datatype="Bool">
+                        <StartValue>FALSE</StartValue>
+                      </Member>
+                    </Member>
+                    <Member Name="_dint" Datatype="Struct">
+                      <Member Name="_0_00" Datatype="DInt">
+                        <StartValue>1_987_051_520</StartValue>
+                      </Member>
+                      <Member Name="_0_01" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_02" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_03" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_04" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_05" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_06" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_07" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_08" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_09" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_010" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_011" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_012" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_013" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_014" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_015" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_016" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_017" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_018" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_019" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_020" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_021" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_022" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_023" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_024" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_025" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_026" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_027" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_028" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_029" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_030" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_031" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_032" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_033" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_034" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                      <Member Name="_0_035" Datatype="DInt">
+                        <StartValue>0</StartValue>
+                      </Member>
+                    </Member>
+                    <Member Name="_string" Datatype="Struct">
+                      <Member Name="_0_00" Datatype="String[48]">
+                        <StartValue>'Rototermo Goglio'</StartValue>
+                      </Member>
+                      <Member Name="_0_01" Datatype="String[48]">
+                        <StartValue>''</StartValue>
+                      </Member>
+                      <Member Name="_0_02" Datatype="String[48]">
+                        <StartValue>''</StartValue>
+                      </Member>
+                      <Member Name="_0_03" Datatype="String[48]">
+                        <StartValue>''</StartValue>
+                      </Member>
+                      <Member Name="_0_04" Datatype="String[48]">
+                        <StartValue>''</StartValue>
+                      </Member>
+                      <Member Name="_0_05" Datatype="String[48]">
+                        <StartValue>''</StartValue>
+                      </Member>
+                      <Member Name="_0_06" Datatype="String[48]">
+                        <StartValue>''</StartValue>
+                      </Member>
+                    </Member>
+                  </Member>
+                </Section>
+              </Sections>
+            </Member>
+            <Member Name="TOUT" Datatype="IEC_TIMER" Version="1.0" Remanence="Retain">
+              <AttributeList>
+                <BooleanAttribute Name="SetPoint" SystemDefined="true">true</BooleanAttribute>
+              </AttributeList>
+              <Sections>
+                <Section Name="None">
+                  <Member Name="PT" Datatype="Time">
+                    <StartValue>T#5S</StartValue>
+                  </Member>
+                  <Member Name="IN" Datatype="Bool">
+                    <StartValue>TRUE</StartValue>
+                  </Member>
+                </Section>
+              </Sections>
+            </Member>
+            <Member Name="FP1" Datatype="Bool" Remanence="Retain">
+              <StartValue>FALSE</StartValue>
+            </Member>
+            <Member Name="FP2" Datatype="Bool" Remanence="Retain">
+              <StartValue>TRUE</StartValue>
+            </Member>
+            <Member Name="COMM_ERROR" Datatype="Bool" Remanence="Retain">
+              <StartValue>TRUE</StartValue>
+            </Member>
+            <Member Name="IndexPID" Datatype="Int" Remanence="Retain">
+              <StartValue>8</StartValue>
+            </Member>
+            <Member Name="AllarmePresenteSterilizzatore" Datatype="Bool" Remanence="Retain">
+              <AttributeList>
+                <BooleanAttribute Name="ExternalVisible" SystemDefined="true">false</BooleanAttribute>
+                <BooleanAttribute Name="ExternalWritable" SystemDefined="true">false</BooleanAttribute>
+              </AttributeList>
+              <StartValue>TRUE</StartValue>
+            </Member>
+            <Member Name="AllarmePresentePID" Datatype="Bool" Remanence="Retain">
+              <StartValue>FALSE</StartValue>
+            </Member>
+          </Section>
+        </Sections>
+      </Interface>
+      <Name>DB_MES</Name>
+      <Namespace />
+      <Number>1000</Number>
+      <ProgrammingLanguage>DB</ProgrammingLanguage>
+    </AttributeList>
+    <ObjectList>
+      <MultilingualText ID="1" CompositionName="Comment">
+        <ObjectList>
+          <MultilingualTextItem ID="2" CompositionName="Items">
+            <AttributeList>
+              <Culture>de-DE</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="3" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-GB</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="4" CompositionName="Items">
+            <AttributeList>
+              <Culture>es-ES</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="5" CompositionName="Items">
+            <AttributeList>
+              <Culture>fr-FR</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="6" CompositionName="Items">
+            <AttributeList>
+              <Culture>it-IT</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+      <MultilingualText ID="7" CompositionName="Title">
+        <ObjectList>
+          <MultilingualTextItem ID="8" CompositionName="Items">
+            <AttributeList>
+              <Culture>de-DE</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="9" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-GB</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="A" CompositionName="Items">
+            <AttributeList>
+              <Culture>es-ES</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="B" CompositionName="Items">
+            <AttributeList>
+              <Culture>fr-FR</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="C" CompositionName="Items">
+            <AttributeList>
+              <Culture>it-IT</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+    </ObjectList>
+  </SW.Blocks.InstanceDB>
+</Document>

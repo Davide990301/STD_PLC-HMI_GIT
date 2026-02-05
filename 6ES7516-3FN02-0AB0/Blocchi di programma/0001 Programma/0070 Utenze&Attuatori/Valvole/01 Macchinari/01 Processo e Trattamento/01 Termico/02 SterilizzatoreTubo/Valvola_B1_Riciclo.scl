@@ -1,0 +1,25 @@
+﻿FUNCTION "Valvola_B1_Riciclo" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	REGION Riciclo
+	    REGION Parametri
+	        "Valvola".V["K_Valvola_B1"].Prm.SensorLess := True;
+	    END_REGION ;
+	    REGION Ingressi
+	        "Valvola".V["K_Valvola_B1"].In.RichiestaAutoPos := "Valvola".V["K_Valvola_B"].Out.CmdPos;
+	        "Valvola".V["K_Valvola_B1"].In.RichiestaAutoNeg := "Valvola".V["K_Valvola_B"].Out.CmdNeg;
+	        "Valvola".V["K_Valvola_B1"].Hmi.StatoCmd := "Valvola".V["K_Valvola_B"].Hmi.StatoCmd;
+	    END_REGION ;
+	    REGION Gestione
+	        "GestValvola"(K_Valvola := "K_Valvola_B1",
+	                      K_TipoValvola := "K_TipoValvola_Monostabile",
+	                      K_Zona := "K_Zona_Sterilizzatore");
+	    END_REGION ;
+	    // REGION Uscite
+	    //     "Valvola_B_ComandoPositivo" := "Valvola".V["K_Valvola_B1"].Out.CmdPos;
+	    // END_REGION ;
+	END_REGION ;
+END_FUNCTION
+

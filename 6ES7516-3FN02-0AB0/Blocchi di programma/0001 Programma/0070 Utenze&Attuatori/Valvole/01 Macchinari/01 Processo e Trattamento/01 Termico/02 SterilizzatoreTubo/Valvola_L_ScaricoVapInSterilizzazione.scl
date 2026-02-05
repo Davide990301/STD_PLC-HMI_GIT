@@ -1,0 +1,20 @@
+﻿FUNCTION "Valvola_L_ScaricoVapInSterilizzazione" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	REGION Scarico vap in sterilizzazione
+	    REGION Parametri
+	        "Valvola".V["K_Valvola_L"].Prm.SensorLess := True;
+	    END_REGION ;
+	    REGION Gestione
+	        "GestValvola"(K_Valvola := "K_Valvola_L",
+	                      K_TipoValvola := "K_TipoValvola_Monostabile",
+	                      K_Zona := "K_Zona_Sterilizzatore");
+	    END_REGION ;
+	    REGION Uscite
+	        "Valvola_L_ComandoPositivo" := "Valvola".V["K_Valvola_L"].Out.CmdPos;
+	    END_REGION ;
+	END_REGION ;
+END_FUNCTION
+

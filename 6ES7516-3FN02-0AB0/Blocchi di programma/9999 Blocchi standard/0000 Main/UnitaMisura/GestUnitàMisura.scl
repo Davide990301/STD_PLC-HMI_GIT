@@ -1,0 +1,22 @@
+﻿FUNCTION "GestUnitàMisura" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_IN_OUT 
+      UnitàMisura : "Std_UnitàDiMisura";
+   END_VAR
+
+
+BEGIN
+	REGION Conversione   
+	    IF #UnitàMisura.Hmi.Converti THEN
+	        IF #UnitàMisura.Hmi.Calcola THEN
+	            "GestUnitàMisura_CalcolaFattoreConversione"(#UnitàMisura);
+	            #UnitàMisura.Hmi.Calcola := False;
+	        END_IF;
+	        #UnitàMisura.Out.Valore := #UnitàMisura.In.Valore * #UnitàMisura.Dati.FattoreDiConversione;
+	    ELSE
+	        #UnitàMisura.Out := #UnitàMisura.In;
+	    END_IF;
+	END_REGION ;
+END_FUNCTION
+

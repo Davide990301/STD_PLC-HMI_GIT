@@ -1,0 +1,20 @@
+﻿FUNCTION "Valvola_C_Drenaggio" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	REGION Drenaggio 
+	    REGION Parametri
+	        "Valvola".V["K_Valvola_C"].Prm.SensorLess := True;
+	    END_REGION ;
+	    REGION Gestione
+	        "GestValvola"(K_Valvola := "K_Valvola_C",
+	                      K_TipoValvola := "K_TipoValvola_Monostabile",
+	                      K_Zona := "K_Zona_Sterilizzatore");
+	    END_REGION ;
+	    REGION Uscite
+	        "Valvola_C_ComandoPositivo" := "Valvola".V["K_Valvola_C"].Out.CmdPos;
+	    END_REGION ;
+	END_REGION ;
+END_FUNCTION
+

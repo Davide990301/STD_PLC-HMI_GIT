@@ -1,0 +1,23 @@
+﻿FUNCTION "Motore_AgitatoreVascaProdotto" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	REGION AgitatoreVascaProdotto
+	    REGION Ingressi 
+	        "Motore".M["K_Motore_AgitatoreVascaProdotto"].In.FbDigitali.TermicoIntervenuto := NOT "Agitatore_TermicoOk";
+	        "Motore".M["K_Motore_AgitatoreVascaProdotto"].In.FbDigitali.FeedbackMarcia := "Agitatore_Marcia";
+	        "Motore".M["K_Motore_AgitatoreVascaProdotto"].In.CmdPosRich := False;
+	        "Motore".M["K_Motore_AgitatoreVascaProdotto"].In.CmdNegRich := False;
+	    END_REGION ;
+	    REGION Gestione
+	        "GestMotore"(K_Motore := "K_Motore_AgitatoreVascaProdotto",
+	                     K_TipoMotore := "K_TipoMotore_Teleruttore2Dir",
+	                     K_Zona := "K_Zona_Sterilizzatore");
+	    END_REGION ;
+	    REGION Uscite
+	        "Agitatore_ComandoMarcia" := "Motore".M["K_Motore_AgitatoreVascaProdotto"].Out.CmdPosMotore;
+	    END_REGION ;
+	END_REGION ;
+END_FUNCTION
+

@@ -1,0 +1,25 @@
+﻿FUNCTION "GestValvola_ScriviPaw" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_Valvola : Int;
+      K_TipoOutValvola : Int;
+   END_VAR
+
+   VAR_OUTPUT 
+      Paw : Word;
+   END_VAR
+
+
+BEGIN
+	CASE #K_TipoOutValvola OF
+	    "K_TipoOutValvola_Portata":
+	        #Paw := INT_TO_WORD(REAL_TO_INT("Valvola".V[#K_Valvola].Out.CmdPortata * 276.48));
+	        "Valvola".V[#K_Valvola].Hmi.Visibilita.ModulantePortata := True;
+	    "K_TipoOutValvola_Pressione":
+	        #Paw := INT_TO_WORD(REAL_TO_INT("Valvola".V[#K_Valvola].Out.CmdPressione * 276.48));
+	        "Valvola".V[#K_Valvola].Hmi.Visibilita.ModulantePressione := True;
+	END_CASE;
+	       
+END_FUNCTION
+

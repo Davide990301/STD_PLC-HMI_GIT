@@ -1,0 +1,39 @@
+﻿FUNCTION "GestDatiUtili" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	
+	
+	"CicloScansioneCPU_I"(I_PrimoCicloCpu :="FirstScan");
+	"Zona".Comuni.FirstScanFromCpu := "FirstScan";
+	"Zona".Comuni.#TempoCicloCpu_r := "CicloScansioneCPU_I".O_rCicloCpu;
+	"Zona".Comuni.Clocks.Clock1Hz := "Clock_1Hz";
+	
+	"Zona".Comuni.Clocks.TempoPassato += RUNTIME("Zona".Comuni.Clocks.RuntimeClock)*1000;
+	
+	IF "Zona".Comuni.Clocks.TempoPassato >= 100 THEN
+	    "Zona".Comuni.Clocks."Clock0.2Hz" := NOT "Zona".Comuni.Clocks."Clock0.2Hz";
+	    "Zona".Comuni.Clocks.TempoPassato := 0.0;
+	END_IF;
+	
+	REGION Count 1hz
+	    IF "Zona".Comuni.Clocks.Clock1Hz_Memo <> "Zona".Comuni.Clocks.Clock1Hz THEN
+	        "Zona".Comuni."1HzCount++" += 1;
+	    END_IF;
+	    IF "Zona".Comuni."1HzCount++" > 27 THEN
+	        "Zona".Comuni."1HzCount++" := 0;
+	    END_IF;
+	    "Zona".Comuni.Clocks.Clock1Hz_Memo := "Zona".Comuni.Clocks.Clock1Hz;
+	END_REGION ;
+	REGION Count 1hz
+	    IF "Zona".Comuni.Clocks."Clock0.2Hz_Memo" <> "Zona".Comuni.Clocks."Clock0.2Hz" THEN
+	        "Zona".Comuni."0.20HzCount++" += 1;
+	    END_IF;
+	    IF "Zona".Comuni."0.20HzCount++" > 27 THEN
+	        "Zona".Comuni."0.20HzCount++" := 0;
+	    END_IF;
+	    "Zona".Comuni.Clocks."Clock0.2Hz_Memo" := "Zona".Comuni.Clocks."Clock0.2Hz";
+	END_REGION ;
+END_FUNCTION
+

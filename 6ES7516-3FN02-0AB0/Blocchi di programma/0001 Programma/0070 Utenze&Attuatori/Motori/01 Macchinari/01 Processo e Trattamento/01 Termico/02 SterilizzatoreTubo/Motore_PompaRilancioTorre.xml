@@ -1,0 +1,728 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document>
+  <Engineering version="V21" />
+  <SW.Blocks.FC ID="0">
+    <AttributeList>
+      <Interface>
+        <Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v5">
+          <Section Name="Input" />
+          <Section Name="Output" />
+          <Section Name="InOut" />
+          <Section Name="Temp">
+            <Member Name="AutoPos" Datatype="Bool" />
+            <Member Name="AutoNeg" Datatype="Bool" />
+          </Section>
+          <Section Name="Constant" />
+          <Section Name="Return">
+            <Member Name="Ret_Val" Datatype="Void" />
+          </Section>
+        </Sections>
+      </Interface>
+      <MemoryLayout>Optimized</MemoryLayout>
+      <Name>Motore_PompaRilancioTorre</Name>
+      <Namespace />
+      <Number>134</Number>
+      <ProgrammingLanguage>LAD</ProgrammingLanguage>
+      <SetENOAutomatically>false</SetENOAutomatically>
+    </AttributeList>
+    <ObjectList>
+      <MultilingualText ID="1" CompositionName="Comment">
+        <ObjectList>
+          <MultilingualTextItem ID="2" CompositionName="Items">
+            <AttributeList>
+              <Culture>de-DE</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="3" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-GB</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="4" CompositionName="Items">
+            <AttributeList>
+              <Culture>es-ES</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="5" CompositionName="Items">
+            <AttributeList>
+              <Culture>fr-FR</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="6" CompositionName="Items">
+            <AttributeList>
+              <Culture>it-IT</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+      <SW.Blocks.CompileUnit ID="7" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource>
+            <FlgNet xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/FlgNet/v5">
+              <Parts>
+                <Access Scope="GlobalVariable" UId="21">
+                  <Symbol>
+                    <Component Name="Valvola" />
+                    <Component Name="V" AccessModifier="Array">
+                      <Access Scope="GlobalConstant">
+                        <Constant Name="K_Valvola_X" />
+                      </Access>
+                    </Component>
+                    <Component Name="Out" />
+                    <Component Name="CmdPos" />
+                  </Symbol>
+                </Access>
+                <Access Scope="GlobalVariable" UId="22">
+                  <Symbol>
+                    <Component Name="Valvola" />
+                    <Component Name="V" AccessModifier="Array">
+                      <Access Scope="GlobalConstant">
+                        <Constant Name="K_Valvola_X2" />
+                      </Access>
+                    </Component>
+                    <Component Name="Out" />
+                    <Component Name="CmdPos" />
+                  </Symbol>
+                </Access>
+                <Access Scope="LocalVariable" UId="23">
+                  <Symbol>
+                    <Component Name="AutoPos" />
+                  </Symbol>
+                </Access>
+                <Part Name="Contact" UId="24" />
+                <Part Name="Contact" UId="25" />
+                <Part Name="O" UId="26">
+                  <TemplateValue Name="Card" Type="Cardinality">2</TemplateValue>
+                </Part>
+                <Part Name="Coil" UId="27" />
+              </Parts>
+              <Wires>
+                <Wire UId="28">
+                  <Powerrail />
+                  <NameCon UId="24" Name="in" />
+                  <NameCon UId="25" Name="in" />
+                </Wire>
+                <Wire UId="29">
+                  <IdentCon UId="21" />
+                  <NameCon UId="24" Name="operand" />
+                </Wire>
+                <Wire UId="30">
+                  <NameCon UId="24" Name="out" />
+                  <NameCon UId="26" Name="in1" />
+                </Wire>
+                <Wire UId="31">
+                  <IdentCon UId="22" />
+                  <NameCon UId="25" Name="operand" />
+                </Wire>
+                <Wire UId="32">
+                  <NameCon UId="25" Name="out" />
+                  <NameCon UId="26" Name="in2" />
+                </Wire>
+                <Wire UId="33">
+                  <NameCon UId="26" Name="out" />
+                  <NameCon UId="27" Name="in" />
+                </Wire>
+                <Wire UId="34">
+                  <IdentCon UId="23" />
+                  <NameCon UId="27" Name="operand" />
+                </Wire>
+              </Wires>
+            </FlgNet>
+          </NetworkSource>
+          <ProgrammingLanguage>LAD</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="8" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="9" CompositionName="Items">
+                <AttributeList>
+                  <Culture>de-DE</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="A" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-GB</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="B" CompositionName="Items">
+                <AttributeList>
+                  <Culture>es-ES</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="C" CompositionName="Items">
+                <AttributeList>
+                  <Culture>fr-FR</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="D" CompositionName="Items">
+                <AttributeList>
+                  <Culture>it-IT</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="E" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="F" CompositionName="Items">
+                <AttributeList>
+                  <Culture>de-DE</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="10" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-GB</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="11" CompositionName="Items">
+                <AttributeList>
+                  <Culture>es-ES</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="12" CompositionName="Items">
+                <AttributeList>
+                  <Culture>fr-FR</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="13" CompositionName="Items">
+                <AttributeList>
+                  <Culture>it-IT</Culture>
+                  <Text>Comando positivo in automatico</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+      <SW.Blocks.CompileUnit ID="14" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource>
+            <FlgNet xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/FlgNet/v5">
+              <Parts>
+                <Access Scope="LiteralConstant" UId="21">
+                  <Constant>
+                    <ConstantType>Bool</ConstantType>
+                    <ConstantValue>False</ConstantValue>
+                  </Constant>
+                </Access>
+                <Access Scope="LocalVariable" UId="22">
+                  <Symbol>
+                    <Component Name="AutoNeg" />
+                  </Symbol>
+                </Access>
+                <Part Name="Contact" UId="23" />
+                <Part Name="Coil" UId="24" />
+              </Parts>
+              <Wires>
+                <Wire UId="25">
+                  <Powerrail />
+                  <NameCon UId="23" Name="in" />
+                </Wire>
+                <Wire UId="26">
+                  <IdentCon UId="21" />
+                  <NameCon UId="23" Name="operand" />
+                </Wire>
+                <Wire UId="27">
+                  <NameCon UId="23" Name="out" />
+                  <NameCon UId="24" Name="in" />
+                </Wire>
+                <Wire UId="28">
+                  <IdentCon UId="22" />
+                  <NameCon UId="24" Name="operand" />
+                </Wire>
+              </Wires>
+            </FlgNet>
+          </NetworkSource>
+          <ProgrammingLanguage>LAD</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="15" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="16" CompositionName="Items">
+                <AttributeList>
+                  <Culture>de-DE</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="17" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-GB</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="18" CompositionName="Items">
+                <AttributeList>
+                  <Culture>es-ES</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="19" CompositionName="Items">
+                <AttributeList>
+                  <Culture>fr-FR</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="1A" CompositionName="Items">
+                <AttributeList>
+                  <Culture>it-IT</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="1B" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="1C" CompositionName="Items">
+                <AttributeList>
+                  <Culture>de-DE</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="1D" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-GB</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="1E" CompositionName="Items">
+                <AttributeList>
+                  <Culture>es-ES</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="1F" CompositionName="Items">
+                <AttributeList>
+                  <Culture>fr-FR</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="20" CompositionName="Items">
+                <AttributeList>
+                  <Culture>it-IT</Culture>
+                  <Text>Comando negativo in automatico</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+      <SW.Blocks.CompileUnit ID="21" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource>
+            <StructuredText xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StructuredText/v4">
+              <Token Text="REGION" UId="21" />
+              <Blank UId="22" />
+              <Text UId="23">PompaRilancioTorre</Text>
+              <NewLine UId="24" />
+              <Blank Num="4" UId="25" />
+              <Token Text="REGION" UId="26" />
+              <Blank UId="27" />
+              <Text UId="28">Ingressi</Text>
+              <NewLine UId="29" />
+              <Blank Num="8" UId="30" />
+              <Access Scope="GlobalVariable" UId="31">
+                <Symbol UId="32">
+                  <Component Name="Motore" UId="33">
+                    <BooleanAttribute Name="HasQuotes" UId="34">true</BooleanAttribute>
+                  </Component>
+                  <Token Text="." UId="35" />
+                  <Component Name="M" UId="36">
+                    <Token Text="[" UId="37" />
+                    <Access Scope="GlobalConstant" UId="38">
+                      <Constant UId="39">
+                        <ConstantValue UId="41">K_Motore_PompaRilancioTorre</ConstantValue>
+                      </Constant>
+                    </Access>
+                    <Token Text="]" UId="42" />
+                  </Component>
+                  <Token Text="." UId="43" />
+                  <Component Name="In" UId="44" />
+                  <Token Text="." UId="45" />
+                  <Component Name="FbDigitali" UId="46" />
+                  <Token Text="." UId="47" />
+                  <Component Name="FaultInverter" UId="48" />
+                </Symbol>
+              </Access>
+              <Blank UId="49" />
+              <Token Text=":=" UId="50" />
+              <Blank UId="51" />
+              <Token Text="NOT" UId="52" />
+              <Blank UId="53" />
+              <Access Scope="GlobalVariable" UId="54">
+                <Symbol UId="55">
+                  <Component Name="PompaRilancioTorre_Ready" UId="56">
+                    <BooleanAttribute Name="HasQuotes" UId="57">true</BooleanAttribute>
+                  </Component>
+                </Symbol>
+              </Access>
+              <Token Text=";" UId="58" />
+              <NewLine UId="59" />
+              <Blank Num="8" UId="60" />
+              <Access Scope="GlobalVariable" UId="61">
+                <Symbol UId="62">
+                  <Component Name="Motore" UId="63">
+                    <BooleanAttribute Name="HasQuotes" UId="64">true</BooleanAttribute>
+                  </Component>
+                  <Token Text="." UId="65" />
+                  <Component Name="M" UId="66">
+                    <Token Text="[" UId="67" />
+                    <Access Scope="GlobalConstant" UId="68">
+                      <Constant UId="69">
+                        <ConstantValue UId="71">K_Motore_PompaRilancioTorre</ConstantValue>
+                      </Constant>
+                    </Access>
+                    <Token Text="]" UId="72" />
+                  </Component>
+                  <Token Text="." UId="73" />
+                  <Component Name="In" UId="74" />
+                  <Token Text="." UId="75" />
+                  <Component Name="FbDigitali" UId="76" />
+                  <Token Text="." UId="77" />
+                  <Component Name="FeedbackMarcia" UId="78" />
+                </Symbol>
+              </Access>
+              <Blank UId="79" />
+              <Token Text=":=" UId="80" />
+              <Blank UId="81" />
+              <Access Scope="GlobalVariable" UId="82">
+                <Symbol UId="83">
+                  <Component Name="PompaRilancioTorre_Marcia" UId="84">
+                    <BooleanAttribute Name="HasQuotes" UId="85">true</BooleanAttribute>
+                  </Component>
+                </Symbol>
+              </Access>
+              <Token Text=";" UId="86" />
+              <NewLine UId="87" />
+              <Blank Num="8" UId="88" />
+              <Access Scope="GlobalVariable" UId="89">
+                <Symbol UId="90">
+                  <Component Name="Motore" UId="91">
+                    <BooleanAttribute Name="HasQuotes" UId="92">true</BooleanAttribute>
+                  </Component>
+                  <Token Text="." UId="93" />
+                  <Component Name="M" UId="94">
+                    <Token Text="[" UId="95" />
+                    <Access Scope="GlobalConstant" UId="96">
+                      <Constant UId="97">
+                        <ConstantValue UId="99">K_Motore_PompaRilancioTorre</ConstantValue>
+                      </Constant>
+                    </Access>
+                    <Token Text="]" UId="100" />
+                  </Component>
+                  <Token Text="." UId="101" />
+                  <Component Name="In" UId="102" />
+                  <Token Text="." UId="103" />
+                  <Component Name="CmdPosRich" UId="104" />
+                </Symbol>
+              </Access>
+              <Blank UId="105" />
+              <Token Text=":=" UId="106" />
+              <Blank UId="107" />
+              <Access Scope="LocalVariable" UId="108">
+                <Symbol UId="109">
+                  <Component Name="AutoPos" UId="110" />
+                </Symbol>
+              </Access>
+              <Token Text=";" UId="111" />
+              <NewLine UId="112" />
+              <Blank Num="8" UId="113" />
+              <Access Scope="GlobalVariable" UId="114">
+                <Symbol UId="115">
+                  <Component Name="Motore" UId="116">
+                    <BooleanAttribute Name="HasQuotes" UId="117">true</BooleanAttribute>
+                  </Component>
+                  <Token Text="." UId="118" />
+                  <Component Name="M" UId="119">
+                    <Token Text="[" UId="120" />
+                    <Access Scope="GlobalConstant" UId="121">
+                      <Constant UId="122">
+                        <ConstantValue UId="124">K_Motore_PompaRilancioTorre</ConstantValue>
+                      </Constant>
+                    </Access>
+                    <Token Text="]" UId="125" />
+                  </Component>
+                  <Token Text="." UId="126" />
+                  <Component Name="In" UId="127" />
+                  <Token Text="." UId="128" />
+                  <Component Name="CmdNegRich" UId="129" />
+                </Symbol>
+              </Access>
+              <Blank UId="130" />
+              <Token Text=":=" UId="131" />
+              <Blank UId="132" />
+              <Access Scope="LocalVariable" UId="133">
+                <Symbol UId="134">
+                  <Component Name="AutoNeg" UId="135" />
+                </Symbol>
+              </Access>
+              <Token Text=";" UId="136" />
+              <NewLine UId="137" />
+              <Blank Num="4" UId="138" />
+              <Token Text="END_REGION" UId="139" />
+              <Blank UId="140" />
+              <Text UId="141">;</Text>
+              <NewLine UId="142" />
+              <Blank Num="4" UId="143" />
+              <Token Text="REGION" UId="144" />
+              <NewLine UId="145" />
+              <Blank Num="8" UId="146" />
+              <Access Scope="Call" UId="147">
+                <CallInfo UId="148" BlockType="FC">
+                  <Instance Scope="GlobalVariable" UId="150">
+                    <Component Name="GestMotore" UId="149" />
+                  </Instance>
+                  <Token Text="(" UId="151" />
+                  <Parameter Name="K_Motore" UId="152">
+                    <Blank UId="153" />
+                    <Token Text=":=" UId="154" />
+                    <Blank UId="155" />
+                    <Access Scope="GlobalConstant" UId="156">
+                      <Constant Name="K_Motore_PompaRilancioTorre" UId="157" />
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="160" />
+                  <NewLine UId="161" />
+                  <Blank Num="21" UId="162" />
+                  <Parameter Name="K_TipoMotore" UId="163">
+                    <Blank UId="164" />
+                    <Token Text=":=" UId="165" />
+                    <Blank UId="166" />
+                    <Access Scope="GlobalConstant" UId="167">
+                      <Constant Name="K_TipoMotore_InverterKEB" UId="168" />
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="171" />
+                  <NewLine UId="172" />
+                  <Blank Num="21" UId="173" />
+                  <Parameter Name="K_Zona" UId="174">
+                    <Blank UId="175" />
+                    <Token Text=":=" UId="176" />
+                    <Blank UId="177" />
+                    <Access Scope="GlobalConstant" UId="178">
+                      <Constant Name="K_Zona_Sterilizzatore" UId="179" />
+                    </Access>
+                  </Parameter>
+                  <Token Text=")" UId="182" />
+                </CallInfo>
+              </Access>
+              <Token Text=";" UId="183" />
+              <NewLine UId="184" />
+              <Blank Num="4" UId="185" />
+              <Token Text="END_REGION" UId="186" />
+              <Blank UId="187" />
+              <Text UId="188">;</Text>
+              <NewLine UId="189" />
+              <Blank Num="4" UId="190" />
+              <Token Text="REGION" UId="191" />
+              <Blank UId="192" />
+              <Text UId="193">Uscite </Text>
+              <NewLine UId="194" />
+              <Blank Num="8" UId="195" />
+              <Access Scope="GlobalVariable" UId="196">
+                <Symbol UId="197">
+                  <Component Name="PompaRilancioTorre_ComandoMarcia" UId="198">
+                    <BooleanAttribute Name="HasQuotes" UId="199">true</BooleanAttribute>
+                  </Component>
+                </Symbol>
+              </Access>
+              <Blank UId="200" />
+              <Token Text=":=" UId="201" />
+              <Blank UId="202" />
+              <Access Scope="GlobalVariable" UId="203">
+                <Symbol UId="204">
+                  <Component Name="Motore" UId="205">
+                    <BooleanAttribute Name="HasQuotes" UId="206">true</BooleanAttribute>
+                  </Component>
+                  <Token Text="." UId="207" />
+                  <Component Name="M" UId="208">
+                    <Token Text="[" UId="209" />
+                    <Access Scope="GlobalConstant" UId="210">
+                      <Constant UId="211">
+                        <ConstantValue UId="213">K_Motore_PompaRilancioTorre</ConstantValue>
+                      </Constant>
+                    </Access>
+                    <Token Text="]" UId="214" />
+                  </Component>
+                  <Token Text="." UId="215" />
+                  <Component Name="Out" UId="216" />
+                  <Token Text="." UId="217" />
+                  <Component Name="CmdPosMotore" UId="218" />
+                </Symbol>
+              </Access>
+              <Token Text=";" UId="219" />
+              <NewLine UId="220" />
+              <Blank Num="8" UId="221" />
+              <Access Scope="GlobalVariable" UId="222">
+                <Symbol UId="223">
+                  <Component Name="PompaRilancioTorre_Velocità" UId="224">
+                    <BooleanAttribute Name="HasQuotes" UId="225">true</BooleanAttribute>
+                  </Component>
+                </Symbol>
+              </Access>
+              <Blank UId="226" />
+              <Token Text=":=" UId="227" />
+              <Blank UId="228" />
+              <Access Scope="Call" UId="229">
+                <Instruction Name="DINT_TO_WORD" UId="230">
+                  <Token Text="(" UId="231" />
+                  <NamelessParameter UId="232">
+                    <Access Scope="GlobalVariable" UId="233">
+                      <Symbol UId="234">
+                        <Component Name="Motore" UId="235">
+                          <BooleanAttribute Name="HasQuotes" UId="236">true</BooleanAttribute>
+                        </Component>
+                        <Token Text="." UId="237" />
+                        <Component Name="M" UId="238">
+                          <Token Text="[" UId="239" />
+                          <Access Scope="GlobalConstant" UId="240">
+                            <Constant UId="241">
+                              <ConstantValue UId="243">K_Motore_PompaRilancioTorre</ConstantValue>
+                            </Constant>
+                          </Access>
+                          <Token Text="]" UId="244" />
+                        </Component>
+                        <Token Text="." UId="245" />
+                        <Component Name="Out" UId="246" />
+                        <Token Text="." UId="247" />
+                        <Component Name="Paw" UId="248" />
+                      </Symbol>
+                    </Access>
+                  </NamelessParameter>
+                  <Token Text=")" UId="250" />
+                </Instruction>
+              </Access>
+              <Token Text=";" UId="251" />
+              <NewLine UId="252" />
+              <Blank Num="4" UId="253" />
+              <Token Text="END_REGION" UId="254" />
+              <Blank UId="255" />
+              <Text UId="256">;</Text>
+              <NewLine UId="257" />
+              <Token Text="END_REGION" UId="258" />
+              <Blank UId="259" />
+              <Text UId="260">;</Text>
+            </StructuredText>
+          </NetworkSource>
+          <ProgrammingLanguage>SCL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="22" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="23" CompositionName="Items">
+                <AttributeList>
+                  <Culture>de-DE</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="24" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-GB</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="25" CompositionName="Items">
+                <AttributeList>
+                  <Culture>es-ES</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="26" CompositionName="Items">
+                <AttributeList>
+                  <Culture>fr-FR</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="27" CompositionName="Items">
+                <AttributeList>
+                  <Culture>it-IT</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="28" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="29" CompositionName="Items">
+                <AttributeList>
+                  <Culture>de-DE</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="2A" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-GB</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="2B" CompositionName="Items">
+                <AttributeList>
+                  <Culture>es-ES</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="2C" CompositionName="Items">
+                <AttributeList>
+                  <Culture>fr-FR</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="2D" CompositionName="Items">
+                <AttributeList>
+                  <Culture>it-IT</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+      <MultilingualText ID="2E" CompositionName="Title">
+        <ObjectList>
+          <MultilingualTextItem ID="2F" CompositionName="Items">
+            <AttributeList>
+              <Culture>de-DE</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="30" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-GB</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="31" CompositionName="Items">
+            <AttributeList>
+              <Culture>es-ES</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="32" CompositionName="Items">
+            <AttributeList>
+              <Culture>fr-FR</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="33" CompositionName="Items">
+            <AttributeList>
+              <Culture>it-IT</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+    </ObjectList>
+  </SW.Blocks.FC>
+</Document>

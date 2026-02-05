@@ -1,0 +1,69 @@
+﻿FUNCTION "GestAllarme_Std" : Void
+{ S7_Optimized_Access := 'FALSE' }
+VERSION : 0.1
+   VAR_INPUT 
+      NumAllarme : Int;
+      GestioneSirena : Bool;
+      K_Zona : Int;
+   END_VAR
+
+   VAR_IN_OUT 
+      Allarme : "Std_PrmAllarmeStd";
+      WordHmi : Word;
+   END_VAR
+
+
+BEGIN
+	REGION Word HMI
+	    CASE #NumAllarme OF
+	        1:
+	            #WordHmi.%X0 :=  #Allarme.Stato AND #Allarme.EnWarnHmi;
+	        2:
+	            #WordHmi.%X1 :=  #Allarme.Stato AND #Allarme.EnWarnHmi;
+	        3:
+	            #WordHmi.%X2 :=  #Allarme.Stato AND #Allarme.EnWarnHmi;
+	        4:
+	            #WordHmi.%X3 :=  #Allarme.Stato AND #Allarme.EnWarnHmi;
+	        5:
+	            #WordHmi.%X4 :=  #Allarme.Stato AND #Allarme.EnWarnHmi;
+	        6:
+	            #WordHmi.%X5 :=  #Allarme.Stato AND #Allarme.EnWarnHmi;
+	        7:
+	            #WordHmi.%X6 :=  #Allarme.Stato AND #Allarme.EnWarnHmi;
+	        8:
+	            #WordHmi.%X7 :=  #Allarme.Stato AND #Allarme.EnWarnHmi;
+	        9:
+	            #WordHmi.%X8 :=  #Allarme.Stato AND #Allarme.EnWarnHmi;
+	        10:
+	            #WordHmi.%X9 :=  #Allarme.Stato AND #Allarme.EnWarnHmi;
+	        11:
+	            #WordHmi.%X10 :=  #Allarme.Stato AND #Allarme.EnWarnHmi;
+	        12:
+	            #WordHmi.%X11 :=  #Allarme.Stato AND #Allarme.EnWarnHmi;
+	        13:
+	            #WordHmi.%X12 :=  #Allarme.Stato AND #Allarme.EnWarnHmi;
+	        14:
+	            #WordHmi.%X13 :=  #Allarme.Stato AND #Allarme.EnWarnHmi;
+	        15:
+	            #WordHmi.%X14 :=  #Allarme.Stato AND #Allarme.EnWarnHmi;
+	        16:
+	            #WordHmi.%X15 :=  #Allarme.Stato AND #Allarme.EnWarnHmi;
+	    END_CASE;
+	END_REGION ;
+	REGION Allarme nella zona
+	    IF #GestioneSirena THEN
+	        IF #Allarme.Stato THEN                                                          //Se ho l'allarme attivo
+	            "Zona".Z[#K_Zona].In.RichiestaLampadaReset := True;                         //Setto subito il pulsante di reset
+	            IF "Zona".Z[#K_Zona].Gen.Reset THEN                                         //Se ho la zona in reset
+	                #Allarme.Silenziato := True;                                            //Setto che l'allarme è silenziato
+	            END_IF;
+	            IF NOT #Allarme.Silenziato THEN                                             //Se l'allarme non è silenziato
+	                "Zona".Z[#K_Zona].Out.SirenaSuona := True;                              //Setto che la sirena deve suonare
+	            END_IF;
+	        ELSE                                                                            //Se non ho l'allarme attivo
+	            #Allarme.Silenziato := False;                                               //Resetto che l'allarme è silenziato
+	        END_IF;
+	    END_IF;
+	END_REGION ;
+END_FUNCTION
+

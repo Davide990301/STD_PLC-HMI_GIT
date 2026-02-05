@@ -1,0 +1,74 @@
+﻿FUNCTION "GestProfinetDiagnostica" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_TEMP 
+      DispositiviConfigurati : Array[0..1024] of Bool;
+      DispositiviDisturbati : Array[0..1024] of Bool;
+      DispositiviDisattivati : Array[0..1024] of Bool;
+      DispositiviDisponibili : Array[0..1024] of Bool;
+      DispositiviConWarning : Array[0..1024] of Bool;
+      RetVal_DispositiviConfigurati : Int;
+      RetVal_DispositiviDisturbati : Int;
+      RetVal_DispositiviDisattivati : Int;
+      RetVal_DispositiviDisponibili : Int;
+      RetVal_DispositiviConWarning : Int;
+      CounterDispositivi : Int;
+      StatoNodo : Int;
+   END_VAR
+
+   VAR CONSTANT 
+      Mode_DispositiviConfigurati : UInt := 1;   // Mostra quali dispositivi sono configurati
+      Mode_DispositiviDisturbati : UInt := 2;   // Mostra quali dispositivi sono disturbati
+      Mode_DispositiviDisattivati : UInt := 3;   // Mostra quali dispositivi sono disattivati
+      Mode_DispositiviDisponibili : UInt := 4;   // Mostra quali dispositivi sono disponibili
+      Mode_DispositiviConWarning : UInt := 5;   // Manutenzione necessaria, non disponibile, si è verificato un errore
+      Stato_NonConfigurato : Int := 0;
+      Stato_Configurato : Int := 1;
+      Stato_Disattivato : Int := 2;
+      Stato_SegnalazionePresente : Int := 3;
+      Stato_Disponibile : Int := 4;
+      Stato_Disturbato : Int := 5;
+      Stato_NonDisponibile : Int := 6;
+   END_VAR
+
+
+BEGIN
+	// "DiagnosticaProfinet".AllarmiRicercaDisp.Configurati := "GestProfinetStringaDiDiagnostica"(RetValFunction:=DeviceStates(LADDR := "Local~Interfaccia_PROFINET_1", MODE := #Mode_DispositiviConfigurati, STATE := #DispositiviConfigurati));
+	// "DiagnosticaProfinet".AllarmiRicercaDisp.Disturbati := "GestProfinetStringaDiDiagnostica"(RetValFunction:=DeviceStates(LADDR := "Local~PROFINET_IO-System", MODE := #Mode_DispositiviDisturbati, STATE := #DispositiviDisturbati));
+	// "DiagnosticaProfinet".AllarmiRicercaDisp.Disattivati := "GestProfinetStringaDiDiagnostica"(RetValFunction:=DeviceStates(LADDR := "Local~PROFINET_IO-System", MODE := #Mode_DispositiviDisattivati, STATE := #DispositiviDisattivati));
+	// "DiagnosticaProfinet".AllarmiRicercaDisp.Disponibili := "GestProfinetStringaDiDiagnostica"(RetValFunction:=DeviceStates(LADDR := "Local~PROFINET_IO-System", MODE := #Mode_DispositiviDisponibili, STATE := #DispositiviDisponibili));
+	// "DiagnosticaProfinet".AllarmiRicercaDisp.ConWarning := "GestProfinetStringaDiDiagnostica"(RetValFunction:=DeviceStates(LADDR := "Local~PROFINET_IO-System", MODE := #Mode_DispositiviConWarning, STATE := #DispositiviConWarning));
+	
+	FOR #CounterDispositivi := 0 TO "K_NumDispositivoProfinet" DO
+	    REGION Assegnazioni bit nel dispostiivo
+	        "DiagnosticaProfinet".Dispositivo[#CounterDispositivi].Configurato := #DispositiviConfigurati[#CounterDispositivi];
+	        "DiagnosticaProfinet".Dispositivo[#CounterDispositivi].Disturbato := #DispositiviDisturbati[#CounterDispositivi];
+	        "DiagnosticaProfinet".Dispositivo[#CounterDispositivi].Disattivato := #DispositiviDisattivati[#CounterDispositivi];
+	        "DiagnosticaProfinet".Dispositivo[#CounterDispositivi].Disponibile := #DispositiviDisponibili[#CounterDispositivi];
+	        "DiagnosticaProfinet".Dispositivo[#CounterDispositivi].SegnalazionePresente := #DispositiviConWarning[#CounterDispositivi];
+	    END_REGION ;
+	    REGION Allarmi
+	        "DiagnosticaProfinet".Dispositivo[#CounterDispositivi].WordHMI.%X0 := "DiagnosticaProfinet".Dispositivo[#CounterDispositivi].Disturbato;
+	        "DiagnosticaProfinet".Dispositivo[#CounterDispositivi].WordHMI.%X1 := "DiagnosticaProfinet".Dispositivo[#CounterDispositivi].SegnalazionePresente;
+	        "DiagnosticaProfinet".Dispositivo[#CounterDispositivi].WordHMI.%X2 := NOT "DiagnosticaProfinet".Dispositivo[#CounterDispositivi].Disponibile;
+	    END_REGION ;
+	    REGION Stato nodo
+	        IF "DiagnosticaProfinet".Dispositivo[#CounterDispositivi].Configurato THEN
+	            #StatoNodo := #Stato_Configurato;
+	            IF "DiagnosticaProfinet".Dispositivo[#CounterDispositivi].Disattivato THEN
+	                #StatoNodo := #Stato_Disattivato;
+	            ELSIF "DiagnosticaProfinet".Dispositivo[#CounterDispositivi].Disturbato THEN
+	                #StatoNodo := #Stato_Disturbato;
+	            ELSIF "DiagnosticaProfinet".Dispositivo[#CounterDispositivi].Disponibile THEN
+	                #StatoNodo := #Stato_Disponibile;
+	            ELSE
+	                #StatoNodo := #Stato_NonDisponibile;
+	            END_IF;
+	        ELSE
+	            #StatoNodo := #Stato_NonConfigurato;
+	        END_IF;
+	        "DiagnosticaProfinet".Dispositivo[#CounterDispositivi].Stato := #StatoNodo;
+	    END_REGION ;
+	END_FOR;
+END_FUNCTION
+

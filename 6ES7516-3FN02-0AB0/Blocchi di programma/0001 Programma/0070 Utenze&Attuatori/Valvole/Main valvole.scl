@@ -1,0 +1,96 @@
+﻿FUNCTION "Main valvole" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_TEMP 
+      CounterValvole : Int;
+      AvanzamentoTaglio : Real;
+      AvanzamentoInserimento : Real;
+      NonUsato : Bool;
+      CounterAllarmi : Int;
+      Consenso_A_Riempitrice : Bool;
+   END_VAR
+
+   VAR CONSTANT 
+      NonPresente : Int := 0;
+   END_VAR
+
+
+BEGIN
+	REGION Default parameter - Ripristino dati iniziali 
+	    IF "Valvola".Funzioni.DefaultPrm THEN
+	        FOR #CounterValvole := 0 TO "K_NumValvola" DO
+	            //Abilitazioni caduta ciclo automatico
+	            // FOR #CounterAllarmi := 1 TO "K_NumAllarmiPerValvole" DO
+	            //     "Valvola".V[#CounterValvole].Allarmi.A[#CounterAllarmi].EnCadutaCiclo := False;
+	            //     "Valvola".V[#CounterValvole].Allarmi.A[#CounterAllarmi].EnWarnHmi := True;
+	            // END_FOR;
+	            //Parametrizzazione valvola
+	            // "Valvola".V[#CounterValvole].Prm.TStartPos.Preset :=
+	            // "Valvola".V[#CounterValvole].Prm.TStopPos.Preset :=
+	            // "Valvola".V[#CounterValvole].Prm.TStartNeg.Preset :=
+	            // "Valvola".V[#CounterValvole].Prm.TStopNeg.Preset := 1;
+	            // "Valvola".V[#CounterValvole].Prm.InversioneDirezione := False;
+	            //Stato valvola
+	            "Valvola".V[#CounterValvole].Hmi.StatoCmd.StatoFromHmi := 1;
+	            "Valvola".V[#CounterValvole].Hmi.TipoManuale := 3;
+	        END_FOR;
+	        "Valvola".Funzioni.DefaultPrm := False;
+	    END_IF;
+	    IF "Valvola".Funzioni.TuttiInAutoMode THEN
+	        FOR #CounterValvole := 1 TO "K_NumValvola" DO
+	            "Valvola".V[#CounterValvole].Hmi.StatoCmd.StatoFromHmi := 1;
+	        END_FOR;
+	        "Valvola".Funzioni.TuttiInAutoMode := False;
+	    END_IF;
+	END_REGION ;
+	REGION 01 Processo e trattamento
+	    REGION 01 Termico
+	        REGION 02 SterilizzatoreTubo
+	            "Valvola_A_IngressoAcquaInVascaProdotto"();
+	            "Valvola_A1_IngressoAcquaInVascaDivosfera"();
+	            "Valvola_B_Riciclo"();
+	            "Valvola_B1_Riciclo"();
+	            "Valvola_C_Drenaggio"();
+	            "Valvola_CP1_ContropresUscitaMono"();
+	            "Valvola_CP2_ContropresFinelineaLavoro"();
+	            "Valvola_CP3_ContropresFinelineaSteriliz"();
+	            "Valvola_D_ScaricoCondense"();
+	            "Valvola_D1_ModulanteRaffreddamentoAcqua"();
+	            "Valvola_D2_ModulanteRiscaldamentoAcqua"();
+	            "Valvola_E_AlimentazionePompaCip"();
+	            "Valvola_E1_UscitaPompaCip"();
+	            "Valvola_F_RitornoProdotto"();
+	            "Valvola_G_RitornoProdottoScartoVasca"();
+	            "Valvola_H_DrenaggioImpianto"();
+	            "Valvola_H1_DrenaggioVasca"();
+	            "Valvola_I_IngressoVaporeSterilizzatore"();
+	            "Valvola_J_ReitegroH2OSerbatoioRiscaldo"();
+	            "Valvola_L_ScaricoVapInSterilizzazione"();
+	            // "Valvola_N_IngressoAcquaRaffreddatoriDaTorre"(); Manuali
+	            // "Valvola_N1_IngressoAcquaRaffreddatoriDaPozzo"(); Manuali
+	            "Valvola_R_VaporeInFaseDiRiempimento"();
+	            // "Valvola_U_Virtuale"();
+	            // "Valvola_UU_Virtuale"();
+	            // "Valvola_UV_Virtuale"();
+	            // "Valvola_V_Virtuale"();
+	            // "Valvola_VV_Virtuale"();
+	            "Valvola_X_IngressoH2oRaffreddamento"();
+	            "Valvola_X2_IngressoH2oRaffreddamento2"();
+	            "Valvola_XXX_PressurizzazioneSoda"();
+	            "Valvola_XX_PressurizzazioneAcido"();
+	            "Valvola_Y_IngressoAcidoCamiciaRaffreddatore"();
+	            "Valvola_Y1_DevioAcidoCamiciaRaffreddatore"();
+	            "Valvola_Y2_DrenagAcidoCamiciaRaffred"();
+	            "Valvola_Z_IngressoProdottoVasca"();
+	            "Valvola_Z1_Ingresso_Soda&AcidoNelSerbatoio"();
+	            "Valvola_Ev103_6_TenutaPompaPistoni"();
+	        END_REGION ;
+	    END_REGION ;
+	    REGION 02 Meccanico
+	    END_REGION ;
+	END_REGION ;
+	REGION 03 Riempimento e Confezionamento 
+	END_REGION ;
+	
+END_FUNCTION
+

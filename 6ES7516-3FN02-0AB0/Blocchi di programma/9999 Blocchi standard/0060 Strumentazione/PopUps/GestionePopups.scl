@@ -1,0 +1,95 @@
+﻿FUNCTION "GestionePopups" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_TEMP 
+      NumPopUpAttuale : Int;
+      NuovoPopUpDaAttivare : Bool;
+      ResettaNACK : Bool;
+      PopupConfermatoOppureNuovoPopup : Bool;
+      NackOperatore : Bool;
+   END_VAR
+
+
+BEGIN
+	
+	
+	REGION Logica singoli POPUP
+	    "Popup".Dati.NumeroPopupConfermati_Nack := 0;
+	    "Popup".Dati.NumeroPopUpNonConfermati := 0;
+	    
+	    FOR #NumPopUpAttuale := 1 TO "K_NumPopup" DO
+	        IF "Popup".P[#NumPopUpAttuale].NackOperatore_Ricevuto THEN
+	            "Popup".Dati.NumeroPopupConfermati_Nack += 1;
+	        END_IF;
+	        IF "Popup".P[#NumPopUpAttuale].PopupDaConfermare AND NOT "Popup".P[#NumPopUpAttuale].AckOperatore_Ricevuto THEN
+	            "Popup".Dati.NumeroPopUpNonConfermati += 1;
+	        END_IF;
+	    END_FOR;
+	    
+	    #ResettaNACK := "Popup".Dati.NumeroPopupConfermati_Nack >= "Popup".Dati.NumeroPopUpNonConfermati;
+	    
+	    FOR #NumPopUpAttuale := 1 TO "K_NumPopup" DO
+	        
+	        IF "Popup".P[#NumPopUpAttuale].RichiestaAperturaPopup AND NOT "Popup".P[#NumPopUpAttuale].RichiestaAperturaPopup_Memo THEN
+	            "Popup".P[#NumPopUpAttuale].PopupDaConfermare := True;
+	        END_IF;
+	        IF #ResettaNACK THEN
+	            "Popup".P[#NumPopUpAttuale].NackOperatore_Inviato := "Popup".P[#NumPopUpAttuale].NackOperatore_Ricevuto := False;
+	        END_IF;
+	        IF "Popup".P[#NumPopUpAttuale].PopupDaConfermare AND NOT "Popup".P[#NumPopUpAttuale].AckOperatore_Ricevuto THEN
+	            IF NOT "Popup".P[#NumPopUpAttuale].NackOperatore_Ricevuto THEN
+	                "Popup".Hmi.IndicePopup := #NumPopUpAttuale;
+	            END_IF;
+	        END_IF;
+	         
+	        IF "Popup".P[#NumPopUpAttuale].AckOperatore_Inviato THEN
+	            "Popup".P[#NumPopUpAttuale].AckOperatore_Ricevuto := True;
+	            "Popup".P[#NumPopUpAttuale].PopupDaConfermare := "Popup".P[#NumPopUpAttuale].AckOperatore_Inviato := False;
+	        END_IF;
+	        IF "Popup".P[#NumPopUpAttuale].NackOperatore_Inviato THEN
+	            "Popup".P[#NumPopUpAttuale].NackOperatore_Ricevuto := True;
+	            "Popup".P[#NumPopUpAttuale].NackOperatore_Inviato := FALSE;
+	        END_IF;
+	
+	        "Popup".P[#NumPopUpAttuale].ENO_Blocco := "Popup".P[#NumPopUpAttuale].AckOperatore_Ricevuto;
+	        
+	        IF NOT "Popup".P[#NumPopUpAttuale].RichiestaAperturaPopup THEN
+	            "Popup".P[#NumPopUpAttuale].PopupDaConfermare := "Popup".P[#NumPopUpAttuale].AckOperatore_Ricevuto := False;
+	            "Popup".P[#NumPopUpAttuale].NackOperatore_Ricevuto := "Popup".P[#NumPopUpAttuale].NackOperatore_Inviato := False;
+	        END_IF;
+	        IF "Popup".P[#NumPopUpAttuale].NackOperatore_Ricevuto AND NOT "Popup".P[#NumPopUpAttuale].RichiestaAperturaPopup THEN
+	            "Popup".P[#NumPopUpAttuale].NackOperatore_Ricevuto := "Popup".P[#NumPopUpAttuale].NackOperatore_Inviato := False;
+	        END_IF;
+	        "Popup".P[#NumPopUpAttuale].RichiestaAperturaPopup_Memo := "Popup".P[#NumPopUpAttuale].RichiestaAperturaPopup;
+	        "Popup".P[#NumPopUpAttuale].RichiestaAperturaPopup := False;
+	    END_FOR;
+	END_REGION ;
+	
+	REGION TRIGGER HMI
+	    #PopupConfermatoOppureNuovoPopup := "Popup".Dati.NumeroPopUpNonConfermatiMemo <> "Popup".Dati.NumeroPopUpNonConfermati;
+	    #NackOperatore := "Popup".Dati.NumeroPopupConfermati_Nack <> "Popup".Dati.NumeroPopupConfermati_NackMemo AND "Popup".Dati.NumeroPopupConfermati_Nack <> 0 AND "Popup".Dati.NumeroPopupConfermati_Nack < "Popup".Dati.NumeroPopUpNonConfermati;
+	    
+	    IF #PopupConfermatoOppureNuovoPopup OR "Popup".Hmi.ReshowPopUps OR #NackOperatore THEN
+	        "Popup".Hmi.TriggerPopup := "Popup".Dati.NumeroPopUpNonConfermati > 0;
+	        "Popup".Dati.NumeroPopUpNonConfermatiMemo := "Popup".Dati.NumeroPopUpNonConfermati;
+	        "Popup".Dati.NumeroPopupConfermati_NackMemo := "Popup".Dati.NumeroPopupConfermati_Nack;
+	        "Popup".Hmi.ReshowPopUps := False;
+	    END_IF;
+	END_REGION ;
+	
+	REGION TIMEOUT TRIGGER
+	    
+	    "Popup".TimeOutTrigger.Preset := 0.6;
+	    
+	    "T_ON"(I_CicloCPU := "CicloScansioneCPU_I".O_rCicloCpu,
+	           I_StartConteggio := "Popup".Hmi.TriggerPopup,
+	           IO_DatiTimer := "Popup".TimeOutTrigger);
+	    
+	    IF "Popup".TimeOutTrigger.O THEN
+	        "Popup".Hmi.TriggerPopup := False;
+	    END_IF;
+	END_REGION ;
+	
+	
+END_FUNCTION
+

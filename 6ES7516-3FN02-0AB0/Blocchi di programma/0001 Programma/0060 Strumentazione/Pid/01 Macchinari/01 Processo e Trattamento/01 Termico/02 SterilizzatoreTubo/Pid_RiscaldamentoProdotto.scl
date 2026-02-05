@@ -1,0 +1,41 @@
+﻿FUNCTION "Pid_RiscaldamentoProdotto" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_TEMP 
+      SetpointPid : Real;
+   END_VAR
+
+
+BEGIN
+	REGION Riscaldamento prodotto
+	    REGION Ingressi
+	        "Pid".P["K_Pid_RiscaldamentoProdotto"].In.K_Analogica_Uscita := "K_Analogica_TemperaturaRichiestaAcquaCalda";
+	        REGION Lettura setpoint del PID
+	            #SetpointPid := 0.0;                                                                              //Se non è vera nessuna delle successive
+	            IF "Zona".Z["K_Zona_Sterilizzatore"].Out.Auto THEN                                            //Se sono in automatico
+	                IF "Sequenza".S["K_Sequenza_Lavaggio"].Out.SequenzaAvviata THEN                             //Se sono in lavaggio
+	                    CASE "Sequenza".S["K_Sequenza_Lavaggio"].Dati.PassoAttuale OF
+	                        "K_Passo_Acido":
+	                            #SetpointPid := "ParametriMacchina_010102".LavaggioAcido.Temperatura.Online;
+	                        "K_Passo_Soda":
+	                            #SetpointPid := "ParametriMacchina_010102".LavaggioSoda.Temperatura.Online;
+	                        ELSE
+	                            #SetpointPid := "ParametriMacchina_010102".Risciacquo.Temperatura.Online;
+	                    END_CASE;
+	                ELSIF "Sequenza".S["K_Sequenza_Produzione"].Out.SequenzaAvviata THEN
+	                    #SetpointPid := "ParametriMacchina_010102".Lavoro.Temperatura.Online;
+	                END_IF;
+	            END_IF;
+	            
+	            "Pid".P["K_Pid_RiscaldamentoProdotto"].Hmi.SetpointPID := #SetpointPid;
+	        END_REGION ;
+	    END_REGION ;
+	    REGION Gestione
+	        "GestPid"(K_Zona := "K_Zona_Sterilizzatore",
+	                  K_Pid := "K_Pid_RiscaldamentoProdotto",
+	                  K_Analogica := "K_Analogica_TemperaturaUscitaSterilizzatoreProcesso",
+	                  OggettoTecnologicoPID := "Pid_Sterilizzatore_RiscaldamentoProdotto");
+	    END_REGION ;
+	END_REGION ;
+END_FUNCTION
+

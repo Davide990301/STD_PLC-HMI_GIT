@@ -1,0 +1,20 @@
+﻿FUNCTION "Valvola_Y1_DevioAcidoCamiciaRaffreddatore" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	REGION Devio acido camicia raffreddatore
+	    REGION Parametri
+	        "Valvola".V["K_Valvola_Y1"].Prm.SensorLess := True;
+	    END_REGION ;
+	    REGION Gestione
+	        "GestValvola"(K_Valvola := "K_Valvola_Y1",
+	                      K_TipoValvola := "K_TipoValvola_Monostabile",
+	                      K_Zona := "K_Zona_Sterilizzatore");
+	    END_REGION ;
+	    REGION Uscite
+	        "Valvola_Y1_ComandoPositivo" := "Valvola".V["K_Valvola_Y1"].Out.CmdPos;
+	    END_REGION ;
+	END_REGION ;
+END_FUNCTION
+

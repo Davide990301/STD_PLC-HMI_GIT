@@ -1,0 +1,21 @@
+﻿FUNCTION "GestPasso_ReplicaComandoValvola" : Int
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_Valvola : Int;   // Costante della valvola da replicare
+   END_VAR
+
+   VAR CONSTANT 
+      Positivo : Int := 2;
+      Negativo : Int := 3;
+   END_VAR
+
+
+BEGIN
+	    IF "Valvola".V[#K_Valvola].Out.CmdPos THEN
+	        #GestPasso_ReplicaComandoValvola := #Positivo;
+	    ELSE
+	        #GestPasso_ReplicaComandoValvola := #Negativo;
+	    END_IF;
+END_FUNCTION
+

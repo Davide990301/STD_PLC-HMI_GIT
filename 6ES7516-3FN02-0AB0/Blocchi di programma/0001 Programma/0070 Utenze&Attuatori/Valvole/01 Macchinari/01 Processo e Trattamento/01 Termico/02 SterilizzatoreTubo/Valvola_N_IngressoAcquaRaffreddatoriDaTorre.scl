@@ -1,0 +1,20 @@
+﻿FUNCTION "Valvola_N_IngressoAcquaRaffreddatoriDaTorre" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	REGION Ingresso acqua raffreddatori da torre
+	    REGION Parametri
+	        "Valvola".V["K_Valvola_N"].Prm.SensorLess := True;
+	    END_REGION ;
+	    REGION Gestione
+	        "GestValvola"(K_Valvola := "K_Valvola_N",
+	                      K_TipoValvola := "K_TipoValvola_Monostabile",
+	                      K_Zona := "K_Zona_Sterilizzatore");
+	    END_REGION ;
+	    REGION Uscite
+	        "Valvola_N_ComandoPositivo" := "Valvola".V["K_Valvola_N"].Out.CmdPos;
+	    END_REGION ;
+	END_REGION ;
+END_FUNCTION
+

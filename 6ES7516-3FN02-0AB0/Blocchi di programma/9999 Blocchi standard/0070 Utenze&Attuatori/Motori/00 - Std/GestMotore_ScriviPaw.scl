@@ -1,0 +1,16 @@
+﻿FUNCTION "GestMotore_ScriviPaw" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_Motore : Int;
+   END_VAR
+
+   VAR_OUTPUT 
+      Paw : Word;
+   END_VAR
+
+
+BEGIN
+	#Paw := DINT_TO_WORD("Motore".M[#K_Motore].Out.Paw * 27648 / 10000);
+END_FUNCTION
+

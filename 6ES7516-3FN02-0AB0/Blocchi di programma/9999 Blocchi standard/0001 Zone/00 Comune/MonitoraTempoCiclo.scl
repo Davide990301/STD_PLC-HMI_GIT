@@ -1,0 +1,16 @@
+﻿FUNCTION "MonitoraTempoCiclo" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_IN_OUT 
+      "Struct" : "Std_TCiclo";
+   END_VAR
+
+
+BEGIN
+	
+	
+	"Zona".Comuni.TempoCicloProgramma.Tot.Act += #Struct.Act := RUNTIME("Zona".Comuni.TempoCicloProgramma.AppoTempoCiclo);
+	
+	"Zona".Comuni.TempoCicloProgramma.Tot.PercTciclo += #Struct.PercTciclo := LREAL_TO_REAL((#Struct.Act / "Zona".Comuni.TempoCicloProgramma.Tot.Prec)* 100.0);
+END_FUNCTION
+

@@ -1,0 +1,28 @@
+﻿FUNCTION "GestSegnaliMacchina" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_SegnaleMacchina : Int;
+      K_TipoComunicazione : Int;
+      K_TipoLetturaScrittura : Int;
+   END_VAR
+
+
+BEGIN
+	"SegnaliMacchina".S[#K_SegnaleMacchina].Prm.TipoComunicazione := #K_TipoComunicazione;
+	IF #K_TipoComunicazione = "K_TipoComunicazione_GetPut" THEN
+	    "GetPut".C[#K_SegnaleMacchina].K_SegnaleMacchina := #K_SegnaleMacchina;
+	    CASE #K_TipoLetturaScrittura OF
+	        "K_TipoLetturaScrittura_SolaLettura":
+	            "GetPut".C[#K_SegnaleMacchina].Put_Disable := True;
+	            "GetPut".C[#K_SegnaleMacchina].Get_Disable := False;
+	        "K_TipoLetturaScrittura_SolaScrittura":
+	            "GetPut".C[#K_SegnaleMacchina].Put_Disable := False;
+	            "GetPut".C[#K_SegnaleMacchina].Get_Disable := True;
+	        "K_TipoLetturaScrittura_LetturaScrittura":
+	            "GetPut".C[#K_SegnaleMacchina].Put_Disable := False;
+	            "GetPut".C[#K_SegnaleMacchina].Get_Disable := False;
+	    END_CASE;
+	END_IF;
+END_FUNCTION
+

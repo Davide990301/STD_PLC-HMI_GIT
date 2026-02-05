@@ -1,0 +1,242 @@
+﻿FUNCTION_BLOCK "GestGestPut"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT DB_SPECIFIC
+      Id_Hardware : Word;   // Numero Canale Utilizzato per la Comunicazione Lato Locale
+   END_VAR
+
+   VAR_IN_OUT DB_SPECIFIC
+      PuntatoreAreadatiRecivePartner : Remote;   // Puntatore sulle aree da scrivere nella CPU partner
+   END_VAR
+   VAR_IN_OUT 
+      PuntatoreAreadatiSendLocale : Variant;   // Puntatori sulle aree della CPU utente che contengono i dati da inviare
+   END_VAR
+   VAR_IN_OUT DB_SPECIFIC
+      PuntatoreAreadatiSendPartner : Remote;   // Puntatori sulle aree della CPU partner che devono essere lette
+   END_VAR
+   VAR_IN_OUT 
+      PuntatoreAreadatiReciveLocale : Variant;   // Puntatori sulle aree della CPU utente in cui vengono memorizzati i dati letti
+   END_VAR
+
+   VAR RETAIN
+      Prm : Struct
+         PUT_Delay : Real := 0.25;
+         GET_Delay : Real := 0.25;
+         PUT_Enable : Bool := True;   // Abilitazione Spedizione Dati
+         GET_Enable : Bool := True;   // Abilitazione Ricezione Dati
+      END_STRUCT;
+      Allarmi : Struct
+         PUT_Allarm : Bool;   // Allarme Spedizione Dati
+         PUT_AllarmCode : Word;   // Ultimo Allarme Spedizione Dati
+         GET_Allarm : Bool;   // Allarme Ricezione Dati
+         GET_AllarmCode : Word;   // Ultimo Allarme Ricezione Dati
+         ConsensoUtenzeComunicazione : Bool;   // Consenso alla marcia, comunicazione ok
+         WordHMI : Word;
+      END_STRUCT;
+      ETH : "Std_Get_Put";
+   END_VAR
+   VAR 
+      PUT_Migra {InstructionName := 'PUT'; LibVersion := '1.3'} : PUT;
+      GET_Migra {InstructionName := 'GET'; LibVersion := '1.3'} : GET;
+      PUT_TIMEOUT : "Std_stTimer";
+      PUT_DELAY : "Std_stTimer";
+      GET_TIMEOUT : "Std_stTimer";
+      GET_DELAY : "Std_stTimer";
+      Reset : Bool;   // Reset Allarmi
+      WatchdogBit : "GestWatchdog_Bit";
+      WatchdogIncrementale : "GestWatchdog_Incrementale";
+   END_VAR
+   VAR RETAIN
+      K_SegnaleMacchina { S7_SetPoint := 'True'} : Int;   // Segnale macchina che gestisce i dati
+   END_VAR
+   VAR 
+      Get_Disable : Bool;
+      Put_Disable : Bool;
+   END_VAR
+
+   VAR_TEMP 
+      ContaScritturaFallita : Bool;
+      ContaLetturaFallita : Bool;
+      ConsensoUtenzeComunicazione : Bool;
+      VariantTest : Variant;
+      Error : Int;
+   END_VAR
+
+
+BEGIN
+	REGION Scrittura dei dati
+	    REGION Storico degli status di scrittura 
+	        IF #ETH.PUT.REQ THEN
+	            IF #ETH.PUT.DONE OR #ETH.PUT.ERROR THEN
+	                #ETH.PUT.STATUS_ARRAY_03 := #ETH.PUT.STATUS_ARRAY_02;
+	                #ETH.PUT.STATUS_ARRAY_02 := #ETH.PUT.STATUS_ARRAY_01;
+	                #ETH.PUT.STATUS_ARRAY_01 := #ETH.PUT.STATUS;
+	            END_IF;
+	        END_IF;
+	    END_REGION ;
+	    REGION TIMER Comunicazione
+	        #PUT_DELAY.Preset := #Prm.PUT_Delay;                        //Preset periodo di scrittura dei dati
+	        #PUT_TIMEOUT.Preset := 5.0;                                 //Preset per il timeout di comunicazione
+	        "T_ON"(I_CicloCPU := "CicloScansioneCPU_I".O_rCicloCpu,     //Richiamo del timer che decide il periodo di scrittura dei dati
+	               I_StartConteggio := NOT #PUT_DELAY.O,
+	               IO_DatiTimer := #PUT_DELAY);
+	        "T_ON"(I_CicloCPU := "CicloScansioneCPU_I".O_rCicloCpu,     //Richiamo del timer che decide la caduta della comunicazione
+	               I_StartConteggio := #ETH.PUT.STATUS = 0,
+	               IO_DatiTimer := #PUT_TIMEOUT);
+	    END_REGION ;
+	    REGION Richiesta esecuzione scrittura 
+	        IF #Put_Disable THEN
+	            #Prm.PUT_Enable := False;
+	        END_IF;
+	        #ETH.PUT.REQ := #PUT_DELAY.O;
+	    END_REGION ;
+	    REGION Richiamo blocco comunicazione
+	        #PUT_Migra(REQ := #ETH.PUT.REQ,
+	                   ID := #Id_Hardware,
+	                   DONE => #ETH.PUT.DONE,
+	                   ERROR => #ETH.PUT.ERROR,
+	                   STATUS => #ETH.PUT.STATUS,
+	                   ADDR_1 := #PuntatoreAreadatiRecivePartner,
+	                   SD_1 := #PuntatoreAreadatiSendLocale);
+	    END_REGION ;
+	    REGION Tentativi di scrittura
+	        IF #ETH.PUT.DONE THEN                                           //Se la scrittura è avvenuta
+	            #ETH.PUT.ATTEMPTS := 0;                                     //resetto il numero di tentativi.
+	        END_IF;
+	        #ContaScritturaFallita := #ETH.PUT.ERROR AND #ETH.PUT.REQ;      //Tentativo di scrittura fallito
+	        IF #ContaScritturaFallita AND NOT #ETH.PUT.ERROR_PULSE THEN     //Se ho le condizioni per contare il tentativo ed il fronte
+	            #ETH.PUT.ATTEMPTS += 1;                                     //Incremento il numero di tentativi
+	        END_IF;
+	        #ETH.PUT.ERROR_PULSE := #ContaScritturaFallita;                 //Memoria per il fronte di conteggio
+	        IF #ETH.PUT.ATTEMPTS >= 3 OR #PUT_TIMEOUT.O THEN                //Quando i tentativi sono maggiori di 3 oppure è caduto il timeout
+	            #ETH.PUT.ALLARM := True;                                    //Setto il mio allarme di comunicazione
+	        END_IF;
+	    END_REGION ;
+	    REGION Allarmi comunicazione
+	        REGION Reset allarmi
+	            IF (#ETH.PUT.ALLARM AND #Reset) OR NOT #Prm.PUT_Enable THEN
+	                #ETH.PUT.ATTEMPTS := 0;
+	                #ETH.PUT.STATUS := #ETH.PUT.STATUS_ARRAY_01 := #ETH.PUT.STATUS_ARRAY_02 := #ETH.PUT.STATUS_ARRAY_03 := 0;
+	                #ETH.PUT.ALLARM := #ETH.PUT.ERROR := False;
+	            END_IF;
+	        END_REGION ;
+	        REGION Scrittura allarmi
+	            #Allarmi.PUT_Allarm := #ETH.PUT.ALLARM;
+	            #Allarmi.PUT_AllarmCode := #ETH.PUT.STATUS_ARRAY_01;
+	        END_REGION ;
+	    END_REGION ;
+	END_REGION ;
+	REGION Lettura dei dati
+	    REGION Storico degli status di lettura
+	        IF #ETH.GET.REQ THEN
+	            IF #ETH.GET.NDR OR #ETH.GET.ERROR THEN
+	                #ETH.GET.STATUS_ARRAY_03 := #ETH.GET.STATUS_ARRAY_02;
+	                #ETH.GET.STATUS_ARRAY_02 := #ETH.GET.STATUS_ARRAY_01;
+	                #ETH.GET.STATUS_ARRAY_01 := #ETH.GET.STATUS;
+	            END_IF;
+	        END_IF;
+	    END_REGION ;
+	    REGION TIMER Comunicazione
+	        #GET_DELAY.Preset := #Prm.GET_Delay;                        //Preset periodo di scrittura dei dati
+	        #GET_TIMEOUT.Preset := 5.0;                                 //Preset per il timeout di comunicazione
+	        "T_ON"(I_CicloCPU := "CicloScansioneCPU_I".O_rCicloCpu,     //Richiamo del timer che decide il periodo di scrittura dei dati
+	               I_StartConteggio := NOT #GET_DELAY.O,
+	               IO_DatiTimer := #GET_DELAY);
+	        "T_ON"(I_CicloCPU := "CicloScansioneCPU_I".O_rCicloCpu,     //Richiamo del timer che decide la caduta della comunicazione
+	               I_StartConteggio := #ETH.GET.STATUS = 0,
+	               IO_DatiTimer := #GET_TIMEOUT);
+	    END_REGION ;
+	    REGION Richiesta esecuzione lettura
+	        IF #Get_Disable THEN
+	            #Prm.GET_Enable := False;
+	        END_IF;
+	        #ETH.GET.REQ := #GET_DELAY.O;
+	    END_REGION ;
+	    REGION Richiamo blocco comunicazione
+	        #GET_Migra(REQ := #ETH.GET.REQ,
+	                   ID := #Id_Hardware,
+	                   NDR => #ETH.GET.NDR,
+	                   ERROR => #ETH.GET.ERROR,
+	                   STATUS => #ETH.GET.STATUS,
+	                   ADDR_1 := #PuntatoreAreadatiSendPartner,
+	                   RD_1 := #PuntatoreAreadatiReciveLocale);
+	    END_REGION ;
+	    REGION Tentativi di lettura
+	        IF #ETH.GET.NDR THEN                                           //Se la scrittura è avvenuta
+	            #ETH.GET.ATTEMPTS := 0;                                     //resetto il numero di tentativi.
+	        END_IF;
+	        #ContaLetturaFallita := #ETH.GET.ERROR AND #ETH.GET.REQ;      //Tentativo di scrittura fallito
+	        IF #ContaLetturaFallita AND NOT #ETH.GET.ERROR_PULSE THEN     //Se ho le condizioni per contare il tentativo ed il fronte
+	            #ETH.GET.ATTEMPTS += 1;                                     //Incremento il numero di tentativi
+	        END_IF;
+	        #ETH.GET.ERROR_PULSE := #ContaLetturaFallita;                 //Memoria per il fronte di conteggio
+	        IF #ETH.GET.ATTEMPTS >= 3 OR #GET_TIMEOUT.O THEN                //Quando i tentativi sono maggiori di 3 oppure è caduto il timeout
+	            #ETH.GET.ALLARM := True;                                    //Setto il mio allarme di comunicazione
+	        END_IF;
+	    END_REGION ;
+	    REGION Allarmi comunicazione
+	        REGION Reset allarmi
+	            IF (#ETH.GET.ALLARM AND #Reset) OR NOT #Prm.GET_Enable THEN
+	                #ETH.GET.ATTEMPTS := 0;
+	                #ETH.GET.STATUS := #ETH.GET.STATUS_ARRAY_01 := #ETH.GET.STATUS_ARRAY_02 := #ETH.GET.STATUS_ARRAY_03 := 0;
+	                #ETH.GET.ALLARM := #ETH.GET.ERROR := False;
+	            END_IF;
+	        END_REGION ;
+	        REGION Scrittura allarmi
+	            #Allarmi.GET_Allarm := #ETH.GET.ALLARM;
+	            #Allarmi.GET_AllarmCode := #ETH.GET.STATUS_ARRAY_01;
+	        END_REGION ;
+	    END_REGION ;
+	END_REGION ;
+	REGION Watchdog bit
+	    IF "SegnaliMacchina".S[#K_SegnaleMacchina].Prm.Watchdog.Bit.Abilitato THEN
+	        #WatchdogBit(Watchdog_Recive := "SegnaliMacchina".S[#K_SegnaleMacchina].SR["K_TipoSendRecive_Receive"].Digitali[0].Out.Segnale,
+	                     Watchdog_Send => "SegnaliMacchina".S[#K_SegnaleMacchina].SR["K_TipoSendRecive_Send"].Digitali[0].Out.Segnale,
+	                     Reset := #Reset);
+	    ELSE
+	        #WatchdogBit.TimerAllarme.O := #WatchdogBit.Allarme := False;
+	    END_IF;
+	 END_REGION ;
+	 REGION Watchdog incrementale
+	     IF "SegnaliMacchina".S[#K_SegnaleMacchina].Prm.Watchdog.Incrementale.Abilitato THEN
+	         #WatchdogIncrementale(Watchdog_Recive := "SegnaliMacchina".S[#K_SegnaleMacchina].SR["K_TipoSendRecive_Receive"]."DInt"[0],
+	                               Watchdog_Send => "SegnaliMacchina".S[#K_SegnaleMacchina].SR["K_TipoSendRecive_Send"]."DInt"[0],
+	                               Reset := #Reset);
+	     ELSE
+	         #WatchdogIncrementale.TimerAllarme.O := #WatchdogIncrementale.Allarme := False;
+	     END_IF;
+	 END_REGION ;
+	 REGION ConsensoUtenzeViaRete
+	    //Questo consenso serve per fermare le utenze che sono gestite via rete per evitare che continuino a guardare un valore congelato.
+	    //Se la comunicazione riaparte, non aspettano il reset operatore e riapartono subito.
+	    #ConsensoUtenzeComunicazione := True;
+	    IF #WatchdogBit.TimerAllarme.O THEN
+	        #ConsensoUtenzeComunicazione := False;
+	    END_IF;
+	    IF #WatchdogIncrementale.TimerAllarme.O THEN
+	        #ConsensoUtenzeComunicazione := False;
+	    END_IF;
+	    IF #ETH.GET.ERROR THEN                          //Utilizzo l'allarme diretto di uscita dal blocco siemens
+	        #ConsensoUtenzeComunicazione := False;      //perchè si resetta appena la comunicazione riparte
+	    END_IF;
+	    IF #ETH.PUT.ERROR THEN                          //Utilizzo l'allarme diretto di uscita dal blocco siemens
+	        #ConsensoUtenzeComunicazione := False;      //perchè si resetta appena la comunicazione riparte
+	    END_IF;
+	    #Allarmi.ConsensoUtenzeComunicazione := #ConsensoUtenzeComunicazione;
+	END_REGION ;
+	REGION Word allarmi HMI
+	    IF #Reset THEN
+	        #Allarmi.WordHMI := 0;
+	    END_IF;
+	    IF #Allarmi.GET_Allarm THEN
+	        #Allarmi.WordHMI.%X0 := True;
+	    END_IF;
+	    IF #Allarmi.PUT_Allarm THEN
+	        #Allarmi.WordHMI.%X1 := True;
+	    END_IF;
+	    IF #WatchdogBit.Allarme OR #WatchdogIncrementale.Allarme THEN
+	        #Allarmi.WordHMI.%X2 := True;
+	    END_IF;
+	END_REGION ;
+END_FUNCTION_BLOCK
+

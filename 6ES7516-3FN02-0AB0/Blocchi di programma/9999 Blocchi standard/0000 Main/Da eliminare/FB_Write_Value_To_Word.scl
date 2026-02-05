@@ -1,0 +1,118 @@
+﻿FUNCTION_BLOCK "FB_Write_Value_To_Word"
+{ S7_Optimized_Access := 'FALSE' }
+AUTHOR : JEBU
+FAMILY : VTEMdc
+VERSION : 1.0
+   VAR_INPUT 
+      iValue { ExternalVisible := 'False'} : Int;
+      iStartBit { ExternalVisible := 'False'} : Int;
+      iEndBit { ExternalVisible := 'False'} : Int;
+   END_VAR
+
+   VAR_OUTPUT 
+      xError { ExternalVisible := 'False'} : Bool := true;
+   END_VAR
+
+   VAR_IN_OUT 
+      wDataWord { ExternalVisible := 'False'} : Word;
+   END_VAR
+
+   VAR 
+      wData { ExternalVisible := 'False'} : Word;
+      abyData { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} AT wData : Array[0..1] of Byte;
+   END_VAR
+
+   VAR_TEMP 
+      iTempVar : Int;
+      i : Int;
+      wTempData : Word;
+      axTempBit AT wTempData : Array[0..15] of Bool;
+      abyTempData AT wTempData : Array[0..1] of Byte;
+      wData00 : Word;
+      wData01 : Word;
+      wWordData : Word;
+   END_VAR
+
+
+BEGIN
+	(*****************************************************************************************************
+	
+	FESTO SE & Co. KG, Esslingen
+	Copyright (c) 2019. All rights reserved.
+	
+	Product:            Motion Terminal VTEM
+	Description:        Function block for writing a value into a certain section of a WORD
+	
+	Object version:     1.00
+	Last change:        2017
+	======================================================================================================
+	                                       H I S T O R Y
+	======================================================================================================
+	Version:            1.00
+	Date:               2017
+	Change/Activity:    - created
+	Release:            _._.2
+	Author:             H.W.
+	======================================================================================================
+	
+	*****************************************************************************************************)
+	
+	IF (#iStartBit = 0) AND (#iEndBit = 15) THEN
+	    
+	    // write value directly if entire integer shall be downloaded
+	    
+	    //rotate high and low byte of the read data
+	    #wData00 := SHR(IN := INT_TO_WORD(#iValue), N := 8);
+	    #wData01 := SHL(IN := INT_TO_WORD(#iValue), N := 8);
+	    #wWordData := #wData00 OR #wData01;
+	    
+	    #wData := #wWordData;
+	    #xError := FALSE;
+	    
+	ELSE
+	    // get current data from target dataword
+	    #wData := #wDataWord;
+	    
+	    #abyTempData[0] := #abyData[0];
+	    #abyTempData[1] := #abyData[1];
+	    
+	    IF (#iStartBit < 0) OR (#iStartBit > 15) OR (#iEndBit < 0) OR (#iEndBit > 15) OR (#iStartBit > #iEndBit) THEN
+	        // invalid specification of target section
+	        #iTempVar := 0;
+	        #xError := TRUE;
+	        
+	    ELSIF (#iValue < 0) OR (#iValue > REAL_TO_INT((EXP((#iEndBit - #iStartBit + 1) * LN(2)) - 1))) THEN
+	        // the value is invalid (negative) or would exceed the size of the target section 
+	        #iTempVar := 0;
+	        #xError := TRUE;
+	    ELSE
+	        // transfer value into specified targed section
+	        #iTempVar := #iValue;
+	        #xError := FALSE;
+	        
+	        FOR #i := #iStartBit TO #iEndBit DO
+	            
+	            // update the single bits of the specified target area
+	            #axTempBit[#i] := INT_TO_BOOL(#iTempVar MOD 2);
+	            
+	            // remove the last bit of the value
+	            #iTempVar := (#iTempVar - (#iTempVar MOD 2)) / 2;
+	            
+	        END_FOR;
+	        
+	    END_IF;
+	    
+	    #abyData[0] := #abyTempData[0];
+	    #abyData[1] := #abyTempData[1];
+	    
+	END_IF;
+	    
+	// update target dataword
+	#wDataWord := #wData;
+	
+	
+	
+	
+	
+END_FUNCTION_BLOCK
+

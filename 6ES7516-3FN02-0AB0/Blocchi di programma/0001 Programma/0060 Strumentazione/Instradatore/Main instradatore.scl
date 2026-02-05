@@ -1,0 +1,325 @@
+﻿FUNCTION "Main instradatore" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_TEMP 
+      Counter1_Righe : Int;
+      Counter2_Colonne : Int;
+      NumSorgDaScrivere : Int;
+      NumDestDaScrivere : Int;
+      NumeroMassimoIndiceLinea : Int;
+      NumeroMassimoIndiceColonna : Int;
+      Counter1Pari : Bool;
+      Counter2Pari : Bool;
+      AlmenoUnaDestSelezionata : Bool;
+      CounterDestinPresente : Int;
+      UltimaStazioneVerde_Dest : Int;
+      MemoCheckEseguito : Bool;
+      StazioneConSorgenteAttiva : Bool;
+      CounterSorgentiAttive : Int;
+      UltimaStazioneVerde_Sorg : Int;
+      StazioneAttuale : Int;
+      DestinazioneAttuale : Int;
+      SorgenteUtilizzata : Array[0.."K_NumStazione"] of Bool;
+      ColoreLinea1 : Int;
+      ColoreLinea2 : Int;
+      ColorePercorsoAttivo : Int;
+      ColoreX : Int;
+      RigaTrovata : Int;
+      ColonnaTrovata : Int;
+      ContatoreCercaRiga : Int;
+      CounterStazioni : Int;
+      NumeroSorgentiTrovate : Int;
+      NumeroDestinazioniTrovate : Int;
+      CounterCleaner : Int;
+      K_StazioneSorg : Int;
+      K_StazioneDest : Int;
+      PercorsoAttivo : Bool;
+      PercorsoSelezionato : Bool;
+      StazioneDaResettare : Int;
+      DestinazioneDaResettare : Int;
+      KDestinazioneAttuale : Int;
+   END_VAR
+
+   VAR CONSTANT 
+      XGrigia : Int := 3;
+      XVerde : Int := 7;
+      XAzzurra : Int := 1;
+      XRosa : Int := 5;
+      NoXGrigia : Int := 2;
+      NoXVerde : Int := 6;
+      NoXAzzurra : Int := 0;
+      NoXRosa : Int := 4;
+      NumStazioniPopUpInstradatore : Int := 15;
+   END_VAR
+
+
+BEGIN
+	"Main stazioni"();
+	
+	REGION Instradatore classico
+	    REGION Ricerca sorgenti e destinazioni per popup
+	        IF "Percorso".Hmi.Comandi.RicercaSorgentiDest THEN
+	            FOR #CounterCleaner := 0 TO 15 DO
+	                "Percorso".Hmi.Comandi.ElencoSorgentiPossibili[#CounterCleaner] := 0;
+	                "Percorso".Hmi.Comandi.ElencoDestinazioniPossibili[#CounterCleaner] := 0;
+	            END_FOR;
+	            #NumeroSorgentiTrovate := 0;
+	            #NumeroDestinazioniTrovate := 0;
+	            FOR #CounterStazioni := 0 TO "K_NumStazione" DO
+	                IF "Percorso".Stazione[#CounterStazioni].Destinazione["Percorso".Hmi.Comandi.K_StazioneAttuale].IN.Possibile THEN
+	                    "Percorso".Hmi.Comandi.ElencoSorgentiPossibili[#NumeroSorgentiTrovate] := #CounterStazioni;
+	                    #NumeroSorgentiTrovate += 1;
+	                END_IF;
+	                IF "Percorso".Stazione["Percorso".Hmi.Comandi.K_StazioneAttuale].Destinazione[#CounterStazioni].IN.Possibile THEN
+	                    "Percorso".Hmi.Comandi.ElencoDestinazioniPossibili[#NumeroDestinazioniTrovate] := #CounterStazioni;
+	                    #NumeroDestinazioniTrovate += 1;
+	                END_IF;
+	            END_FOR;
+	            FOR #CounterStazioni := 0 TO #NumStazioniPopUpInstradatore DO //Leggo selezione percorso
+	                
+	                #K_StazioneSorg := "Percorso".Hmi.Comandi.ElencoSorgentiPossibili[#CounterStazioni];
+	                #K_StazioneDest := "Percorso".Hmi.Comandi.K_StazioneAttuale;
+	                #PercorsoSelezionato := "Percorso".Stazione[#K_StazioneSorg].Destinazione[#K_StazioneDest].IN.Selezionato;
+	                "Percorso".Hmi.Comandi.SceltaTraSorgentiPossibili[#CounterStazioni] := #PercorsoSelezionato;
+	                
+	                #K_StazioneDest := "Percorso".Hmi.Comandi.ElencoDestinazioniPossibili[#CounterStazioni];
+	                #K_StazioneSorg := "Percorso".Hmi.Comandi.K_StazioneAttuale;
+	                #PercorsoSelezionato := "Percorso".Stazione[#K_StazioneSorg].Destinazione[#K_StazioneDest].IN.Selezionato;
+	                "Percorso".Hmi.Comandi.SceltaTraDestinazioniPossibili[#CounterStazioni] := #PercorsoSelezionato;
+	                
+	            END_FOR;
+	            "Percorso".Hmi.Comandi.RicercaSorgentiDest := False;
+	        END_IF;
+	        IF "Percorso".Hmi.Comandi.SceltaSorgDest_PopupAperto THEN
+	            FOR #CounterStazioni := 0 TO #NumStazioniPopUpInstradatore DO //Scrivo selezione del percorso
+	                
+	                #PercorsoAttivo := "Percorso".Hmi.Comandi.SceltaTraSorgentiPossibili[#CounterStazioni];
+	                #K_StazioneSorg := "Percorso".Hmi.Comandi.ElencoSorgentiPossibili[#CounterStazioni];
+	                #K_StazioneDest := "Percorso".Hmi.Comandi.K_StazioneAttuale;
+	                "Percorso".Stazione[#K_StazioneSorg].Destinazione[#K_StazioneDest].IN.Selezionato := #PercorsoAttivo;
+	                
+	                #PercorsoAttivo := "Percorso".Hmi.Comandi.SceltaTraDestinazioniPossibili[#CounterStazioni];
+	                #K_StazioneDest := "Percorso".Hmi.Comandi.ElencoDestinazioniPossibili[#CounterStazioni];
+	                #K_StazioneSorg := "Percorso".Hmi.Comandi.K_StazioneAttuale;
+	                "Percorso".Stazione[#K_StazioneSorg].Destinazione[#K_StazioneDest].IN.Selezionato := #PercorsoAttivo;
+	            END_FOR;
+	        END_IF;
+	    END_REGION ;
+	END_REGION 
+	
+	REGION Instradatore a matrice
+	    REGION Limiti
+	        IF "Matrice".Hmi.IndicePrimoKLinea < 1 THEN
+	            "Matrice".Hmi.IndicePrimoKLinea := 1;
+	        END_IF;
+	        IF "Matrice".Hmi.IndicePrimoKColonna < 1 THEN
+	            "Matrice".Hmi.IndicePrimoKColonna := 1;
+	        END_IF;
+	        #NumeroMassimoIndiceLinea := "K_NumStazione" - 27;
+	        #NumeroMassimoIndiceColonna := "K_NumStazione" - 49;
+	        
+	        IF "Matrice".Hmi.IndicePrimoKLinea >= #NumeroMassimoIndiceLinea THEN
+	            "Matrice".Hmi.IndicePrimoKLinea := #NumeroMassimoIndiceLinea;
+	        END_IF;
+	        IF "Matrice".Hmi.IndicePrimoKColonna >= #NumeroMassimoIndiceColonna THEN
+	            "Matrice".Hmi.IndicePrimoKColonna := #NumeroMassimoIndiceColonna;
+	        END_IF;
+	    END_REGION
+	    REGION Abilitazioni Hmi
+	        "Matrice".Hmi.AbilitaScrollAvanti_Linea := "Matrice".Hmi.IndicePrimoKLinea < #NumeroMassimoIndiceLinea;
+	        "Matrice".Hmi.AbilitaScrollIndietro_Linea := "Matrice".Hmi.IndicePrimoKLinea > 1;
+	        "Matrice".Hmi.AbilitaScrollAvanti_Colonna := "Matrice".Hmi.IndicePrimoKColonna < #NumeroMassimoIndiceColonna;
+	        "Matrice".Hmi.AbilitaScrollIndietro_Colonna := "Matrice".Hmi.IndicePrimoKColonna > 1;
+	        "Matrice".Hmi.NuovoPercorso.AbilitaSceltaSorgente := "Matrice".Hmi.NuovoPercorso.SelezioneNuovoPercorso OR "Matrice".Hmi.NuovoPercorso.DeselezioneNuovoPercorso;
+	    END_REGION
+	    REGION Definizione delle stazioni da visualizzare
+	        #NumSorgDaScrivere := 0;
+	        FOR #Counter1_Righe := 0 TO ("K_NumStazione" - #Counter1_Righe ) DO
+	            IF #NumSorgDaScrivere < 27 THEN
+	                "Matrice".K_Linea[#Counter1_Righe] := 0;
+	                IF "Percorso".Stazione[#Counter1_Righe + "Matrice".Hmi.IndicePrimoKLinea].Dati.AlmenoUnaDestinazioneProgettata THEN
+	                    "Matrice".K_Linea[#NumSorgDaScrivere] := #Counter1_Righe + "Matrice".Hmi.IndicePrimoKLinea;
+	                    #NumSorgDaScrivere += 1;
+	                END_IF;
+	            END_IF;
+	        END_FOR;
+	        #NumDestDaScrivere := 0;
+	        FOR #Counter1_Righe := 0 TO ("K_NumStazione" - #Counter1_Righe ) DO
+	            IF #NumDestDaScrivere < 49 THEN
+	                "Matrice".K_Colonna[#Counter1_Righe] := 0;
+	                IF "Percorso".Stazione[#Counter1_Righe + "Matrice".Hmi.IndicePrimoKColonna].Dati.AlmenoUnaSorgenteProgettata THEN
+	                    "Matrice".K_Colonna[#NumDestDaScrivere] := #Counter1_Righe + "Matrice".Hmi.IndicePrimoKColonna + 0;
+	                    #NumDestDaScrivere += 1;
+	                END_IF;
+	            END_IF;
+	        END_FOR;
+	    END_REGION
+	    
+	    REGION Nuovo percorso oppure cancella percorso
+	        IF "Matrice".Hmi.NuovoPercorso.AbilitaSceltaSorgente AND "Matrice".Hmi.NuovoPercorso.Sorgente > 0 THEN
+	            //FOR #Counter1_Righe := 1 TO "K_NumStazioni" DO
+	            FOR #Counter1_Righe := 0 TO 49 DO
+	                #KDestinazioneAttuale := "Matrice".K_Colonna[#Counter1_Righe];
+	                "Matrice".Hmi.NuovoPercorso.AbilitaSceltaDestinazione[#Counter1_Righe] := "Percorso".Stazione["Matrice".Hmi.NuovoPercorso.Sorgente].Destinazione[#KDestinazioneAttuale].IN.Possibile;
+	            END_FOR;
+	            IF "Matrice".Hmi.NuovoPercorso.Destinazione > 0 THEN
+	                "Percorso".Stazione["Matrice".Hmi.NuovoPercorso.Sorgente].Destinazione["Matrice".Hmi.NuovoPercorso.Destinazione].IN.Selezionato := "Matrice".Hmi.NuovoPercorso.SelezioneNuovoPercorso;
+	                "Matrice".Hmi.NuovoPercorso.Destinazione := 0;
+	                "Matrice".Hmi.NuovoPercorso.Sorgente := 0;
+	                "Matrice".Hmi.NuovoPercorso.SelezioneNuovoPercorso := False;
+	                "Matrice".Hmi.NuovoPercorso.DeselezioneNuovoPercorso := False;
+	                "Matrice".Hmi.AggiornaMatrice := True;
+	            END_IF;
+	        ELSE
+	            FOR #Counter1_Righe := 0 TO "K_NumStazione" DO
+	                "Matrice".Hmi.NuovoPercorso.AbilitaSceltaDestinazione[#Counter1_Righe] := False;
+	            END_FOR;
+	            // "Matrice".Hmi.NuovoPercorso.Sorgente := 0;
+	        END_IF;
+	    END_REGION
+	    REGION Definzione colori e percorsi per matrice
+	        
+	        // IF "VerificaCambioValore_int"(Variabile := "Matrice".Hmi.IndicePrimoKLinea, K_CambioValore := "K_CambioValore_IndicePrimoKLinea") THEN
+	        //     "Matrice".Hmi.AggiornaMatrice := True;
+	        // END_IF;
+	        
+	        IF "Matrice".Hmi.AggiornaMatrice OR true THEN
+	            
+	            #ColoreLinea1 := #NoXGrigia;
+	            #ColoreLinea2 := #NoXGrigia;
+	            #ColorePercorsoAttivo := #NoXVerde;
+	            #ColoreX := #XVerde;
+	            
+	            #Counter1Pari := #Counter2Pari := True;
+	            FOR #Counter1_Righe := 0 TO 27 DO
+	                #MemoCheckEseguito := false;
+	                FOR #Counter2_Colonne := 1 TO 50 DO
+	                    REGION Verifico se ho una destinazione presente
+	                        IF NOT #MemoCheckEseguito THEN
+	                            #AlmenoUnaDestSelezionata := false;
+	                            FOR #CounterDestinPresente := 1 TO "K_NumStazione" DO
+	                                IF "Percorso".Stazione["Matrice".Hmi.IndicePrimoKLinea + #Counter1_Righe].Destinazione[#CounterDestinPresente].IN.Selezionato THEN
+	                                    #UltimaStazioneVerde_Dest := #CounterDestinPresente + 1;
+	                                    #AlmenoUnaDestSelezionata := True;
+	                                    #MemoCheckEseguito := TRUE;
+	                                END_IF;
+	                            END_FOR;
+	                        END_IF;
+	                    END_REGION
+	                    REGION Verifico se ho una almeno una sorgente presente
+	                        #StazioneConSorgenteAttiva := False;
+	                        FOR #CounterSorgentiAttive := 0 TO 50 DO
+	                            IF "Percorso".Stazione[#CounterSorgentiAttive].Destinazione[#Counter2_Colonne].IN.Selezionato THEN
+	                                #StazioneConSorgenteAttiva := True;
+	                                #UltimaStazioneVerde_Sorg := #CounterSorgentiAttive - "Matrice".Hmi.IndicePrimoKLinea;
+	                            END_IF;
+	                        END_FOR;
+	                    END_REGION
+	                    REGION Colori ed elenchi grafiche
+	                        FOR #ContatoreCercaRiga := 0 TO 30 DO
+	                            IF "Matrice".K_Linea[#ContatoreCercaRiga] = #Counter1_Righe THEN
+	                                #RigaTrovata := #ContatoreCercaRiga + 1;
+	                            END_IF;
+	                        END_FOR;
+	
+	                        #ColonnaTrovata := #Counter2_Colonne;
+	                        IF "Percorso".Stazione["Matrice".Hmi.IndicePrimoKLinea + #RigaTrovata].Destinazione[#ColonnaTrovata].IN.Selezionato THEN
+	                            
+	                            IF #AlmenoUnaDestSelezionata AND #ColonnaTrovata < #UltimaStazioneVerde_Dest OR #StazioneConSorgenteAttiva AND #RigaTrovata < #UltimaStazioneVerde_Sorg THEN
+	                                "Matrice".PercorsoSelezionato[#RigaTrovata, #ColonnaTrovata - 1] := #ColoreX;
+	                            ELSE
+	                                IF #Counter1Pari THEN
+	                                    "Matrice".PercorsoSelezionato[#RigaTrovata, #ColonnaTrovata - 1] := #ColoreLinea1;
+	                                ELSE
+	                                    "Matrice".PercorsoSelezionato[#RigaTrovata, #ColonnaTrovata - 1] := #ColoreLinea2;
+	                                END_IF;
+	                            END_IF;
+	                        ELSE
+	                            
+	                            IF #AlmenoUnaDestSelezionata AND #ColonnaTrovata < #UltimaStazioneVerde_Dest OR #StazioneConSorgenteAttiva AND #RigaTrovata < #UltimaStazioneVerde_Sorg THEN
+	                                "Matrice".PercorsoSelezionato[#RigaTrovata, #ColonnaTrovata - 1] := #ColorePercorsoAttivo;
+	                            ELSE
+	                                IF #Counter1Pari THEN
+	                                    "Matrice".PercorsoSelezionato[#RigaTrovata, #ColonnaTrovata - 1] := #ColoreLinea1;
+	                                ELSE
+	                                    "Matrice".PercorsoSelezionato[#RigaTrovata, #ColonnaTrovata - 1] := #ColoreLinea2;
+	                                END_IF;
+	                            END_IF;
+	                        END_IF;
+	                        #Counter2Pari := NOT #Counter2Pari;
+	                    END_REGION
+	                END_FOR;
+	                #Counter1Pari := NOT #Counter1Pari;
+	            END_FOR;
+	            "Matrice".Hmi.AggiornaMatrice := False;
+	        END_IF;
+	    END_REGION
+	END_REGION
+	
+	REGION Instradatore dinamico
+	    
+	END_REGION
+	
+	REGION Caricamento instradatore in lavoro
+	    IF "Percorso".Hmi.Comandi.CaricaInLavoro THEN
+	        FOR #StazioneAttuale := 0 TO "K_NumStazione" DO
+	            FOR #DestinazioneAttuale := 0 TO "K_NumStazione" DO
+	                "Percorso".Stazione[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Attivo := "Percorso".Stazione[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Possibile AND "Percorso".Stazione[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Selezionato;
+	            END_FOR;
+	        END_FOR;
+	        "Percorso".Hmi.Comandi.CaricaInLavoro := False;
+	    END_IF;
+	END_REGION
+	REGION Resetta tutto offline
+	    IF "Percorso".Hmi.Comandi.ResettaTuttoOffline THEN
+	        FOR #StazioneAttuale := 0 TO "K_NumStazione" DO
+	            FOR #DestinazioneAttuale := 0 TO "K_NumStazione" DO
+	                "Percorso".Stazione[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Selezionato := False;
+	            END_FOR;
+	        END_FOR;
+	        "Percorso".Hmi.Comandi.ResettaTuttoOffline := False;
+	    END_IF;
+	END_REGION
+	REGION Ripristina online
+	    IF "Percorso".Hmi.Comandi.RipristinaOnline THEN
+	        FOR #StazioneAttuale := 0 TO "K_NumStazione" DO
+	            FOR #DestinazioneAttuale := 0 TO "K_NumStazione" DO
+	                "Percorso".Stazione[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Selezionato := "Percorso".Stazione[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Attivo;
+	            END_FOR;
+	        END_FOR;
+	        "Percorso".Hmi.Comandi.ResettaTuttoOffline := False;
+	        "Percorso".Hmi.Comandi.RipristinaOnline := False;
+	        "Matrice".Hmi.AggiornaMatrice := TRUE;
+	    END_IF;
+	END_REGION
+	REGION Update generale
+	    IF "Zona".Comuni.UpdateGenerale THEN
+	        FOR #StazioneAttuale := 0 TO "K_NumStazione" DO
+	            FOR #DestinazioneAttuale := 0 TO "K_NumStazione" DO
+	                "Percorso".Stazione[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Possibile := False;
+	            END_FOR;
+	        END_FOR;
+	    END_IF;
+	END_REGION
+	REGION Compila e verifica conflitti
+	    IF "Percorso".Hmi.Comandi.CompilaVerificaConflitti THEN
+	        
+	        "ArrayBoolCleaner"(ArrayLenght:="K_NumStazione",
+	                           Array=>#SorgenteUtilizzata);
+	        
+	        FOR #StazioneAttuale := 0 TO "K_NumStazione" DO
+	            FOR #DestinazioneAttuale := 0 TO "K_NumStazione" DO
+	                IF "Percorso".Stazione[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Selezionato THEN
+	                    IF #SorgenteUtilizzata[#DestinazioneAttuale] THEN
+	                        "Percorso".Stazione[#DestinazioneAttuale].Allarmi.Stato.ConflittoMultiDest := true;
+	                    END_IF;
+	                    #SorgenteUtilizzata[#DestinazioneAttuale] := True;
+	                END_IF;
+	            END_FOR;
+	        END_FOR;
+	        "Percorso".Hmi.Comandi.CompilaVerificaConflitti := False;
+	    END_IF;
+	END_REGION
+	
+END_FUNCTION
+

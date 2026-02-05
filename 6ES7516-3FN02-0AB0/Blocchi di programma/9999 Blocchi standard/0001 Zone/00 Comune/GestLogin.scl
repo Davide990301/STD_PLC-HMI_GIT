@@ -1,0 +1,32 @@
+﻿FUNCTION "GestLogin" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_TEMP 
+      ScanUser : Int;
+   END_VAR
+
+
+BEGIN
+	IF "Zona".Comuni.Login.Hmi.Comandi.Login THEN
+	    FOR #ScanUser := 0 TO "K_NumUtente" DO
+	        IF "Zona".Comuni.Login.Lista[#ScanUser].User = "Zona".Comuni.Login.Hmi.Richiesto.User AND "Zona".Comuni.Login.Lista[#ScanUser].Psw = "Zona".Comuni.Login.Hmi.Richiesto.Psw THEN
+	            "Zona".Comuni.Login.UtenteAttuale.Livello := "Zona".Comuni.Login.Lista[#ScanUser].Livello;
+	            "Zona".Comuni.Login.UtenteAttuale.Numero := #ScanUser;
+	        END_IF;
+	    END_FOR;
+	END_IF;
+	IF "Zona".Comuni.Login.Hmi.Comandi.Logout OR"Zona".Comuni.Login.UtenteAttuale.Timeout.O THEN
+	    "Zona".Comuni.Login.UtenteAttuale.Livello := 0;
+	    "Zona".Comuni.Login.UtenteAttuale.Numero := 0;
+	END_IF;
+	
+	"Zona".Comuni.Login.UtenteAttuale.Timeout.Preset := "Zona".Comuni.Login.Lista["Zona".Comuni.Login.UtenteAttuale.Numero].TimeOut;
+	
+	"T_ON"(I_CicloCPU:="Zona".Comuni.TempoCicloCpu_r,
+	       I_StartConteggio:="Zona".Comuni.Login.UtenteAttuale.Livello > 0,
+	       IO_DatiTimer:="Zona".Comuni.Login.UtenteAttuale.Timeout);
+	
+	
+	
+END_FUNCTION
+

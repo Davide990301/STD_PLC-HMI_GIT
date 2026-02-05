@@ -1,0 +1,53 @@
+﻿FUNCTION "GestPasso_AttendiTotalizzatore" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_Portata : Int;   // Costante che indica il totalizzatore da attendere
+      K_Sequenza : Int;   // Sequenza di riferimento
+      K_Passo : Int;   // Passo in cui deve aprirsi la valvola
+      NonAttenderePosizione : Bool;   // 1 = NonAttendePosizione 0 = AttendeValvolaInPosizione
+      Preset_Metricubi : Real;
+   END_VAR
+
+   VAR_TEMP 
+      TotaleNonRaggiunto : Bool;
+      ZonaDellAnalogica : Int;
+      Nop : Bool;
+   END_VAR
+
+   VAR CONSTANT 
+      SmettiDiContare : Int := 0;
+      ResettaIlConteggio : Int := 1;
+   END_VAR
+
+
+BEGIN
+	    IF "Sequenza".S[#K_Sequenza].Out.SequenzaAvviata THEN
+	        IF "Sequenza".S[#K_Sequenza].Dati.PassoAttuale = #K_Passo THEN
+	            "Portata".P[#K_Portata].Prm.Setpoint_Parziale := #Preset_Metricubi * 1000.0;
+	            #TotaleNonRaggiunto := NOT "Portata".P[#K_Portata].Out.TotalizzatoreParzialeRaggiunto;
+	            IF #TotaleNonRaggiunto AND NOT #NonAttenderePosizione OR "Sequenza".S[#K_Sequenza].Dati.PrimoGiroPasso THEN
+	                "Sequenza".S[#K_Sequenza].Dati.TutteLeUtenzeInPosizione := False;                            //Butto giù il cumulativo 
+	                "Sequenza".S[#K_Sequenza].Hmi.Diagnostica.AttesaPortata := #K_Portata;                   //Scrivo l'analogica che sto aspettando
+	            END_IF;
+	            IF "Sequenza".S[#K_Sequenza].Dati.PrimoGiroPasso THEN
+	                "Portata".P[#K_Portata].Hmi.ResetTotalizzatoreParziale := True;
+	            END_IF;
+	        END_IF;
+	    END_IF;
+	    // REGION Riferimenti incrociati
+	    //     #ZonaDellAnalogica := "Analogica".A[#K_Analogica].Rif_Inc.K_Zona;                                    //Cerco la zona della valvola attuale
+	    //     IF "Zona".Z[#ZonaDellAnalogica].Gen.UpdatePrm THEN                                            //Se la zona della valvola è in update
+	    //         FOR #ControlloSlotLibero := 0 TO "K_NumRifIncrociatiSequenza" DO                            //Inizio a cercare uno slot libero
+	    //             IF "Valvola".V[#K_Valvola].Rif_Inc.K_Sequenza[#ControlloSlotLibero] = #K_Sequenza THEN  //Se lo slòt è uguale a me stesso
+	    //                 EXIT;                                                                               //Esco
+	    //             END_IF;
+	    //             IF "Valvola".V[#K_Valvola].Rif_Inc.K_Sequenza[#ControlloSlotLibero] = 0 THEN            //Se lo slot è libero
+	    //                 "Valvola".V[#K_Valvola].Rif_Inc.K_Sequenza[#ControlloSlotLibero] := #K_Sequenza;    //lo riempio con la mia costante
+	    //                 EXIT;                                                                               //E poi esco
+	    //             END_IF;
+	    //         END_FOR;
+	    //     END_IF;
+	    // END_REGION ;
+END_FUNCTION
+

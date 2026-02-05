@@ -1,0 +1,23 @@
+﻿FUNCTION "ArrayBoolCleaner" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      ArrayLenght : Int;
+   END_VAR
+
+   VAR_OUTPUT 
+      "Array" : Array[*] of Bool;
+   END_VAR
+
+   VAR_TEMP 
+      ActualArray : Int;
+   END_VAR
+
+
+BEGIN
+	FOR #ActualArray := 0 TO #ArrayLenght DO
+	    #Array[#ActualArray] := False;
+	END_FOR;
+	
+END_FUNCTION
+

@@ -1,0 +1,155 @@
+﻿FUNCTION "GestParatia" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_Zona : Int;   // K riferimento per ciclo della zona
+      K_Paratia : Int;   // Indicare il k della paratia
+      K_Analogica : Int;   // FEEDBACK POSIZIONE - Indicare il K dell'analogica di riferimento
+      Abilitazione : Bool;
+      SetpointAuto : Real;
+      ForzaTuttoPos : Bool;
+      ForzaTuttoNeg : Bool;
+      FinecorsaPos : Bool;
+      FinecorsaNeg : Bool;
+      BypassFinecorsa : Bool;
+   END_VAR
+
+   VAR_IN_OUT 
+      UscitaPos : Bool;
+      UscitaNeg : Bool;
+      UsctaVeloce : Bool;
+   END_VAR
+
+   VAR_TEMP 
+      AppoQuotaDaRaggiungere : Real;
+      DistanzaSetpoint : Real;
+      CounterAllarme : Int;
+      K_ZonaInt : Int;   // K riferimento per ciclo della zona
+      K_ParatiaInt : Int;   // Indicare il k della paratia
+      K_AnalogicaInt : Int;   // FEEDBACK POSIZIONE - Indicare il K dell'analogica di riferimento
+   END_VAR
+
+
+BEGIN
+	REGION Diagnostica programmatore
+	    (*Passiamo tutte le costanti di accesso agli array in modo da verificarle e controllarle*)
+	    "Diagnostica"(K_Attuale_ArrayInCuiAccediamo := #K_Analogica,
+	                  K_NumMax_MassimoValoreDellArrayInCuiAccediamo := "K_NumAnalogica",
+	                  K_Tipo_ArrayInCuiAccediamo := "K_TipoAnalogica",
+	                  K_Attuale_DiChiAccede := #K_Paratia,
+	                  K_Tipo_DiChiAccede := "K_TipoPortata",
+	                  K_AttualeInterno => #K_AnalogicaInt);
+	    
+	    "Diagnostica"(K_Attuale_ArrayInCuiAccediamo := #K_Paratia,
+	                  K_NumMax_MassimoValoreDellArrayInCuiAccediamo := "K_NumParatia",
+	                  K_Tipo_ArrayInCuiAccediamo := "K_TipoPortata",
+	                  K_Attuale_DiChiAccede := #K_Paratia,
+	                  K_Tipo_DiChiAccede := "K_TipoPortata",
+	                  K_AttualeInterno => #K_ParatiaInt);
+	    
+	    "Diagnostica"(K_Attuale_ArrayInCuiAccediamo := #K_Zona,
+	                  K_NumMax_MassimoValoreDellArrayInCuiAccediamo := "K_NumZona",
+	                  K_Tipo_ArrayInCuiAccediamo := "K_TipoComunicazione",
+	                  K_Attuale_DiChiAccede := #K_Paratia,
+	                  K_Tipo_DiChiAccede := "K_TipoPortata",
+	                  K_AttualeInterno => #K_ZonaInt);
+	END_REGION ;
+	REGION Leggo la posizione attuale della paratia
+	    "Paratia".P[#K_ParatiaInt].Dati.PosAttuale := "Analogica".A[#K_AnalogicaInt].Out.AnalogicaAttuale.Valore;
+	END_REGION
+	REGION Scelta destinazione
+	    IF #ForzaTuttoPos THEN
+	        #AppoQuotaDaRaggiungere := 100.0;
+	    ELSIF #ForzaTuttoNeg THEN
+	        #AppoQuotaDaRaggiungere := 0.0;
+	    ELSE
+	        #AppoQuotaDaRaggiungere := #SetpointAuto;
+	    END_IF;
+	END_REGION
+	REGION Scelta direzione e calcolo distanza dal setpoint
+	    IF #AppoQuotaDaRaggiungere > "Paratia".P[#K_ParatiaInt].Dati.PosAttuale THEN
+	        "Paratia".P[#K_ParatiaInt].Dati.IncrementaUscita := TRUE;
+	        #DistanzaSetpoint := #AppoQuotaDaRaggiungere - "Paratia".P[#K_ParatiaInt].Dati.PosAttuale;
+	    ELSE
+	        "Paratia".P[#K_ParatiaInt].Dati.IncrementaUscita := FALSE;
+	        #DistanzaSetpoint := "Paratia".P[#K_ParatiaInt].Dati.PosAttuale - #AppoQuotaDaRaggiungere;
+	    END_IF;
+	END_REGION
+	REGION Calcolo soglie/isteresi + memorie velocità.
+	    "Paratia".P[#K_ParatiaInt].Dati.QuotaSopraSoglia := #DistanzaSetpoint >="Paratia".P[#K_ParatiaInt].Prm.IsteresiComando;
+	    "Paratia".P[#K_ParatiaInt].Dati.QuotaSogliaVeloce := #DistanzaSetpoint >="Paratia".P[#K_ParatiaInt].Prm.SogliaAltaVelcoità;
+	
+	    IF "Zona".Z[#K_ZonaInt].Out.Auto AND "Paratia".P[#K_ParatiaInt].Dati.QuotaSopraSoglia THEN
+	        "Paratia".P[#K_ParatiaInt].Dati.MemSalitaLenta   :="Paratia".P[#K_ParatiaInt].Dati.IncrementaUscita;
+	        "Paratia".P[#K_ParatiaInt].Dati.MemSalitaVeloce  :="Paratia".P[#K_ParatiaInt].Dati.MemSalitaLenta AND "Paratia".P[#K_ParatiaInt].Dati.QuotaSogliaVeloce;
+	        "Paratia".P[#K_ParatiaInt].Dati.MemDiscesaLenta  := NOT "Paratia".P[#K_ParatiaInt].Dati.IncrementaUscita;
+	        "Paratia".P[#K_ParatiaInt].Dati.MemDiscesaVeloce :="Paratia".P[#K_ParatiaInt].Dati.MemDiscesaLenta AND "Paratia".P[#K_ParatiaInt].Dati.QuotaSogliaVeloce;
+	ELSE
+	    "Paratia".P[#K_ParatiaInt].Dati.MemSalitaLenta   := FALSE;
+	    "Paratia".P[#K_ParatiaInt].Dati.MemSalitaVeloce  := FALSE;
+	    "Paratia".P[#K_ParatiaInt].Dati.MemDiscesaLenta  := FALSE;
+	    "Paratia".P[#K_ParatiaInt].Dati.MemDiscesaVeloce := FALSE;
+	END_IF;
+	END_REGION
+	REGION Incrementa uscita
+	    #UscitaPos := FALSE;
+	    
+	    IF "Zona".Z[#K_ZonaInt].Out.Auto  AND "Paratia".P[#K_ParatiaInt].Hmi.Auto AND "Paratia".P[#K_ParatiaInt].Dati.MemSalitaLenta OR
+	        "Zona".Z[#K_ZonaInt].Out.Attivo AND "Paratia".P[#K_ParatiaInt].Hmi.Man AND "Paratia".P[#K_ParatiaInt].Hmi.PulsanteIncrementa THEN
+	        IF (#Abilitazione AND NOT #FinecorsaPos AND NOT "Analogica".A[#K_AnalogicaInt].Out.SogliaMaxi) OR #BypassFinecorsa THEN
+	            #UscitaPos := NOT #UscitaNeg AND NOT "Paratia".P[#K_ParatiaInt].Allarmi.A["KAllParatia_OvertimeMovimento"].Stato;
+	        END_IF;
+	    END_IF;
+	END_REGION
+	REGION Decrementa uscita
+	    #UscitaNeg := FALSE;
+	    
+	    IF "Zona".Z[#K_ZonaInt].Out.Auto  AND "Paratia".P[#K_ParatiaInt].Hmi.Auto AND "Paratia".P[#K_ParatiaInt].Dati.MemDiscesaLenta OR
+	        "Zona".Z[#K_ZonaInt].Out.Attivo AND "Paratia".P[#K_ParatiaInt].Hmi.Man AND "Paratia".P[#K_ParatiaInt].Hmi.PulsanteDecrementa THEN
+	        IF (#Abilitazione AND NOT #FinecorsaNeg AND NOT "Analogica".A[#K_AnalogicaInt].Out.SogliaMini) OR #BypassFinecorsa THEN
+	            #UscitaNeg := NOT #UscitaPos AND NOT "Paratia".P[#K_ParatiaInt].Allarmi.A["KAllParatia_OvertimeMovimento"].Stato;
+	        END_IF;
+	    END_IF;
+	END_REGION
+	REGION Comanda uscita veloce
+	    #UsctaVeloce := (#UscitaPos AND "Paratia".P[#K_ParatiaInt].Dati.MemSalitaVeloce) OR (#UscitaNeg AND "Paratia".P[#K_ParatiaInt].Dati.MemDiscesaVeloce);
+	END_REGION
+	REGION Tempo rilevamento overtime movimento  
+	    IF #UscitaPos THEN
+	        "Paratia".P[#K_ParatiaInt].Dati.SpostamentoAttuale := "Paratia".P[#K_ParatiaInt].Dati.PosAttuale - "Paratia".P[#K_ParatiaInt].Dati.SpostamentoAttuale;
+	    ELSIF #UscitaNeg THEN
+	        "Paratia".P[#K_ParatiaInt].Dati.SpostamentoAttuale := "Paratia".P[#K_ParatiaInt].Dati.SpostamentoAttuale - "Paratia".P[#K_ParatiaInt].Dati.PosAttuale;
+	    END_IF;
+	    
+	    IF #UscitaPos OR #UscitaNeg THEN
+	        "Paratia".P[#K_ParatiaInt].Dati.SpostatmentoTot += "Paratia".P[#K_ParatiaInt].Dati.SpostamentoAttuale;
+	        "T_ON"(I_CicloCPU := "Zona".Comuni.TempoCicloCpu_r,
+	               I_StartConteggio := NOT "Paratia".P[#K_ParatiaInt].Allarmi.TimerRitMov.O,
+	               IO_DatiTimer := "Paratia".P[#K_ParatiaInt].Allarmi.TimerRitMov);
+	    END_IF;
+	END_REGION
+	REGION Rilevamento overtime movimento 
+	    IF "Paratia".P[#K_ParatiaInt].Allarmi.TimerRitMov.O THEN
+	        IF "Paratia".P[#K_ParatiaInt].Dati.SpostatmentoTot <"Paratia".P[#K_ParatiaInt].Allarmi.PresetSoglie.MinimoSpostamento THEN
+	            "Paratia".P[#K_ParatiaInt].Allarmi.A["KAllParatia_OvertimeMovimento"].Stato := True;
+	        ELSIF "Zona".Z[#K_ZonaInt].Gen.Reset THEN
+	            "Paratia".P[#K_ParatiaInt].Allarmi.A["KAllParatia_OvertimeMovimento"].Stato := False;
+	        END_IF;
+	        "Paratia".P[#K_ParatiaInt].Dati.SpostatmentoTot := 0.0;
+	    END_IF;
+	END_REGION
+	REGION Scrittura Word allarmi HMI        
+	    FOR #CounterAllarme := 1 TO "K_NumAllarmiPerParatie" DO
+	        "GestAllarme_Std"(GestioneSirena := True,
+	                          Allarme := "Paratia".P[#K_ParatiaInt].Allarmi.A[#CounterAllarme],
+	                          NumAllarme := #CounterAllarme,
+	                          K_Zona := #K_ZonaInt,
+	                          WordHmi := "Paratia".P[#K_ParatiaInt].Allarmi.WordHMI);
+	    END_FOR;
+	END_REGION ;
+	REGION Scrittura K
+	    "Analogica".A[#K_AnalogicaInt].Rif_Inc.K_Paratia := #K_ParatiaInt;
+	    "Paratia".P[#K_ParatiaInt].Rif_Inc.K_AnalogicaPosAttuale := #K_AnalogicaInt;
+	END_REGION
+END_FUNCTION
+

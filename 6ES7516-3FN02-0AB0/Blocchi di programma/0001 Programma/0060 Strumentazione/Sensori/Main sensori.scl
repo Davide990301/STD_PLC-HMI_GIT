@@ -1,0 +1,36 @@
+﻿FUNCTION "Main sensori" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_Sensore : Int;
+      K_Zona : Int;
+   END_VAR
+
+   VAR_TEMP 
+      K_SensoreInt : Int;
+      K_ZonaInt : Int;
+   END_VAR
+
+
+BEGIN
+	REGION Diagnostica programmatore
+	    (*Passiamo tutte le costanti di accesso agli array in modo da verificarle e controllarle*)
+	    "Diagnostica"(K_Attuale_ArrayInCuiAccediamo := #K_Sensore,
+	                  K_NumMax_MassimoValoreDellArrayInCuiAccediamo := "K_NumSensore",
+	                  K_Tipo_ArrayInCuiAccediamo := "K_TipoSensore",
+	                  K_Attuale_DiChiAccede := #K_Sensore,
+	                  K_Tipo_DiChiAccede := "K_TipoSensore",
+	                  K_AttualeInterno => #K_SensoreInt);
+	    
+	    "Diagnostica"(K_Attuale_ArrayInCuiAccediamo := #K_Zona,
+	                  K_NumMax_MassimoValoreDellArrayInCuiAccediamo := "K_NumZona",
+	                  K_Tipo_ArrayInCuiAccediamo := "K_TipoComunicazione",
+	                  K_Attuale_DiChiAccede := #K_Sensore,
+	                  K_Tipo_DiChiAccede := "K_TipoSensore",
+	                  K_AttualeInterno => #K_ZonaInt);
+	END_REGION;
+	REGION Unità di misura
+	    "GestUnitàMisura"("Sensore".S[#K_SensoreInt].Prm.UnitàMisura);
+	END_REGION ;
+END_FUNCTION
+

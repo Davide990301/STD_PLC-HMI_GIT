@@ -1,0 +1,76 @@
+﻿FUNCTION "GestPasso_CmdValvolaFlipFlop" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_Valvola : Int;   // Costante che indica la valvola da comandare
+      NumeroCicli : Int;
+      TempoPositivo : Real;
+      TempoNegativo : Real;
+      ComandoARiposo : Int;
+      K_Sequenza : Int;   // Sequenza di riferimento
+      K_Passo : Int;   // Passo in cui deve aprirsi la valvola
+   END_VAR
+
+   VAR_TEMP 
+      Comando : Int;
+   END_VAR
+
+   VAR CONSTANT 
+      Positivo : Int := 2;
+      Negativo : Int := 3;
+      FolleScarico : Int := 4;
+      FlipFlop : Int := 5;
+   END_VAR
+
+
+BEGIN
+	    IF "Sequenza".S[#K_Sequenza].Out.SequenzaAvviata THEN
+	        REGION Comando della valvola
+	            REGION Gestione de passo
+	                "GestPasso_CmdValvola"(K_Valvola := #K_Valvola,
+	                                       Comando := #FlipFlop,
+	                                       K_Sequenza := #K_Sequenza,
+	                                       K_Passo := #K_Passo,
+	                                       NonAttenderePosizione := False);
+	                
+	                //Passo il parametro solo se sono nel passo corretto
+	                IF "Sequenza".S[#K_Sequenza].Dati.PassoAttuale = #K_Passo THEN
+	                    "Valvola".V[#K_Valvola].Prm.RitFlop.Preset := #TempoPositivo;
+	                    "Valvola".V[#K_Valvola].Prm.RitFlip.Preset := #TempoNegativo;
+	                    "Valvola".V[#K_Valvola].Dati.FlipFlop.NumeroFlip.Preset := #NumeroCicli;
+	                END_IF;
+	                //Condizione di una valvola modulante
+	                IF "Valvola".V[#K_Valvola].Prm.K_TipoValvola = "K_TipoValvola_Modulante" THEN
+	                    "Valvola".V[#K_Valvola].In.RichiestaPressionePos := "Valvola".V[#K_Valvola].In.RichiestaPortataPos := 100.0;
+	                END_IF;
+	            END_REGION ;
+	            REGION Durante il ciclo
+	                IF "Valvola".V[#K_Valvola].In.RichiestaAutoFlipFlop THEN
+	                    IF "Valvola".V[#K_Valvola].Dati.FlipFlop.NumeroFlip.Actual <= "Valvola".V[#K_Valvola].Dati.FlipFlop.NumeroFlip.Preset THEN
+	                        "Valvola".V[#K_Valvola].In.RichiestaAutoPos := NOT "Valvola".V[#K_Valvola].Dati.FlipFlop.CmdFlip;
+	                        "Valvola".V[#K_Valvola].In.RichiestaAutoNeg := "Valvola".V[#K_Valvola].Dati.FlipFlop.CmdFlip;
+	                    END_IF;
+	                END_IF;
+	            END_REGION ;
+	            REGION Fuori ciclo
+	                IF "Valvola".V[#K_Valvola].Dati.FlipFlop.NumeroFlip.Actual > "Valvola".V[#K_Valvola].Dati.FlipFlop.NumeroFlip.Preset THEN
+	                    IF #ComandoARiposo = #Positivo THEN
+	                        "Valvola".V[#K_Valvola].In.RichiestaAutoPos := True;
+	                    ELSIF #ComandoARiposo = #Negativo THEN
+	                        "Valvola".V[#K_Valvola].In.RichiestaAutoNeg := True;
+	                    END_IF;
+	                END_IF;
+	            END_REGION ;
+	        END_REGION ;
+	        REGION Conteggio del numero di cicli eseguito
+	            IF "Sequenza".S[#K_Sequenza].Dati.ResettaTuttiFlipFlop THEN
+	                "Valvola".V[#K_Valvola].Dati.FlipFlop.NumeroFlip.Actual := 0;
+	            END_IF;
+	            IF NOT "Valvola".V[#K_Valvola].Dati.FlipFlop.MemoFlip AND "Valvola".V[#K_Valvola].Dati.FlipFlop.CmdFlip THEN
+	                "Valvola".V[#K_Valvola].Dati.FlipFlop.NumeroFlip.Actual += 1;
+	            END_IF;
+	            "Valvola".V[#K_Valvola].Dati.FlipFlop.MemoFlip := "Valvola".V[#K_Valvola].Dati.FlipFlop.CmdFlip;
+	        END_REGION ;
+	    END_IF;
+END_FUNCTION
+

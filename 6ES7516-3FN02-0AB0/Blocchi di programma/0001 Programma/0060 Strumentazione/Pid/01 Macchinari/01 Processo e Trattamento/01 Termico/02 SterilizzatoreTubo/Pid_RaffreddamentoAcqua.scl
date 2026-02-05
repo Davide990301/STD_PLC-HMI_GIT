@@ -1,0 +1,20 @@
+﻿FUNCTION "Pid_RaffreddamentoAcqua" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	REGION Raffreddamento acqua
+	    REGION Gestione
+	        "GestPid"(K_Zona := "K_Zona_Sterilizzatore",
+	                  K_Pid := "K_Pid_RaffreddamentoAcqua",
+	                  K_Analogica := "K_Analogica_TemperaturaUscitaRaffredatoreProcesso",
+	                  OggettoTecnologicoPID := "Pid_Sterilizzatore_RaffreddamentoAcqua");
+	    END_REGION ;
+	    REGION Uscite
+	        "GestPid_Comando1Valvola"(K_Valvola := "K_Valvola_D1",
+	                                  K_Pid := "K_Pid_RaffreddamentoAcqua",
+	                                  K_TipoOutValvola := "K_TipoOutValvola_Portata");
+	    END_REGION ;
+	END_REGION ;
+END_FUNCTION
+

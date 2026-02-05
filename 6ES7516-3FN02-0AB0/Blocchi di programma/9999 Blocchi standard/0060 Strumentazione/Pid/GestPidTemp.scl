@@ -1,0 +1,380 @@
+﻿FUNCTION "GestPidTemp" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_Zona : Int;   // Passare la costante che indica la zona in cui lavora il pid
+      K_Pid : Int;   // Passare la costante che indica il numero del PID
+      K_Analogica : Int;   // Passare la costante che indica il numero del PID
+   END_VAR
+
+   VAR_IN_OUT 
+      OggettoTecnologicoPID {InstructionName := 'PID_Temp'; LibVersion := '1.1'} : PID_Temp;   // Appogiare la DB del PID dell'oggetto tecnologico
+   END_VAR
+
+   VAR_TEMP 
+      PID_LMN_REAL : Real;
+      OffsetIncontroTraPosNegUtente : Real;
+      AperturaRichiesta1 : Real;
+      AperturaRichiesta2 : Real;
+      CounterAllarme : Int;
+      K_ZonaInt : Int;
+      K_PidInt : Int;
+      K_AnalogicaInt : Int;
+      UtenzaInUscitaInStop : Bool;
+      RichiestaHmiResetComponenti : Bool;
+      CicloAutomatico : Bool;
+      ForzaManuale : Bool;
+      StatoUscitaPid : Real;
+   END_VAR
+
+   VAR CONSTANT 
+      ModeAutomatico : Int := 3;
+   END_VAR
+
+
+BEGIN
+	// REGION Diagnostica programmatore
+	//     (*Passiamo tutte le costanti di accesso agli array in modo da verificarle e controllarle*)
+	//     "Diagnostica"(K_Attuale_ArrayInCuiAccediamo := #K_Analogica,
+	//                   K_NumMax_MassimoValoreDellArrayInCuiAccediamo := "K_NumAnalogica",
+	//                   K_Tipo_ArrayInCuiAccediamo := "K_TipoAnalogica",
+	//                   K_Attuale_DiChiAccede := #K_Pid,
+	//                   K_Tipo_DiChiAccede := "K_TipoPid",
+	//                   K_AttualeInterno => #K_AnalogicaInt);
+	    
+	//     "Diagnostica"(K_Attuale_ArrayInCuiAccediamo := "Pid".P[#K_PidInt].In.K_Analogica_Uscita,
+	//                   K_NumMax_MassimoValoreDellArrayInCuiAccediamo := "K_NumAnalogica",
+	//                   K_Tipo_ArrayInCuiAccediamo := "K_TipoAnalogica",
+	//                   K_Attuale_DiChiAccede := #K_Pid,
+	//                   K_Tipo_DiChiAccede := "K_TipoPid",
+	//                   K_AttualeInterno => "Pid".P[#K_PidInt].In.K_Analogica_Uscita);
+	    
+	//     "Diagnostica"(K_Attuale_ArrayInCuiAccediamo := #K_Zona,
+	//                   K_NumMax_MassimoValoreDellArrayInCuiAccediamo := "K_NumZona",
+	//                   K_Tipo_ArrayInCuiAccediamo := "K_TipoZona",
+	//                   K_Attuale_DiChiAccede := #K_Pid,
+	//                   K_Tipo_DiChiAccede := "K_TipoPid",
+	//                   K_AttualeInterno => #K_ZonaInt);
+	    
+	//     "Diagnostica"(K_Attuale_ArrayInCuiAccediamo := #K_Pid,
+	//                   K_NumMax_MassimoValoreDellArrayInCuiAccediamo := "K_NumPid",
+	//                   K_Tipo_ArrayInCuiAccediamo := "K_TipoPid",
+	//                   K_Attuale_DiChiAccede := #K_Pid,
+	//                   K_Tipo_DiChiAccede := "K_TipoPid",
+	//                   K_AttualeInterno => #K_PidInt);
+	    
+	//     "Diagnostica"(K_Attuale_ArrayInCuiAccediamo := "Pid".P[#K_PidInt].In.K_Valvola1,
+	//                   K_NumMax_MassimoValoreDellArrayInCuiAccediamo := "K_NumValvola",
+	//                   K_Tipo_ArrayInCuiAccediamo := "K_TipoSezionePastorizzatore",
+	//                   K_Attuale_DiChiAccede := #K_Pid,
+	//                   K_Tipo_DiChiAccede := "K_TipoPid",
+	//                   K_AttualeInterno => "Pid".P[#K_PidInt].In.K_Valvola1);
+	    
+	//     "Diagnostica"(K_Attuale_ArrayInCuiAccediamo := "Pid".P[#K_PidInt].In.K_Valvola2,
+	//                   K_NumMax_MassimoValoreDellArrayInCuiAccediamo := "K_NumValvola",
+	//                   K_Tipo_ArrayInCuiAccediamo := "K_TipoSezionePastorizzatore",
+	//                   K_Attuale_DiChiAccede := #K_Pid,
+	//                   K_Tipo_DiChiAccede := "K_TipoPid",
+	//                   K_AttualeInterno => "Pid".P[#K_PidInt].In.K_Valvola2);
+	    
+	//     "Diagnostica"(K_Attuale_ArrayInCuiAccediamo := "Pid".P[#K_PidInt].In.K_Motore1,
+	//                   K_NumMax_MassimoValoreDellArrayInCuiAccediamo := "K_NumMotore",
+	//                   K_Tipo_ArrayInCuiAccediamo := "K_TipoMotore",
+	//                   K_Attuale_DiChiAccede := #K_Pid,
+	//                   K_Tipo_DiChiAccede := "K_TipoPid",
+	//                   K_AttualeInterno => "Pid".P[#K_PidInt].In.K_Motore1);
+	    
+	//     "Diagnostica"(K_Attuale_ArrayInCuiAccediamo := "Pid".P[#K_PidInt].In.K_Motore2,
+	//                   K_NumMax_MassimoValoreDellArrayInCuiAccediamo := "K_NumMotore",
+	//                   K_Tipo_ArrayInCuiAccediamo := "K_TipoMotore",
+	//                   K_Attuale_DiChiAccede := #K_Pid,
+	//                   K_Tipo_DiChiAccede := "K_TipoPid",
+	//                   K_AttualeInterno => "Pid".P[#K_PidInt].In.K_Motore2);
+	// END_REGION ;
+	// REGION Condizioni di PID in manuale
+	//     #CicloAutomatico := "Pid".P[#K_PidInt].Hmi.Auto AND "Zona".Z[#K_ZonaInt].Out.Auto;                                      //Sono il ciclo automatico se ho la zona e popup ok
+	//     #ForzaManuale := "Zona".Z[#K_ZonaInt].Out.Auto AND ("Pid".P[#K_PidInt].In.ChiudiPid OR "Pid".P[#K_PidInt].In.ApriPid);  //Forzo il manuale per aprire o chiudere
+	//     #OggettoTecnologicoPID.ManualEnable := NOT #CicloAutomatico OR #ForzaManuale;                                           //Passo lo stato nel oggetto tecncologico 
+	//     #OggettoTecnologicoPID.Mode := #ModeAutomatico;
+	// END_REGION ;
+	// REGION Unità di misura
+	//     "GestUnitàMisura"("Pid".P[#K_PidInt].Prm.UnitàMisura);                                                                  //Gestione dell'unità di misura, scalature codice etc.
+	// END_REGION ;
+	// REGION Set valore di apertura del pid in manuale
+	//     IF #OggettoTecnologicoPID.ManualEnable THEN                                                                             //Se ho il pid in manuale
+	//         IF "Pid".P[#K_PidInt].Hmi.Man THEN                                                                                  //ed è stato richiesto da Hmi
+	//             #OggettoTecnologicoPID.ManualValue := "Pid".P[#K_PidInt].Hmi.AperturaManReq;                                    //lo comando al valore richiesto da Hmi
+	//         ELSIF "Pid".P[#K_PidInt].In.ApriPid THEN                                                                            //altrimenti se ho la forzatura di apertura
+	//             #OggettoTecnologicoPID.ManualValue := "Pid".P[#K_PidInt].In."%ApriPid";                                         //lo comando al valore di forzatura richiesto
+	//         ELSE                                                                                                                //se nessuna delle precedenti
+	//             #OggettoTecnologicoPID.ManualValue := 0.0;                                                                      //lo forzo a zero
+	//         END_IF;                                                                                                             //  
+	//     END_IF;                                                                                                                 //
+	// END_REGION                                                                                                                  //
+	// REGION Inizializzazione componenti (Integrale e derivata)
+	//     #RichiestaHmiResetComponenti := "Pid".P[#K_PidInt].Prm.EnResettaComponenti AND "Pid".P[#K_PidInt].Hmi.ReinizzializzaComponenti;
+	//     #OggettoTecnologicoPID.Reset := #RichiestaHmiResetComponenti OR "Pid".P[#K_PidInt].Dati.ReinizializzaComponenti;
+	//     "Pid".P[#K_PidInt].Dati.ReinizializzaComponenti := False;
+	// END_REGION
+	// REGION Passaggio parametri ad HMI
+	//     "Pid".P[#K_PidInt].Hmi.ValoreIntegraleAttuale := 0.0;//#OggettoTecnologicoPID.LMN_I;
+	//     "Pid".P[#K_PidInt].Hmi.ValoreDerivataAttuale := 0.0;//#OggettoTecnologicoPID.LMN_D;
+	//     "Pid".P[#K_PidInt].Hmi.AttualeRifAnalog := #OggettoTecnologicoPID.Input;
+	//     "Pid".P[#K_PidInt].Hmi.Erorre := #OggettoTecnologicoPID.Input - #OggettoTecnologicoPID.Setpoint;
+	//     "Pid".P[#K_PidInt].Hmi.Stop := NOT "Pid".P[#K_PidInt].Hmi.Auto AND NOT "Pid".P[#K_PidInt].Hmi.Man;
+	//     "Pid".P[#K_PidInt].Hmi.StatoUscitaPID := #StatoUscitaPid := #OggettoTecnologicoPID.Output;
+	// END_REGION ;
+	// REGION Passaggio parametri ad oggetto tecnologico
+	//     #OggettoTecnologicoPID.Config.ActivateCooling := "Pid".P[#K_PidInt].Hmi.InversionePid;
+	//     IF NOT "Pid".P[#K_PidInt].Hmi.AvviaAutoTuning THEN
+	//         #OggettoTecnologicoPID. := "Pid".P[#K_PidInt].Hmi.Sp_Kp;
+	//         #OggettoTecnologicoPID.Retain.CtrlParams.Ti := "Pid".P[#K_PidInt].Hmi.Sp_Ki;
+	//         #OggettoTecnologicoPID.Retain.CtrlParams.Td := "Pid".P[#K_PidInt].Hmi.Sp_Kd;
+	//         #OggettoTecnologicoPID.Setpoint := "Pid".P[#K_PidInt].Hmi.SetpointPID;
+	//     ELSE
+	//         "Pid".P[#K_PidInt].Hmi.Sp_Kp := #OggettoTecnologicoPID.Retain.CtrlParams.Gain;
+	//         "Pid".P[#K_PidInt].Hmi.Sp_Ki := #OggettoTecnologicoPID.Retain.CtrlParams.Ti;
+	//         "Pid".P[#K_PidInt].Hmi.Sp_Kd := #OggettoTecnologicoPID.Retain.CtrlParams.Td ;
+	//     //     #OggettoTecnologicoPID.PIDSelfTune.SUT.CalculateParams := False;                    //Se true ricalcola dai valori di avvio, False riparte dai valori attuali
+	//     //     #OggettoTecnologicoPID.PIDSelfTune.SUT.TuneRule := 0;                               //0 signfica che è un PID, 1 significa che è un PI
+	//     //     #OggettoTecnologicoPID.PIDSelfTune.TIR.TuneRule := 0;
+	//     END_IF;
+	//     // CASE "Analogica".A[#K_AnalogicaInt].Prm.UnitàMisura.Out.UmCode OF
+	//     //     "Um_Codice_Bar":
+	//     //         #OggettoTecnologicoPID.PhysicalUnit := "Pid_PhysicalQuantity_Pressione";
+	//     //     ELSE
+	//     //         #OggettoTecnologicoPID.PhysicalUnit := "Pid_PhysicalQuantity_Percentuale";
+	//     // END_CASE;
+	// END_REGION ;
+	// REGION Logica di forzatura a zero degli allarmi (esclusione) 
+	//     "Pid".P[#K_PidInt].Allarmi.PresetSoglie.Forza_Allarmi := "Pid".P[#K_PidInt].In.EsclusioneAllarmi OR #OggettoTecnologicoPID.ManualEnable;
+	// END_REGION
+	// REGION Allarmi discostamento eccessivo dell'attuale dal setpoint
+	//     //Calcolo soglie di allarme basate sulla distanza dal setpoint
+	//     "Pid".P[#K_PidInt].Allarmi.PresetSoglie.Min_Allarme_Calcolato := #OggettoTecnologicoPID.Setpoint - "Pid".P[#K_PidInt].Allarmi.PresetSoglie.Offset_Min;
+	//     "Pid".P[#K_PidInt].Allarmi.PresetSoglie.Max_Allarme_Calcolato := #OggettoTecnologicoPID.Setpoint + "Pid".P[#K_PidInt].Allarmi.PresetSoglie.Offset_Max;
+	    
+	//     //ALLARME SUPERAMENTO SOGLIA MASSIMA IMPOSTATA
+	//     IF #OggettoTecnologicoPID.Input > "Pid".P[#K_PidInt].Allarmi.PresetSoglie.Max_Allarme_Calcolato THEN
+	//         "Pid".P[#K_PidInt].Allarmi.A["KAllPid_Min_SetPoint"].Stato := True;
+	//     END_IF;
+	//     IF #OggettoTecnologicoPID.Input <= "Pid".P[#K_PidInt].Allarmi.PresetSoglie.Max_Allarme_Calcolato - 1.0 OR "Pid".P[#K_PidInt].Allarmi.PresetSoglie.Forza_Allarmi THEN
+	//         "Pid".P[#K_PidInt].Allarmi.A["KAllPid_Max_SetPoint"].Stato := False;
+	//     END_IF;
+	    
+	//     //ALLARME SUPERAMENTO SOGLIA MINIMA IMPOSTATA
+	//     IF #OggettoTecnologicoPID.Input < "Pid".P[#K_PidInt].Allarmi.PresetSoglie.Min_Allarme_Calcolato THEN
+	//         "Pid".P[#K_PidInt].Allarmi.A["KAllPid_Min_SetPoint"].Stato := True;
+	//     END_IF;
+	//     IF #OggettoTecnologicoPID.Input >= "Pid".P[#K_PidInt].Allarmi.PresetSoglie.Min_Allarme_Calcolato + 1.0 OR "Pid".P[#K_PidInt].Allarmi.PresetSoglie.Forza_Allarmi THEN
+	//         "Pid".P[#K_PidInt].Allarmi.A["KAllPid_Min_SetPoint"].Stato := False;
+	//     END_IF;
+	    
+	// END_REGION
+	// REGION Timeout: Troppo tempo in allarme   
+	//     "T_ON"(I_CicloCPU := "Zona".Comuni.TempoCicloCpu_r,
+	//            I_StartConteggio := "Pid".P[#K_PidInt].Allarmi.A["KAllPid_Max_SetPoint"].Stato OR "Pid".P[#K_PidInt].Allarmi.A["KAllPid_Min_SetPoint"].Stato,
+	//            IO_DatiTimer := "Pid".P[#K_PidInt].Allarmi.Timer);
+	    
+	//     IF "Pid".P[#K_PidInt].Allarmi.Timer.O THEN
+	//         "Pid".P[#K_PidInt].Allarmi.A["KAllPid_Troppo_Tempo_Allarme"].Stato := True;
+	//     ELSIF "Zona".Z[#K_ZonaInt].Gen.Reset THEN
+	//         "Pid".P[#K_PidInt].Allarmi.A["KAllPid_Troppo_Tempo_Allarme"].Stato := False;
+	//     END_IF;
+	//     #OggettoTecnologicoPID.Reset := "Zona".Z[#K_ZonaInt].Gen.Reset;
+	// END_REGION
+	// REGION Scrittura della WORD puntata ad HMI per visualizzare nella lista segnalazioni gli allarmi PID
+	//     FOR #CounterAllarme := 1 TO "K_NumAllarmiPerPid" DO
+	//         "GestAllarme_Std"(GestioneSirena := False,
+	//                           Allarme := "Pid".P[#K_PidInt].Allarmi.A[#CounterAllarme],
+	//                           NumAllarme := #CounterAllarme,
+	//                           K_Zona := #K_ZonaInt,
+	//                           WordHmi := "Pid".P[#K_PidInt].Allarmi.WordHMI);
+	//     END_FOR;
+	// END_REGION
+	// REGION Caduta ciclo automatico della zona di riferimento   
+	//     FOR #CounterAllarme := 1 TO "K_NumAllarmiPerPid" DO
+	//         "GestSlotAllarmeUtenze"(K_NumAllarme:=#CounterAllarme,
+	//                                 Allarme := "Pid".P[#K_PidInt].Allarmi.A[#CounterAllarme],
+	//                                 K_Zona := #K_ZonaInt,
+	//                                 K_Indice := #K_PidInt,
+	//                                 K_Tipo := "K_TipoPid");
+	//     END_FOR;
+	// END_REGION
+	// REGION Diagnostica POPUP PID
+	//     "Pid".P[#K_PidInt].Hmi.Diagnostica."0-PIDForzatoChiusoDaPlc" := #OggettoTecnologicoPID.ManualEnable AND "Pid".P[#K_PidInt].In.ChiudiPid;
+	//     "Pid".P[#K_PidInt].Hmi.Diagnostica."1-PIDForzatoApertoDaPlc" := #OggettoTecnologicoPID.ManualEnable AND "Pid".P[#K_PidInt].In.ApriPid;
+	//     "Pid".P[#K_PidInt].Hmi.Diagnostica."2-PidChiusoCausaCicloAutomatico" := NOT "Zona".Z[#K_ZonaInt].Out.Auto;
+	//     "Pid".P[#K_PidInt].Hmi.Diagnostica."3-AllarmiPidEsclusi" := "Pid".P[#K_PidInt].In.EsclusioneAllarmi;
+	//     "Pid".P[#K_PidInt].Hmi.Diagnostica."4-ResetIntegraleInCorso" := "Pid".P[#K_PidInt].Prm.EnResettaComponenti AND "Pid".P[#K_PidInt].Hmi.ReinizzializzaComponenti;
+	//     "Pid".P[#K_PidInt].Hmi.Diagnostica."5-SuperamentoMassimoSp" := "Pid".P[#K_PidInt].Allarmi.A["KAllPid_Max_SetPoint"].Stato AND NOT "Pid".P[#K_PidInt].Hmi.Diagnostica."3-AllarmiPidEsclusi";
+	//     "Pid".P[#K_PidInt].Hmi.Diagnostica."6-SuperamentoMinimoSp" := "Pid".P[#K_PidInt].Allarmi.A["KAllPid_Min_SetPoint"].Stato AND NOT "Pid".P[#K_PidInt].Hmi.Diagnostica."3-AllarmiPidEsclusi";
+	//     "Pid".P[#K_PidInt].Hmi.Diagnostica."7-TroppoTempoFuoriSetpoint" := "Pid".P[#K_PidInt].Allarmi.A["KAllPid_Troppo_Tempo_Allarme"].Stato AND NOT "Pid".P[#K_PidInt].Hmi.Diagnostica."3-AllarmiPidEsclusi";
+	// END_REGION
+	// REGION Comunicazione tra oggetto tecnologico PID e nostra gestione
+	//     #OggettoTecnologicoPID.Config.InputLowerLimit := "Analogica".A[#K_AnalogicaInt].Scalatura.OutMin;
+	//     #OggettoTecnologicoPID.Config.InputUpperLimit := "Analogica".A[#K_AnalogicaInt].Scalatura.OutMax;
+	//     #OggettoTecnologicoPID.Input := "Analogica".A[#K_AnalogicaInt].Out.AnalogicaAttuale.Valore;                  //Passo al pid l'attuale valore dell'analogica da mantenere.
+	//     "Pid".P[#K_PidInt].Prm.UnitàMisura.In.UmCode := "Analogica".A[#K_AnalogicaInt].Prm.UnitàMisura.Out.UmCode;   //Per visualizzare sul popup del PID l'unità di misura corretta lo passo dall'analogica.
+	    
+	//     "Pid".P[#K_PidInt].Hmi.Diagnostica."8-LimiteMinimaUscitaPIDRichiestaPlc" := FALSE;                       //Pulisco il valore prima di scriverlo successivamente
+	//     "Pid".P[#K_PidInt].Hmi.Diagnostica."9-LimiteMassimaUscitaPIDRichiestaPlc" := FALSE;                       //Pulisco il valore prima di scriverlo successivamente
+	    
+	//     IF #OggettoTecnologicoPID.ManualEnable THEN                                                                           //Se ci troviamo in comando manuale oppure se ci troviamo in forzatura
+	//         #OggettoTecnologicoPID.Config.OutputLowerLimit := 0.0;                                                                      //L'uscita del PID può chiudere fino a ZERO
+	//         #OggettoTecnologicoPID.Config.OutputUpperLimit := 100.0;                                                                    //e aprire fino al 100.0
+	//     ELSE                                                                                                            //altrimenti se non sono in manuale imposto che il PID prende:
+	//         #OggettoTecnologicoPID.Config.OutputLowerLimit := "Pid".P[#K_PidInt].Prm.MinOut;                                        //la minima apertura impostata a pannello 
+	//         #OggettoTecnologicoPID.Config.OutputUpperLimit := "Pid".P[#K_PidInt].Prm.MaxOut;                                        //la massima apertura impostata a pannello 
+	//         IF "Pid".P[#K_PidInt].In.EnLimitaMinUscita AND "Pid".P[#K_PidInt].In.LimitaMinUscita THEN                                                  //Se è stata abilita la limitazione della minima uscita ed è stata richiesta allora
+	//             #OggettoTecnologicoPID.Config.OutputLowerLimit := "Pid".P[#K_PidInt].Prm.LimitMinOut;                               //imposto che la minima apertura è quella della limitazione
+	//             "Pid".P[#K_PidInt].Hmi.Diagnostica."8-LimiteMinimaUscitaPIDRichiestaPlc" := TRUE;
+	//         END_IF;
+	//         IF "Pid".P[#K_PidInt].In.EnLimitaMaxUscita AND "Pid".P[#K_PidInt].In.LimitaMaxUscita THEN                                                  //Se è stata abilita la limitazione della massima uscita ed è stata richiesta allora
+	//             #OggettoTecnologicoPID.Config.Output.Heat. := "Pid".P[#K_PidInt].Prm.LimitMaxOut;                               //imposto che la massima apertura è quella della limitazione
+	//             "Pid".P[#K_PidInt].Hmi.Diagnostica."9-LimiteMassimaUscitaPIDRichiestaPlc" := TRUE;
+	//         END_IF;
+	//     END_IF;
+	//     #OggettoTecnologicoPID.SubstituteOutput := 0.0;
+	//     "Pid".P[#K_PidInt].Hmi.VisualizzazioniHMI.LimiteMinimaUscita := "Pid".P[#K_PidInt].In.EnLimitaMinUscita;                   //Accendo ad HMI la soglia per impostare il limite minimo
+	//     "Pid".P[#K_PidInt].Hmi.VisualizzazioniHMI.LimiteMassimaUscita := "Pid".P[#K_PidInt].In.EnLimitaMaxUscita;                  //Accendo ad HMI la soglia per impostare il limite massimo
+	// END_REGION
+	// REGION Scrittura uscite PID
+	//     IF riscaldamento THEN
+	//         "Pid".P[#K_PidInt].Out.Paw := #OggettoTecnologicoPID.OutputHeat_PER;
+	//     ELSE
+	//         "Pid".P[#K_PidInt].Out.Paw := #OggettoTecnologicoPID.OutputCool_PER;
+	//     END_IF;
+	//     #PID_LMN_REAL := #StatoUscitaPid * 100.0;
+	//     "Pid".P[#K_PidInt].Out.VelRichiestaMotore := REAL_TO_INT(#PID_LMN_REAL);
+	//     #UtenzaInUscitaInStop := False;
+	//     //Comando uscite quando sono uguali tra loro
+	//     IF "Pid".P[#K_PidInt].Prm.K_TipoAccoppiamentoUscitePid = "K_TipoAccoppiamentoUscitePid_Uguali" THEN
+	//         IF "Pid".P[#K_PidInt].In.K_Motore1 > 0 THEN
+	//             "Motore".M["Pid".P[#K_PidInt].In.K_Motore1].In.CmdVelocitaRich := #StatoUscitaPid;
+	//             IF "Pid".P[#K_PidInt].Prm.MinOut < "Motore".M["Pid".P[#K_PidInt].In.K_Motore1].Prm.Generali.MinimaFrequenza THEN
+	//                 "Pid".P[#K_PidInt].Prm.MinOut := "Motore".M["Pid".P[#K_PidInt].In.K_Motore1].Prm.Generali.MinimaFrequenza;
+	//             END_IF;
+	//             IF "Pid".P[#K_PidInt].Prm.MaxOut > "Motore".M["Pid".P[#K_PidInt].In.K_Motore1].Prm.Generali.MassimaFrequenza THEN
+	//                 "Pid".P[#K_PidInt].Prm.MaxOut := "Motore".M["Pid".P[#K_PidInt].In.K_Motore1].Prm.Generali.MassimaFrequenza;
+	//             END_IF;
+	//             IF "Pid".P[#K_PidInt].Prm.ComandaUtenzaInUscita THEN
+	//                 "Motore".M["Pid".P[#K_PidInt].In.K_Motore1].In.CmdPosRich := #PID_LMN_REAL > 1.0;
+	//             END_IF;
+	//             IF (NOT "Motore".M["Pid".P[#K_PidInt].In.K_Motore1].Hmi.StatoCmd.Auto OR NOT "Motore".M["Pid".P[#K_PidInt].In.K_Motore1].In.ConsMovimentoPos) OR
+	//                 (NOT "Pid".P[#K_PidInt].Prm.ComandaUtenzaInUscita AND NOT "Motore".M["Pid".P[#K_PidInt].In.K_Motore1].Out.CmdPosMotore)THEN
+	//                 #OggettoTecnologicoPID.ManualEnable := True;
+	//                 #OggettoTecnologicoPID.ManualValue := 0.0;
+	//                 #UtenzaInUscitaInStop := True;
+	//             END_IF;
+	//         END_IF;
+	//         // IF "Pid".P[#K_PidInt].In.K_Motore2 > 0 THEN
+	//         //     "Motore".M["Pid".P[#K_PidInt].In.K_Motore2].In.CmdVelocitaRich := #PID_LMN_REAL;
+	//         //     "Motore".M["Pid".P[#K_PidInt].In.K_Motore2].In.CmdPosRich := #PID_LMN_REAL > 1.0;
+	//         // END_IF;
+	//         IF "Pid".P[#K_PidInt].In.K_Valvola1 > 0 THEN
+	//                     //Se l'unità di misura è una pressione scrivo la locazione della pressione
+	//             IF "GestUnitàMisura_IdentificaGrandezza"(UmCode := "Pid".P[#K_PidInt].Prm.UnitàMisura.Out.UmCode) = "Um_Grandezza_Pressione" THEN
+	//                 "Valvola".V["Pid".P[#K_PidInt].In.K_Valvola1].In.RichiestaPressionePos := #StatoUscitaPid;
+	//             ELSE    //in tutti gli altri casi scrivo la portata
+	//                 "Valvola".V["Pid".P[#K_PidInt].In.K_Valvola1].In.RichiestaPortataPos := #StatoUscitaPid;
+	//             END_IF;
+	//             IF "Pid".P[#K_PidInt].Prm.ComandaUtenzaInUscita THEN
+	//                 "Valvola".V["Pid".P[#K_PidInt].In.K_Valvola1].In.RichiestaAutoPos := #StatoUscitaPid > 0.5;
+	//             END_IF;
+	//             IF (NOT "Valvola".V["Pid".P[#K_PidInt].In.K_Valvola1].Hmi.StatoCmd.Auto OR NOT "Valvola".V["Pid".P[#K_PidInt].In.K_Valvola1].In.ConsMovimentoPos)  OR
+	//                 (NOT "Pid".P[#K_PidInt].Prm.ComandaUtenzaInUscita AND NOT "Valvola".V["Pid".P[#K_PidInt].In.K_Valvola1].Out.CmdPos) THEN
+	//                 #OggettoTecnologicoPID.ManualEnable := True;
+	//                 #OggettoTecnologicoPID.ManualValue := 0.0;
+	//                 #UtenzaInUscitaInStop := True;
+	//             END_IF;
+	//         END_IF;
+	//         IF "Pid".P[#K_PidInt].In.K_Valvola2 > 0 THEN
+	//             //Se l'unità di misura è una pressione scrivo la locazione della pressione
+	//             IF "GestUnitàMisura_IdentificaGrandezza"(UmCode := "Pid".P[#K_PidInt].Prm.UnitàMisura.Out.UmCode) = "Um_Grandezza_Pressione" THEN
+	//                 "Valvola".V["Pid".P[#K_PidInt].In.K_Valvola1].In.RichiestaPressionePos := #StatoUscitaPid;
+	//             ELSE    //in tutti gli altri casi scrivo la portata
+	//                 "Valvola".V["Pid".P[#K_PidInt].In.K_Valvola1].In.RichiestaPortataPos := #StatoUscitaPid;
+	//             END_IF;
+	//             IF "Pid".P[#K_PidInt].Prm.ComandaUtenzaInUscita THEN
+	//                 "Valvola".V["Pid".P[#K_PidInt].In.K_Valvola2].In.RichiestaAutoPos := #StatoUscitaPid > 0.5;
+	//             END_IF;
+	//         END_IF;
+	//     ELSIF "Pid".P[#K_PidInt].Prm.K_TipoAccoppiamentoUscitePid = "K_TipoAccoppiamentoUscitePid_PosNeg" THEN
+	//         IF "Pid".P[#K_PidInt].In.K_Valvola1 > 0 AND "Pid".P[#K_PidInt].In.K_Valvola2 > 0 THEN
+	//             #OffsetIncontroTraPosNegUtente := 50.0;
+	//             #AperturaRichiesta1 := (#StatoUscitaPid - #OffsetIncontroTraPosNegUtente + "Pid".P[#K_PidInt].Prm.DeadbandAccoppiamentoUscite) * 2.0;
+	//             #AperturaRichiesta2 := (#OffsetIncontroTraPosNegUtente + "Pid".P[#K_PidInt].Prm.DeadbandAccoppiamentoUscite - #StatoUscitaPid) * 2.0;
+	            
+	//             IF #AperturaRichiesta1 < 0.0 THEN
+	//                 #AperturaRichiesta1 := 0.0;
+	//             END_IF;
+	//             IF #AperturaRichiesta1 > 100.0 THEN
+	//                 #AperturaRichiesta1 := 100.0;
+	//             END_IF;
+	//             IF #AperturaRichiesta2 < 0 THEN
+	//                 #AperturaRichiesta2 := 0;
+	//             END_IF;
+	//             IF #AperturaRichiesta2 > 100.0 THEN
+	//                 #AperturaRichiesta2 := 100.0;
+	//             END_IF;
+	            
+	//             "Valvola".V["Pid".P[#K_PidInt].In.K_Valvola1].In.RichiestaPortataPos := #AperturaRichiesta1;
+	//             "Valvola".V["Pid".P[#K_PidInt].In.K_Valvola2].In.RichiestaPortataPos := #AperturaRichiesta2;
+	//         END_IF;
+	//     END_IF;
+	//     //Possibilità di apoggiare l'uscita pid su un valore analogico
+	//     IF "Pid".P[#K_PidInt].In.K_Analogica_Uscita <> 0 THEN
+	//         "Analogica".A["Pid".P[#K_PidInt].In.K_Analogica_Uscita].Prm.UnitàMisura.In.UmCode := "Pid".P[#K_PidInt].Prm.UnitàMisura.Out.UmCode; //Passo unità di misura
+	//         "Analogica".A["Pid".P[#K_PidInt].In.K_Analogica_Uscita].Prm.K_TipoAnalogica := "K_TipoAnalogicaViaReteS7";                          //Utilizzo questo tipo di analogica
+	//         "Analogica".A["Pid".P[#K_PidInt].In.K_Analogica_Uscita].In.ActualValue_S7 := #StatoUscitaPid;                            //Passo uscita PID
+	//         REGION Disabilito scalatura e la imposto come da uscita PID 
+	//             "Analogica".A["Pid".P[#K_PidInt].In.K_Analogica_Uscita].Scalatura.InMin := 0.0;
+	//             "Analogica".A["Pid".P[#K_PidInt].In.K_Analogica_Uscita].Scalatura.InMax := 100.0;
+	//         END_REGION ;
+	//     END_IF;
+	//     "Pid".P[#K_PidInt].Hmi.Diagnostica."10-UtenzaInUscitaInStop" := #UtenzaInUscitaInStop;
+	// END_REGION
+	// REGION Scrittura K
+	//     //Passo alla struttura dell'analogica a cui faccio riferimento, il "K PID" in modo che da pannello sappia a cosa puntare
+	//     //Passo alla struttura del motore a cui comando il riferimento, il "K PID" in modo che da pannello sappia a cosa puntare
+	//     //Passo alla struttura della pompa a cui comando il riferimento, il "K PID" in modo che da pannello sappia a cosa puntare
+	//     "Analogica".A[#K_AnalogicaInt].Rif_Inc.K_Pid_Uscita := #K_PidInt;
+	//     "Motore".M["Pid".P[#K_PidInt].In.K_Motore1].Rif_Inc.K_Pid := #K_PidInt;
+	//     "Motore".M["Pid".P[#K_PidInt].In.K_Motore2].Rif_Inc.K_Pid := #K_PidInt;
+	//     "Analogica".A["Pid".P[#K_PidInt].In.K_Analogica_Uscita].Rif_Inc.K_Pid_Ingresso := #K_PidInt;
+	//     "Valvola".V["Pid".P[#K_PidInt].In.K_Valvola1].Rif_Inc.K_Pid := #K_PidInt;
+	//     "Valvola".V["Pid".P[#K_PidInt].In.K_Valvola2].Rif_Inc.K_Pid := #K_PidInt;
+	    
+	//     //Scrivo nella DB del PID quali sono i K che vengono richiesti fuori dal blocco.
+	//     "Pid".P[#K_PidInt].Rif_Inc.K_Analogica := #K_AnalogicaInt;
+	//     "Pid".P[#K_PidInt].Rif_Inc.K_Motore1 := "Pid".P[#K_PidInt].In.K_Motore1;
+	//     "Pid".P[#K_PidInt].Rif_Inc.K_Motore2 := "Pid".P[#K_PidInt].In.K_Motore2;
+	//     "Pid".P[#K_PidInt].Rif_Inc.K_Valvola1 := "Pid".P[#K_PidInt].In.K_Valvola1;
+	//     "Pid".P[#K_PidInt].Rif_Inc.K_Valvola2 := "Pid".P[#K_PidInt].In.K_Valvola2;
+	//     "Pid".P[#K_PidInt].Rif_Inc.K_Analogica_Uscita := "Pid".P[#K_PidInt].In.K_Analogica_Uscita;
+	//     "Pid".P[#K_PidInt].Rif_Inc.K_Zona := #K_ZonaInt;
+	// END_REGION
+	// REGION Update pid   
+	//     IF "Zona".Z[#K_ZonaInt].Gen.UpdatePrm THEN
+	//         "Pid".P[#K_PidInt].In."%ApriPid" := 0;
+	//         "Pid".P[#K_PidInt].In.ApriPid :=
+	//         "Pid".P[#K_PidInt].In.ChiudiPid :=
+	//         "Pid".P[#K_PidInt].In.EnLimitaMaxUscita :=
+	//         "Pid".P[#K_PidInt].In.LimitaMaxUscita :=
+	//         "Pid".P[#K_PidInt].In.EnLimitaMinUscita :=
+	//         "Pid".P[#K_PidInt].In.LimitaMinUscita :=
+	//         "Pid".P[#K_PidInt].In.EsclusioneAllarmi :=
+	//         "Pid".P[#K_PidInt].Prm.EnResettaComponenti := False;
+	//         "Pid".P[#K_PidInt].Rif_Inc.K_Zona :=
+	//         "Pid".P[#K_PidInt].Rif_Inc.K_Analogica :=
+	//         "Pid".P[#K_PidInt].In.K_Motore1 :=
+	//         "Pid".P[#K_PidInt].In.K_Motore2 :=
+	//         "Pid".P[#K_PidInt].In.K_Valvola1 :=
+	//         "Pid".P[#K_PidInt].In.K_Valvola2 :=
+	//         "Pid".P[#K_PidInt].In.K_Analogica_Uscita := 0;
+	//     END_IF;
+	// END_REGION
+	
+END_FUNCTION
+

@@ -1,0 +1,21 @@
+﻿FUNCTION "ScriviBitsNellaWord" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      iValue : Int;
+      iStartBit : Int;
+      iEndBit : Int;
+   END_VAR
+
+   VAR_IN_OUT 
+      wDataWord : Word;
+   END_VAR
+
+
+BEGIN
+	"FB_Write_Value_To_Word_DB"(iEndBit := #iEndBit,
+	                            iStartBit := #iStartBit,
+	                            iValue := #iValue,
+	                            wDataWord := #wDataWord);
+END_FUNCTION
+

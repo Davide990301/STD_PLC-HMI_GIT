@@ -1,0 +1,32 @@
+﻿FUNCTION "Pid_VelocitàPompaPistoni" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	REGION Pompa pistoni
+	    REGION Input
+	        "Pid".P["K_Pid_PompaPistoni"].Hmi.SetpointFF_DaPid := False;                                    //Definiamo differente il setpint del FF da quello del PID
+	        "Pid".P["K_Pid_PompaPistoni"].Hmi.SetpointFF := "Analogica".A["K_Analogica_PortataIngressoProdotto"].Out.AnalogicaAttuale.Valore;     //Il feedforward insegue la portata
+	    END_REGION ;
+	    REGION Pid in manuale
+	        //Disabilitiamo la regolazione del PID e lasciamo lavorare solo il feed-forward perchè le pressioni quando trattiamo
+	        //acqua non sono attendibili. Perciò durante la fase di svuotamento e riscicquo della produzione
+	        //oppure durante il lavaggio generale disabilitiamo la regolazione PID.
+	        "Pid".P["K_Pid_PompaPistoni"].In.ChiudiPid :=
+	        "Sequenza".S["K_Sequenza_Produzione"].Dati.PassoAttuale = "K_Passo_Svuotamento" OR
+	        "Sequenza".S["K_Sequenza_Produzione"].Dati.PassoAttuale = "K_Passo_Risciacquo" OR
+	        "Sequenza".S["K_Sequenza_Lavaggio"].Out.SequenzaAvviata;
+	    END_REGION ;
+	    REGION Gestione
+	        "GestPid"(K_Zona := "K_Zona_Sterilizzatore",
+	                  K_Pid := "K_Pid_PompaPistoni",
+	                  K_Analogica := "K_Analogica_PressioneUscitaFiltriProdotto",
+	                  OggettoTecnologicoPID := "Pid_Sterilizzatore_Pompapistoni");
+	    END_REGION ;
+	    REGION Uscite
+	        "GestPid_Comando1Motore"(K_Motore := "K_Motore_PompaPistoni",
+	                                 K_Pid := "K_Pid_PompaPistoni");
+	    END_REGION ;
+	END_REGION ;
+END_FUNCTION
+

@@ -1,0 +1,26 @@
+﻿FUNCTION "K_AnalogicaDellaDestinazioneDi" : Int
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_Stazione : Int;
+   END_VAR
+
+   VAR_TEMP 
+      "Counter" : Int;
+      K_Trovato : Int;
+   END_VAR
+
+
+BEGIN
+	FOR #Counter := 0 TO "K_NumStazione" DO
+	    IF "Percorso".Stazione[#K_Stazione].Destinazione[#Counter].IN.Attivo THEN
+	        #K_Trovato:= "Percorso".Stazione[#Counter].Rif_Inc.K_Analogica;
+	    END_IF;
+	END_FOR;
+	
+	#K_AnalogicaDellaDestinazioneDi := #K_Trovato;
+	
+	    
+	     
+END_FUNCTION
+

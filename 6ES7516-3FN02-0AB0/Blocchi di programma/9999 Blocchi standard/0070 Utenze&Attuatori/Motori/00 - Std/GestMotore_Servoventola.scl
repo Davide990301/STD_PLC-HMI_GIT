@@ -1,0 +1,19 @@
+﻿FUNCTION "GestMotore_Servoventola" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_Motore : Int;
+      TermicoScattato : Bool;
+   END_VAR
+
+   VAR_OUTPUT 
+      ComandoMarcia : Bool;
+   END_VAR
+
+
+BEGIN
+	"Motore".M[#K_Motore].Hmi.Visibilita.Servoventola := True;
+	"Motore".M[#K_Motore].In.FbDigitali.TermicoServoventilazione := #TermicoScattato;
+	#ComandoMarcia := "Motore".M[#K_Motore].Out.CmdPosServoVentola;
+END_FUNCTION
+

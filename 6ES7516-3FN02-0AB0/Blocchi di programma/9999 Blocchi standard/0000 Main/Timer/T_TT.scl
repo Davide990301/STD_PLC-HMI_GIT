@@ -1,0 +1,54 @@
+﻿FUNCTION "T_TT" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.0
+//Conta il tempo in cui un ingresso rimane alto
+   VAR_INPUT 
+      I_CicloCPU : Real;   // Ciclo Scansione CPU
+      I_StartConteggio : Bool;   // Start Conteggio
+   END_VAR
+
+   VAR_IN_OUT 
+      IO_DatiTimer : "Std_stTimer";   // Dati Timer
+   END_VAR
+
+
+BEGIN
+	REGION Descrizione
+	    (*Descrizione Azienda
+	    ------------------------------------------------------------------------------------------------
+	    Autore                 / Author                 : Davide
+	    Azienda                / Company                : Brain Electric SRL, Via Meucci 23 - Montecchio Emilia (RE) 42027 - Italia
+	    Data Primo Rilascio    / Date First Revision    : 2023-09-06
+	    Data Ultima Revisione  / Date Last Revision     : 2023-09-06
+	    Version                / Version                : V0.0
+	    ------------------------------------------------------------------------------------------------
+	    Note
+	    Misura per quanto tempo un impulso resta alto.
+	    ------------------------------------------------------------------------------------------------
+	    Storico Lavori
+	    V0.0 2023-09-06: Blocco Preparato
+	    ------------------------------------------------------------------------------------------------
+	    *)
+	END_REGION
+	
+	REGION Logica
+	    // Appoggio ingresso del blocco
+	    #IO_DatiTimer.IN := #I_StartConteggio;
+	    IF #IO_DatiTimer.IN AND #IO_DatiTimer.Preset = 0.0 THEN                 //Se il preset è a zero significa che non sto contando quindi inizio a contare
+	        #IO_DatiTimer.TempoTrascorso := 0.0;                                //Se ricomincio a contare posso resettare il vecchio tempo trascorso
+	        #IO_DatiTimer.O := FALSE;                                           //Segnalo che il tempo trascorso non è un dato attendibile
+	    END_IF;
+	    
+	    IF #IO_DatiTimer.IN AND #IO_DatiTimer.TempoTrascorso = 0.0 THEN         //Se il tempo trascorso è uguale a zero significa che non ho finito di contare.
+	        #IO_DatiTimer.Preset += #I_CicloCPU;                                //Incremento i secondi passati
+	    END_IF;
+	    
+	    IF NOT #IO_DatiTimer.IN AND #IO_DatiTimer.TempoTrascorso = 0.0 THEN     //Se ingresso basso e tempo trascorso uguale a zero significa che devo salvare il tempo passato
+	        #IO_DatiTimer.TempoTrascorso := #IO_DatiTimer.Preset;               //Salvo il tempo passato
+	        #IO_DatiTimer.Preset := 0.0;                                        //Resetto il tempo contato
+	        #IO_DatiTimer.O := TRUE;                                            //Setto che il dato è disponibili alla lettura
+	    END_IF;
+	    
+	END_REGION
+END_FUNCTION
+

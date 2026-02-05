@@ -1,0 +1,126 @@
+﻿FUNCTION "GestPortata" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_Zona : Int;
+      K_Portata : Int;
+      K_Analogica : Int;
+      K_TipoPortata : Int;
+      K_TipoTotalizzatore : Int;
+   END_VAR
+
+   VAR_TEMP 
+      K_ZonaInt : Int;
+      K_PortataInt : Int;
+      K_AnalogicaInt : Int;
+      UmCode_Abilitato : Bool;
+      SetpointParziale_Anticipato : Real;
+      MetricubiInVolo : Real;
+   END_VAR
+
+
+BEGIN
+	REGION Diagnostica programmatore
+	    (*Passiamo tutte le costanti di accesso agli array in modo da verificarle e controllarle*)
+	    "Diagnostica"(K_Attuale_ArrayInCuiAccediamo := #K_Analogica,
+	                  K_NumMax_MassimoValoreDellArrayInCuiAccediamo := "K_NumAnalogica",
+	                  K_Tipo_ArrayInCuiAccediamo := "K_TipoAnalogica",
+	                  K_Attuale_DiChiAccede := #K_Portata,
+	                  K_Tipo_DiChiAccede := "K_TipoParatia",
+	                  K_AttualeInterno => #K_AnalogicaInt);
+	    
+	    "Diagnostica"(K_Attuale_ArrayInCuiAccediamo := #K_Portata,
+	                  K_NumMax_MassimoValoreDellArrayInCuiAccediamo := "K_NumPortata",
+	                  K_Tipo_ArrayInCuiAccediamo := "K_TipoParatia",
+	                  K_Attuale_DiChiAccede := #K_Portata,
+	                  K_Tipo_DiChiAccede := "K_TipoParatia",
+	                  K_AttualeInterno => #K_PortataInt);
+	    
+	    "Diagnostica"(K_Attuale_ArrayInCuiAccediamo := #K_Zona,
+	                  K_NumMax_MassimoValoreDellArrayInCuiAccediamo := "K_NumZona",
+	                  K_Tipo_ArrayInCuiAccediamo := "K_TipoComunicazione",
+	                  K_Attuale_DiChiAccede := #K_Portata,
+	                  K_Tipo_DiChiAccede := "K_TipoParatia",
+	                  K_AttualeInterno => #K_ZonaInt);
+	               END_REGION ;
+	REGION Dati
+	    #UmCode_Abilitato :=    "Analogica".A[#K_AnalogicaInt].Out.AnalogicaAttuale.UmCode = "Um_Codice_m3h" OR
+	                            "Analogica".A[#K_AnalogicaInt].Out.AnalogicaAttuale.UmCode = "Um_Codice_l/m" OR
+	                            "Analogica".A[#K_AnalogicaInt].Out.AnalogicaAttuale.UmCode = "Um_Codice_l/h";
+	                           
+	END_REGION ;
+	REGION Totalizzatore impulsivo
+	    IF #K_TipoTotalizzatore = "K_TipoTotalizzatoreDaImpulso" THEN
+	        IF "Portata".P[#K_PortataInt].In.Impulso AND NOT "Portata".P[#K_PortataInt].Dati.TriggerConteggioImpulso THEN
+	            "Portata".P[#K_PortataInt].Out.TotalizzatoreTotaleAttuale += "Portata".P[#K_PortataInt].Prm.LitriPerImpulso;
+	            "Portata".P[#K_PortataInt].Out.TotalizzatoreParzialeAttuale += "Portata".P[#K_PortataInt].Prm.LitriPerImpulso;
+	        END_IF;
+	        "Portata".P[#K_PortataInt].Dati.TriggerConteggioImpulso := "Portata".P[#K_PortataInt].In.Impulso;
+	    END_IF;
+	END_REGION ;
+	REGION Portata impulsiva
+	    IF #K_TipoPortata = "K_TipoPortataDaImpulso" THEN
+	        IF "Portata".P[#K_PortataInt].In.Impulso AND NOT "Portata".P[#K_PortataInt].Dati.FPDistanzaImpulsi THEN
+	            "Portata".P[#K_PortataInt].Dati.MDistanzaImpulsi := NOT "Portata".P[#K_PortataInt].Dati.MDistanzaImpulsi;
+	        END_IF;
+	        "T_TT"(I_CicloCPU := "Zona".Comuni.TempoCicloCpu_r,
+	               I_StartConteggio := "Portata".P[#K_PortataInt].Dati.MDistanzaImpulsi,
+	               IO_DatiTimer := "Portata".P[#K_PortataInt].Dati.TDurataImpulso);
+	        IF "Portata".P[#K_PortataInt].Dati.TDurataImpulso.O THEN
+	            "Portata".P[#K_PortataInt].Out.PortataAttuale := "Portata".P[#K_PortataInt].Prm.LitriPerImpulso / "Portata".P[#K_PortataInt].Dati.TDurataImpulso.TempoTrascorso;
+	        END_IF;
+	        "Portata".P[#K_PortataInt].Dati.MDistanzaImpulsi := TRUE;
+	        "Portata".P[#K_PortataInt].Dati.FPDistanzaImpulsi := "Portata".P[#K_PortataInt].In.Impulso;
+	    END_IF;
+	END_REGION ;
+	REGION Totalizzatore su portata
+	    // Portata Attuale Litri Al Secondo
+	    IF #K_TipoTotalizzatore = "K_TipoTotalizzatoreDaPortata" THEN
+	        IF #UmCode_Abilitato THEN
+	            "Portata".P[#K_PortataInt].Dati.PortataAttuale := "Analogica".A[#K_AnalogicaInt].Out.AnalogicaAttuale.Valore;
+	            CASE "Analogica".A[#K_AnalogicaInt].Out.AnalogicaAttuale.UmCode OF  //Rivedere questo codice, ho il modo internamente per convertire i metricubi senza farlo manualmente
+	                "Um_Codice_m3h":  // m³/h
+	                    "Portata".P[#K_PortataInt].Dati.PortataLMin := "Portata".P[#K_PortataInt].Dati.PortataAttuale * 16.6667;   //Se la mia portata è in metri cubi/h converto in litri al min
+	                "Um_Codice_l/h":  // L/h
+	                    "Portata".P[#K_PortataInt].Dati.PortataLMin := "Portata".P[#K_PortataInt].Dati.PortataAttuale / 60.0;             //Se la mia portata è in litri al min non converto
+	                "Um_Codice_l/m":  // L/min
+	                    "Portata".P[#K_PortataInt].Dati.PortataLMin := "Portata".P[#K_PortataInt].Dati.PortataAttuale;             //Se la mia portata è in litri al min non converto
+	            END_CASE;
+	            "Portata".P[#K_PortataInt].Dati.PortataLSec := "Portata".P[#K_PortataInt].Dati.PortataLMin * 0.0167;                          //Converto la portata in litri al secondO
+	            // Totalizzatore attuale
+	            "Portata".P[#K_PortataInt].Out.TotalizzatoreTotaleAttuale += "Portata".P[#K_PortataInt].Dati.PortataLSec * "Zona".Comuni.TempoCicloCpu_r / 1000.0;
+	            "Portata".P[#K_PortataInt].Out.TotalizzatoreParzialeAttuale += "Portata".P[#K_PortataInt].Dati.PortataLSec * "Zona".Comuni.TempoCicloCpu_r / 1000.0;
+	        END_IF;
+	    END_IF;
+	END_REGION ;
+	REGION Appoggio portata attuale quando lavoro con totalizzatore su portata
+	    IF #K_TipoPortata = "K_TipoPortataDaAnalogica" THEN
+	        "Portata".P[#K_PortataInt].Out.PortataAttuale := "Portata".P[#K_PortataInt].Dati.PortataAttuale;
+	    END_IF;
+	END_REGION ;
+	REGION Reset totalizzatore
+	    IF "Portata".P[#K_PortataInt].Hmi.ResetTotalizzatoreTotale OR "Portata".P[#K_PortataInt].Out.TotalizzatoreTotaleAttuale > 200000.0 OR NOT #UmCode_Abilitato THEN
+	        "Portata".P[#K_PortataInt].Out.TotalizzatoreTotaleAttuale := 0.0;
+	        "Portata".P[#K_PortataInt].Hmi.ResetTotalizzatoreParziale := True;
+	        "Portata".P[#K_PortataInt].Hmi.ResetTotalizzatoreTotale := False;
+	    END_IF;
+	    IF "Portata".P[#K_PortataInt].Hmi.ResetTotalizzatoreParziale OR "Portata".P[#K_PortataInt].Out.TotalizzatoreParzialeAttuale > 200000.0 OR NOT #UmCode_Abilitato THEN
+	        "Portata".P[#K_PortataInt].Out.TotalizzatoreParzialeAttuale := 0.0;
+	        "Portata".P[#K_PortataInt].Hmi.ResetTotalizzatoreParziale := False;
+	    END_IF;
+	END_REGION ;
+	REGION Setpoint parziale
+	    #MetricubiInVolo := "Portata".P[#K_PortataInt].Prm.LitriInVolo / 1000.0;
+	    
+	    IF "Portata".P[#K_PortataInt].Prm.Setpoint_Parziale < #MetricubiInVolo THEN
+	        "Portata".P[#K_PortataInt].Prm.Setpoint_Parziale := #MetricubiInVolo;
+	    END_IF;
+	    #SetpointParziale_Anticipato := "Portata".P[#K_PortataInt].Prm.Setpoint_Parziale - #MetricubiInVolo;
+	    "Portata".P[#K_PortataInt].Out.TotalizzatoreParzialeRaggiunto := "Portata".P[#K_PortataInt].Out.TotalizzatoreParzialeAttuale >= #SetpointParziale_Anticipato;
+	    "Portata".P[#K_PortataInt].Dati.RimanenteParziale := #SetpointParziale_Anticipato - "Portata".P[#K_PortataInt].Out.TotalizzatoreParzialeAttuale;
+	END_REGION ;
+	REGION Scrittura K nella struttura analogica
+	    "Analogica".A[#K_AnalogicaInt].Rif_Inc.K_Portata := #K_PortataInt;
+	END_REGION ;
+END_FUNCTION
+

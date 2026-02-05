@@ -1,0 +1,30 @@
+﻿FUNCTION "Conteggio" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      IngressoDaContare : Bool;
+      EnableConteggio : Bool;
+      K_Conteggio : Int;
+      ContaOn : Bool;   // Se 1 vengono contati i fronti positivi se 0 quelli negativi
+   END_VAR
+
+   VAR_TEMP 
+      FronteConteggio : Bool;
+      IngressoDaContareOrSim : Bool;
+   END_VAR
+
+
+BEGIN
+	IF #EnableConteggio THEN
+	    #IngressoDaContareOrSim := #IngressoDaContare OR "Conteggi".C[#K_Conteggio].Dati.SimulazioneIngresso;
+	    #FronteConteggio := "Conteggi".C[#K_Conteggio].Dati.MemStatoIngConteggio <> #IngressoDaContareOrSim ;
+	    IF (NOT #ContaOn AND (NOT #IngressoDaContareOrSim AND #FronteConteggio)) OR (#ContaOn AND (#IngressoDaContareOrSim AND #FronteConteggio)) THEN
+	        "Conteggi".C[#K_Conteggio].Dati.ActConteggio += 1;
+	        "Conteggi".C[#K_Conteggio].Dati.SimulazioneIngresso := False;
+	    END_IF;
+	ELSE
+	    "Conteggi".C[#K_Conteggio].Dati.ActConteggio := 0;
+	END_IF;
+	"Conteggi".C[#K_Conteggio].Dati.MemStatoIngConteggio := #IngressoDaContareOrSim;
+END_FUNCTION
+

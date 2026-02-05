@@ -1,0 +1,22 @@
+﻿FUNCTION "Valvola_CP3_ContropresFinelineaSteriliz" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	REGION Contropressione fine linea sterilizzazione
+	    REGION Parametri
+	        "Valvola".V["K_Valvola_CP3"].Prm.SensorLess := True;
+	    END_REGION ;
+	    REGION Gestione
+	        "GestValvola"(K_Valvola := "K_Valvola_CP3",
+	                      K_TipoValvola := "K_TipoValvola_Modulante",
+	                      K_Zona := "K_Zona_Sterilizzatore");
+	    END_REGION ;
+	    REGION Uscite
+	        "GestValvola_ScriviPaw"(K_Valvola := "K_Valvola_CP3",
+	                                K_TipoOutValvola := "K_TipoOutValvola_Pressione",
+	                                Paw => "Contropressione_CP3");
+	    END_REGION ;
+	END_REGION ;
+END_FUNCTION
+

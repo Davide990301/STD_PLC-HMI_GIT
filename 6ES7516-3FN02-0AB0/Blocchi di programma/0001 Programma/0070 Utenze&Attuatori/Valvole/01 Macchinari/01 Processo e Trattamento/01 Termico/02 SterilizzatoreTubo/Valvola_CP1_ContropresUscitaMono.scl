@@ -1,0 +1,30 @@
+﻿FUNCTION "Valvola_CP1_ContropresUscitaMono" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	REGION Contropressione uscita mono
+	    REGION Parametri
+	        IF "Sequenza".S["K_Sequenza_Produzione"].Dati.PassoAttuale = "K_Passo_Sterilizzazione" THEN
+	            "Valvola".V["K_Valvola_CP1"].In.RichiestaPressionePos := 100.0;
+	        ELSE
+	            "Valvola".V["K_Valvola_CP1"].In.RichiestaPressionePos := "Gestione_010102".AperturaContropressioneFiltri;
+	        END_IF;
+	    END_REGION ;
+	    REGION Parametri
+	        "Valvola".V["K_Valvola_CP1"].Prm.SensorLess := True;
+	    END_REGION ;
+	    REGION Gestione
+	        "GestValvola"(K_Valvola := "K_Valvola_CP1",
+	                      K_TipoValvola := "K_TipoValvola_Modulante",
+	                      K_Zona := "K_Zona_Sterilizzatore");
+	    END_REGION ;
+	    REGION Uscite
+	        "GestValvola_ScriviPaw"(K_Valvola := "K_Valvola_CP1",
+	                                K_TipoOutValvola := "K_TipoOutValvola_Pressione",
+	                                Paw => "Contropressione_CP1");
+	        
+	    END_REGION ;
+	END_REGION ;
+END_FUNCTION
+

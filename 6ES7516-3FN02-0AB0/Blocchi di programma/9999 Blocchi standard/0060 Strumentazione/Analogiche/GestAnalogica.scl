@@ -1,0 +1,280 @@
+﻿FUNCTION "GestAnalogica" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_Zona : Int;
+      K_Analogica : Int;
+   END_VAR
+
+   VAR_TEMP 
+      K_ZonaInt : Int;
+      K_AnalogicaInt : Int;
+      SogliaConIsteresi : Array[1..4] of Real;
+      IndiceCicloFor : Int;
+      CadutaCicloMaxi : Bool;
+      CadutaCicloIntMax : Bool;
+      CadutaCicloIntMin : Bool;
+      CadutaCicloMini : Bool;
+      Retval : Int;
+      Record : Array[0..0] of Word;
+      "Counter" : Int;
+      CounterAllarme : Int;
+      IngressoAnalogicaDaSonde : Int;
+   END_VAR
+
+   VAR CONSTANT 
+      ModoSetSuperataSoglia : Bool := 0;
+      ModoSetSottoSoglia : Bool := 1;
+      ModoResetAutoreset : Bool := 0;
+      ModoResetTramitePulsante : Bool := 1;
+      GradiCentigradi : Int := 0;
+   END_VAR
+
+
+BEGIN
+	REGION Diagnostica programmatore
+	    (*Passiamo tutte le costanti di accesso agli array in modo da verificarle e controllarle*)
+	    "Diagnostica"(K_Attuale_ArrayInCuiAccediamo := #K_Analogica,
+	                  K_NumMax_MassimoValoreDellArrayInCuiAccediamo := "K_NumAnalogica",
+	                  K_Tipo_ArrayInCuiAccediamo := "K_TipoAnalogica",
+	                  K_Attuale_DiChiAccede := #K_Analogica,
+	                  K_Tipo_DiChiAccede := "K_TipoAnalogica",
+	                  K_AttualeInterno => #K_AnalogicaInt);
+	    
+	    "Diagnostica"(K_Attuale_ArrayInCuiAccediamo := #K_Zona,
+	                  K_NumMax_MassimoValoreDellArrayInCuiAccediamo := "K_NumZona",
+	                  K_Tipo_ArrayInCuiAccediamo := "K_TipoComunicazione",
+	                  K_Attuale_DiChiAccede := #K_Analogica,
+	                  K_Tipo_DiChiAccede := "K_TipoAnalogica",
+	                  K_AttualeInterno => #K_ZonaInt);
+	END_REGION ;
+	REGION Scelta sorgente ingresso analogico
+	    IF NOT "Analogica".A[#K_AnalogicaInt].Hmi.Simulazione.Attiva THEN
+	        CASE "Analogica".A[#K_AnalogicaInt].Prm.K_TipoAnalogica OF
+	            "K_TipoAnalogicaEw":  // Ingresso analogico di tipo Ew plc
+	                REGION Ingresso plc ew
+	                    "Analogica".A[#K_AnalogicaInt].Scalatura.IngressoAnalogico := INT_TO_REAL(WORD_TO_INT("Analogica".A[#K_AnalogicaInt].In.Ew));
+	                END_REGION
+	            "K_TipoAnalogicaProfinetHendressHauser":  // Leggiamo strumento profinet endress hauser
+	                REGION Ingresso Profinet Hendress Hauser
+	                    #Retval := DPRD_DAT(LADDR := "Analogica".A[#K_AnalogicaInt].In.ProfinetHwSubModule, RECORD => #Record);
+	                    "Analogica".A[#K_AnalogicaInt].Scalatura.IngressoAnalogico := INT_TO_REAL(WORD_TO_INT(#Record[0]));
+	                END_REGION ;
+	            "K_TipoAnalogicaViaReteS7":  // Leggiamo strumento profinet endress hauser
+	                REGION Ingresso Profinet Hendress Hauser
+	                    "Analogica".A[#K_AnalogicaInt].Scalatura.IngressoAnalogico := "Analogica".A[#K_AnalogicaInt].In.ActualValue_S7;
+	                END_REGION ;
+	            "K_TipoAnalogicaSondeDigitali":  // Sonde digitali
+	                REGION Ingresso digitale
+	                    #IngressoAnalogicaDaSonde := 0;
+	                    IF "Analogica".A[#K_AnalogicaInt].In.SondeDigitali.Sonda_1Min THEN
+	                        #IngressoAnalogicaDaSonde := 9216;
+	                    END_IF;
+	                    IF "Analogica".A[#K_AnalogicaInt].In.SondeDigitali.Sonda_2Med THEN
+	                        #IngressoAnalogicaDaSonde := 18432;
+	                    END_IF;
+	                    IF "Analogica".A[#K_AnalogicaInt].In.SondeDigitali.Sonda_3Max THEN
+	                        #IngressoAnalogicaDaSonde := 27648;
+	                    END_IF;
+	                    "Analogica".A[#K_AnalogicaInt].Scalatura.IngressoAnalogico := #IngressoAnalogicaDaSonde;
+	                END_REGION
+	        END_CASE;
+	    ELSE
+	        "Analogica".A[#K_AnalogicaInt].Scalatura.IngressoAnalogico := "Analogica".A[#K_AnalogicaInt].Hmi.Simulazione.Valore;
+	    END_IF;
+	END_REGION
+	REGION Simulazione
+	    IF "Analogica".A[#K_AnalogicaInt].Hmi.Simulazione.Timeout.O THEN
+	        "Analogica".A[#K_AnalogicaInt].Hmi.Simulazione.Attiva := False;
+	    END_IF;
+	END_REGION
+	REGION Taratura minimo e massimo
+	    IF "Analogica".A[#K_AnalogicaInt].Scalatura.InMin_Leggi THEN
+	        "Analogica".A[#K_AnalogicaInt].Scalatura.InMin := "Analogica".A[#K_AnalogicaInt].Scalatura.IngressoAnalogico;
+	        "Analogica".A[#K_AnalogicaInt].Scalatura.InMin_Leggi := FALSE;
+	    END_IF;
+	    
+	    IF "Analogica".A[#K_AnalogicaInt].Scalatura.InMax_Leggi THEN
+	        "Analogica".A[#K_AnalogicaInt].Scalatura.InMax := "Analogica".A[#K_AnalogicaInt].Scalatura.IngressoAnalogico;
+	        "Analogica".A[#K_AnalogicaInt].Scalatura.InMax_Leggi := FALSE;
+	    END_IF;
+	END_REGION
+	REGION Scalatura   
+	    IF "Analogica".A[#K_AnalogicaInt].Prm.Inversione THEN
+	        "Analogica".A[#K_AnalogicaInt].Scalatura.IngressoAnalogico := "Analogica".A[#K_AnalogicaInt].Scalatura.InMax - "Analogica".A[#K_AnalogicaInt].Scalatura.IngressoAnalogico + "Analogica".A[#K_AnalogicaInt].Scalatura.InMin;
+	    END_IF;
+	    
+	    IF "Analogica".A[#K_AnalogicaInt].Prm.UnitàMisura.In.UmCode = "Um_Codice_°C" THEN
+	        IF "Analogica".A[#K_AnalogicaInt].Rif_Inc.K_Pid_Ingresso = 0 THEN   //Anche se si tratta di una temperatura non vado ad eseguire la scalatura perchè viene passata da un PID
+	            "Analogica".A[#K_AnalogicaInt].Scalatura.IngressoAnalogico := "Analogica".A[#K_AnalogicaInt].Scalatura.IngressoAnalogico * 18.432;
+	        END_IF;
+	    END_IF;
+	    
+	    "Analogica".A[#K_AnalogicaInt].Prm.UnitàMisura.In.Valore := ("Analogica".A[#K_AnalogicaInt].Scalatura.IngressoAnalogico - "Analogica".A[#K_AnalogicaInt].Scalatura.InMin) *
+	    ("Analogica".A[#K_AnalogicaInt].Scalatura.OutMax - "Analogica".A[#K_AnalogicaInt].Scalatura.OutMin) /
+	    ("Analogica".A[#K_AnalogicaInt].Scalatura.InMax - "Analogica".A[#K_AnalogicaInt].Scalatura.InMin) +
+	    ("Analogica".A[#K_AnalogicaInt].Scalatura.OutMin);
+	    IF "Analogica".A[#K_AnalogicaInt].Prm.UnitàMisura.In.Valore < "Analogica".A[#K_AnalogicaInt].Scalatura.OutMin THEN
+	        "Analogica".A[#K_AnalogicaInt].Prm.UnitàMisura.In.Valore := "Analogica".A[#K_AnalogicaInt].Scalatura.OutMin;
+	    END_IF;
+	    IF "Analogica".A[#K_AnalogicaInt].Prm.UnitàMisura.In.Valore > "Analogica".A[#K_AnalogicaInt].Scalatura.OutMax THEN
+	        "Analogica".A[#K_AnalogicaInt].Prm.UnitàMisura.In.Valore := "Analogica".A[#K_AnalogicaInt].Scalatura.OutMax;
+	    END_IF;
+	    "Filtro"(Setpoint := "Analogica".A[#K_AnalogicaInt].Prm.UnitàMisura.In.Valore,
+	             IO_DatiFiltro := "Analogica".A[#K_AnalogicaInt].Prm.FiltroUscita);
+	    "Analogica".A[#K_AnalogicaInt].Prm.UnitàMisura.In.Valore := "Analogica".A[#K_AnalogicaInt].Prm.FiltroUscita.ValoreFiltrato;
+	END_REGION
+	REGION Unità di misura
+	    "GestUnitàMisura"("Analogica".A[#K_AnalogicaInt].Prm.UnitàMisura);
+	END_REGION ;
+	REGION Uscita
+	    "Analogica".A[#K_AnalogicaInt].Out.AnalogicaAttuale := "Analogica".A[#K_AnalogicaInt].Prm.UnitàMisura.Out;
+	END_REGION ;
+	REGION Allarmi 
+	    REGION Reset allarmi
+	        IF "Zona".Z[#K_ZonaInt].Gen.Reset THEN  //Reset
+	            "Analogica".A[#K_AnalogicaInt].Allarmi.WordHMI := 0;
+	            FOR #Counter := 1 TO 4 DO
+	                IF "Analogica".A[#K_AnalogicaInt].Prm.ModoResetAllarmeHmi[#Counter] = #ModoResetTramitePulsante THEN
+	                    "Analogica".A[#K_AnalogicaInt].Allarmi.A[#Counter].Stato := False;
+	                END_IF;
+	            END_FOR;
+	        END_IF;
+	    END_REGION ;
+	    REGION Allarme out of range
+	        IF "Analogica".A[#K_AnalogicaInt].Scalatura.IngressoAnalogico < -1000.0 OR "Analogica".A[#K_AnalogicaInt].Scalatura.IngressoAnalogico > 32000.0 THEN
+	            IF "Analogica".A[#K_AnalogicaInt].Allarmi.A["KAllAnalog_OutOfRange"].EnWarnHmi THEN
+	                "Analogica".A[#K_AnalogicaInt].Allarmi.A["KAllAnalog_OutOfRange"].Stato := True;
+	                "Analogica".A[#K_AnalogicaInt].Allarmi.WordHMI.%X4 := True;
+	            END_IF;
+	        ELSE
+	            "Analogica".A[#K_AnalogicaInt].Allarmi.A["KAllAnalog_OutOfRange"].Stato := FALSE;
+	        END_IF;
+	    END_REGION
+	    REGION Definizione delle soglie ingresso TIMER
+	        FOR #Counter := 1 TO 4 DO
+	            #SogliaConIsteresi[#Counter] := "Analogica".A[#K_AnalogicaInt].Prm.PresetSoglia[#Counter] - "Analogica".A[#K_AnalogicaInt].Prm.Isteresi[#Counter];              //Calcolo il valore della soglia + isteresi
+	            IF "Analogica".A[#K_AnalogicaInt].Out.AnalogicaAttuale.Valore > "Analogica".A[#K_AnalogicaInt].Prm.PresetSoglia[#Counter] THEN
+	                "Analogica".A[#K_AnalogicaInt].Prm.RitSogliaOn[#Counter].IN := True;
+	            ELSIF "Analogica".A[#K_AnalogicaInt].Out.AnalogicaAttuale.Valore <= #SogliaConIsteresi[#Counter] THEN
+	                "Analogica".A[#K_AnalogicaInt].Prm.RitSogliaOn[#Counter].IN := False;
+	            END_IF;
+	            "Analogica".A[#K_AnalogicaInt].Prm.RitSogliaOf[#Counter].IN := "Analogica".A[#K_AnalogicaInt].Prm.RitSogliaOn[#Counter].O;
+	        END_FOR;
+	    END_REGION ;
+	    REGION Set allarme nella struttura degli allarmi
+	        FOR #Counter := 1 TO 4 DO
+	            IF "Analogica".A[#K_AnalogicaInt].Prm.RitSogliaOn[#Counter].O AND "Analogica".A[#K_AnalogicaInt].Prm.ModoSetAllarmeHmi[#Counter] = #ModoSetSuperataSoglia OR //Se la soglia è superata ed è impostato il set con soglia superata
+	                NOT "Analogica".A[#K_AnalogicaInt].Prm.RitSogliaOf[#Counter].O AND "Analogica".A[#K_AnalogicaInt].Prm.ModoSetAllarmeHmi[#Counter] = #ModoSetSottoSoglia THEN //Se la soglia non è superata ed è impostato il set con soglia non superata
+	                "Analogica".A[#K_AnalogicaInt].Allarmi.A[#Counter].Stato := True; //Set allarme
+	            ELSIF "Analogica".A[#K_AnalogicaInt].Prm.ModoResetAllarmeHmi[#Counter] = #ModoResetAutoreset THEN //Se impostato di resettare l'allarme da solo e non è più vera la condizione precedente
+	                "Analogica".A[#K_AnalogicaInt].Allarmi.A[#Counter].Stato := False;
+	            END_IF;
+	        END_FOR;
+	    END_REGION ;
+	    REGION Scrittura word HMI
+	        FOR #Counter := 1 TO "K_NumAllarmiPerAnalogiche" DO
+	            "GestAllarme_Std"(GestioneSirena := False,
+	                              Allarme := "Analogica".A[#K_AnalogicaInt].Allarmi.A[#Counter],
+	                              NumAllarme := #Counter,
+	                              K_Zona := #K_ZonaInt,
+	                              WordHmi := "Analogica".A[#K_AnalogicaInt].Allarmi.WordHMI);
+	        END_FOR;
+	    END_REGION ;
+	END_REGION ;
+	REGION Definizione pre-uscite blocco analogica
+	    FOR #Counter := 1 TO 4 DO
+	        IF "Analogica".A[#K_AnalogicaInt].Prm.RitSogliaOn[#Counter].O THEN
+	            "Analogica".A[#K_AnalogicaInt].Dati.PreOutSoglia[#Counter] := True;
+	        ELSIF NOT "Analogica".A[#K_AnalogicaInt].Prm.RitSogliaOf[#Counter].O THEN
+	            "Analogica".A[#K_AnalogicaInt].Dati.PreOutSoglia[#Counter] := False;
+	        END_IF;
+	    END_FOR;
+	END_REGION ;
+	REGION Definizione delle uscite blocco analogica
+	    "Analogica".A[#K_AnalogicaInt].Out.SogliaMaxi := "Analogica".A[#K_AnalogicaInt].Dati.PreOutSoglia["KAllAnalog_Maxi"];
+	    "Analogica".A[#K_AnalogicaInt].Out.SogliaIntMax := "Analogica".A[#K_AnalogicaInt].Dati.PreOutSoglia["KAllAnalog_IntMax"];
+	    "Analogica".A[#K_AnalogicaInt].Out.SogliaIntMin := "Analogica".A[#K_AnalogicaInt].Dati.PreOutSoglia["KAllAnalog_IntMin"];
+	    "Analogica".A[#K_AnalogicaInt].Out.SogliaMini := "Analogica".A[#K_AnalogicaInt].Dati.PreOutSoglia["KAllAnalog_Mini"];
+	END_REGION ;
+	REGION Timer
+	    FOR #Counter := 1 TO 4 DO
+	        "T_ON"(I_CicloCPU := "Zona".Comuni.TempoCicloCpu_r,
+	               I_StartConteggio := "Analogica".A[#K_AnalogicaInt].Prm.RitSogliaOn[#Counter].IN,
+	               IO_DatiTimer := "Analogica".A[#K_AnalogicaInt].Prm.RitSogliaOn[#Counter]);
+	        "T_OFF"(I_CicloCPU := "Zona".Comuni.TempoCicloCpu_r,
+	                I_StartConteggio := "Analogica".A[#K_AnalogicaInt].Prm.RitSogliaOf[#Counter].IN,
+	                IO_DatiTimer := "Analogica".A[#K_AnalogicaInt].Prm.RitSogliaOf[#Counter]);
+	    END_FOR;
+	    "T_ON"(I_CicloCPU := "Zona".Comuni.TempoCicloCpu_r,
+	           I_StartConteggio := "Analogica".A[#K_AnalogicaInt].Hmi.Simulazione.Attiva AND  "Analogica".A[#K_AnalogicaInt].Hmi.Simulazione.AbilitaTimeout,
+	           IO_DatiTimer := "Analogica".A[#K_AnalogicaInt].Hmi.Simulazione.Timeout);
+	    
+	END_REGION ;
+	REGION Caduta ciclo automatico della zona di riferimento   
+	    FOR #CounterAllarme := 1 TO "K_NumAllarmiPerAnalogiche" DO
+	        "GestSlotAllarmeUtenze"(K_NumAllarme := #CounterAllarme,
+	                                Allarme := "Analogica".A[#K_AnalogicaInt].Allarmi.A[#CounterAllarme],
+	                                K_Zona := #K_ZonaInt,
+	                                K_Indice := #K_AnalogicaInt,
+	                                K_Tipo := "K_TipoAnalogica");
+	    END_FOR;
+	END_REGION
+	REGION Paratia presente
+	    //Se paratia presente, le soglie min e max nel popup analogica prendono il nome di Finecorsa positivo e negativo.
+	    "Analogica".A[#K_AnalogicaInt].Hmi.ParatiaPresente := "Analogica".A[#K_AnalogicaInt].Rif_Inc.K_Paratia <> 0;
+	END_REGION ;
+	REGION Update parametri dell'analogica 
+	    IF "Zona".Z[#K_ZonaInt].Gen.UpdatePrm THEN
+	        REGION Resetto i riferimento incrociati
+	            "Analogica".A[#K_AnalogicaInt].Rif_Inc.K_Pid_Uscita := 0;
+	            "Analogica".A[#K_AnalogicaInt].Rif_Inc.K_Portata := 0;
+	            "Analogica".A[#K_AnalogicaInt].Rif_Inc.K_Trend := 0;
+	            "Analogica".A[#K_AnalogicaInt].Rif_Inc.K_Paratia := 0;
+	            "Analogica".A[#K_AnalogicaInt].Rif_Inc.K_Analogica := #K_AnalogicaInt;
+	        END_REGION;
+	        REGION PRE-POPUP Indicizzato per la scelta vista analogica
+	            REGION Reinizializzo i pulsanti della scelta vista popup indicizzato + definizione della 1 scelta
+	                "Analogica".A[#K_AnalogicaInt].Hmi.PopupSceltaVista.TipoVista1 := 1;
+	                "Analogica".A[#K_AnalogicaInt].Hmi.PopupSceltaVista.TipoVista2 := 0;
+	                "Analogica".A[#K_AnalogicaInt].Hmi.PopupSceltaVista.TipoVista3 := 0;
+	                "Analogica".A[#K_AnalogicaInt].Hmi.PopupSceltaVista.TipoVista4 := 0;
+	            END_REGION
+	            REGION Definizione pulsante 2 scelta vista popup indicizzato
+	                IF "Analogica".A[#K_AnalogicaInt].Hmi.PopupSceltaVista.TipoVista2 = 0 THEN
+	                    IF "Analogica".A[#K_AnalogicaInt].Rif_Inc.K_Pid_Uscita <> 0 THEN
+	                        "Analogica".A[#K_AnalogicaInt].Hmi.PopupSceltaVista.TipoVista2 := 2;
+	                    ELSIF "Analogica".A[#K_AnalogicaInt].Rif_Inc.K_Portata <> 0 THEN
+	                        "Analogica".A[#K_AnalogicaInt].Hmi.PopupSceltaVista.TipoVista2 := 3;
+	                    ELSIF "Analogica".A[#K_AnalogicaInt].Rif_Inc.K_Trend <> 0 THEN
+	                        "Analogica".A[#K_AnalogicaInt].Hmi.PopupSceltaVista.TipoVista2 := 4;
+	                    ELSIF "Analogica".A[#K_AnalogicaInt].Rif_Inc.K_Paratia <> 0 THEN
+	                        "Analogica".A[#K_AnalogicaInt].Hmi.PopupSceltaVista.TipoVista2 := 5;
+	                    END_IF;
+	                END_IF;
+	            END_REGION
+	            REGION Definizione pulsante 3 scelta vista popup indicizzato
+	                IF "Analogica".A[#K_AnalogicaInt].Hmi.PopupSceltaVista.TipoVista2 <> 0 THEN
+	                    IF "Analogica".A[#K_AnalogicaInt].Rif_Inc.K_Portata <> 0 AND "Analogica".A[#K_AnalogicaInt].Hmi.PopupSceltaVista.TipoVista2 <> 3 THEN
+	                        "Analogica".A[#K_AnalogicaInt].Hmi.PopupSceltaVista.TipoVista3 := 3;
+	                    ELSIF "Analogica".A[#K_AnalogicaInt].Rif_Inc.K_Trend <> 0 AND "Analogica".A[#K_AnalogicaInt].Hmi.PopupSceltaVista.TipoVista2 <> 4 THEN
+	                        "Analogica".A[#K_AnalogicaInt].Hmi.PopupSceltaVista.TipoVista3 := 4;
+	                    ELSIF "Analogica".A[#K_AnalogicaInt].Rif_Inc.K_Paratia <> 0 AND "Analogica".A[#K_AnalogicaInt].Hmi.PopupSceltaVista.TipoVista2 <> 5 THEN
+	                        "Analogica".A[#K_AnalogicaInt].Hmi.PopupSceltaVista.TipoVista3 := 5;
+	                    END_IF;
+	                END_IF;
+	            END_REGION
+	            REGION Definizione pulsante 4 scelta vista popup indicizzato
+	                IF "Analogica".A[#K_AnalogicaInt].Hmi.PopupSceltaVista.TipoVista3 <> 0 THEN
+	                    IF "Analogica".A[#K_AnalogicaInt].Rif_Inc.K_Trend <> 0 AND "Analogica".A[#K_AnalogicaInt].Hmi.PopupSceltaVista.TipoVista2 <> 4 AND "Analogica".A[#K_AnalogicaInt].Hmi.PopupSceltaVista.TipoVista3 <> 4 THEN
+	                        "Analogica".A[#K_AnalogicaInt].Hmi.PopupSceltaVista.TipoVista4 := 4;
+	                    ELSIF "Analogica".A[#K_AnalogicaInt].Rif_Inc.K_Paratia <> 0 AND "Analogica".A[#K_AnalogicaInt].Hmi.PopupSceltaVista.TipoVista2 <> 5 AND "Analogica".A[#K_AnalogicaInt].Hmi.PopupSceltaVista.TipoVista3 <> 5 THEN
+	                        "Analogica".A[#K_AnalogicaInt].Hmi.PopupSceltaVista.TipoVista4 := 5;
+	                    END_IF;
+	                END_IF;
+	            END_REGION
+	        END_REGION ;
+	    END_IF;
+	END_REGION
+END_FUNCTION
+

@@ -1,0 +1,105 @@
+﻿FUNCTION "GestSlotAllarmeUtenze" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_Zona : Int;
+      K_Indice : Int;
+      K_Tipo : Int;
+      K_NumAllarme : Int;
+   END_VAR
+
+   VAR_IN_OUT 
+      Allarme : "Std_PrmAllarmeStd";
+   END_VAR
+
+   VAR_TEMP 
+      CounterSlotUtenza : Int;
+      UnoSlotAllarmeOccupatoDaMe : Bool;
+   END_VAR
+
+
+BEGIN
+	REGION Gestione reset SLOT di allarme nella zona
+	    #UnoSlotAllarmeOccupatoDaMe := False;
+	    FOR #CounterSlotUtenza := 1 TO "K_NumSlotAllarmiDaUtenze" DO
+	        //Verifico se indice e tipo sono uguale all'utenza attuale, in caso significa che "Sono io"
+	        IF "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].Indice = #K_Indice AND "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].TipoNum = #K_Tipo THEN
+	            IF "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].NumAllarme = #K_NumAllarme THEN
+	                #UnoSlotAllarmeOccupatoDaMe := True;
+	                IF "Zona".Z[#K_Zona].Gen.Reset THEN
+	                    IF #Allarme.Stato THEN                                                                                  //Se ho l'allarme attivo e sono io e sto premendo reset 
+	                        "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].AllarmeSilenziato := True;    //Imposto #Allarme silenziato.
+	                    END_IF;                                                                                                    //Se NON ho l'allarme attivo e sono io e sto premendo reset 
+	                    IF NOT #Allarme.Stato THEN
+	                        "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].AllarmeSilenziato :=          //Resetto tutto
+	                        "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].Allarme := False;
+	                        "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].Indice :=
+	                        "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].NumAllarme :=
+	                        "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].TipoNum := 0;
+	                        "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].TipoNome := '';
+	                    END_IF;
+	                END_IF;
+	            END_IF;
+	        END_IF;
+	    END_FOR;
+	END_REGION ;
+	REGION Gestione SET SLOT di allarme nella zona
+	    IF #Allarme.Stato AND #Allarme.EnCadutaCiclo THEN    //Allarme attivo
+	        FOR #CounterSlotUtenza := 1 TO "K_NumSlotAllarmiDaUtenze" DO
+	            IF NOT "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].#Allarme AND NOT #UnoSlotAllarmeOccupatoDaMe THEN //Se lo slot è libero e non è gia presente un mio allarme
+	                "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].Allarme := True;
+	                "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].Indice := #K_Indice;
+	                "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].NumAllarme := #K_NumAllarme;
+	                "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].TipoNum := #K_Tipo;
+	                CASE #K_Tipo OF
+	                    "K_TipoAnalogica":
+	                        "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].TipoNome := 'Analogica';
+	                    "K_TipoComunicazione":
+	                        "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].TipoNome := 'Comunicazi';
+	                    "K_TipoMotore":
+	                        "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].TipoNome := 'Motore';
+	                    "K_TipoParatia":
+	                        "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].TipoNome := 'Paratia';
+	                    "K_TipoPid":
+	                        "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].TipoNome := 'Pid';
+	                    "K_TipoValvola":
+	                        "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].TipoNome := 'Valvola';
+	                    "K_TipoPortata":
+	                        "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].TipoNome := 'MisFlusso';
+	                    "K_TipoTrend":
+	                        "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].TipoNome := 'Trend';
+	                    "K_TipoAllarme":
+	                        "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].TipoNome := 'Allarme';
+	                    "K_TipoZona":
+	                        "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].TipoNome := 'Zona';
+	                    "K_TipoSequenza":
+	                        "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].TipoNome := 'Sequenza';
+	                    "K_TipoSensore":
+	                        "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].TipoNome := 'Sensore';
+	                END_CASE;
+	                #UnoSlotAllarmeOccupatoDaMe := True;
+	            END_IF;
+	        END_FOR;
+	    END_IF;
+	END_REGION
+	REGION Update
+	    IF "Zona".Z[#K_Zona].Gen.UpdatePrm THEN
+	        REGION Pulizia delle memorie dello SLOT
+	            FOR #CounterSlotUtenza := 1 TO "K_NumSlotAllarmiDaUtenze" DO
+	                "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].Allarme :=
+	                "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].AllarmeSilenziato := False;
+	                "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].Indice :=
+	                "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].NumAllarme :=
+	                "Zona".Z[#K_Zona].Allarmi.SlotAllarmeDaUtenze[#CounterSlotUtenza].TipoNum := 0;
+	            END_FOR;
+	        END_REGION
+	        REGION Se l'allarme fa cadere il ciclo automatico imposto che sia visibile ad HMI
+	            IF #Allarme.EnCadutaCiclo THEN
+	                #Allarme.EnWarnHmi := True;
+	            END_IF;
+	        END_REGION ;
+	    END_IF;
+	END_REGION
+	
+END_FUNCTION
+

@@ -1,0 +1,174 @@
+﻿FUNCTION "GestUnitàMisura_CalcolaFattoreConversione" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_IN_OUT 
+      UnitàMisura : "Std_UnitàDiMisura";
+   END_VAR
+
+   VAR_TEMP 
+      CounterCercaUm : Int;
+      CounterTipoGrandezze : Int;
+      Grandezza : Array[0..6] of Struct
+         TipoGrandezza : Array[0..4] of Struct
+            Offset : Real;
+            Scalatura : Real;
+            MulSottomul : Array[0..9] of Struct
+               Scalatura : Real;
+               Presente : Bool;
+            END_STRUCT;
+         END_STRUCT;
+      END_STRUCT;
+      CodiceAct : DInt;
+      CodiceScomposto : Struct
+         In : Struct
+            MulSottomul : Int;   // XXXX00
+            Grandezza : Int;   // 00XXXX
+            TipoGrandezza : Int;   // XX00XX
+         END_STRUCT;
+         Out : Struct
+            MulSottomul : Int;
+            Grandezza : Int;
+            TipoGrandezza : Int;
+         END_STRUCT;
+      END_STRUCT;
+   END_VAR
+
+
+BEGIN
+	REGION Tabella conversioni
+	    //Indicare il numero che occorre moltiplicare per passare nella locazione dell'array successiva.
+	    //Indicare per ogni unità di misura il valore che occorre moltiplicare o dividere per passare all'unità di misura successiva.
+	    //Nel caso dei sottomultipli, nel sottomultiplo, indicare di quanto dobbiamo molitplicare o dividere per passare alla locazione dell'array successiva/precedente.
+	    //Se il dato che dobbiamo parametrizzare è un sottomultiplo, indicare di quanto va diviso per passare alla locazione dell'array successiva.
+	    //Ad esempio per passare dai mm (posizione dell'array 2) ai cm (posizione dell'array 3) occorre dividere per 10. Scriviamo nei mm 10.
+	    //Se il dato che dobbiamo parametrizzare è un multiplo, indicare di quanto va moltiplicatore per passare alla locazione dell'array precedente.
+	    //Ad esempio per passare dai hm (posizione dell'array 7) ai dam (posizione dell'array 6) occorre moltiplicare per 10. Scriviamo nei hm 10.
+	    //Questa regola la applichiamo per tutti tranne che per la locazione dell'array 5, che reappresenta l'unità di misura principale. Metri, pollici, piedi, etc.
+	    REGION Tabella di conversione tra grandezze
+	        //Questa tabella indica i dati da moltiplicare/dividere per passare da una grandezza all'altra, ad esempio per convertire i piedi in metri e viceversa.
+	        REGION Tabella di conversione tra grandezze della lunghezza
+	            #Grandezza["Um_Grandezza_Lunghezza"].TipoGrandezza["Um_TipoLunghezza_Metri"].Scalatura := 3.28084; //Piedi
+	            #Grandezza["Um_Grandezza_Lunghezza"].TipoGrandezza["Um_TipoLunghezza_Piedi"].Scalatura := 12; //#Pollici
+	            #Grandezza["Um_Grandezza_Lunghezza"].TipoGrandezza["Um_TipoLunghezza_Pollici"].Scalatura := 0.0;
+	        END_REGION;
+	        REGION Tabella di conversione tra grandezze della percentuale
+	            #Grandezza["Um_Grandezza_Percentuale"].TipoGrandezza["Um_TipoPercentuale_Perc"].Scalatura := 1.0;
+	        END_REGION;
+	        REGION Tabella di conversione tra grandezze della temperatura
+	            #Grandezza["Um_Grandezza_Temperatura"].TipoGrandezza["Um_TipoTemperatura_°C"].Scalatura := 1.0;     //Da finire
+	            #Grandezza["Um_Grandezza_Temperatura"].TipoGrandezza["Um_TipoTemperatura_°F"].Scalatura := 0.56;     //Da finire
+	            #Grandezza["Um_Grandezza_Temperatura"].TipoGrandezza["Um_TipoTemperatura_°F"].Offset := -32.0;
+	            #Grandezza["Um_Grandezza_Temperatura"].TipoGrandezza["Um_TipoTemperatura_Kelvin"].Scalatura := 1.0; //Da finire
+	        END_REGION;
+	    END_REGION;
+	    REGION Tabella di conversione tra multipli e sottomultipli
+	        //Questa tabella indica i dati da moltiplicare/dividere per passare da un multipli ad un sottomultiplo e viceversa, per la stessa grandezza (Es: metri  mm-->m)
+	        REGION Tabella di conversione tra multipli e sotto multipli della lunghezza
+	            REGION Tabella di conversione tra multipli e sotto multipli del metro
+	                #Grandezza["Um_Grandezza_Lunghezza"].TipoGrandezza["Um_TipoLunghezza_Metri"].MulSottomul["Um_MulSottomul_Metri_µm"].Scalatura := 1000.0; // "mm/1000"
+	                #Grandezza["Um_Grandezza_Lunghezza"].TipoGrandezza["Um_TipoLunghezza_Metri"].MulSottomul["Um_MulSottomul_Metri_mm"].Scalatura := 10.0;  //  "cm/10"
+	                #Grandezza["Um_Grandezza_Lunghezza"].TipoGrandezza["Um_TipoLunghezza_Metri"].MulSottomul["Um_MulSottomul_Metri_cm"].Scalatura := 10.0;  //  "dm/10"
+	                #Grandezza["Um_Grandezza_Lunghezza"].TipoGrandezza["Um_TipoLunghezza_Metri"].MulSottomul["Um_MulSottomul_Metri_dm"].Scalatura := 10.0;  //  "m/10"
+	                #Grandezza["Um_Grandezza_Lunghezza"].TipoGrandezza["Um_TipoLunghezza_Metri"].MulSottomul["Um_MulSottomul_Metri_m"].Scalatura := 1.0;    //Unità base
+	                #Grandezza["Um_Grandezza_Lunghezza"].TipoGrandezza["Um_TipoLunghezza_Metri"].MulSottomul["Um_MulSottomul_Metri_dam"].Scalatura := 10.0;         //m*10
+	                #Grandezza["Um_Grandezza_Lunghezza"].TipoGrandezza["Um_TipoLunghezza_Metri"].MulSottomul["Um_MulSottomul_Metri_hm"].Scalatura := 10.0;          //dam*10
+	                #Grandezza["Um_Grandezza_Lunghezza"].TipoGrandezza["Um_TipoLunghezza_Metri"].MulSottomul["Um_MulSottomul_Metri_km"].Scalatura := 10.0;          //hm*10
+	                #Grandezza["Um_Grandezza_Lunghezza"].TipoGrandezza["Um_TipoLunghezza_Metri"].MulSottomul["Um_MulSottomul_Metri_Megametro"].Scalatura := 1000.0;  //km*10;
+	            END_REGION ;
+	            REGION Tabella di conversione tra multipli e sotto multipli dei piedi
+	                #Grandezza["Um_Grandezza_Lunghezza"].TipoGrandezza["Um_TipoLunghezza_Piedi"].MulSottomul["Um_MulSottomul_Piedi_Piede"].Scalatura := 1.0;
+	            END_REGION ;
+	            REGION Tabella di conversione tra multipli e sotto multipli dei pollici
+	                #Grandezza["Um_Grandezza_Lunghezza"].TipoGrandezza["Um_TipoLunghezza_Pollici"].MulSottomul["Um_MulSottomul_Pollice_1/8Pollice"].Scalatura := 0.125; //pollice/0.125
+	                #Grandezza["Um_Grandezza_Lunghezza"].TipoGrandezza["Um_TipoLunghezza_Pollici"].MulSottomul["Um_MulSottomul_Pollice_1/4Pollice"].Scalatura := 0.25;  //pollice/0.25
+	                #Grandezza["Um_Grandezza_Lunghezza"].TipoGrandezza["Um_TipoLunghezza_Pollici"].MulSottomul["Um_MulSottomul_Pollice_1/2Pollice"].Scalatura := 0.5;   //pollice/0.5
+	                #Grandezza["Um_Grandezza_Lunghezza"].TipoGrandezza["Um_TipoLunghezza_Pollici"].MulSottomul["Um_MulSottomul_Pollice_3/4Pollice"].Scalatura := 0.75;  //pollice/0.75
+	                #Grandezza["Um_Grandezza_Lunghezza"].TipoGrandezza["Um_TipoLunghezza_Pollici"].MulSottomul["Um_MulSottomul_Pollice_Pollice"].Scalatura := 1.0;      //Unità base
+	            END_REGION ;
+	        END_REGION ;
+	        REGION Tabella di conversione tra multipli e sotto multipli della percentuale
+	            #Grandezza["Um_Grandezza_Percentuale"].TipoGrandezza["Um_TipoPercentuale_Perc"].MulSottomul["Um_MulSottomul_Percentuale_1%"].Scalatura := 1.0;
+	        END_REGION ;
+	        REGION Tabella di conversione tra multipli e sotto multipli della temperatura
+	            REGION Tabella di conversione tra multipli e sotto multipli dei gradi centigradi
+	                #Grandezza["Um_Grandezza_Temperatura"].TipoGrandezza["Um_TipoTemperatura_°C"].MulSottomul["Um_MulSottomul_°C"].Scalatura := 1.0;
+	            END_REGION ;
+	            REGION Tabella di conversione tra multipli e sotto multipli dei gradi faheranit
+	                #Grandezza["Um_Grandezza_Temperatura"].TipoGrandezza["Um_TipoTemperatura_°F"].MulSottomul["Um_MulSottomul_°F"].Scalatura := 1.0;
+	            END_REGION ;
+	            REGION Tabella di conversione tra multipli e sotto multipli dei gradi Kelvin
+	                #Grandezza["Um_Grandezza_Temperatura"].TipoGrandezza["Um_TipoTemperatura_Kelvin"].MulSottomul["Um_MulSottomul_K"].Scalatura := 1.0;
+	            END_REGION ;
+	        END_REGION ;
+	    END_REGION ;
+	END_REGION ;
+	
+	REGION Scomposizione codice attuale
+	    
+	    //Scomposizione del codice dell'unità di misura per ingresso
+	    #CodiceAct := #UnitàMisura.In.UmCode;
+	    #CodiceScomposto.In.MulSottomul := REAL_TO_INT(#CodiceAct MOD 100);
+	    #CodiceAct -= #CodiceScomposto.In.MulSottomul;
+	    #CodiceAct /= 100;
+	    #CodiceScomposto.In.TipoGrandezza := REAL_TO_INT(#CodiceAct MOD 100);
+	    #CodiceAct -= #CodiceScomposto.In.TipoGrandezza;
+	    #CodiceAct /= 100;
+	    #CodiceScomposto.In.Grandezza := REAL_TO_INT(#CodiceAct MOD 100);
+	    
+	    //Scomposizione del codice dell'unità di misura per ingresso
+	    #CodiceAct := #UnitàMisura.Out.UmCode;
+	    #CodiceScomposto.Out.MulSottomul := REAL_TO_INT(#CodiceAct MOD 100);
+	    #CodiceAct -= #CodiceScomposto.Out.MulSottomul;
+	    #CodiceAct /= 100;
+	    #CodiceScomposto.Out.TipoGrandezza := REAL_TO_INT(#CodiceAct MOD 100);
+	    #CodiceAct -= #CodiceScomposto.Out.TipoGrandezza;
+	    #CodiceAct /= 100;
+	    #CodiceScomposto.Out.Grandezza := REAL_TO_INT(#CodiceAct MOD 100);
+	    
+	END_REGION ;
+	
+	REGION Calcolo del fattore di conversione
+	    #UnitàMisura.Dati.FattoreDiConversione := 1;
+	    
+	    IF #CodiceScomposto.In.MulSottomul <> 5 THEN //5 è il valore a cui impostiamo il valore non scalato
+	        IF #CodiceScomposto.In.MulSottomul > 5 THEN //Allora devo dividere
+	            FOR #CounterCercaUm := #CodiceScomposto.In.MulSottomul TO 5 BY -1 DO
+	                #UnitàMisura.Dati.FattoreDiConversione *= #Grandezza[#CodiceScomposto.In.Grandezza].TipoGrandezza[#CodiceScomposto.In.TipoGrandezza].MulSottomul[#CounterCercaUm].Scalatura;
+	            END_FOR;
+	        ELSE //Allora devo moltiplicare
+	            FOR #CounterCercaUm := #CodiceScomposto.In.MulSottomul TO 5 DO
+	                #UnitàMisura.Dati.FattoreDiConversione /= #Grandezza[#CodiceScomposto.In.Grandezza].TipoGrandezza[#CodiceScomposto.In.TipoGrandezza].MulSottomul[#CounterCercaUm].Scalatura;
+	            END_FOR;
+	        END_IF;
+	    END_IF;
+	    
+	    IF #CodiceScomposto.In.Grandezza = #CodiceScomposto.Out.Grandezza THEN
+	        IF #CodiceScomposto.In.TipoGrandezza <> #CodiceScomposto.Out.TipoGrandezza THEN
+	            IF #CodiceScomposto.In.TipoGrandezza < #CodiceScomposto.Out.TipoGrandezza THEN  //Signigica che devo moltiplicare
+	                FOR #CounterTipoGrandezze := #CodiceScomposto.In.TipoGrandezza TO #CodiceScomposto.Out.TipoGrandezza - 1 DO
+	                    #UnitàMisura.Dati.FattoreDiConversione *= #Grandezza[#CodiceScomposto.In.Grandezza].TipoGrandezza[#CounterTipoGrandezze].Scalatura;
+	                END_FOR;
+	            ELSE                                            //Significa che devo dividere
+	                FOR #CounterTipoGrandezze := #CodiceScomposto.In.TipoGrandezza TO #CodiceScomposto.Out.TipoGrandezza + 1 BY -1 DO
+	                    #UnitàMisura.Dati.FattoreDiConversione /= #Grandezza[#CodiceScomposto.In.Grandezza].TipoGrandezza[#CounterTipoGrandezze - 1].Scalatura;
+	                END_FOR;
+	                
+	            END_IF;
+	        END_IF;
+	    END_IF;
+	    
+	    IF #CodiceScomposto.Out.MulSottomul <> 5 THEN //5 è il valore a cui impostiamo il valore non scalato
+	        IF #CodiceScomposto.Out.MulSottomul > 5 THEN //Allora devo dividere
+	            FOR #CounterCercaUm := #CodiceScomposto.Out.MulSottomul TO 5 BY -1 DO
+	                #UnitàMisura.Dati.FattoreDiConversione /= #Grandezza[#CodiceScomposto.Out.Grandezza].TipoGrandezza[#CodiceScomposto.Out.TipoGrandezza].MulSottomul[#CounterCercaUm].Scalatura;
+	            END_FOR;
+	        ELSE //Allora devo moltiplicare
+	            FOR #CounterCercaUm := #CodiceScomposto.Out.MulSottomul TO 5 DO
+	                #UnitàMisura.Dati.FattoreDiConversione *= #Grandezza[#CodiceScomposto.Out.Grandezza].TipoGrandezza[#CodiceScomposto.Out.TipoGrandezza].MulSottomul[#CounterCercaUm].Scalatura;
+	            END_FOR;
+	        END_IF;
+	    END_IF;
+	    
+	END_REGION ;
+END_FUNCTION
+

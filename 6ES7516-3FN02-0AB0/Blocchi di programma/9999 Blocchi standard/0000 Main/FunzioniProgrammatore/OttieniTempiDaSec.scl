@@ -1,0 +1,28 @@
+﻿FUNCTION "OttieniTempiDaSec" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      TotalSeconds : DInt;
+   END_VAR
+
+   VAR_OUTPUT 
+      Ore : DInt;
+      Min : DInt;
+      Sec : DInt;
+   END_VAR
+
+   VAR_TEMP 
+      TempSeconds : DInt;
+   END_VAR
+
+
+BEGIN
+	#TempSeconds := #TotalSeconds;       // Copia per evitare modifiche all’ingresso
+	
+	#Ore := #TempSeconds / 3600;         // Ore intere
+	#TempSeconds := #TempSeconds MOD 3600;
+	
+	#Min := #TempSeconds / 60;           // Minuti interi
+	#Sec := #TempSeconds MOD 60;         // Secondi residui
+END_FUNCTION
+

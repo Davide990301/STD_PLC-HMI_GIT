@@ -1,0 +1,311 @@
+﻿FUNCTION "Main analogiche" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_TEMP 
+      CounterAnalogiche : Int;
+      CounterAllarmiAnalogiche : Int;
+      SetpointLivelloSerbatoio : Real;
+   END_VAR
+
+
+BEGIN
+	REGION Default parameter - Ripristino dati iniziali
+	    IF "Analogica".Funzioni.DefaultPrm THEN
+	        FOR #CounterAnalogiche := 0 TO "K_NumAnalogica" DO
+	            FOR #CounterAllarmiAnalogiche := 0 TO "K_NumAllarmiPerAnalogiche" DO
+	                "Analogica".A[#CounterAnalogiche].Allarmi.A[#CounterAllarmiAnalogiche].EnCadutaCiclo := False;   //Abilitazioni caduta ciclo automatico  
+	                "Analogica".A[#CounterAnalogiche].Allarmi.A[#CounterAllarmiAnalogiche].EnWarnHmi := True;        //Abilitazione mostrare allarme ad HMI
+	            END_FOR;
+	            "Analogica".A[#CounterAnalogiche].Allarmi.A[1].EnCadutaCiclo := False;   //Abilitazioni caduta ciclo automatico  
+	            "Analogica".A[#CounterAnalogiche].Allarmi.A[1].EnWarnHmi := True;
+	            "Analogica".A[#CounterAnalogiche].Prm.ModoResetAllarmeHmi[1] := True;
+	            "Analogica".A[#CounterAnalogiche].Allarmi.A[2].EnCadutaCiclo := False;   //Abilitazioni caduta ciclo automatico  
+	            "Analogica".A[#CounterAnalogiche].Allarmi.A[2].EnWarnHmi := False;
+	            "Analogica".A[#CounterAnalogiche].Prm.ModoResetAllarmeHmi[2] := False;
+	            "Analogica".A[#CounterAnalogiche].Allarmi.A[3].EnCadutaCiclo := False;   //Abilitazioni caduta ciclo automatico  
+	            "Analogica".A[#CounterAnalogiche].Allarmi.A[3].EnWarnHmi := False;
+	            "Analogica".A[#CounterAnalogiche].Prm.ModoResetAllarmeHmi[3] := False;
+	            "Analogica".A[#CounterAnalogiche].Allarmi.A[4].EnCadutaCiclo := False;   //Abilitazioni caduta ciclo automatico  
+	            "Analogica".A[#CounterAnalogiche].Allarmi.A[4].EnWarnHmi := True;
+	            "Analogica".A[#CounterAnalogiche].Prm.ModoResetAllarmeHmi[4] := True;
+	            "Analogica".A[#CounterAnalogiche].Allarmi.A[5].EnCadutaCiclo := False;   //Abilitazioni caduta ciclo automatico  
+	            "Analogica".A[#CounterAnalogiche].Allarmi.A[5].EnWarnHmi := True;
+	
+	            //Parametrizzazione scalature
+	            "Analogica".A[#CounterAnalogiche].Scalatura.InMax := 27648;
+	            "Analogica".A[#CounterAnalogiche].Scalatura.InMin := 0;
+	            "Analogica".A[#CounterAnalogiche].Scalatura.OutMax := 100;
+	            "Analogica".A[#CounterAnalogiche].Scalatura.OutMin := 0;
+	            "Analogica".A[#CounterAnalogiche].Prm.Isteresi[1] := 1;
+	            "Analogica".A[#CounterAnalogiche].Prm.Isteresi[2] := 1;
+	            "Analogica".A[#CounterAnalogiche].Prm.Isteresi[3] := 1;
+	            "Analogica".A[#CounterAnalogiche].Prm.Isteresi[4] := 1;
+	            "Analogica".A[#CounterAnalogiche].Prm.PresetSoglia[1] := 95;
+	            "Analogica".A[#CounterAnalogiche].Prm.PresetSoglia[2] := 85;
+	            "Analogica".A[#CounterAnalogiche].Prm.PresetSoglia[3] := 15;
+	            "Analogica".A[#CounterAnalogiche].Prm.PresetSoglia[4] := 5;
+	        END_FOR;
+	        "Analogica".Funzioni.DefaultPrm := False;
+	    END_IF;
+	END_REGION ;
+	REGION Processo e trattamento
+	    REGION Termico
+	        REGION Sterilizzatore tubo
+	            REGION LivelloVascaProdotto
+	                REGION Ingressi
+	                    "Analogica".A["K_Analogica_LivelloVascaProdotto"].In.Ew := "LivelloVascaProdotto";
+	                END_REGION ;
+	                REGION Parametri
+	                    "Analogica".A["K_Analogica_LivelloVascaProdotto"].Prm.UnitàMisura.In.UmCode := "Um_Codice_Percentuale";
+	                    REGION Lettura setpoint livello serbatoio
+	                        #SetpointLivelloSerbatoio := 90.0;                                                                              //Se non è vera nessuna delle successive
+	                        IF "Zona".Z["K_Zona_Sterilizzatore"].Out.Auto THEN                                            //Se sono in automatico
+	                            IF "Sequenza".S["K_Sequenza_Lavaggio"].Out.SequenzaAvviata THEN                             //Se sono in lavaggio
+	                                CASE "Sequenza".S["K_Sequenza_Lavaggio"].Dati.PassoAttuale OF
+	                                    "K_Passo_Acido":
+	                                        #SetpointLivelloSerbatoio := "ParametriMacchina_010102".LavaggioAcido.LivelloSerbatoio.Online;
+	                                    "K_Passo_Soda":
+	                                        #SetpointLivelloSerbatoio := "ParametriMacchina_010102".LavaggioSoda.LivelloSerbatoio.Online;
+	                                    ELSE
+	                                        #SetpointLivelloSerbatoio := "ParametriMacchina_010102".Risciacquo.LivelloSerbatoio.Online;
+	                                END_CASE;
+	                            ELSIF "Sequenza".S["K_Sequenza_Produzione"].Out.SequenzaAvviata THEN
+	                                #SetpointLivelloSerbatoio := "ParametriMacchina_010102".Lavoro.LivelloSerbatoio.Online;
+	                            END_IF;
+	                        END_IF;
+	                        
+	                        "Analogica".A["K_Analogica_LivelloVascaProdotto"].Prm.PresetSoglia["KAllAnalog_IntMax"] := #SetpointLivelloSerbatoio;
+	                    END_REGION ;
+	                END_REGION ;
+	                REGION Gestione
+	                    "GestAnalogica"(K_Zona := "K_Zona_Sterilizzatore",
+	                                    K_Analogica := "K_Analogica_LivelloVascaProdotto");
+	                END_REGION ;
+	            END_REGION ;
+	            REGION PressioneIngressoFiltriProdotto
+	                REGION Ingressi
+	                    "Analogica".A["K_Analogica_PressioneIngressoFiltriProdotto"].In.Ew := "Pressione_PR1_IngressoFiltriProdotto";
+	                END_REGION ;
+	                REGION Parametri
+	                    "Analogica".A["K_Analogica_PressioneIngressoFiltriProdotto"].Prm.UnitàMisura.In.UmCode := "Um_Codice_Bar";
+	                END_REGION ;
+	                REGION Gestion
+	                    "GestAnalogica"(K_Zona := "K_Zona_Sterilizzatore",
+	                                    K_Analogica := "K_Analogica_PressioneIngressoFiltriProdotto");
+	                END_REGION ;
+	            END_REGION ;
+	            REGION PressioneUscitaFiltriProdotto
+	                REGION Ingressi
+	                    "Analogica".A["K_Analogica_PressioneUscitaFiltriProdotto"].In.Ew := "Pressione_PR2_UscitaFiltriProdotto";
+	                END_REGION ;
+	                REGION Parametri
+	                    "Analogica".A["K_Analogica_PressioneUscitaFiltriProdotto"].Prm.UnitàMisura.In.UmCode := "Um_Codice_Bar";
+	                END_REGION ;
+	                REGION Gestione
+	                    "GestAnalogica"(K_Zona := "K_Zona_Sterilizzatore",
+	                                    K_Analogica := "K_Analogica_PressioneUscitaFiltriProdotto");
+	                END_REGION ;
+	            END_REGION ;
+	            REGION PortataIngressoProdotto
+	                REGION Ingressi
+	                    "Analogica".A["K_Analogica_PortataIngressoProdotto"].In.Ew := "Portata_FL1_IngressoSterilizzatore";
+	                END_REGION ;
+	                REGION Parametri
+	                    "Analogica".A["K_Analogica_PortataIngressoProdotto"].Prm.UnitàMisura.In.UmCode := "Um_Codice_l/h";
+	                END_REGION ;
+	                REGION Gestione
+	                    "GestAnalogica"(K_Zona := "K_Zona_Sterilizzatore",
+	                                    K_Analogica := "K_Analogica_PortataIngressoProdotto");
+	                END_REGION ;
+	            END_REGION ;
+	            REGION PressioneSicurezzaIngressoSterilizzatore
+	                REGION Ingresso
+	                    "Analogica".A["K_Analogica_PressioneSicurezzaIngressoSterilizzatore"].In.Ew := "Pressione_PR3_SicurezzaIngressoSterilizzatore";
+	                END_REGION ;
+	                REGION Parametri
+	                    "Analogica".A["K_Analogica_PressioneSicurezzaIngressoSterilizzatore"].Prm.UnitàMisura.In.UmCode := "Um_Codice_Bar";
+	                    "Analogica".A["K_Analogica_PressioneSicurezzaIngressoSterilizzatore"].Prm.ModoResetAllarmeHmi["KAllAnalog_IntMax"] := True; //L'autoreset è disabilitato
+	                    "Analogica".A["K_Analogica_PressioneSicurezzaIngressoSterilizzatore"].Prm.ModoResetAllarmeHmi["KAllAnalog_Maxi"] := True;   //L'autoreset è disabilitato
+	                END_REGION ;
+	                REGION Gestione
+	                    "GestAnalogica"(K_Zona := "K_Zona_Sterilizzatore",
+	                                    K_Analogica := "K_Analogica_PressioneSicurezzaIngressoSterilizzatore");
+	                END_REGION ;
+	            END_REGION ;
+	            REGION PressioneContropressioneIngressoPompaPistoni
+	                REGION Ingressi
+	                    "Analogica".A["K_Analogica_PressioneContropressioneIngressoPompaPistoni"].In.Ew := "Pressione_PR4_ControPressione_CP1";
+	                END_REGION ;
+	                REGION Parametri
+	                    "Analogica".A["K_Analogica_PressioneContropressioneIngressoPompaPistoni"].Prm.UnitàMisura.In.UmCode := "Um_Codice_Bar";
+	                END_REGION ;
+	                REGION Gestione
+	                    "GestAnalogica"(K_Zona := "K_Zona_Sterilizzatore",
+	                                    K_Analogica := "K_Analogica_PressioneContropressioneIngressoPompaPistoni");
+	                END_REGION ;
+	            END_REGION ;
+	            REGION PressioneContropressioneFineLineaLavoro
+	                REGION Ingressi
+	                    "Analogica".A["K_Analogica_PressioneContropressioneFineLineaLavoro"].In.Ew := "Pressione_PR5_ControPressione_CP2";
+	                END_REGION ;
+	                REGION Parametri
+	                    "Analogica".A["K_Analogica_PressioneContropressioneFineLineaLavoro"].Prm.UnitàMisura.In.UmCode := "Um_Codice_Bar";
+	                END_REGION ;
+	                REGION Gestione
+	                    "GestAnalogica"(K_Zona := "K_Zona_Sterilizzatore",
+	                                    K_Analogica := "K_Analogica_PressioneContropressioneFineLineaLavoro");
+	                END_REGION ;
+	            END_REGION ;
+	            REGION TemperaturaUscitaSterilizzatoreProcesso
+	                REGION Ingressi
+	                    "Analogica".A["K_Analogica_TemperaturaUscitaSterilizzatoreProcesso"].In.Ew := "Temperatura_TC1_UscitaSterilizzatore_Processo";
+	                    "Analogica".A["K_Analogica_TemperaturaUscitaSterilizzatoreProcesso"].Prm.PresetSoglia["KAllAnalog_IntMax"] := "ParametriMacchina_010102".Lavoro.Temperatura.Online;
+	                    "Analogica".A["K_Analogica_TemperaturaUscitaSterilizzatoreProcesso"].Prm.PresetSoglia["KAllAnalog_IntMin"] := "ParametriMacchina_010102".Lavoro.MinimaTempSteriliz.Online;
+	                END_REGION ;
+	                REGION Parametri
+	                    "Analogica".A["K_Analogica_TemperaturaUscitaSterilizzatoreProcesso"].Prm.UnitàMisura.In.UmCode := "Um_Codice_°C";
+	                END_REGION ;
+	                REGION Gestione
+	                    "GestAnalogica"(K_Zona := "K_Zona_Sterilizzatore",
+	                                    K_Analogica := "K_Analogica_TemperaturaUscitaSterilizzatoreProcesso");
+	                END_REGION ;
+	            END_REGION ;
+	            REGION TemperaturaAcquaCalda
+	                REGION Ingressi
+	                    "Analogica".A["K_Analogica_TemperaturaAcquaCalda"].In.Ew := "Temperatura_TC3_AcquaCalda";
+	                END_REGION ;
+	                REGION Parametri
+	                    "Analogica".A["K_Analogica_TemperaturaAcquaCalda"].Prm.UnitàMisura.In.UmCode := "Um_Codice_°C";
+	                END_REGION ;
+	                REGION Gestione
+	                    "GestAnalogica"(K_Zona := "K_Zona_Sterilizzatore",
+	                                    K_Analogica := "K_Analogica_TemperaturaAcquaCalda");
+	                END_REGION ;
+	            END_REGION ;
+	            REGION TemperaturaIngressoSosta
+	                REGION Ingressi
+	                    "Analogica".A["K_Analogica_TemperaturaIngressoSosta"].In.Ew := "Temperatura_TC4_IngressoSosta";
+	                END_REGION ;
+	                REGION Parametri
+	                    "Analogica".A["K_Analogica_TemperaturaIngressoSosta"].Prm.UnitàMisura.In.UmCode := "Um_Codice_°C";
+	                END_REGION ;
+	                REGION Gestione
+	                    "GestAnalogica"(K_Zona := "K_Zona_Sterilizzatore",
+	                                    K_Analogica := "K_Analogica_TemperaturaIngressoSosta");
+	                END_REGION ;
+	            END_REGION ;
+	            REGION TemperaturaFineLinea
+	                REGION Ingressi
+	                    "Analogica".A["K_Analogica_TemperaturaFineLinea"].In.Ew := "Temperatura_TC5_FineLinea";
+	                END_REGION ;
+	                REGION Parametri
+	                    "Analogica".A["K_Analogica_TemperaturaFineLinea"].Prm.UnitàMisura.In.UmCode := "Um_Codice_°C";
+	                END_REGION ;
+	                REGION Gestione
+	                    "GestAnalogica"(K_Zona := "K_Zona_Sterilizzatore",
+	                                    K_Analogica := "K_Analogica_TemperaturaFineLinea");
+	                END_REGION ;
+	            END_REGION ;
+	            REGION TemperaturaUscitaSostaProcesso
+	                REGION Ingressi
+	                    "Analogica".A["K_Analogica_TemperaturaUscitaSosta"].In.Ew := "Temperatura_TC6_UscitaSosta_Processo";
+	                END_REGION ;
+	                REGION Parametri
+	                    "Analogica".A["K_Analogica_TemperaturaUscitaSosta"].Prm.UnitàMisura.In.UmCode := "Um_Codice_°C";
+	                END_REGION ;
+	                REGION Gestione
+	                    "GestAnalogica"(K_Zona := "K_Zona_Sterilizzatore",
+	                                    K_Analogica := "K_Analogica_TemperaturaUscitaSosta");
+	                END_REGION ;
+	            END_REGION ;
+	            REGION TemperaturaUscitaSostaStoricizzazione
+	                REGION Ingressi
+	                    "Analogica".A["K_Analogica_TemperaturaUscitaSostaStoricizzazione"].In.Ew := "Temperatura_TC9_UscitaSosta_Storicizzazione";
+	                END_REGION ;
+	                REGION Parametri
+	                    "Analogica".A["K_Analogica_TemperaturaUscitaSostaStoricizzazione"].Prm.UnitàMisura.In.UmCode := "Um_Codice_°C";
+	                END_REGION ;
+	                REGION Gestione
+	                    "GestAnalogica"(K_Zona := "K_Zona_Sterilizzatore",
+	                                    K_Analogica := "K_Analogica_TemperaturaUscitaSostaStoricizzazione");
+	                END_REGION ;
+	            END_REGION ;
+	            REGION TemperaturaUscitaSterilizzatoreStoricizzare
+	                REGION Ingressi
+	                    "Analogica".A["K_Analogica_TemperaturaUscitaSterilizzatoreStoricizzare"].In.Ew := "Temperatura_TC7_UscitaSterilizzatore_Storicizzazione";
+	                END_REGION ;
+	                REGION Parametri
+	                    "Analogica".A["K_Analogica_TemperaturaUscitaSterilizzatoreStoricizzare"].Prm.UnitàMisura.In.UmCode := "Um_Codice_°C";
+	                END_REGION ;
+	                REGION Gestione
+	                    "GestAnalogica"(K_Zona := "K_Zona_Sterilizzatore",
+	                                    K_Analogica := "K_Analogica_TemperaturaUscitaSterilizzatoreStoricizzare");
+	                END_REGION ;
+	            END_REGION ;
+	            REGION TemperaturaUscitaRaffredatoreProcesso
+	                REGION Ingressi
+	                    "Analogica".A["K_Analogica_TemperaturaUscitaRaffredatoreProcesso"].In.Ew := "Temperatura_TC8_UscitaRaffredatore_Processo";
+	                END_REGION ;
+	                REGION Parametri
+	                    "Analogica".A["K_Analogica_TemperaturaUscitaRaffredatoreProcesso"].Prm.UnitàMisura.In.UmCode := "Um_Codice_°C";
+	                END_REGION ;
+	                REGION Gestione
+	                    "GestAnalogica"(K_Zona := "K_Zona_Sterilizzatore",
+	                                    K_Analogica := "K_Analogica_TemperaturaUscitaRaffredatoreProcesso");
+	                END_REGION ;
+	            END_REGION ;
+	            REGION TemperaturaBarriereVaporeValvScambio
+	                REGION Ingressi
+	                    "Analogica".A["K_Analogica_TemperaturaBarriereVaporeValvScambio"].In.Ew := "Temperatura_TC10_BarriereVapore_ScambioValvole";
+	                END_REGION ;
+	                REGION Parametri
+	                    "Analogica".A["K_Analogica_TemperaturaBarriereVaporeValvScambio"].Prm.UnitàMisura.In.UmCode := "Um_Codice_°C";
+	                END_REGION ;
+	                REGION Gestione
+	                    "GestAnalogica"(K_Zona := "K_Zona_Sterilizzatore",
+	                                    K_Analogica := "K_Analogica_TemperaturaBarriereVaporeValvScambio");
+	                END_REGION ;
+	            END_REGION ;
+	            REGION TemperaturaBarriereVaporeTuboInTubo
+	                REGION Ingressi
+	                    "Analogica".A["K_Analogica_TemperaturaBarriereVaporeTuboInTubo"].In.Ew := "Temperatura_TC11_BarriereVapore_TuboInTubo";
+	                END_REGION ;
+	                REGION Parametri
+	                    "Analogica".A["K_Analogica_TemperaturaBarriereVaporeTuboInTubo"].Prm.UnitàMisura.In.UmCode := "Um_Codice_°C";
+	                END_REGION ;
+	                REGION Gestione
+	                    "GestAnalogica"(K_Zona := "K_Zona_Sterilizzatore",
+	                                    K_Analogica := "K_Analogica_TemperaturaBarriereVaporeTuboInTubo");
+	                END_REGION ;
+	            END_REGION ;
+	            REGION LivelloSerbatoioCaldo
+	                REGION Ingressi
+	                    "Analogica".A["K_Analogica_LivelloSerbatoioCaldo"].In.SondeDigitali.Sonda_1Min := NOT "LivelloSerbatoioCaldo_Min";
+	                    "Analogica".A["K_Analogica_LivelloSerbatoioCaldo"].In.SondeDigitali.Sonda_3Max := NOT "LivelloSerbatoioCaldo_Max";
+	                END_REGION ;
+	                REGION Parametri
+	                    "Analogica".A["K_Analogica_LivelloSerbatoioCaldo"].Prm.K_TipoAnalogica := "K_TipoAnalogicaSondeDigitali";
+	                    "Analogica".A["K_Analogica_LivelloSerbatoioCaldo"].Prm.UnitàMisura.In.UmCode := "Um_Codice_Percentuale";
+	                END_REGION ;
+	                REGION Gestione
+	                    "GestAnalogica"(K_Zona := "K_Zona_Sterilizzatore",
+	                                    K_Analogica := "K_Analogica_LivelloSerbatoioCaldo");
+	                END_REGION ;
+	            END_REGION ;
+	            REGION TemperaturaRichiestaAcquaCalda
+	                REGION Parametri
+	                    "Analogica".A["K_Analogica_TemperaturaRichiestaAcquaCalda"].Prm.K_TipoAnalogica := "K_TipoAnalogicaViaReteS7";
+	                    "Analogica".A["K_Analogica_TemperaturaRichiestaAcquaCalda"].Scalatura.OutMin := "Pid".P["K_Pid_RiscaldamentoProdotto"].Hmi.SetpointPID;
+	                    "Analogica".A["K_Analogica_TemperaturaRichiestaAcquaCalda"].Scalatura.OutMax := 130.0;
+	                END_REGION ;
+	                REGION Gestione
+	                    "GestAnalogica"(K_Zona := "K_Zona_Sterilizzatore",
+	                                    K_Analogica := "K_Analogica_TemperaturaRichiestaAcquaCalda");
+	                END_REGION ;
+	            END_REGION ;
+	        END_REGION ;
+	    END_REGION ;
+	END_REGION ;
+	
+END_FUNCTION
+

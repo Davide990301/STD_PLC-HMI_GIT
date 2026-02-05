@@ -1,0 +1,20 @@
+﻿FUNCTION "Valvola_Ev103_6_TenutaPompaPistoni" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	REGION Tenuta pompa pistoni
+	    REGION Parametri
+	        "Valvola".V["K_Valvola_EV103_6"].Prm.SensorLess := True;
+	    END_REGION ;
+	    REGION Gestione
+	        "GestValvola"(K_Valvola := "K_Valvola_EV103_6",
+	                      K_TipoValvola := "K_TipoValvola_Monostabile",
+	                      K_Zona := "K_Zona_Sterilizzatore");
+	    END_REGION ;
+	    REGION Uscite
+	        "Valvola_EV103.6_ComandoPositivo" := "Valvola".V["K_Valvola_EV103_6"].Out.CmdPos;
+	    END_REGION ;
+	END_REGION ;
+END_FUNCTION
+

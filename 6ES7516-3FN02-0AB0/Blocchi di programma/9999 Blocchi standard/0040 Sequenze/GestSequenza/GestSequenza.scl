@@ -1,0 +1,47 @@
+﻿FUNCTION "GestSequenza" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_Sequenza : Int;
+   END_VAR
+
+   VAR_TEMP 
+      K_SequenzaInt : Int;
+   END_VAR
+
+
+BEGIN
+	REGION Diagnostica programmatore
+	    (*Passiamo tutte le costanti di accesso agli array in modo da verificarle e controllarle*)
+	    "Diagnostica"(K_Attuale_ArrayInCuiAccediamo := #K_Sequenza,
+	                  K_NumMax_MassimoValoreDellArrayInCuiAccediamo := "K_NumSequenza",
+	                  K_Tipo_ArrayInCuiAccediamo := "K_TipoSequenza",
+	                  K_Attuale_DiChiAccede := #K_Sequenza,
+	                  K_Tipo_DiChiAccede := #K_Sequenza,
+	                  K_AttualeInterno => #K_SequenzaInt);
+	END_REGION ;
+	REGION Avvio sequenza
+	    IF "Sequenza".S[#K_SequenzaInt].Hmi.AvviaSequenza AND NOT "Sequenza".S[#K_SequenzaInt].Hmi.AvviaSequenzaDisabilitato THEN
+	        IF "Sequenza".S[#K_SequenzaInt].Dati.PassoAttuale = 0 THEN
+	            "Sequenza".S[#K_SequenzaInt].Dati.PassoAttuale := 1;
+	        END_IF;
+	        "Sequenza".S[#K_SequenzaInt].Hmi.AvviaSequenza := False;
+	    END_IF;
+	END_REGION ;
+	REGION Stato sequenza
+	    IF "Sequenza".S[#K_SequenzaInt].Dati.PassoAttuale = 0 THEN
+	        "Sequenza".S[#K_SequenzaInt].Hmi.Stato := 1;
+	        "Sequenza".S[#K_SequenzaInt].Out.SequenzaAvviata := False;
+	    ELSE
+	        "Sequenza".S[#K_SequenzaInt].Hmi.Stato := 2;
+	        "Sequenza".S[#K_SequenzaInt].Out.SequenzaAvviata := True;
+	    END_IF;
+	END_REGION ;
+	REGION Resetta sequenza
+	    IF "Sequenza".S[#K_SequenzaInt].Hmi.ArrestaSequenza THEN
+	        "Sequenza".S[#K_SequenzaInt].Dati.PassoAttuale := 0;
+	        "Sequenza".S[#K_SequenzaInt].Hmi.ArrestaSequenza := False;
+	    END_IF;
+	END_REGION ;
+END_FUNCTION
+

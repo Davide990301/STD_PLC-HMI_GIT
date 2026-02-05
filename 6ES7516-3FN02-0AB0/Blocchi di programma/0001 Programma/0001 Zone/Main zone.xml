@@ -1,0 +1,511 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document>
+  <Engineering version="V21" />
+  <SW.Blocks.FC ID="0">
+    <AttributeList>
+      <Interface>
+        <Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v5">
+          <Section Name="Input" />
+          <Section Name="Output" />
+          <Section Name="InOut" />
+          <Section Name="Temp">
+            <Member Name="NonUsato" Datatype="Bool" />
+          </Section>
+          <Section Name="Constant">
+            <Member Name="Nessuna" Datatype="Int">
+              <StartValue>0</StartValue>
+            </Member>
+          </Section>
+          <Section Name="Return">
+            <Member Name="Ret_Val" Datatype="Void" />
+          </Section>
+        </Sections>
+      </Interface>
+      <MemoryLayout>Optimized</MemoryLayout>
+      <Name>Main zone</Name>
+      <Namespace />
+      <Number>35</Number>
+      <ProgrammingLanguage>LAD</ProgrammingLanguage>
+      <SetENOAutomatically>false</SetENOAutomatically>
+    </AttributeList>
+    <ObjectList>
+      <MultilingualText ID="1" CompositionName="Comment">
+        <ObjectList>
+          <MultilingualTextItem ID="2" CompositionName="Items">
+            <AttributeList>
+              <Culture>de-DE</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="3" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-GB</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="4" CompositionName="Items">
+            <AttributeList>
+              <Culture>es-ES</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="5" CompositionName="Items">
+            <AttributeList>
+              <Culture>fr-FR</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="6" CompositionName="Items">
+            <AttributeList>
+              <Culture>it-IT</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+      <SW.Blocks.CompileUnit ID="7" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource>
+            <StructuredText xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StructuredText/v4">
+              <LineComment UId="21">
+                <Text UId="22"> "GestZona"(Pulsante_StartCiclo := False,</Text>
+              </LineComment>
+              <NewLine UId="23" />
+              <LineComment UId="24">
+                <Text UId="25">            Pulsante_StopCiclo := False,</Text>
+              </LineComment>
+              <NewLine UId="26" />
+              <LineComment UId="27">
+                <Text UId="28">            Pulsante_ResetAllarmi := False,</Text>
+              </LineComment>
+              <NewLine UId="29" />
+              <LineComment UId="30">
+                <Text UId="31">            FbkCentralinaEmerg := False,</Text>
+              </LineComment>
+              <NewLine UId="32" />
+              <LineComment UId="33">
+                <Text UId="34">            K_Zona := "K_Zona_Esempio",</Text>
+              </LineComment>
+              <NewLine UId="35" />
+              <LineComment UId="36">
+                <Text UId="37">            K_ZonaPadre := "K_Zona_Esempio",</Text>
+              </LineComment>
+              <NewLine UId="38" />
+              <LineComment UId="39">
+                <Text UId="40">            LampadaPulsante_CicloAttivo =&gt; #NonUsato,</Text>
+              </LineComment>
+              <NewLine UId="41" />
+              <LineComment UId="42">
+                <Text UId="43">            LampadaPulsante_ResetAllarmi =&gt; #NonUsato,</Text>
+              </LineComment>
+              <NewLine UId="44" />
+              <LineComment UId="45">
+                <Text UId="46">            Torretta_Sirena =&gt; #NonUsato,</Text>
+              </LineComment>
+              <NewLine UId="47" />
+              <LineComment UId="48">
+                <Text UId="49">            Torretta_CicloAttivo=&gt;#NonUsato,</Text>
+              </LineComment>
+              <NewLine UId="50" />
+              <LineComment UId="51">
+                <Text UId="52">            Torretta_Allarme=&gt;#NonUsato,</Text>
+              </LineComment>
+              <NewLine UId="53" />
+              <LineComment UId="54">
+                <Text UId="55">            Torretta_Attesa_Segnalazione=&gt;#NonUsato);</Text>
+              </LineComment>
+            </StructuredText>
+          </NetworkSource>
+          <ProgrammingLanguage>SCL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="8" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="9" CompositionName="Items">
+                <AttributeList>
+                  <Culture>de-DE</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="A" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-GB</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="B" CompositionName="Items">
+                <AttributeList>
+                  <Culture>es-ES</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="C" CompositionName="Items">
+                <AttributeList>
+                  <Culture>fr-FR</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="D" CompositionName="Items">
+                <AttributeList>
+                  <Culture>it-IT</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="E" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="F" CompositionName="Items">
+                <AttributeList>
+                  <Culture>de-DE</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="10" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-GB</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="11" CompositionName="Items">
+                <AttributeList>
+                  <Culture>es-ES</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="12" CompositionName="Items">
+                <AttributeList>
+                  <Culture>fr-FR</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="13" CompositionName="Items">
+                <AttributeList>
+                  <Culture>it-IT</Culture>
+                  <Text>Gestione ciclo zona esempio</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+      <SW.Blocks.CompileUnit ID="14" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource>
+            <StructuredText xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StructuredText/v4">
+              <Access Scope="Call" UId="21">
+                <CallInfo UId="22" BlockType="FC">
+                  <Instance Scope="GlobalVariable" UId="24">
+                    <Component Name="GestZona" UId="23" />
+                  </Instance>
+                  <Token Text="(" UId="25" />
+                  <Parameter Name="Pulsante_StartCiclo" UId="26">
+                    <Blank UId="27" />
+                    <Token Text=":=" UId="28" />
+                    <Blank UId="29" />
+                    <Access Scope="GlobalVariable" UId="30">
+                      <Symbol UId="31">
+                        <Component Name="PulsanteMarciaCiclo" UId="32">
+                          <BooleanAttribute Name="HasQuotes" UId="33">true</BooleanAttribute>
+                        </Component>
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="34" />
+                  <NewLine UId="35" />
+                  <Blank Num="11" UId="36" />
+                  <Parameter Name="Pulsante_StopCiclo" UId="37">
+                    <Blank UId="38" />
+                    <Token Text=":=" UId="39" />
+                    <Blank UId="40" />
+                    <Access Scope="GlobalVariable" UId="41">
+                      <Symbol UId="42">
+                        <Component Name="PulsanteStopCiclo" UId="43">
+                          <BooleanAttribute Name="HasQuotes" UId="44">true</BooleanAttribute>
+                        </Component>
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="45" />
+                  <NewLine UId="46" />
+                  <Blank Num="11" UId="47" />
+                  <Parameter Name="Pulsante_ResetAllarmi" UId="48">
+                    <Blank UId="49" />
+                    <Token Text=":=" UId="50" />
+                    <Blank UId="51" />
+                    <Access Scope="GlobalVariable" UId="52">
+                      <Symbol UId="53">
+                        <Component Name="PulsanteReset" UId="54">
+                          <BooleanAttribute Name="HasQuotes" UId="55">true</BooleanAttribute>
+                        </Component>
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="56" />
+                  <NewLine UId="57" />
+                  <Blank Num="11" UId="58" />
+                  <Parameter Name="CentralinaEmergenzeOk" UId="59">
+                    <Blank UId="60" />
+                    <Token Text=":=" UId="61" />
+                    <Blank UId="62" />
+                    <Access Scope="GlobalVariable" UId="63">
+                      <Symbol UId="64">
+                        <Component Name="CentralinaEmergenzeOk" UId="65">
+                          <BooleanAttribute Name="HasQuotes" UId="66">true</BooleanAttribute>
+                        </Component>
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="67" />
+                  <NewLine UId="68" />
+                  <Blank Num="11" UId="69" />
+                  <Parameter Name="PressostatoGeneraleOk" UId="70">
+                    <Token Text=":=" UId="71" />
+                    <Access Scope="GlobalVariable" UId="72">
+                      <Symbol UId="73">
+                        <Component Name="PressostatoAria" UId="74">
+                          <BooleanAttribute Name="HasQuotes" UId="75">true</BooleanAttribute>
+                        </Component>
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="76" />
+                  <NewLine UId="77" />
+                  <Blank Num="11" UId="78" />
+                  <Parameter Name="K_Zona" UId="79">
+                    <Blank UId="80" />
+                    <Token Text=":=" UId="81" />
+                    <Blank UId="82" />
+                    <Access Scope="GlobalConstant" UId="83">
+                      <Constant Name="K_Zona_Sterilizzatore" UId="84" />
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="87" />
+                  <NewLine UId="88" />
+                  <Blank Num="11" UId="89" />
+                  <Parameter Name="K_ZonaPadre" UId="90">
+                    <Blank UId="91" />
+                    <Token Text=":=" UId="92" />
+                    <Blank UId="93" />
+                    <Access Scope="LiteralConstant" UId="94">
+                      <Constant UId="95">
+                        <ConstantValue UId="97">0</ConstantValue>
+                      </Constant>
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="98" />
+                  <NewLine UId="99" />
+                  <Blank Num="11" UId="100" />
+                  <Parameter Name="LampadaPulsante_CicloAttivo" UId="101">
+                    <Blank UId="102" />
+                    <Token Text="=&gt;" UId="103" />
+                    <Blank UId="104" />
+                    <Access Scope="GlobalVariable" UId="105">
+                      <Symbol UId="106">
+                        <Component Name="ZonaSterilizzatore_SpiaMarcia" UId="107">
+                          <BooleanAttribute Name="HasQuotes" UId="108">true</BooleanAttribute>
+                        </Component>
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="109" />
+                  <NewLine UId="110" />
+                  <Blank Num="11" UId="111" />
+                  <Parameter Name="LampadaPulsante_ResetAllarmi" UId="112">
+                    <Blank UId="113" />
+                    <Token Text="=&gt;" UId="114" />
+                    <Blank UId="115" />
+                    <Access Scope="GlobalVariable" UId="116">
+                      <Symbol UId="117">
+                        <Component Name="ZonaSterilizzatore_SpiaReset" UId="118">
+                          <BooleanAttribute Name="HasQuotes" UId="119">true</BooleanAttribute>
+                        </Component>
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="120" />
+                  <NewLine UId="121" />
+                  <Blank Num="11" UId="122" />
+                  <Parameter Name="Torretta_Sirena" UId="123">
+                    <Blank UId="124" />
+                    <Token Text="=&gt;" UId="125" />
+                    <Blank UId="126" />
+                    <Access Scope="GlobalVariable" UId="127">
+                      <Symbol UId="128">
+                        <Component Name="ZonaSterilizzatore_AllarmeAcustico" UId="129">
+                          <BooleanAttribute Name="HasQuotes" UId="130">true</BooleanAttribute>
+                        </Component>
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="131" />
+                  <NewLine UId="132" />
+                  <Blank Num="11" UId="133" />
+                  <Parameter Name="Torretta_CicloAttivo" UId="134">
+                    <Blank UId="135" />
+                    <Token Text="=&gt;" UId="136" />
+                    <Blank UId="137" />
+                    <Access Scope="LocalVariable" UId="138">
+                      <Symbol UId="139">
+                        <Component Name="NonUsato" UId="140" />
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="141" />
+                  <NewLine UId="142" />
+                  <Blank Num="11" UId="143" />
+                  <Parameter Name="Torretta_Allarme" UId="144">
+                    <Blank UId="145" />
+                    <Token Text="=&gt;" UId="146" />
+                    <Blank UId="147" />
+                    <Access Scope="GlobalVariable" UId="148">
+                      <Symbol UId="149">
+                        <Component Name="ZonaSterilizzatore_AllarmeVisivo" UId="150">
+                          <BooleanAttribute Name="HasQuotes" UId="151">true</BooleanAttribute>
+                        </Component>
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="152" />
+                  <NewLine UId="153" />
+                  <Blank Num="11" UId="154" />
+                  <Parameter Name="Torretta_Attesa_Segnalazione" UId="155">
+                    <Blank UId="156" />
+                    <Token Text="=&gt;" UId="157" />
+                    <Blank UId="158" />
+                    <Access Scope="GlobalVariable" UId="159">
+                      <Symbol UId="160">
+                        <Component Name="ZonaSterilizzatore_SegnalazioneSterilizzazione" UId="161">
+                          <BooleanAttribute Name="HasQuotes" UId="162">true</BooleanAttribute>
+                        </Component>
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text=")" UId="163" />
+                </CallInfo>
+              </Access>
+              <Token Text=";" UId="164" />
+              <NewLine Num="2" UId="165" />
+              <Access Scope="Call" UId="166">
+                <CallInfo UId="167" BlockType="FC">
+                  <Instance Scope="GlobalVariable" UId="169">
+                    <Component Name="AllarmiMacchina_010102" UId="168" />
+                  </Instance>
+                  <Token Text="(" UId="170" />
+                  <Token Text=")" UId="171" />
+                </CallInfo>
+              </Access>
+              <Token Text=";" UId="172" />
+              <NewLine UId="173" />
+            </StructuredText>
+          </NetworkSource>
+          <ProgrammingLanguage>SCL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="15" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="16" CompositionName="Items">
+                <AttributeList>
+                  <Culture>de-DE</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="17" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-GB</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="18" CompositionName="Items">
+                <AttributeList>
+                  <Culture>es-ES</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="19" CompositionName="Items">
+                <AttributeList>
+                  <Culture>fr-FR</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="1A" CompositionName="Items">
+                <AttributeList>
+                  <Culture>it-IT</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="1B" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="1C" CompositionName="Items">
+                <AttributeList>
+                  <Culture>de-DE</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="1D" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-GB</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="1E" CompositionName="Items">
+                <AttributeList>
+                  <Culture>es-ES</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="1F" CompositionName="Items">
+                <AttributeList>
+                  <Culture>fr-FR</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="20" CompositionName="Items">
+                <AttributeList>
+                  <Culture>it-IT</Culture>
+                  <Text>Gestione ciclo zona sterilizzatore</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+      <MultilingualText ID="21" CompositionName="Title">
+        <ObjectList>
+          <MultilingualTextItem ID="22" CompositionName="Items">
+            <AttributeList>
+              <Culture>de-DE</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="23" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-GB</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="24" CompositionName="Items">
+            <AttributeList>
+              <Culture>es-ES</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="25" CompositionName="Items">
+            <AttributeList>
+              <Culture>fr-FR</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="26" CompositionName="Items">
+            <AttributeList>
+              <Culture>it-IT</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+    </ObjectList>
+  </SW.Blocks.FC>
+</Document>

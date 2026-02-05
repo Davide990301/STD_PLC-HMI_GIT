@@ -1,0 +1,15 @@
+﻿FUNCTION "FronteNeg" : Bool
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_Fronte : Int;
+      StatoAttuale : Bool;
+   END_VAR
+
+
+BEGIN
+	"Fronte".F[#K_Fronte].Out.StatoFronte := NOT #StatoAttuale AND "Fronte".F[#K_Fronte].Dati.MemStatoPrec;
+	"Fronte".F[#K_Fronte].Dati.MemStatoPrec := #StatoAttuale;
+	#FronteNeg := "Fronte".F[#K_Fronte].Out.StatoFronte;
+END_FUNCTION
+

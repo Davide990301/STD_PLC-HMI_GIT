@@ -1,0 +1,429 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document>
+  <Engineering version="V21" />
+  <SW.Blocks.GlobalDB ID="0">
+    <AttributeList>
+      <Interface>
+        <Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v5">
+          <Section Name="Static">
+            <Member Name="Misuratore" Datatype="Array[0..&quot;K_NumPortata&quot;] of &quot;ElencoCampionature&quot;" Remanence="Retain">
+              <Sections>
+                <Section Name="None">
+                  <Member Name="h" Datatype="Array[1..24] of &quot;Campionatura&quot;">
+                    <Sections>
+                      <Section Name="None">
+                        <Member Name="OrarioCampionatura" Datatype="Date_And_Time">
+                          <Subelement Path="0,1">
+                            <StartValue>DT#1990-01-01-00:00:00</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,2">
+                            <StartValue>DT#1990-01-01-00:00:00</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,3">
+                            <StartValue>DT#1990-01-01-00:00:00</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,4">
+                            <StartValue>DT#1990-01-01-00:00:00</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,5">
+                            <StartValue>DT#1990-01-01-00:00:00</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,6">
+                            <StartValue>DT#1990-01-01-00:00:00</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,7">
+                            <StartValue>DT#1990-01-01-00:00:00</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,8">
+                            <StartValue>DT#1990-01-01-00:00:00</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,9">
+                            <StartValue>DT#1990-01-01-00:00:00</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,10">
+                            <StartValue>DT#1990-01-01-00:00:00</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,11">
+                            <StartValue>DT#1990-01-01-00:00:00</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,12">
+                            <StartValue>DT#1990-01-01-00:00:00</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,13">
+                            <StartValue>DT#1990-01-01-00:00:00</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,14">
+                            <StartValue>DT#1990-01-01-00:00:00</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,15">
+                            <StartValue>DT#1990-01-01-00:00:00</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,16">
+                            <StartValue>DT#1990-01-01-00:00:00</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,17">
+                            <StartValue>DT#1990-01-01-00:00:00</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,18">
+                            <StartValue>DT#1990-01-01-00:00:00</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,19">
+                            <StartValue>DT#1990-01-01-00:00:00</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,20">
+                            <StartValue>DT#1990-01-01-00:00:00</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,21">
+                            <StartValue>DT#1990-01-01-00:00:00</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,22">
+                            <StartValue>DT#1990-01-01-00:00:00</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,23">
+                            <StartValue>DT#1990-01-01-00:00:00</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,24">
+                            <StartValue>DT#1990-01-01-00:00:00</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,1">
+                            <StartValue>DT#2024-08-07-15:04:31.724</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,2">
+                            <StartValue>DT#2024-08-07-16:04:31.836</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,3">
+                            <StartValue>DT#2024-08-06-17:04:29.191</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,4">
+                            <StartValue>DT#2024-08-06-18:04:29.321</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,5">
+                            <StartValue>DT#2024-08-06-19:04:29.409</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,6">
+                            <StartValue>DT#2024-08-06-20:04:29.515</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,7">
+                            <StartValue>DT#2024-08-06-21:04:29.630</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,8">
+                            <StartValue>DT#2024-08-06-22:04:29.734</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,9">
+                            <StartValue>DT#2024-08-06-23:04:29.847</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,10">
+                            <StartValue>DT#2024-08-07-00:04:29.943</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,11">
+                            <StartValue>DT#2024-08-07-01:04:30.054</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,12">
+                            <StartValue>DT#2024-08-07-02:04:30.187</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,13">
+                            <StartValue>DT#2024-08-07-03:04:30.298</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,14">
+                            <StartValue>DT#2024-08-07-04:04:30.402</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,15">
+                            <StartValue>DT#2024-08-07-05:04:30.531</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,16">
+                            <StartValue>DT#2024-08-07-06:04:30.648</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,17">
+                            <StartValue>DT#2024-08-07-07:04:30.761</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,18">
+                            <StartValue>DT#2024-08-07-08:04:30.905</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,19">
+                            <StartValue>DT#2024-08-07-09:04:31.032</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,20">
+                            <StartValue>DT#2024-08-07-10:04:31.176</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,21">
+                            <StartValue>DT#2024-08-07-11:04:31.254</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,22">
+                            <StartValue>DT#2024-08-07-12:04:31.388</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,23">
+                            <StartValue>DT#2024-08-07-13:04:31.485</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,24">
+                            <StartValue>DT#2024-08-07-14:04:31.606</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="MetriCubi" Datatype="Real">
+                          <Subelement Path="0,1">
+                            <StartValue>0.0</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,2">
+                            <StartValue>0.0</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,3">
+                            <StartValue>0.0</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,4">
+                            <StartValue>0.0</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,5">
+                            <StartValue>0.0</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,6">
+                            <StartValue>0.0</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,7">
+                            <StartValue>0.0</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,8">
+                            <StartValue>0.0</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,9">
+                            <StartValue>0.0</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,10">
+                            <StartValue>0.0</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,11">
+                            <StartValue>0.0</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,12">
+                            <StartValue>0.0</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,13">
+                            <StartValue>0.0</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,14">
+                            <StartValue>0.0</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,15">
+                            <StartValue>0.0</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,16">
+                            <StartValue>0.0</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,17">
+                            <StartValue>0.0</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,18">
+                            <StartValue>0.0</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,19">
+                            <StartValue>0.0</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,20">
+                            <StartValue>0.0</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,21">
+                            <StartValue>0.0</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,22">
+                            <StartValue>0.0</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,23">
+                            <StartValue>0.0</StartValue>
+                          </Subelement>
+                          <Subelement Path="0,24">
+                            <StartValue>0.0</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,1">
+                            <StartValue>24.53449</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,2">
+                            <StartValue>22.31984</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,3">
+                            <StartValue>32.04</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,4">
+                            <StartValue>27.63029</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,5">
+                            <StartValue>17.13998</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,6">
+                            <StartValue>25.93029</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,7">
+                            <StartValue>24.17889</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,8">
+                            <StartValue>24.84669</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,9">
+                            <StartValue>16.62974</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,10">
+                            <StartValue>25.33142</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,11">
+                            <StartValue>22.3448</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,12">
+                            <StartValue>24.24218</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,13">
+                            <StartValue>25.65688</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,14">
+                            <StartValue>23.56486</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,15">
+                            <StartValue>24.30507</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,16">
+                            <StartValue>17.35347</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,17">
+                            <StartValue>21.83804</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,18">
+                            <StartValue>22.13243</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,19">
+                            <StartValue>21.25181</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,20">
+                            <StartValue>19.2421</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,21">
+                            <StartValue>21.97005</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,22">
+                            <StartValue>20.02209</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,23">
+                            <StartValue>22.90734</StartValue>
+                          </Subelement>
+                          <Subelement Path="1,24">
+                            <StartValue>29.38301</StartValue>
+                          </Subelement>
+                        </Member>
+                      </Section>
+                    </Sections>
+                  </Member>
+                </Section>
+              </Sections>
+              <Subelement Path="1">
+                <Comment>
+                  <MultiLanguageText Lang="it-IT">AlimHB1</MultiLanguageText>
+                </Comment>
+              </Subelement>
+            </Member>
+            <Member Name="TimerCampionatura" Datatype="&quot;Std_stTimer&quot;" Remanence="Retain">
+              <AttributeList>
+                <BooleanAttribute Name="SetPoint" SystemDefined="true">true</BooleanAttribute>
+              </AttributeList>
+              <Sections>
+                <Section Name="None">
+                  <Member Name="IN" Datatype="Bool">
+                    <StartValue>TRUE</StartValue>
+                  </Member>
+                  <Member Name="O" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Preset" Datatype="Real">
+                    <StartValue>3600.0</StartValue>
+                  </Member>
+                  <Member Name="TempoTrascorso" Datatype="Real">
+                    <StartValue>2926.036</StartValue>
+                  </Member>
+                </Section>
+              </Sections>
+            </Member>
+            <Member Name="CampionaturaAttuale" Datatype="Int" Remanence="Retain">
+              <AttributeList>
+                <BooleanAttribute Name="SetPoint" SystemDefined="true">true</BooleanAttribute>
+              </AttributeList>
+              <StartValue>3</StartValue>
+            </Member>
+            <Member Name="ResetCompleto" Datatype="Bool">
+              <StartValue>FALSE</StartValue>
+            </Member>
+          </Section>
+        </Sections>
+      </Interface>
+      <MemoryLayout>Optimized</MemoryLayout>
+      <MemoryReserve>100</MemoryReserve>
+      <Name>Dati produzione</Name>
+      <Namespace />
+      <Number>7</Number>
+      <ProgrammingLanguage>DB</ProgrammingLanguage>
+    </AttributeList>
+    <ObjectList>
+      <MultilingualText ID="1" CompositionName="Comment">
+        <ObjectList>
+          <MultilingualTextItem ID="2" CompositionName="Items">
+            <AttributeList>
+              <Culture>de-DE</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="3" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-GB</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="4" CompositionName="Items">
+            <AttributeList>
+              <Culture>es-ES</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="5" CompositionName="Items">
+            <AttributeList>
+              <Culture>fr-FR</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="6" CompositionName="Items">
+            <AttributeList>
+              <Culture>it-IT</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+      <MultilingualText ID="7" CompositionName="Title">
+        <ObjectList>
+          <MultilingualTextItem ID="8" CompositionName="Items">
+            <AttributeList>
+              <Culture>de-DE</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="9" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-GB</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="A" CompositionName="Items">
+            <AttributeList>
+              <Culture>es-ES</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="B" CompositionName="Items">
+            <AttributeList>
+              <Culture>fr-FR</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="C" CompositionName="Items">
+            <AttributeList>
+              <Culture>it-IT</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+    </ObjectList>
+  </SW.Blocks.GlobalDB>
+</Document>

@@ -1,0 +1,71 @@
+﻿FUNCTION "GestPasso_CmdValvola" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_Valvola : Int;   // Costante che indica la valvola da comandare
+      Comando : Int;   // 2=Pos 3=Neg 4=Scarico 5=FlipFlop
+      K_Sequenza : Int;   // Sequenza di riferimento
+      K_Passo : Int;   // Passo in cui deve aprirsi la valvola
+      NonAttenderePosizione : Bool;   // 1 = NonAttendePosizione 0 = AttendeValvolaInPosizione
+   END_VAR
+
+   VAR_TEMP 
+      PassoAttualeDellaSequenza : Int;
+      ControlloSlotLibero : Int;
+      ZonaDellaValvola : Int;
+      ValvolaNonInPosizione : Bool;
+   END_VAR
+
+   VAR CONSTANT 
+      ComandoPositivo : Int := 2;
+      ComandoNegativo : Int := 3;
+      ComandoFolle : Int := 4;
+      ComandoFlipFlop : Int := 5;
+   END_VAR
+
+
+BEGIN
+	    IF "Sequenza".S[#K_Sequenza].Out.SequenzaAvviata THEN
+	        REGION Comando e controllo
+	            IF "Sequenza".S[#K_Sequenza].Dati.PassoAttuale = #K_Passo AND "Sequenza".S[#K_Sequenza].Dati.AbilitazionePasso THEN                                       //Se la sequenza si trova al passo attuale
+	                #ValvolaNonInPosizione := False;
+	                CASE #Comando OF
+	                    #ComandoPositivo:
+	                        "Valvola".V[#K_Valvola].In.RichiestaAutoPos := True;                                //Chiedo alla valvola di aprirsi
+	                        IF NOT "Valvola".V[#K_Valvola].Dati.RealmenteInPos THEN
+	                            #ValvolaNonInPosizione := True;
+	                        END_IF;
+	                    #ComandoNegativo:
+	                        "Valvola".V[#K_Valvola].In.RichiestaAutoNeg := True;
+	                        IF NOT "Valvola".V[#K_Valvola].Dati.RealmenteInNeg THEN
+	                            #ValvolaNonInPosizione := True;
+	                        END_IF;
+	                    #ComandoFolle:
+	                        "Valvola".V[#K_Valvola].In.RichiestaAutoFolleScarico := True;
+	                    #ComandoFlipFlop:
+	                        "Valvola".V[#K_Valvola].In.RichiestaAutoFlipFlop := True;
+	                END_CASE;
+	                IF #ValvolaNonInPosizione AND NOT #NonAttenderePosizione THEN
+	                    "Sequenza".S[#K_Sequenza].Dati.TutteLeUtenzeInPosizione := False;                            //Butto giù il cumulativo 
+	                    "Sequenza".S[#K_Sequenza].Hmi.Diagnostica.AttesaValvola := #K_Valvola;                      //Scrivo la valvola che sto aspettando
+	                END_IF;
+	            END_IF;
+	        END_REGION ;
+	        
+	        REGION Riferimenti incrociati
+	            #ZonaDellaValvola := "Valvola".V[#K_Valvola].Rif_Inc.K_Zona;                                    //Cerco la zona della valvola attuale
+	            IF "Zona".Z[#ZonaDellaValvola].Gen.UpdatePrm THEN                                            //Se la zona della valvola è in update
+	                FOR #ControlloSlotLibero := 0 TO "K_NumRifIncrociatiSequenza" DO                            //Inizio a cercare uno slot libero
+	                    IF "Valvola".V[#K_Valvola].Rif_Inc.K_Sequenza[#ControlloSlotLibero] = #K_Sequenza THEN  //Se lo slòt è uguale a me stesso
+	                        EXIT;                                                                               //Esco
+	                    END_IF;
+	                    IF "Valvola".V[#K_Valvola].Rif_Inc.K_Sequenza[#ControlloSlotLibero] = 0 THEN            //Se lo slot è libero
+	                        "Valvola".V[#K_Valvola].Rif_Inc.K_Sequenza[#ControlloSlotLibero] := #K_Sequenza;    //lo riempio con la mia costante
+	                        EXIT;                                                                               //E poi esco
+	                    END_IF;
+	                END_FOR;
+	            END_IF;
+	        END_REGION ;
+	    END_IF;
+END_FUNCTION
+

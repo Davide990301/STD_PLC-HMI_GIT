@@ -1,0 +1,20 @@
+﻿FUNCTION "GestUnitàMisura_CalcolaCodice" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Grandezza : Int;
+      TipoGrandezza : Int;
+      MulSottomul : Int;
+   END_VAR
+
+   VAR_IN_OUT 
+      StrutturaIn_Out : "Std_ValoreConUm";
+   END_VAR
+
+
+BEGIN
+	#StrutturaIn_Out.UmCode := #Grandezza * 10000 + #TipoGrandezza * 100 + #MulSottomul;
+	
+	
+END_FUNCTION
+

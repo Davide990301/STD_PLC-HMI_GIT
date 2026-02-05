@@ -1,0 +1,68 @@
+﻿FUNCTION "GestPasso_AttendiAnalogica" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_Analogica : Int;   // Costante che indica la analogica da attendere
+      KAllAnalog : Int;   // Soglia da controllare
+      Comportamento : Int;   // 0 = Smette di contare 1 = Resetta il tempo attuale
+      K_Sequenza : Int;   // Sequenza di riferimento
+      K_Passo : Int;   // Passo in cui deve aprirsi la valvola
+      NonAttenderePosizione : Bool;   // 1 = NonAttendePosizione 0 = AttendeValvolaInPosizione
+   END_VAR
+
+   VAR_TEMP 
+      AnalogicaNonInPosizione : Bool;
+      ZonaDellAnalogica : Int;
+      Nop : Bool;
+   END_VAR
+
+   VAR CONSTANT 
+      SmettiDiContare : Int := 0;
+      ResettaIlConteggio : Int := 1;
+   END_VAR
+
+
+BEGIN
+	    IF "Sequenza".S[#K_Sequenza].Out.SequenzaAvviata THEN
+	        IF "Sequenza".S[#K_Sequenza].Dati.PassoAttuale = #K_Passo THEN
+	            #AnalogicaNonInPosizione := False;
+	            CASE #KAllAnalog OF
+	                "KAllAnalog_Mini":
+	                    #AnalogicaNonInPosizione := NOT "Analogica".A[#K_Analogica].Out.SogliaMini;
+	                "KAllAnalog_IntMin":
+	                    #AnalogicaNonInPosizione := NOT "Analogica".A[#K_Analogica].Out.SogliaIntMin;
+	                "KAllAnalog_IntMax":
+	                    #AnalogicaNonInPosizione := NOT "Analogica".A[#K_Analogica].Out.SogliaIntMax;
+	                "KAllAnalog_Maxi":
+	                    #AnalogicaNonInPosizione := NOT "Analogica".A[#K_Analogica].Out.SogliaMaxi;
+	            END_CASE;
+	            IF #AnalogicaNonInPosizione AND NOT #NonAttenderePosizione THEN
+	                "Sequenza".S[#K_Sequenza].Dati.TutteLeUtenzeInPosizione := False;                            //Butto giù il cumulativo 
+	                "Sequenza".S[#K_Sequenza].Hmi.Diagnostica.AttesaAnalogica := #K_Analogica;                   //Scrivo l'analogica che sto aspettando
+	                
+	                CASE #Comportamento OF
+	                    #SmettiDiContare:
+	                        #Nop := False;  //Smette di contare già da solo
+	                    #ResettaIlConteggio:
+	                        "Sequenza".S[#K_Sequenza].Prm.Passo[#K_Passo].Durata.TempoTrascorso := 0;
+	                        
+	                END_CASE;
+	            END_IF;
+	        END_IF;
+	    END_IF;
+	    // REGION Riferimenti incrociati
+	    //     #ZonaDellAnalogica := "Analogica".A[#K_Analogica].Rif_Inc.K_Zona;                                    //Cerco la zona della valvola attuale
+	    //     IF "Zona".Z[#ZonaDellAnalogica].Gen.UpdatePrm THEN                                            //Se la zona della valvola è in update
+	    //         FOR #ControlloSlotLibero := 0 TO "K_NumRifIncrociatiSequenza" DO                            //Inizio a cercare uno slot libero
+	    //             IF "Valvola".V[#K_Valvola].Rif_Inc.K_Sequenza[#ControlloSlotLibero] = #K_Sequenza THEN  //Se lo slòt è uguale a me stesso
+	    //                 EXIT;                                                                               //Esco
+	    //             END_IF;
+	    //             IF "Valvola".V[#K_Valvola].Rif_Inc.K_Sequenza[#ControlloSlotLibero] = 0 THEN            //Se lo slot è libero
+	    //                 "Valvola".V[#K_Valvola].Rif_Inc.K_Sequenza[#ControlloSlotLibero] := #K_Sequenza;    //lo riempio con la mia costante
+	    //                 EXIT;                                                                               //E poi esco
+	    //             END_IF;
+	    //         END_FOR;
+	    //     END_IF;
+	    // END_REGION ;
+END_FUNCTION
+

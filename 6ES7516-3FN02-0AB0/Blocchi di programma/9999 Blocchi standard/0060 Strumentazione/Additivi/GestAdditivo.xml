@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document>
+  <Engineering version="V21" />
+  <SW.Blocks.FC ID="0">
+    <AttributeList>
+      <Interface>
+        <Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v5">
+          <Section Name="Input">
+            <Member Name="AcidificazioneRichiesta" Datatype="Real" />
+            <Member Name="K_Analogica(Mandata)" Datatype="Int">
+              <Comment>
+                <MultiLanguageText Lang="it-IT">K_Analogica della pompa di mandata prodotto</MultiLanguageText>
+              </Comment>
+            </Member>
+            <Member Name="K_Motore(Additivo)" Datatype="Int">
+              <Comment>
+                <MultiLanguageText Lang="it-IT">K_Motore della pompa dell'additivo</MultiLanguageText>
+              </Comment>
+            </Member>
+            <Member Name="K_Additivo" Datatype="Int">
+              <Comment>
+                <MultiLanguageText Lang="it-IT">K_Additivo attuale</MultiLanguageText>
+              </Comment>
+            </Member>
+          </Section>
+          <Section Name="Output" />
+          <Section Name="InOut" />
+          <Section Name="Temp">
+            <Member Name="AppoggioPortata" Datatype="Real" />
+            <Member Name="AppoggioCalcoli" Datatype="Real" />
+            <Member Name="PortataAcidoNecessaria" Datatype="Real" />
+            <Member Name="HzPompaAcidoNecessari" Datatype="Real" />
+            <Member Name="PortataAttualeTeorica(l/h)" Datatype="Real" />
+            <Member Name="PortataAttualeTeorica(ql.i/h)" Datatype="Real" />
+            <Member Name="AdditivoAllaMassimaVel" Datatype="Bool" />
+            <Member Name="VelRichiesta" Datatype="Real" />
+            <Member Name="VelAttualeHzFromScale" Datatype="Real" />
+            <Member Name="K_AnalogicaInt" Datatype="Int" />
+            <Member Name="K_MotoreInt" Datatype="Int" />
+            <Member Name="K_AdditivoInt" Datatype="Int" />
+          </Section>
+          <Section Name="Constant">
+            <Member Name="FrequenzaMinInv" Datatype="Real">
+              <StartValue>10.0</StartValue>
+            </Member>
+            <Member Name="FrequenzaMaxInv" Datatype="Real">
+              <StartValue>80.0</StartValue>
+            </Member>
+            <Member Name="MassimaPortataPompa" Datatype="Real">
+              <StartValue>271.0</StartValue>
+            </Member>
+            <Member Name="MinimaPortataPompa" Datatype="Real">
+              <StartValue>30.0</StartValue>
+            </Member>
+          </Section>
+          <Section Name="Return">
+            <Member Name="Ret_Val" Datatype="Void" />
+          </Section>
+        </Sections>
+      </Interface>
+      <MemoryLayout>Optimized</MemoryLayout>
+      <Name>GestAdditivo</Name>
+      <Namespace />
+      <Number>84</Number>
+      <ProgrammingLanguage>LAD</ProgrammingLanguage>
+      <SetENOAutomatically>false</SetENOAutomatically>
+    </AttributeList>
+    <ObjectList>
+      <MultilingualText ID="1" CompositionName="Comment">
+        <ObjectList>
+          <MultilingualTextItem ID="2" CompositionName="Items">
+            <AttributeList>
+              <Culture>de-DE</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="3" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-GB</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="4" CompositionName="Items">
+            <AttributeList>
+              <Culture>es-ES</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="5" CompositionName="Items">
+            <AttributeList>
+              <Culture>fr-FR</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="6" CompositionName="Items">
+            <AttributeList>
+              <Culture>it-IT</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+      <SW.Blocks.CompileUnit ID="7" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource>
+            <StructuredText xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StructuredText/v4">
+              <Token Text="REGION" UId="21" />
+              <Blank UId="22" />
+              <Text UId="23">Diagnostica programmatore</Text>
+              <NewLine UId="24" />
+              <Blank Num="4" UId="25" />
+              <LineComment Inserted="true" UId="26">
+                <Text UId="27">Passiamo tutte le costanti di accesso agli array in modo da verificarle e controllarle</Text>
+              </LineComment>
+              <NewLine UId="28" />
+              <Blank Num="4" UId="29" />
+              <Access Scope="Call" UId="30">
+                <CallInfo UId="31" BlockType="FC">
+                  <Instance Scope="GlobalVariable" UId="33">
+                    <Component Name="Diagnostica" UId="32" />
+                  </Instance>
+                  <Token Text="(" UId="34" />
+                  <Parameter Name="K_Attuale_ArrayInCuiAccediamo" UId="35">
+                    <Blank UId="36" />
+                    <Token Text=":=" UId="37" />
+                    <Blank Num="2" UId="38" />
+                    <Access Scope="LocalVariable" UId="39">
+                      <Symbol UId="40">
+                        <Component Name="K_Analogica(Mandata)" UId="41" />
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="42" />
+                  <NewLine UId="43" />
+                  <Blank Num="18" UId="44" />
+                  <Parameter Name="K_NumMax_MassimoValoreDellArrayInCuiAccediamo" UId="45">
+                    <Blank UId="46" />
+                    <Token Text=":=" UId="47" />
+                    <Blank UId="48" />
+                    <Access Scope="GlobalConstant" UId="49">
+                      <Constant Name="K_NumAnalogica" UId="50" />
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="53" />
+                  <NewLine UId="54" />
+                  <Blank Num="18" UId="55" />
+                  <Parameter Name="K_Tipo_ArrayInCuiAccediamo" UId="56">
+                    <Blank UId="57" />
+                    <Token Text=":=" UId="58" />
+                    <Blank UId="59" />
+                    <Access Scope="GlobalConstant" UId="60">
+                      <Constant Name="K_TipoAnalogica" UId="61" />
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="64" />
+                  <NewLine UId="65" />
+                  <Blank Num="18" UId="66" />
+                  <Parameter Name="K_Attuale_DiChiAccede" UId="67">
+                    <Blank UId="68" />
+                    <Token Text=":=" UId="69" />
+                    <Blank UId="70" />
+                    <Access Scope="LocalVariable" UId="71">
+                      <Symbol UId="72">
+                        <Component Name="K_Analogica(Mandata)" UId="73" />
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="74" />
+                  <NewLine UId="75" />
+                  <Blank Num="18" UId="76" />
+                  <Parameter Name="K_Tipo_DiChiAccede" UId="77">
+                    <Blank UId="78" />
+                    <Token Text=":=" UId="79" />
+                    <Blank UId="80" />
+                    <Access Scope="GlobalConstant" UId="81">
+                      <Constant Name="K_TipoAdditivo" UId="82" />
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="85" />
+                  <NewLine UId="86" />
+                  <Blank Num="18" UId="87" />
+                  <Parameter Name="K_AttualeInterno" UId="88">
+                    <Blank UId="89" />
+                    <Token Text="=&gt;" UId="90" />
+                    <Blank UId="91" />
+                    <Access Scope="LocalVariable" UId="92">
+                      <Symbol UId="93">
+                        <Component Name="K_AnalogicaInt" UId="94" />
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text=")" UId="95" />
+                </CallInfo>
+              </Access>
+              <Token Text=";" UId="96" />
+              <NewLine UId="97" />
+              <Blank Num="4" UId="98" />
+              <NewLine UId="99" />
+              <Blank Num="4" UId="100" />
+              <Access Scope="Call" UId="101">
+                <CallInfo UId="102" BlockType="FC">
+                  <Instance Scope="GlobalVariable" UId="104">
+                    <Component Name="Diagnostica" UId="103" />
+                  </Instance>
+                  <Token Text="(" UId="105" />
+                  <Parameter Name="K_Attuale_ArrayInCuiAccediamo" UId="106">
+                    <Blank UId="107" />
+                    <Token Text=":=" UId="108" />
+                    <Blank UId="109" />
+                    <Access Scope="LocalVariable" UId="110">
+                      <Symbol UId="111">
+                        <Component Name="K_Motore(Additivo)" UId="112" />
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="113" />
+                  <NewLine UId="114" />
+                  <Blank Num="18" UId="115" />
+                  <Parameter Name="K_NumMax_MassimoValoreDellArrayInCuiAccediamo" UId="116">
+                    <Blank UId="117" />
+                    <Token Text=":=" UId="118" />
+                    <Blank UId="119" />
+                    <Access Scope="GlobalConstant" UId="120">
+                      <Constant Name="K_NumMotore" UId="121" />
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="124" />
+                  <NewLine UId="125" />
+                  <Blank Num="18" UId="126" />
+                  <Parameter Name="K_Tipo_ArrayInCuiAccediamo" UId="127">
+                    <Blank UId="128" />
+                    <Token Text=":=" UId="129" />
+                    <Blank UId="130" />
+                    <Access Scope="GlobalConstant" UId="131">
+                      <Constant Name="K_TipoMotore" UId="132" />
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="135" />
+                  <NewLine UId="136" />
+                  <Blank Num="18" UId="137" />
+                  <Parameter Name="K_Attuale_DiChiAccede" UId="138">
+                    <Blank UId="139" />
+                    <Token Text=":=" UId="140" />
+                    <Blank UId="141" />
+                    <Access Scope="LocalVariable" UId="142">
+                      <Symbol UId="143">
+                        <Component Name="K_Motore(Additivo)" UId="144" />
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="145" />
+                  <NewLine UId="146" />
+                  <Blank Num="18" UId="147" />
+                  <Parameter Name="K_Tipo_DiChiAccede" UId="148">
+                    <Blank UId="149" />
+                    <Token Text=":=" UId="150" />
+                    <Blank UId="151" />
+                    <Access Scope="GlobalConstant" UId="152">
+                      <Constant Name="K_TipoAdditivo" UId="153" />
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="156" />
+                  <NewLine UId="157" />
+                  <Blank Num="18" UId="158" />
+                  <Parameter Name="K_AttualeInterno" UId="159">
+                    <Blank UId="160" />
+                    <Token Text="=&gt;" UId="161" />
+                    <Blank UId="162" />
+                    <Access Scope="LocalVariable" UId="163">
+                      <Symbol UId="164">
+                        <Component Name="K_MotoreInt" UId="165" />
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text=")" UId="166" />
+                </CallInfo>
+              </Access>
+              <Token Text=";" UId="167" />
+              <NewLine UId="168" />
+              <Blank Num="4" UId="169" />
+              <NewLine UId="170" />
+              <Blank Num="4" UId="171" />
+              <Access Scope="Call" UId="172">
+                <CallInfo UId="173" BlockType="FC">
+                  <Instance Scope="GlobalVariable" UId="175">
+                    <Component Name="Diagnostica" UId="174" />
+                  </Instance>
+                  <Token Text="(" UId="176" />
+                  <Parameter Name="K_Attuale_ArrayInCuiAccediamo" UId="177">
+                    <Blank UId="178" />
+                    <Token Text=":=" UId="179" />
+                    <Blank UId="180" />
+                    <Access Scope="LocalVariable" UId="181">
+                      <Symbol UId="182">
+                        <Component Name="K_Additivo" UId="183" />
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="184" />
+                  <NewLine UId="185" />
+                  <Blank Num="18" UId="186" />
+                  <Parameter Name="K_NumMax_MassimoValoreDellArrayInCuiAccediamo" UId="187">
+                    <Blank UId="188" />
+                    <Token Text=":=" UId="189" />
+                    <Blank UId="190" />
+                    <Access Scope="GlobalConstant" UId="191">
+                      <Constant Name="K_NumAdditivo" UId="192" />
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="195" />
+                  <NewLine UId="196" />
+                  <Blank Num="18" UId="197" />
+                  <Parameter Name="K_Tipo_ArrayInCuiAccediamo" UId="198">
+                    <Blank UId="199" />
+                    <Token Text=":=" UId="200" />
+                    <Blank UId="201" />
+                    <Access Scope="GlobalConstant" UId="202">
+                      <Constant Name="K_TipoAdditivo" UId="203" />
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="206" />
+                  <NewLine UId="207" />
+                  <Blank Num="18" UId="208" />
+                  <Parameter Name="K_Attuale_DiChiAccede" UId="209">
+                    <Blank UId="210" />
+                    <Token Text=":=" UId="211" />
+                    <Blank UId="212" />
+                    <Access Scope="LocalVariable" UId="213">
+                      <Symbol UId="214">
+                        <Component Name="K_Additivo" UId="215" />
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="216" />
+                  <NewLine UId="217" />
+                  <Blank Num="18" UId="218" />
+                  <Parameter Name="K_Tipo_DiChiAccede" UId="219">
+                    <Blank UId="220" />
+                    <Token Text=":=" UId="221" />
+                    <Blank UId="222" />
+                    <Access Scope="GlobalConstant" UId="223">
+                      <Constant Name="K_TipoAdditivo" UId="224" />
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="227" />
+                  <NewLine UId="228" />
+                  <Blank Num="18" UId="229" />
+                  <Parameter Name="K_AttualeInterno" UId="230">
+                    <Blank UId="231" />
+                    <Token Text="=&gt;" UId="232" />
+                    <Blank UId="233" />
+                    <Access Scope="LocalVariable" UId="234">
+                      <Symbol UId="235">
+                        <Component Name="K_AdditivoInt" UId="236" />
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text=")" UId="237" />
+                </CallInfo>
+              </Access>
+              <Token Text=";" UId="238" />
+              <NewLine UId="239" />
+              <Token Text="END_REGION" UId="240" />
+              <Blank UId="241" />
+              <Text UId="242">;</Text>
+              <NewLine UId="243" />
+              <Token Text="REGION" UId="244" />
+              <Blank UId="245" />
+              <Text UId="246">Calcolo portata acido necessario in quintali/h</Text>
+              <NewLine UId="247" />
+              <Blank Num="4" UId="248" />
+              <Access Scope="LocalVariable" UId="249">
+                <Symbol UId="250">
+                  <Component Name="PortataAcidoNecessaria" UId="251" />
+                </Symbol>
+              </Access>
+              <Blank UId="252" />
+              <Token Text=":=" UId="253" />
+              <Blank UId="254" />
+              <Access Scope="GlobalVariable" UId="255">
+                <Symbol UId="256">
+                  <Component Name="Analogica" UId="257">
+                    <BooleanAttribute Name="HasQuotes" UId="258">true</BooleanAttribute>
+                  </Component>
+                  <Token Text="." UId="259" />
+                  <Component Name="A" UId="260">
+                    <Token Text="[" UId="261" />
+                    <Access Scope="LocalVariable" UId="262">
+                      <Symbol UId="263">
+                        <Component Name="K_AnalogicaInt" UId="264" />
+                      </Symbol>
+                    </Access>
+                    <Token Text="]" UId="265" />
+                  </Component>
+                  <Token Text="." UId="266" />
+                  <Component Name="Out" UId="267" />
+                  <Token Text="." UId="268" />
+                  <Component Name="AnalogicaAttuale" UId="269" />
+                  <Token Text="." UId="270" />
+                  <Component Name="Valore" UId="271" />
+                </Symbol>
+              </Access>
+              <Blank UId="272" />
+              <Token Text="/" UId="273" />
+              <Blank UId="274" />
+              <Access Scope="LiteralConstant" UId="275">
+                <Constant UId="276">
+                  <ConstantValue UId="278">100.0</ConstantValue>
+                </Constant>
+              </Access>
+              <Blank UId="279" />
+              <Token Text="*" UId="280" />
+              <Blank UId="281" />
+              <Access Scope="LocalVariable" UId="282">
+                <Symbol UId="283">
+                  <Component Name="AcidificazioneRichiesta" UId="284" />
+                </Symbol>
+              </Access>
+              <Token Text=";" UId="285" />
+              <NewLine UId="286" />
+              <Token Text="END_REGION" UId="287" />
+              <Blank UId="288" />
+              <Text UId="289">;</Text>
+              <NewLine UId="290" />
+              <Token Text="REGION" UId="291" />
+              <Blank UId="292" />
+              <Text UId="293">Calcolo velocità da chiedere al motore tenendo presente la frequenza dell'inverter</Text>
+              <NewLine UId="294" />
+              <Blank Num="4" UId="295" />
+              <Access Scope="Call" UId="296">
+                <CallInfo UId="297" BlockType="FC">
+                  <Instance Scope="GlobalVariable" UId="299">
+                    <Component Name="Scala" UId="298" />
+                  </Instance>
+                  <Token Text="(" UId="300" />
+                  <Parameter Name="ValoreIn" UId="301">
+                    <Blank UId="302" />
+                    <Token Text=":=" UId="303" />
+                    <Blank UId="304" />
+                    <Access Scope="LocalVariable" UId="305">
+                      <Symbol UId="306">
+                        <Component Name="PortataAcidoNecessaria" UId="307" />
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="308" />
+                  <NewLine UId="309" />
+                  <Blank Num="12" UId="310" />
+                  <Parameter Name="MaxLimitInput" UId="311">
+                    <Blank UId="312" />
+                    <Token Text=":=" UId="313" />
+                    <Blank UId="314" />
+                    <Access Scope="LocalConstant" UId="315">
+                      <Constant Name="MassimaPortataPompa" UId="316" />
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="319" />
+                  <NewLine UId="320" />
+                  <Blank Num="12" UId="321" />
+                  <Parameter Name="MinLimitInput" UId="322">
+                    <Blank UId="323" />
+                    <Token Text=":=" UId="324" />
+                    <Blank UId="325" />
+                    <Access Scope="LocalConstant" UId="326">
+                      <Constant Name="MinimaPortataPompa" UId="327" />
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="330" />
+                  <NewLine UId="331" />
+                  <Blank Num="12" UId="332" />
+                  <Parameter Name="MaxLimitOut" UId="333">
+                    <Blank UId="334" />
+                    <Token Text=":=" UId="335" />
+                    <Blank UId="336" />
+                    <Access Scope="LocalConstant" UId="337">
+                      <Constant Name="FrequenzaMaxInv" UId="338" />
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="341" />
+                  <NewLine UId="342" />
+                  <Blank Num="12" UId="343" />
+                  <Parameter Name="MinLimitOut" UId="344">
+                    <Blank UId="345" />
+                    <Token Text=":=" UId="346" />
+                    <Blank UId="347" />
+                    <Access Scope="LocalConstant" UId="348">
+                      <Constant Name="FrequenzaMinInv" UId="349" />
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="352" />
+                  <NewLine UId="353" />
+                  <Blank Num="12" UId="354" />
+                  <Parameter Name="ValoreOut" UId="355">
+                    <Blank UId="356" />
+                    <Token Text=":=" UId="357" />
+                    <Blank UId="358" />
+                    <Access Scope="LocalVariable" UId="359">
+                      <Symbol UId="360">
+                        <Component Name="HzPompaAcidoNecessari" UId="361" />
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text=")" UId="362" />
+                </CallInfo>
+              </Access>
+              <Token Text=";" UId="363" />
+              <NewLine UId="364" />
+              <Blank Num="4" UId="365" />
+              <Access Scope="Call" UId="366">
+                <CallInfo UId="367" BlockType="FC">
+                  <Instance Scope="GlobalVariable" UId="369">
+                    <Component Name="Scala" UId="368" />
+                  </Instance>
+                  <Token Text="(" UId="370" />
+                  <Parameter Name="ValoreIn" UId="371">
+                    <Blank UId="372" />
+                    <Token Text=":=" UId="373" />
+                    <Blank UId="374" />
+                    <Access Scope="LocalVariable" UId="375">
+                      <Symbol UId="376">
+                        <Component Name="HzPompaAcidoNecessari" UId="377" />
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="378" />
+                  <NewLine UId="379" />
+                  <Blank Num="12" UId="380" />
+                  <Parameter Name="MaxLimitInput" UId="381">
+                    <Blank UId="382" />
+                    <Token Text=":=" UId="383" />
+                    <Blank UId="384" />
+                    <Access Scope="LocalConstant" UId="385">
+                      <Constant Name="FrequenzaMaxInv" UId="386" />
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="389" />
+                  <NewLine UId="390" />
+                  <Blank Num="12" UId="391" />
+                  <Parameter Name="MinLimitInput" UId="392">
+                    <Blank UId="393" />
+                    <Token Text=":=" UId="394" />
+                    <Blank UId="395" />
+                    <Access Scope="LocalConstant" UId="396">
+                      <Constant Name="FrequenzaMinInv" UId="397" />
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="400" />
+                  <NewLine UId="401" />
+                  <Blank Num="12" UId="402" />
+                  <Parameter Name="MaxLimitOut" UId="403">
+                    <Blank UId="404" />
+                    <Token Text=":=" UId="405" />
+                    <Blank UId="406" />
+                    <Access Scope="LiteralConstant" UId="407">
+                      <Constant UId="408">
+                        <ConstantValue UId="410">10000</ConstantValue>
+                      </Constant>
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="411" />
+                  <NewLine UId="412" />
+                  <Blank Num="12" UId="413" />
+                  <Parameter Name="MinLimitOut" UId="414">
+                    <Blank UId="415" />
+                    <Token Text=":=" UId="416" />
+                    <Blank UId="417" />
+                    <Access Scope="LiteralConstant" UId="418">
+                      <Constant UId="419">
+                        <ConstantValue UId="421">0</ConstantValue>
+                      </Constant>
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="422" />
+                  <NewLine UId="423" />
+                  <Blank Num="12" UId="424" />
+                  <Parameter Name="ValoreOut" UId="425">
+                    <Blank UId="426" />
+                    <Token Text=":=" UId="427" />
+                    <Blank UId="428" />
+                    <Access Scope="LocalVariable" UId="429">
+                      <Symbol UId="430">
+                        <Component Name="VelRichiesta" UId="431" />
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text=")" UId="432" />
+                </CallInfo>
+              </Access>
+              <Token Text=";" UId="433" />
+              <NewLine UId="434" />
+              <Blank Num="4" UId="435" />
+              <NewLine UId="436" />
+              <Blank Num="4" UId="437" />
+              <Access Scope="GlobalVariable" UId="438">
+                <Symbol UId="439">
+                  <Component Name="Motore" UId="440">
+                    <BooleanAttribute Name="HasQuotes" UId="441">true</BooleanAttribute>
+                  </Component>
+                  <Token Text="." UId="442" />
+                  <Component Name="M" UId="443">
+                    <Token Text="[" UId="444" />
+                    <Access Scope="LocalVariable" UId="445">
+                      <Symbol UId="446">
+                        <Component Name="K_Motore(Additivo)" UId="447" />
+                      </Symbol>
+                    </Access>
+                    <Token Text="]" UId="448" />
+                  </Component>
+                  <Token Text="." UId="449" />
+                  <Component Name="In" UId="450" />
+                  <Token Text="." UId="451" />
+                  <Component Name="CmdVelocitaRich" UId="452" />
+                </Symbol>
+              </Access>
+              <Blank UId="453" />
+              <Token Text=":=" UId="454" />
+              <Blank UId="455" />
+              <Access Scope="Call" UId="456">
+                <Instruction Name="REAL_TO_DINT" UId="457">
+                  <Token Text="(" UId="458" />
+                  <NamelessParameter UId="459">
+                    <Access Scope="LocalVariable" UId="460">
+                      <Symbol UId="461">
+                        <Component Name="VelRichiesta" UId="462" />
+                      </Symbol>
+                    </Access>
+                  </NamelessParameter>
+                  <Token Text=")" UId="464" />
+                </Instruction>
+              </Access>
+              <Token Text=";" UId="465" />
+              <NewLine UId="466" />
+              <Blank Num="3" UId="467" />
+              <NewLine UId="468" />
+              <Blank Num="4" UId="469" />
+              <Access Scope="LocalVariable" UId="470">
+                <Symbol UId="471">
+                  <Component Name="AdditivoAllaMassimaVel" UId="472" />
+                </Symbol>
+              </Access>
+              <Blank UId="473" />
+              <Token Text=":=" UId="474" />
+              <Blank UId="475" />
+              <Access Scope="LiteralConstant" UId="476">
+                <Constant UId="477">
+                  <ConstantValue UId="479">False</ConstantValue>
+                </Constant>
+              </Access>
+              <Token Text=";" UId="480" />
+              <NewLine UId="481" />
+              <Blank Num="4" UId="482" />
+              <Token Text="IF" UId="483" />
+              <Blank UId="484" />
+              <Access Scope="GlobalVariable" UId="485">
+                <Symbol UId="486">
+                  <Component Name="Motore" UId="487">
+                    <BooleanAttribute Name="HasQuotes" UId="488">true</BooleanAttribute>
+                  </Component>
+                  <Token Text="." UId="489" />
+                  <Component Name="M" UId="490">
+                    <Token Text="[" UId="491" />
+                    <Access Scope="LocalVariable" UId="492">
+                      <Symbol UId="493">
+                        <Component Name="K_Motore(Additivo)" UId="494" />
+                      </Symbol>
+                    </Access>
+                    <Token Text="]" UId="495" />
+                  </Component>
+                  <Token Text="." UId="496" />
+                  <Component Name="In" UId="497" />
+                  <Token Text="." UId="498" />
+                  <Component Name="CmdVelocitaRich" UId="499" />
+                </Symbol>
+              </Access>
+              <Blank UId="500" />
+              <Token Text="&gt;=" UId="501" />
+              <Blank UId="502" />
+              <Access Scope="LiteralConstant" UId="503">
+                <Constant UId="504">
+                  <ConstantValue UId="506">10000</ConstantValue>
+                </Constant>
+              </Access>
+              <Blank UId="507" />
+              <Token Text="THEN" UId="508" />
+              <NewLine UId="509" />
+              <Blank Num="8" UId="510" />
+              <Access Scope="LocalVariable" UId="511">
+                <Symbol UId="512">
+                  <Component Name="AdditivoAllaMassimaVel" UId="513" />
+                </Symbol>
+              </Access>
+              <Blank UId="514" />
+              <Token Text=":=" UId="515" />
+              <Blank UId="516" />
+              <Access Scope="LiteralConstant" UId="517">
+                <Constant UId="518">
+                  <ConstantValue UId="520">True</ConstantValue>
+                </Constant>
+              </Access>
+              <Token Text=";" UId="521" />
+              <NewLine UId="522" />
+              <Blank Num="4" UId="523" />
+              <Token Text="END_IF" UId="524" />
+              <Token Text=";" UId="525" />
+              <NewLine UId="526" />
+              <Blank Num="4" UId="527" />
+              <Access Scope="GlobalVariable" UId="528">
+                <Symbol UId="529">
+                  <Component Name="Additivo" UId="530">
+                    <BooleanAttribute Name="HasQuotes" UId="531">true</BooleanAttribute>
+                  </Component>
+                  <Token Text="." UId="532" />
+                  <Component Name="A" UId="533">
+                    <Token Text="[" UId="534" />
+                    <Access Scope="LocalVariable" UId="535">
+                      <Symbol UId="536">
+                        <Component Name="K_AdditivoInt" UId="537" />
+                      </Symbol>
+                    </Access>
+                    <Token Text="]" UId="538" />
+                  </Component>
+                  <Token Text="." UId="539" />
+                  <Component Name="Allarme" UId="540" />
+                </Symbol>
+              </Access>
+              <Blank UId="541" />
+              <Token Text=":=" UId="542" />
+              <Blank UId="543" />
+              <Access Scope="LocalVariable" UId="544">
+                <Symbol UId="545">
+                  <Component Name="AdditivoAllaMassimaVel" UId="546" />
+                </Symbol>
+              </Access>
+              <Token Text=";" UId="547" />
+              <NewLine Num="2" UId="548" />
+              <Token Text="END_REGION" UId="549" />
+              <Blank UId="550" />
+              <Text UId="551">;</Text>
+              <NewLine UId="552" />
+              <Token Text="REGION" UId="553" />
+              <Blank UId="554" />
+              <Text UId="555">Calcolo porata acido attuale, reale     </Text>
+              <NewLine UId="556" />
+              <Blank Num="4" UId="557" />
+              <Access Scope="Call" UId="558">
+                <CallInfo UId="559" BlockType="FC">
+                  <Instance Scope="GlobalVariable" UId="561">
+                    <Component Name="Scala" UId="560" />
+                  </Instance>
+                  <Token Text="(" UId="562" />
+                  <Parameter Name="ValoreIn" UId="563">
+                    <Blank UId="564" />
+                    <Token Text=":=" UId="565" />
+                    <Blank UId="566" />
+                    <Access Scope="GlobalVariable" UId="567">
+                      <Symbol UId="568">
+                        <Component Name="Motore" UId="569">
+                          <BooleanAttribute Name="HasQuotes" UId="570">true</BooleanAttribute>
+                        </Component>
+                        <Token Text="." UId="571" />
+                        <Component Name="M" UId="572">
+                          <Token Text="[" UId="573" />
+                          <Access Scope="LocalVariable" UId="574">
+                            <Symbol UId="575">
+                              <Component Name="K_Motore(Additivo)" UId="576" />
+                            </Symbol>
+                          </Access>
+                          <Token Text="]" UId="577" />
+                        </Component>
+                        <Token Text="." UId="578" />
+                        <Component Name="Dati" UId="579" />
+                        <Token Text="." UId="580" />
+                        <Component Name="FrequenzaRichiesta" UId="581" />
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="582" />
+                  <NewLine UId="583" />
+                  <Blank Num="12" UId="584" />
+                  <Parameter Name="MaxLimitInput" UId="585">
+                    <Blank UId="586" />
+                    <Token Text=":=" UId="587" />
+                    <Blank UId="588" />
+                    <Access Scope="LiteralConstant" UId="589">
+                      <Constant UId="590">
+                        <ConstantValue UId="592">27648</ConstantValue>
+                      </Constant>
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="593" />
+                  <NewLine UId="594" />
+                  <Blank Num="12" UId="595" />
+                  <Parameter Name="MinLimitInput" UId="596">
+                    <Blank UId="597" />
+                    <Token Text=":=" UId="598" />
+                    <Blank UId="599" />
+                    <Access Scope="LiteralConstant" UId="600">
+                      <Constant UId="601">
+                        <ConstantValue UId="603">0</ConstantValue>
+                      </Constant>
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="604" />
+                  <NewLine UId="605" />
+                  <Blank Num="12" UId="606" />
+                  <Parameter Name="MaxLimitOut" UId="607">
+                    <Blank UId="608" />
+                    <Token Text=":=" UId="609" />
+                    <Blank UId="610" />
+                    <Access Scope="LocalConstant" UId="611">
+                      <Constant Name="FrequenzaMaxInv" UId="612" />
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="615" />
+                  <NewLine UId="616" />
+                  <Blank Num="12" UId="617" />
+                  <Parameter Name="MinLimitOut" UId="618">
+                    <Blank UId="619" />
+                    <Token Text=":=" UId="620" />
+                    <Blank UId="621" />
+                    <Access Scope="LocalConstant" UId="622">
+                      <Constant Name="FrequenzaMinInv" UId="623" />
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="626" />
+                  <NewLine UId="627" />
+                  <Blank Num="12" UId="628" />
+                  <Parameter Name="ValoreOut" UId="629">
+                    <Blank UId="630" />
+                    <Token Text=":=" UId="631" />
+                    <Blank UId="632" />
+                    <Access Scope="LocalVariable" UId="633">
+                      <Symbol UId="634">
+                        <Component Name="VelAttualeHzFromScale" UId="635" />
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text=")" UId="636" />
+                </CallInfo>
+              </Access>
+              <Token Text=";" UId="637" />
+              <NewLine UId="638" />
+              <Blank Num="4" UId="639" />
+              <Access Scope="Call" UId="640">
+                <CallInfo UId="641" BlockType="FC">
+                  <Instance Scope="GlobalVariable" UId="643">
+                    <Component Name="Scala" UId="642" />
+                  </Instance>
+                  <Token Text="(" UId="644" />
+                  <Parameter Name="ValoreIn" UId="645">
+                    <Blank UId="646" />
+                    <Token Text=":=" UId="647" />
+                    <Blank UId="648" />
+                    <Access Scope="LocalVariable" UId="649">
+                      <Symbol UId="650">
+                        <Component Name="VelAttualeHzFromScale" UId="651" />
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="652" />
+                  <NewLine UId="653" />
+                  <Blank Num="12" UId="654" />
+                  <Parameter Name="MaxLimitInput" UId="655">
+                    <Blank UId="656" />
+                    <Token Text=":=" UId="657" />
+                    <Blank UId="658" />
+                    <Access Scope="LocalConstant" UId="659">
+                      <Constant Name="FrequenzaMaxInv" UId="660" />
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="663" />
+                  <NewLine UId="664" />
+                  <Blank Num="12" UId="665" />
+                  <Parameter Name="MinLimitInput" UId="666">
+                    <Blank UId="667" />
+                    <Token Text=":=" UId="668" />
+                    <Blank UId="669" />
+                    <Access Scope="LocalConstant" UId="670">
+                      <Constant Name="FrequenzaMinInv" UId="671" />
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="674" />
+                  <NewLine UId="675" />
+                  <Blank Num="12" UId="676" />
+                  <Parameter Name="MaxLimitOut" UId="677">
+                    <Blank UId="678" />
+                    <Token Text=":=" UId="679" />
+                    <Blank UId="680" />
+                    <Access Scope="LocalConstant" UId="681">
+                      <Constant Name="MassimaPortataPompa" UId="682" />
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="685" />
+                  <NewLine UId="686" />
+                  <Blank Num="12" UId="687" />
+                  <Parameter Name="MinLimitOut" UId="688">
+                    <Blank UId="689" />
+                    <Token Text=":=" UId="690" />
+                    <Blank UId="691" />
+                    <Access Scope="LocalConstant" UId="692">
+                      <Constant Name="MinimaPortataPompa" UId="693" />
+                    </Access>
+                  </Parameter>
+                  <Token Text="," UId="696" />
+                  <NewLine UId="697" />
+                  <Blank Num="12" UId="698" />
+                  <Parameter Name="ValoreOut" UId="699">
+                    <Blank UId="700" />
+                    <Token Text=":=" UId="701" />
+                    <Blank UId="702" />
+                    <Access Scope="LocalVariable" UId="703">
+                      <Symbol UId="704">
+                        <Component Name="PortataAttualeTeorica(l/h)" UId="705" />
+                      </Symbol>
+                    </Access>
+                  </Parameter>
+                  <Token Text=")" UId="706" />
+                </CallInfo>
+              </Access>
+              <Token Text=";" UId="707" />
+              <NewLine UId="708" />
+              <Blank Num="4" UId="709" />
+              <NewLine UId="710" />
+              <Blank Num="4" UId="711" />
+              <Access Scope="LocalVariable" UId="712">
+                <Symbol UId="713">
+                  <Component Name="PortataAttualeTeorica(ql.i/h)" UId="714" />
+                </Symbol>
+              </Access>
+              <Blank UId="715" />
+              <Token Text=":=" UId="716" />
+              <Blank UId="717" />
+              <Access Scope="LocalVariable" UId="718">
+                <Symbol UId="719">
+                  <Component Name="PortataAttualeTeorica(l/h)" UId="720" />
+                </Symbol>
+              </Access>
+              <Blank UId="721" />
+              <Token Text="/" UId="722" />
+              <Blank UId="723" />
+              <Access Scope="LiteralConstant" UId="724">
+                <Constant UId="725">
+                  <ConstantValue UId="727">100.0</ConstantValue>
+                </Constant>
+              </Access>
+              <Token Text=";" UId="728" />
+              <NewLine UId="729" />
+              <Blank Num="4" UId="730" />
+              <Access Scope="GlobalVariable" UId="731">
+                <Symbol UId="732">
+                  <Component Name="Additivo" UId="733">
+                    <BooleanAttribute Name="HasQuotes" UId="734">true</BooleanAttribute>
+                  </Component>
+                  <Token Text="." UId="735" />
+                  <Component Name="A" UId="736">
+                    <Token Text="[" UId="737" />
+                    <Access Scope="LocalVariable" UId="738">
+                      <Symbol UId="739">
+                        <Component Name="K_AdditivoInt" UId="740" />
+                      </Symbol>
+                    </Access>
+                    <Token Text="]" UId="741" />
+                  </Component>
+                  <Token Text="." UId="742" />
+                  <Component Name="Attuale" UId="743" />
+                </Symbol>
+              </Access>
+              <Blank UId="744" />
+              <Token Text=":=" UId="745" />
+              <Blank UId="746" />
+              <Access Scope="LocalVariable" UId="747">
+                <Symbol UId="748">
+                  <Component Name="PortataAttualeTeorica(ql.i/h)" UId="749" />
+                </Symbol>
+              </Access>
+              <Token Text=";" UId="750" />
+              <NewLine UId="751" />
+              <Blank Num="4" UId="752" />
+              <Token Text="IF" UId="753" />
+              <Blank UId="754" />
+              <Token Text="NOT" UId="755" />
+              <Blank UId="756" />
+              <Access Scope="GlobalVariable" UId="757">
+                <Symbol UId="758">
+                  <Component Name="Motore" UId="759">
+                    <BooleanAttribute Name="HasQuotes" UId="760">true</BooleanAttribute>
+                  </Component>
+                  <Token Text="." UId="761" />
+                  <Component Name="M" UId="762">
+                    <Token Text="[" UId="763" />
+                    <Access Scope="LocalVariable" UId="764">
+                      <Symbol UId="765">
+                        <Component Name="K_Motore(Additivo)" UId="766" />
+                      </Symbol>
+                    </Access>
+                    <Token Text="]" UId="767" />
+                  </Component>
+                  <Token Text="." UId="768" />
+                  <Component Name="Out" UId="769" />
+                  <Token Text="." UId="770" />
+                  <Component Name="InMarcia" UId="771" />
+                </Symbol>
+              </Access>
+              <Blank UId="772" />
+              <Token Text="THEN" UId="773" />
+              <NewLine UId="774" />
+              <Blank Num="8" UId="775" />
+              <Access Scope="GlobalVariable" UId="776">
+                <Symbol UId="777">
+                  <Component Name="Additivo" UId="778">
+                    <BooleanAttribute Name="HasQuotes" UId="779">true</BooleanAttribute>
+                  </Component>
+                  <Token Text="." UId="780" />
+                  <Component Name="A" UId="781">
+                    <Token Text="[" UId="782" />
+                    <Access Scope="LocalVariable" UId="783">
+                      <Symbol UId="784">
+                        <Component Name="K_AdditivoInt" UId="785" />
+                      </Symbol>
+                    </Access>
+                    <Token Text="]" UId="786" />
+                  </Component>
+                  <Token Text="." UId="787" />
+                  <Component Name="Attuale" UId="788" />
+                </Symbol>
+              </Access>
+              <Blank UId="789" />
+              <Token Text=":=" UId="790" />
+              <Blank UId="791" />
+              <Access Scope="LiteralConstant" UId="792">
+                <Constant UId="793">
+                  <ConstantValue UId="795">0.0</ConstantValue>
+                </Constant>
+              </Access>
+              <Token Text=";" UId="796" />
+              <NewLine UId="797" />
+              <Blank Num="4" UId="798" />
+              <Token Text="END_IF" UId="799" />
+              <Token Text=";" UId="800" />
+              <NewLine UId="801" />
+              <Token Text="END_REGION" UId="802" />
+              <Blank UId="803" />
+              <Text UId="804">;</Text>
+              <NewLine UId="805" />
+            </StructuredText>
+          </NetworkSource>
+          <ProgrammingLanguage>SCL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="8" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="9" CompositionName="Items">
+                <AttributeList>
+                  <Culture>de-DE</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="A" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-GB</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="B" CompositionName="Items">
+                <AttributeList>
+                  <Culture>es-ES</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="C" CompositionName="Items">
+                <AttributeList>
+                  <Culture>fr-FR</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="D" CompositionName="Items">
+                <AttributeList>
+                  <Culture>it-IT</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="E" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="F" CompositionName="Items">
+                <AttributeList>
+                  <Culture>de-DE</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="10" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-GB</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="11" CompositionName="Items">
+                <AttributeList>
+                  <Culture>es-ES</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="12" CompositionName="Items">
+                <AttributeList>
+                  <Culture>fr-FR</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="13" CompositionName="Items">
+                <AttributeList>
+                  <Culture>it-IT</Culture>
+                  <Text>Calcolo e scalatura percentuale acido</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+      <MultilingualText ID="14" CompositionName="Title">
+        <ObjectList>
+          <MultilingualTextItem ID="15" CompositionName="Items">
+            <AttributeList>
+              <Culture>de-DE</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="16" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-GB</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="17" CompositionName="Items">
+            <AttributeList>
+              <Culture>es-ES</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="18" CompositionName="Items">
+            <AttributeList>
+              <Culture>fr-FR</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="19" CompositionName="Items">
+            <AttributeList>
+              <Culture>it-IT</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+    </ObjectList>
+  </SW.Blocks.FC>
+</Document>

@@ -1,0 +1,20 @@
+﻿FUNCTION "Valvola_Y2_DrenagAcidoCamiciaRaffred" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	REGION Drenaggio acido camicia raffreddatore
+	    REGION Parametri
+	        "Valvola".V["K_Valvola_Y2"].Prm.SensorLess := True;
+	    END_REGION ;
+	    REGION Gestione
+	        "GestValvola"(K_Valvola := "K_Valvola_Y2",
+	                      K_TipoValvola := "K_TipoValvola_Monostabile",
+	                      K_Zona := "K_Zona_Sterilizzatore");
+	    END_REGION ;
+	    REGION Uscite
+	        "Valvola_Y2_ComandoPositivo" := "Valvola".V["K_Valvola_Y2"].Out.CmdPos;
+	    END_REGION ;
+	END_REGION ;
+END_FUNCTION
+

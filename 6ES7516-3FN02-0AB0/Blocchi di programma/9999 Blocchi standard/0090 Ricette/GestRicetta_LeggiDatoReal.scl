@@ -1,0 +1,21 @@
+﻿FUNCTION "GestRicetta_LeggiDatoReal" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_MacchinaARicetta : Int;
+      K_DatoRicettaReal : Int;
+   END_VAR
+
+   VAR_OUTPUT 
+      Dato : Real;
+   END_VAR
+
+
+BEGIN
+	#Dato := "MacchinaARicetta".M[#K_MacchinaARicetta].Lavoro.DatoReal[#K_DatoRicettaReal];
+	
+	IF #K_DatoRicettaReal > "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.NumDatoRicettaReal THEN
+	    "MacchinaARicetta".M[#K_MacchinaARicetta].Hmi.NumDatoRicettaReal := #K_DatoRicettaReal;
+	END_IF;
+END_FUNCTION
+

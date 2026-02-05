@@ -1,0 +1,33 @@
+﻿FUNCTION "GestTrend" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_Trend : Int;
+      K_Analog1 : Int;
+      K_Analog2 : Int;
+      K_Analog3 : Int;
+      K_Analog4 : Int;
+      K_Analog5 : Int;
+      K_Pid1 : Int;
+      K_Pid2 : Int;
+      K_Pid3 : Int;
+   END_VAR
+
+
+BEGIN
+	// "Trends".T[#K_Trend].Valore1 := "Analogiche".A[#K_Analog1].Out.AnalogicaAttuale;
+	// "Trends".T[#K_Trend].Valore2 := "Analogiche".A[#K_Analog2].Out.AnalogicaAttuale;
+	// "Trends".T[#K_Trend].Valore3 := "Analogiche".A[#K_Analog3].Out.AnalogicaAttuale;
+	// "Trends".T[#K_Trend].Valore4 := "Analogiche".A[#K_Analog4].Out.AnalogicaAttuale;
+	// "Trends".T[#K_Trend].Valore5 := "Analogiche".A[#K_Analog5].Out.AnalogicaAttuale;
+	// "Trends".T[#K_Trend].Valore6 := "Pid".P[#K_Pid1].Hmi.StatoUscitaPID;
+	// "Trends".T[#K_Trend].Valore7 := "Pid".P[#K_Pid2].Hmi.StatoUscitaPID;
+	// "Trends".T[#K_Trend].Valore8 := "Pid".P[#K_Pid3].Hmi.StatoUscitaPID;
+	
+	// "Analogiche".A[#K_Analog1].Rif_Inc.K_Trend := #K_Trend;
+	// "Analogiche".A[#K_Analog2].Rif_Inc.K_Trend := #K_Trend;
+	// "Analogiche".A[#K_Analog3].Rif_Inc.K_Trend := #K_Trend;
+	// "Analogiche".A[#K_Analog4].Rif_Inc.K_Trend := #K_Trend;
+	// "Analogiche".A[#K_Analog5].Rif_Inc.K_Trend := #K_Trend;
+END_FUNCTION
+

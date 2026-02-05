@@ -1,0 +1,20 @@
+﻿FUNCTION "GestPopup_Ack" : Bool
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+//Se impostato fa uscire popup ah HMI
+//Se confermato ad HMI da un fronte alto in uscita
+   VAR_INPUT 
+      K_Popup : Int;
+   END_VAR
+
+   VAR_TEMP 
+      "Fronte uscita" : Bool;
+   END_VAR
+
+
+BEGIN
+	"Popup".P[#K_Popup].RichiestaAperturaPopup := True;
+	
+	ENO := #GestPopup_Ack:= "Popup".P[#K_Popup].ENO_Blocco;
+END_FUNCTION
+

@@ -1,0 +1,1538 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document>
+  <Engineering version="V21" />
+  <SW.Blocks.GlobalDB ID="0">
+    <AttributeList>
+      <Interface>
+        <Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v5">
+          <Section Name="Static">
+            <Member Name="AF" Datatype="Array[0..1] of &quot;Std_Azionamentofesto&quot;" Remanence="Retain">
+              <Sections>
+                <Section Name="None">
+                  <Member Name="Input" Datatype="Struct">
+                    <Member Name="ModePos" Datatype="Int">
+                      <Subelement Path="0">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>7</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="EnableAxis" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>TRUE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="CancelTraversing" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>TRUE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>TRUE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="IntermediateStop" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>TRUE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>TRUE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="Positive" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="Negative" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="Jog1" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="Jog2" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="AckError" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="ExecuteMode" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="ReleaseBrake" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="TravelToFixStop" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="Position" Datatype="DInt">
+                      <Subelement Path="0">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>120000</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="Velocity" Datatype="DInt">
+                      <Subelement Path="0">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="OverV" Datatype="Int">
+                      <Subelement Path="0">
+                        <StartValue>100</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>100</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="OverAcc" Datatype="Int">
+                      <Subelement Path="0">
+                        <StartValue>100</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>100</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="OverDec" Datatype="Int">
+                      <Subelement Path="0">
+                        <StartValue>100</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>100</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="ConfigEPos" Datatype="DWord">
+                      <Subelement Path="0">
+                        <StartValue>16#0000_000F</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>16#0000_000F</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="BaseSpeedValue" Datatype="Real">
+                      <Subelement Path="0">
+                        <StartValue>0.0</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>0.042</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="HardwareId" Datatype="HW_IO">
+                      <Subelement Path="0">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>285</StartValue>
+                      </Subelement>
+                    </Member>
+                  </Member>
+                  <Member Name="Output" Datatype="Struct">
+                    <Member Name="AxisEnabled" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="AxisPosOk" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="AxisSpFixed" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="AxisAckSetpoint" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="ClampTorqueReached" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="AxisRef" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="AxisWarn" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="AxisError" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="Lockout" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="ActVelocity" Datatype="Real">
+                      <Subelement Path="0">
+                        <StartValue>0.0</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>0.0</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="ActPosition" Datatype="DInt">
+                      <Subelement Path="0">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="ActMode" Datatype="Int">
+                      <Subelement Path="0">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>4</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="EPosZSW1" Datatype="Word">
+                      <Subelement Path="0">
+                        <StartValue>16#0000</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>16#0000</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="EPosZSW2" Datatype="Word">
+                      <Subelement Path="0">
+                        <StartValue>16#0000</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>16#0000</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="ActWarn" Datatype="Word">
+                      <Subelement Path="0">
+                        <StartValue>16#0000</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>16#0000</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="ActFault" Datatype="Word">
+                      <Subelement Path="0">
+                        <StartValue>16#0000</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>16#0000</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="Error" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="Status" Datatype="Word">
+                      <Subelement Path="0">
+                        <StartValue>16#0000</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>16#0000</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="DiagID" Datatype="Word">
+                      <Subelement Path="0">
+                        <StartValue>16#0000</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>16#0000</StartValue>
+                      </Subelement>
+                    </Member>
+                  </Member>
+                  <Member Name="Dati" Datatype="Struct">
+                    <Member Name="Ready4Motion" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="ExecuteIntern" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="StepHome" Datatype="UInt">
+                      <Subelement Path="0">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="RetDPRD" Datatype="Int">
+                      <Subelement Path="0">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="RetDPWR" Datatype="Int">
+                      <Subelement Path="0">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="CycWrite" Datatype="Struct">
+                      <Member Name="STW1" Datatype="Struct">
+                        <Member Name="jog1" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="jog2" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="controlByPlc" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>TRUE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>TRUE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="StartHoming" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="ReleaseBrake" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="ExternalBlockChange" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="reserved14" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="reserved15" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="on" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="noCoastStop" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>TRUE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>TRUE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="noQuickStop" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>TRUE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>TRUE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="enableOperation" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>TRUE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>TRUE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="cancelTraversing" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="intermediateStop" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="activateTraversing" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="acknowledgeFault" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                      </Member>
+                      <Member Name="POS_STW1" Datatype="Struct">
+                        <Member Name="MDI_MOD" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="PosModulo" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="NegModulo" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="reserved11" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="reserved12" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="reserved13" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="SetupMode" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="MDI_Activate" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="travBlockBit0" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="travBlockBit1" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="travBlockBit2" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="travBlockBit3" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="travBlockBit4" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="travBlockBit5" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="travBlockBit6" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="reserved7" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                      </Member>
+                      <Member Name="POS_STW2" Datatype="Struct">
+                        <Member Name="FlyingRef" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="reserved9" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="SelectProbe" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="ProbeEdgeEval" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="reserved12" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="reserved13" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="SW-Limit" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="HW-Limit" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="Trackingmode" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="SetReferencePoint" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="reserved2" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="reserved3" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="reserved4" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="jog_inc" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="reserved6" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="reserved7" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                      </Member>
+                      <Member Name="STW2" Datatype="Struct">
+                        <Member Name="TravelToFixStop" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="reserved9" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="reserved10" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="reserved11" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="signOfLifeBit0" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="signOfLifeBit1" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="signOfLifeBit2" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="signOfLifeBit3" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="reserved0" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="reserved1" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="reserved2" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="reserved3" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="reserved4" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="reserved5" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="reserved6" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="reserved7" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                      </Member>
+                      <Member Name="Override" Datatype="Word">
+                        <Subelement Path="0">
+                          <StartValue>16#0000</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>16#0000</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="MDI_TARPOS" Datatype="DInt">
+                        <Subelement Path="0">
+                          <StartValue>0</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>0</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="MDI_VELOCITY" Datatype="DInt">
+                        <Subelement Path="0">
+                          <StartValue>0</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>0</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="MDI_ACC" Datatype="UInt">
+                        <Subelement Path="0">
+                          <StartValue>0</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>0</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="MDI_DEC" Datatype="UInt">
+                        <Subelement Path="0">
+                          <StartValue>0</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>0</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="reserved11" Datatype="Word">
+                        <Subelement Path="0">
+                          <StartValue>16#0000</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>16#0000</StartValue>
+                        </Subelement>
+                      </Member>
+                    </Member>
+                    <Member Name="CycRead" Datatype="Struct">
+                      <Member Name="ZSW1" Datatype="Struct">
+                        <Member Name="followingErrorInTolerance" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="controlRequest" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="targetPosReached" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="homePosSet" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="acknowledgeTraversingBlockActivated" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="driveStopped" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="axisAccelerates" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="axisDecelerates" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="readyForSwitchOn" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="ready" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="operationEnabled" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="faultPresent" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="noCoastingActive" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="noQuickStopActive" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="switchingOnInhibitedActive" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="warningActive" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                      </Member>
+                      <Member Name="POS_ZSW1" Datatype="Word">
+                        <Subelement Path="0">
+                          <StartValue>16#0000</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>16#0000</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="POS_ZSW2" Datatype="Word">
+                        <Subelement Path="0">
+                          <StartValue>16#0000</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>16#0000</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="ZSW2" Datatype="Struct">
+                        <Member Name="deviceSpecificBit8" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="deviceSpecificBit9" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="deviceSpecificBit10" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="deviceSpecificBit11" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="doSignOfLifeBit0" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="doSignOfLifeBit1" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="doSignOfLifeBit2" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="doSignOfLifeBit3" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="deviceSpecificBit0" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="deviceSpecificBit1" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="deviceSpecificBit2" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="deviceSpecificBit3" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="deviceSpecificBit4" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="deviceSpecificBit5" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="deviceSpecificBit6" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="deviceSpecificBit7" Datatype="Bool">
+                          <Subelement Path="0">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>FALSE</StartValue>
+                          </Subelement>
+                        </Member>
+                      </Member>
+                      <Member Name="MELDW" Datatype="Word">
+                        <Subelement Path="0">
+                          <StartValue>16#0000</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>16#0000</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="XIST_A" Datatype="DInt">
+                        <Subelement Path="0">
+                          <StartValue>0</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>0</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="NIST_B" Datatype="DInt">
+                        <Subelement Path="0">
+                          <StartValue>0</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>0</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="Fault_Code" Datatype="Word">
+                        <Subelement Path="0">
+                          <StartValue>16#0000</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>16#0000</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="Warn_Code" Datatype="Word">
+                        <Subelement Path="0">
+                          <StartValue>16#0000</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>16#0000</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="Reserved" Datatype="Word">
+                        <Subelement Path="0">
+                          <StartValue>16#0000</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>16#0000</StartValue>
+                        </Subelement>
+                      </Member>
+                    </Member>
+                    <Member Name="ExecAux" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="ExecR_Trig" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="Jog1PAux" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="Jog1PR_trig" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="Jog2PAux" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="Jog2PR_trig" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="Jog1PMode8Aux" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="Jog1PMode8R_trig" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="Jog2PMode8Aux" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="Jog2PMode8R_trig" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="Status" Datatype="Word">
+                      <Subelement Path="0">
+                        <StartValue>16#0000</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>16#0000</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="statStartCounter" Datatype="Int">
+                      <Subelement Path="0">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="ActMode" Datatype="Int">
+                      <Subelement Path="0">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="MaxCounterRetries" Datatype="Int">
+                      <Subelement Path="0">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="GestioneExecute" Datatype="Struct">
+                      <Member Name="OldPosition" Datatype="DInt">
+                        <Subelement Path="0">
+                          <StartValue>0</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>0</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="OldStatoMotore" Datatype="DInt">
+                        <Subelement Path="0">
+                          <StartValue>0</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>0</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="OldAxisEnable" Datatype="Bool">
+                        <Subelement Path="0">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="OldModePos" Datatype="Int">
+                        <Subelement Path="0">
+                          <StartValue>0</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>0</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="OldResetState" Datatype="Bool">
+                        <Subelement Path="0">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="Richiesto" Datatype="Bool">
+                        <Subelement Path="0">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="Attesa" Datatype="Int">
+                        <Subelement Path="0">
+                          <StartValue>0</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>0</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="Durata" Datatype="Int">
+                        <Subelement Path="0">
+                          <StartValue>0</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>0</StartValue>
+                        </Subelement>
+                      </Member>
+                    </Member>
+                  </Member>
+                </Section>
+              </Sections>
+              <Subelement Path="0">
+                <Comment>
+                  <MultiLanguageText Lang="it-IT">Non usare</MultiLanguageText>
+                </Comment>
+              </Subelement>
+              <Subelement Path="1">
+                <Comment>
+                  <MultiLanguageText Lang="it-IT">AltezzaStampo</MultiLanguageText>
+                </Comment>
+              </Subelement>
+            </Member>
+          </Section>
+        </Sections>
+      </Interface>
+      <MemoryLayout>Optimized</MemoryLayout>
+      <MemoryReserve>100</MemoryReserve>
+      <Name>AzionamentoFesto</Name>
+      <Namespace />
+      <Number>14</Number>
+      <ProgrammingLanguage>DB</ProgrammingLanguage>
+    </AttributeList>
+    <ObjectList>
+      <MultilingualText ID="1" CompositionName="Comment">
+        <ObjectList>
+          <MultilingualTextItem ID="2" CompositionName="Items">
+            <AttributeList>
+              <Culture>de-DE</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="3" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-GB</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="4" CompositionName="Items">
+            <AttributeList>
+              <Culture>es-ES</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="5" CompositionName="Items">
+            <AttributeList>
+              <Culture>fr-FR</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="6" CompositionName="Items">
+            <AttributeList>
+              <Culture>it-IT</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+      <MultilingualText ID="7" CompositionName="Title">
+        <ObjectList>
+          <MultilingualTextItem ID="8" CompositionName="Items">
+            <AttributeList>
+              <Culture>de-DE</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="9" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-GB</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="A" CompositionName="Items">
+            <AttributeList>
+              <Culture>es-ES</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="B" CompositionName="Items">
+            <AttributeList>
+              <Culture>fr-FR</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="C" CompositionName="Items">
+            <AttributeList>
+              <Culture>it-IT</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+    </ObjectList>
+  </SW.Blocks.GlobalDB>
+</Document>

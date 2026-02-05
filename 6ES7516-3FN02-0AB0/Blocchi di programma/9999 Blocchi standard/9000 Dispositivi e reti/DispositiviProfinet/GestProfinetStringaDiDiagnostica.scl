@@ -1,0 +1,40 @@
+﻿FUNCTION "GestProfinetStringaDiDiagnostica" : String
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      RetValFunction : Int;
+   END_VAR
+
+   VAR CONSTANT 
+      RetVal_NessunErrore : UInt := 0;   // La funzione risponde nessun errore
+      RetVal_IdHwNonDisponibile : UInt := 8091;   // La funzione risponde che l'id hardware passato non è corretto
+      RetVal_NessunDispositivoDisponibile : UInt := 8092;   // Nel sistema profinet non è presente nessun dispositivo
+      RetVal_TipoDatiStateNonValido : UInt := 8093;   // Nel tipo dati state viene passato un parametro non valido
+      RetVal_DeviceStateNonSupportato : UInt := 32945;   // Device state non è compatibile nella cpu utilizzata
+      RetVal_ModeStateNonSupportato : UInt := 32946;   // Il valore di mode non è supportato dal sistema
+      RetVal_ErroreDiLunghezzaAreaDati : UInt := 8452;   // Il sistema genera un numero di dati superiore alla lunghezza progettata
+   END_VAR
+
+
+BEGIN
+	CASE INT_TO_UINT(#RetValFunction) OF
+	    #RetVal_DeviceStateNonSupportato:
+	        #GestProfinetStringaDiDiagnostica := 'DeviceStateNonSupportato';
+	    #RetVal_ErroreDiLunghezzaAreaDati:
+	        #GestProfinetStringaDiDiagnostica := 'la lunghezza area dati progettata errata';
+	    #RetVal_IdHwNonDisponibile:
+	        #GestProfinetStringaDiDiagnostica := 'Id hardware assegnato errato';
+	    #RetVal_ModeStateNonSupportato:
+	        #GestProfinetStringaDiDiagnostica := 'Mode state richiesto errato';
+	    #RetVal_NessunDispositivoDisponibile:
+	        #GestProfinetStringaDiDiagnostica := 'Non sono stati progettati dispositivi in configurazione';
+	    #RetVal_NessunErrore:
+	        #GestProfinetStringaDiDiagnostica := 'Tutto ok';
+	    #RetVal_TipoDatiStateNonValido:
+	        #GestProfinetStringaDiDiagnostica := 'I dati presenti nel tipo dati state non sono attendibili';
+	    ELSE
+	        #GestProfinetStringaDiDiagnostica := 'Allarme non previsto';
+	END_CASE;
+	
+END_FUNCTION
+

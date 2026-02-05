@@ -1,0 +1,27 @@
+﻿FUNCTION "Pid_RiscaldamentoAcqua" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	REGION Riscaldamento acqua
+	    REGION Ingressi
+	        IF "Sequenza".S["K_Sequenza_Produzione"].Out.SequenzaAvviata AND "Sequenza".S["K_Sequenza_Produzione"].Out.Passo["K_Passo_Sterilizzazione"].Attivo THEN
+	            "Pid".P["K_Pid_RiscaldamentoAcqua"].Hmi.SetpointPID := 140.0;
+	        ELSE
+	            "Pid".P["K_Pid_RiscaldamentoAcqua"].Hmi.SetpointPID := "Analogica".A["K_Analogica_TemperaturaRichiestaAcquaCalda"].Out.AnalogicaAttuale.Valore + 3;
+	        END_IF;
+	    END_REGION ;
+	    REGION Gestione
+	        "GestPid"(K_Zona := "K_Zona_Sterilizzatore",
+	                  K_Pid := "K_Pid_RiscaldamentoAcqua",
+	                  K_Analogica := "K_Analogica_TemperaturaAcquaCalda",
+	                  OggettoTecnologicoPID := "Pid_Sterilizzatore_RiscaldamentoAcqua");
+	    END_REGION ;
+	    REGION Uscite
+	        "GestPid_Comando1Valvola"(K_Valvola := "K_Valvola_D2",
+	                                  K_Pid := "K_Pid_RiscaldamentoAcqua",
+	                                  K_TipoOutValvola := "K_TipoOutValvola_Portata");
+	    END_REGION ;
+	END_REGION ;
+END_FUNCTION
+

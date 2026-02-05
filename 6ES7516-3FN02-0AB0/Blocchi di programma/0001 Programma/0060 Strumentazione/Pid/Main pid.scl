@@ -1,0 +1,14 @@
+﻿FUNCTION "Main pid" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	REGION Pid Sterilizzatore
+	    "Pid_RaffreddamentoAcqua"();
+	    "Pid_RiscaldamentoAcqua"();
+	    "Pid_RiscaldamentoProdotto"();
+	    "Pid_VelocitàPompaMono"();
+	    "Pid_VelocitàPompaPistoni"();
+	END_REGION ;
+END_FUNCTION
+

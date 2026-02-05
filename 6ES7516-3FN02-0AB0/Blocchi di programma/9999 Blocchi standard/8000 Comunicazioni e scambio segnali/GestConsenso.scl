@@ -1,0 +1,59 @@
+﻿FUNCTION "GestConsenso" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_SegnaleMacchina : Int;
+      K_Consenso : Int;
+      K_TipoSendReceive : Int;   // Indica se è un segnale send o recive
+      SegnaleIn : Bool;   // Segnale in ingresso al blocco da inviare o ricevuto
+   END_VAR
+
+   VAR_OUTPUT 
+      OutSegnale : Bool;
+   END_VAR
+
+   VAR_TEMP 
+      SegnaleForzatoOn : Bool;
+      SegnaleForzatoOff : Bool;
+      AbilitaTimeoutForzature : Bool;
+      TimeoutForzature : Bool;
+      ResettaForzature : Bool;
+      PreOutSegnale : Bool;
+      StatoHmi : Int;
+   END_VAR
+
+
+BEGIN
+	REGION Gestione delle forzature ad Hmi
+	    #SegnaleForzatoOn := "SegnaliMacchina".S[#K_SegnaleMacchina].SR[#K_TipoSendReceive].Digitali[#K_Consenso].Hmi.ForzaturaOn;
+	    #SegnaleForzatoOff := "SegnaliMacchina".S[#K_SegnaleMacchina].SR[#K_TipoSendReceive].Digitali[#K_Consenso].Hmi.ForzaturaOff;
+	    #AbilitaTimeoutForzature := "SegnaliMacchina".S[#K_SegnaleMacchina].SR[#K_TipoSendReceive].Digitali[#K_Consenso].Prm.AbilitaScadenzaForzatura;
+	    #TimeoutForzature := "SegnaliMacchina".S[#K_SegnaleMacchina].SR[#K_TipoSendReceive].Digitali[#K_Consenso].Prm.TempoScadenzaForzatura.O;
+	    #ResettaForzature := #TimeoutForzature OR (#SegnaleForzatoOn AND #SegnaleForzatoOff);
+	    "T_ON"(I_CicloCPU := "Zona".Comuni.TempoCicloCpu_r,
+	           I_StartConteggio := (#SegnaleForzatoOn OR #SegnaleForzatoOff) AND #AbilitaTimeoutForzature,
+	           IO_DatiTimer := "SegnaliMacchina".S[#K_SegnaleMacchina].SR[#K_TipoSendReceive].Digitali[#K_Consenso].Prm.TempoScadenzaForzatura);
+	    IF #ResettaForzature THEN
+	        "SegnaliMacchina".S[#K_SegnaleMacchina].SR[#K_TipoSendReceive].Digitali[#K_Consenso].Hmi.ForzaturaOn :=
+	        "SegnaliMacchina".S[#K_SegnaleMacchina].SR[#K_TipoSendReceive].Digitali[#K_Consenso].Hmi.ForzaturaOff := False;
+	    END_IF;
+	    #PreOutSegnale := (#SegnaleIn OR #SegnaleForzatoOn) AND NOT #SegnaleForzatoOff;
+	END_REGION ;
+	REGION Stato Hmi
+	    IF #SegnaleForzatoOn THEN
+	        #StatoHmi := 2;
+	    ELSIF #SegnaleForzatoOff THEN
+	        #StatoHmi := 3;
+	    ELSIF #PreOutSegnale THEN
+	        #StatoHmi := 1;
+	        ELSE
+	        #StatoHmi := 0;
+	    END_IF;
+	    "SegnaliMacchina".S[#K_SegnaleMacchina].SR[#K_TipoSendReceive].Digitali[#K_Consenso].Hmi.Stato := #StatoHmi;
+	END_REGION ;
+	REGION Uscita
+	    #OutSegnale := ENO :=
+	    "SegnaliMacchina".S[#K_SegnaleMacchina].SR[#K_TipoSendReceive].Digitali[#K_Consenso].Out.Segnale := #PreOutSegnale;
+	END_REGION ;
+END_FUNCTION
+

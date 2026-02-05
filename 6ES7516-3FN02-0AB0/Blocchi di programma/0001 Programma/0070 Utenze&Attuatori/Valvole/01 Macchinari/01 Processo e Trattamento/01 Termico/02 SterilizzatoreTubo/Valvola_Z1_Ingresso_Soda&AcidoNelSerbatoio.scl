@@ -1,0 +1,20 @@
+﻿FUNCTION "Valvola_Z1_Ingresso_Soda&AcidoNelSerbatoio" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	REGION Ingresso Soda /acido nel serbatoio
+	    REGION Parametri
+	        "Valvola".V["K_Valvola_Z1"].Prm.SensorLess := True;
+	    END_REGION ;
+	    REGION Gestione
+	        "GestValvola"(K_Valvola := "K_Valvola_Z1",
+	                      K_TipoValvola := "K_TipoValvola_Monostabile",
+	                      K_Zona := "K_Zona_Sterilizzatore");
+	    END_REGION ;
+	    REGION Uscite
+	        "Valvola_Z1_ComandoPositivo" := "Valvola".V["K_Valvola_Z1"].Out.CmdPos;
+	    END_REGION ;
+	END_REGION ;
+END_FUNCTION
+

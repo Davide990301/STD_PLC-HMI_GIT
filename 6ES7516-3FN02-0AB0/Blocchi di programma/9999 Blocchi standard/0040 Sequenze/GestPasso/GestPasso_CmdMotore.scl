@@ -1,0 +1,66 @@
+﻿FUNCTION "GestPasso_CmdMotore" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_Motore : Int;   // Costante che indica il motore da comandare
+      Comando : Int;   // 2=Pos 3=Neg 4=Scarico 5=FlipFlop
+      K_Sequenza : Int;   // Sequenza di riferimento
+      K_Passo : Int;   // Passo in cui deve aprirsi la valvola
+      NonAttenderePosizione : Bool;   // 1 = NonAttendePosizione 0 = AttendeValvolaInPosizione
+   END_VAR
+
+   VAR_TEMP 
+      PassoAttualeDellaSequenza : Int;
+      ControlloSlotLibero : Int;
+      ZonaDelMotore : Int;
+      MotoreNonInPosizione : Bool;
+   END_VAR
+
+   VAR CONSTANT 
+      ComandoPositivo : Int := 2;
+      ComandoNegativo : Int := 3;
+      ComandoFolle : Int := 4;
+      ComandoFlipFlop : Int := 5;
+   END_VAR
+
+
+BEGIN
+	REGION Comando e controllo
+	    IF "Sequenza".S[#K_Sequenza].Dati.PassoAttuale = #K_Passo AND "Sequenza".S[#K_Sequenza].Dati.AbilitazionePasso  AND NOT "Sequenza".S[#K_Sequenza].Hmi.BloccaAvanzamento THEN      //Se la sequenza si trova al passo attuale
+	
+	        #MotoreNonInPosizione := False;                                                             //pulisco la memoria prima di scriverla
+	        CASE #Comando OF
+	            #ComandoPositivo:
+	                "Motore".M[#K_Motore].In.CmdPosRich := True;                                        //Chiedo al motore di partire
+	                IF NOT "Motore".M[#K_Motore].Out.CmdPosMotore THEN
+	                    #MotoreNonInPosizione := True;
+	                END_IF;
+	            #ComandoNegativo:
+	                "Motore".M[#K_Motore].In.CmdNegRich := True;
+	                IF NOT "Motore".M[#K_Motore].Out.CmdNegMotore THEN
+	                    #MotoreNonInPosizione := True;
+	                END_IF;
+	        END_CASE;
+	        IF #MotoreNonInPosizione AND NOT #NonAttenderePosizione THEN
+	            "Sequenza".S[#K_Sequenza].Dati.TutteLeUtenzeInPosizione := False;                       //Butto giù il cumulativo 
+	            "Sequenza".S[#K_Sequenza].Hmi.Diagnostica.AttesaMotore := #K_Motore;                    //Scrivo il motore che sto aspettando
+	        END_IF;
+	    END_IF;
+	END_REGION ;
+	
+	REGION Riferimenti incrociati
+	    #ZonaDelMotore := "Motore".M[#K_Motore].Rif_Inc.K_Zona;                                         //Cerco la zona del motore attuale
+	    IF "Zona".Z[#ZonaDelMotore].Gen.UpdatePrm THEN                                                  //Se la zona del motore è in update
+	        FOR #ControlloSlotLibero := 0 TO "K_NumRifIncrociatiSequenza" DO                            //Inizio a cercare uno slot libero
+	            IF "Motore".M[#K_Motore].Rif_Inc.K_Sequenza[#ControlloSlotLibero] = #K_Sequenza THEN    //Se lo slòt è uguale a me stesso
+	                EXIT;                                                                               //Esco
+	            END_IF;
+	            IF "Motore".M[#K_Motore].Rif_Inc.K_Sequenza[#ControlloSlotLibero] = 0 THEN              //Se lo slot è libero
+	                "Motore".M[#K_Motore].Rif_Inc.K_Sequenza[#ControlloSlotLibero] := #K_Sequenza;      //lo riempio con la mia costante
+	                EXIT;                                                                               //E poi esco
+	            END_IF;
+	        END_FOR;
+	    END_IF;
+	END_REGION ;
+END_FUNCTION
+

@@ -1,0 +1,62 @@
+﻿FUNCTION_BLOCK "CicloScansioneCPU_G"
+TITLE = Cycle Time CPU
+{ S7_Optimized_Access := 'TRUE' }
+AUTHOR : Roman
+FAMILY : BrainElectric
+NAME : '89'
+VERSION : 1.3
+//Brain Electric SRL, Street Meucci 23 - Montecchio Emilia (RE) 42027 - Italy
+   VAR_INPUT 
+      I_PrimoCicloCpu : Bool;   // Impulso Primo Ciclo CPU
+   END_VAR
+
+   VAR 
+      l_lrCicloCpu { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : LReal;   // Ciclo Cpu LREAL
+      l_lrCicloCpuMem { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : LReal;   // Ciclo Cpu Memoria
+      l_rCicloCpuResto : LReal;   // Ciclo Cpu Resto
+      O_rCicloCpu : Real;   // Ciclo Cpu Real
+      O_iCicloCpu : Int;   // Ciclo Cpu Int
+   END_VAR
+
+
+BEGIN
+	REGION Descrizione
+	    (*Descrizione Azienda
+	    ------------------------------------------------------------------------------------------------
+	    Autore                 / Author                 : Roman
+	    Azienda                / Company                : Brain Electric SRL, Via Meucci 23 - Montecchio Emilia (RE) 42027 - Italia
+	    Data Primo Rilascio    / Date First Revision    : 2019-08-16
+	    Data Ultima Revisione  / Date Last Revision     : 2020-03-18
+	    Version                / Version                : V1.3
+	    ------------------------------------------------------------------------------------------------
+	    Note
+	    
+	    ------------------------------------------------------------------------------------------------
+	    Storico Lavori
+	    V1.0 2019/08/16: Blocco Preparato
+	    V1.1 2019/08/29: Blocco Testato
+	    V1.2 2020/03/05: Aggiunto Ciclo CPU In Int
+	    V1.3 2020/03/18: Aggiunto Descizione In Inglese
+	    ------------------------------------------------------------------------------------------------
+	    *)
+	END_REGION
+	REGION Logica
+	    // Nuovo Ciclo CPU - Prima Scanzione / New Cycle CPU - First RUN
+	    IF #I_PrimoCicloCpu THEN
+	        #l_lrCicloCpu := 0.0;
+	        #l_lrCicloCpuMem := 0.0;
+	        #O_rCicloCpu := 0.0;
+	    END_IF;
+	    // Ciclo CPU / Cycle CPU RUNTIME
+	    #l_lrCicloCpu := RUNTIME(#l_lrCicloCpuMem);
+	    // Ciclo CPU Real / Cycle Time Real
+	    #O_rCicloCpu := LREAL_TO_REAL(#l_lrCicloCpu);
+	    // Ciclo CPU Int / Cycle Time Int
+	    #l_rCicloCpuResto := #l_rCicloCpuResto + (#l_lrCicloCpu - TRUNC(#l_lrCicloCpu));
+	    #O_iCicloCpu := LREAL_TO_INT(#l_lrCicloCpu * 1000.0 + TRUNC(#l_rCicloCpuResto));
+	    IF #l_rCicloCpuResto >= 1.0 THEN
+	        #l_rCicloCpuResto := #l_rCicloCpuResto - TRUNC(#l_rCicloCpuResto);
+	    END_IF;
+	END_REGION
+END_FUNCTION_BLOCK
+

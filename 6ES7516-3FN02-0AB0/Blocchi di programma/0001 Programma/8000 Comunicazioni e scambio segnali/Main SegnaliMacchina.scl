@@ -1,0 +1,19 @@
+﻿FUNCTION "Main SegnaliMacchina" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	
+	
+	"GestSegnaliMacchina"(K_SegnaleMacchina:="K_SegnaliMacchinaQCI",
+	                      K_TipoComunicazione:="K_TipoComunicazione_GetPut",
+	                      K_TipoLetturaScrittura:="K_TipoLetturaScrittura_LetturaScrittura");
+	
+	"GestSegnaliMacchina"(K_SegnaleMacchina := "K_SegnaliMacchinaRobopackCFT",
+	                      K_TipoComunicazione := "K_TipoComunicazione_Digitale",
+	                      K_TipoLetturaScrittura:="K_TipoLetturaScrittura_SolaLettura");
+	
+	"Main consensi"();
+	
+END_FUNCTION
+

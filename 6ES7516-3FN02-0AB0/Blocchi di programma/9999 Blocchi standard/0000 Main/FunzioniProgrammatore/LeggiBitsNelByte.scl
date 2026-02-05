@@ -1,0 +1,43 @@
+﻿FUNCTION "LeggiBitsNelByte" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      byData : Byte;
+      iStartBit : Int;
+      iEndBit : Int;
+   END_VAR
+
+   VAR_OUTPUT 
+      byValue : Byte;
+   END_VAR
+
+
+BEGIN
+	#byValue := 0;
+	
+	IF #iStartBit <= 0 AND #iEndBit >= 0 THEN
+	    #byValue.%X0 := #byData.%X0;
+	END_IF;
+	IF #iStartBit <= 1 AND #iEndBit >= 1 THEN
+	    #byValue.%X1 := #byData.%X1;
+	END_IF;
+	IF #iStartBit <= 2 AND #iEndBit >= 2 THEN
+	    #byValue.%X2 := #byData.%X2;
+	END_IF;
+	IF #iStartBit <= 3 AND #iEndBit >= 3 THEN
+	    #byValue.%X3 := #byData.%X3;
+	END_IF;
+	IF #iStartBit <= 4 AND #iEndBit >= 4 THEN
+	    #byValue.%X4 := #byData.%X4;
+	END_IF;
+	IF #iStartBit <= 5 AND #iEndBit >= 5 THEN
+	    #byValue.%X5 := #byData.%X5;
+	END_IF;
+	IF #iStartBit <= 6 AND #iEndBit >= 6 THEN
+	    #byValue.%X6 := #byData.%X6;
+	END_IF;
+	IF #iStartBit <= 7 AND #iEndBit >= 7 THEN
+	    #byValue.%X7 := #byData.%X7;
+	END_IF;
+END_FUNCTION
+

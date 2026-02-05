@@ -1,0 +1,32 @@
+﻿FUNCTION "T_FasciaOraria" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_IN_OUT 
+      PartenzaOraria : "Std_FasciaOraria";   // Struttura contenente i dati necessari alla marcia in una fascia oraria definita
+   END_VAR
+
+   VAR_TEMP 
+      DateAndTime : Date_And_Time;   // Data ed ora attuali lette dalla CPU
+      Return : Int;   // Risultato/errori di lettura della data ed ora nella cpu
+      OraAttuale : Time_Of_Day;   // Data convertito dal formato date and time restituito dalla cpu
+      OraArrestoGiornoSeguente : Bool;   // L'orario impostato per l'arresto avviene nel giorno seguente
+   END_VAR
+
+
+BEGIN
+	REGION Lettura e conversione della data ed ora
+	    #Return := RD_LOC_T(#DateAndTime);              //Leggo la data ed ora locale nel PLC
+	    #OraAttuale := DT_TO_TOD(#DateAndTime);         //Converto il formato data ed ora in orario
+	END_REGION ;
+	REGION Logica di marcia
+	    //Discrimino il fatto che l'orario impostato di fine marcia sia nel giorno successivo (Oltre la mezzanotte)
+	    #OraArrestoGiornoSeguente := #PartenzaOraria.OrarioArresto < #PartenzaOraria.OrarioPartenza;         //Se l'orario di arresto è inferiore a quello di partenza
+	    IF #OraArrestoGiornoSeguente THEN
+	        ENO := #OraAttuale > #PartenzaOraria.OrarioPartenza OR #OraAttuale < #PartenzaOraria.OrarioArresto; //Condizione di marcia con arresto il giorno dopo
+	    ELSE
+	        ENO := #OraAttuale > #PartenzaOraria.OrarioPartenza AND #OraAttuale < #PartenzaOraria.OrarioArresto; //Condizione di marcia con arresto il giorno stesso
+	    END_IF;
+	END_REGION ;
+	
+END_FUNCTION
+

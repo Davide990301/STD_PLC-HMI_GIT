@@ -1,0 +1,31 @@
+﻿FUNCTION "Valvola_D2_ModulanteRiscaldamentoAcqua" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	REGION Modulante riscaldamento acqua
+	    REGION Parametri
+	        "Valvola".V["K_Valvola_D2"].Prm.SensorLess := True;
+	    END_REGION ;
+	    REGION Parametri
+	        "Valvola".V["K_Valvola_D2"].In.ConsMovimentoPos :=                          //Per aprire la modulante
+	            "Valvola".V["K_Valvola_D"].Out.CmdPos AND                               //occorre la valvola D aperta
+	            "Motore".M["K_Motore_PompaRicircoloAcquaCalda"].Out.CmdPosMotore AND    //la pompa ricircolo in marcia
+	            NOT "PressostatoBarilottoAcquaCalda" AND                                //non devo avere il pressostato
+	            "Analogica".A["K_Analogica_LivelloSerbatoioCaldo"].Out.SogliaIntMin;    //e devo avere il livello minimo nel serbatoio.
+	    END_REGION ;
+	    REGION Gestione   
+	        "GestValvola"(K_Valvola := "K_Valvola_D2",
+	                      K_TipoValvola := "K_TipoValvola_Modulante",
+	                      K_Zona := "K_Zona_Sterilizzatore");
+	    END_REGION ;
+	    REGION Uscite
+	        "GestValvola_ScriviPaw"(K_Valvola := "K_Valvola_D2",
+	                                K_TipoOutValvola := "K_TipoOutValvola_Portata",
+	                                Paw => "ModulanteRiscaldamentoAcqua_Apertura");
+	       
+	        "ValvolaIntercetto_RiscaldAcqua_ComandoPositivo" := "Valvola".V["K_Valvola_D2"].Out.CmdPos;
+	    END_REGION ;
+	END_REGION ;
+END_FUNCTION
+

@@ -1,0 +1,23 @@
+﻿FUNCTION "Valvola_Z_IngressoProdottoVasca" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	REGION Ingresso prodotto Vasca
+	    REGION Parametri
+	        "Valvola".V["K_Valvola_Z"].Prm.SensorLess := True;
+	    END_REGION ;
+	    REGION Ingressi
+	        "Valvola".V["K_Valvola_Z"].In.RichiestaAutoPos := "Gestione_010102".ComandoRecupero_Stato;
+	    END_REGION ;
+	    REGION Gestione
+	        "GestValvola"(K_Valvola := "K_Valvola_Z",
+	                      K_TipoValvola := "K_TipoValvola_Monostabile",
+	                      K_Zona := "K_Zona_Sterilizzatore");
+	    END_REGION ;
+	    REGION Uscite
+	        "Valvola_Z_ComandoPositivo" := "Valvola".V["K_Valvola_Z"].Out.CmdPos;
+	    END_REGION ;
+	END_REGION ;
+END_FUNCTION
+

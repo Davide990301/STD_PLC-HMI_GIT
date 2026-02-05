@@ -1,0 +1,23 @@
+﻿FUNCTION "GestMotore_AbilitazioneAllarmi" : Void
+TITLE = Gestione dell'abilitazione degli allarmi del motore
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+//Se viene richiamato è possibile abilitare e disabilitare gli allarmi del motore tramite l'ingresso coerente
+   VAR_INPUT 
+      K_Motore : Int;
+      AbilitaAllarmi : Bool;
+   END_VAR
+
+   VAR_TEMP 
+      CounterAllarmi : Int;
+   END_VAR
+
+
+BEGIN
+	FOR #CounterAllarmi := 1 TO "K_NumAllarmiPerMotori" DO
+	    "Motore".M[#K_Motore].Allarmi.A[#CounterAllarmi].EnCadutaCiclo :=
+	    "Motore".M[#K_Motore].Allarmi.A[#CounterAllarmi].EnWarnHmi := #AbilitaAllarmi;
+	END_FOR;
+	
+END_FUNCTION
+

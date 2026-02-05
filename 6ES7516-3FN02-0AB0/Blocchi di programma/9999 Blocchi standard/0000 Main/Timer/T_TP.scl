@@ -1,0 +1,59 @@
+﻿FUNCTION "T_TP" : Void
+TITLE = Timer TOFF di un impulso
+{ S7_Optimized_Access := 'TRUE' }
+AUTHOR : Roman
+FAMILY : BrainElectric
+NAME : '89'
+VERSION : 2.1
+   VAR_INPUT 
+      I_CicloCPU : Real;   // Ciclo Scansione CPU
+      I_StartConteggio : Bool;   // Start Conteggio
+   END_VAR
+
+   VAR_IN_OUT 
+      IO_DatiTimer : "Std_stTimer";   // Dati Timer
+   END_VAR
+
+
+BEGIN
+	REGION Descrizione
+	    (*Descrizione Azienda
+	    ------------------------------------------------------------------------------------------------
+	    Autore                 / Author                 : Roman
+	    Azienda                / Company                : Brain Electric SRL, Via Meucci 23 - Montecchio Emilia (RE) 42027 - Italia
+	    Data Primo Rilascio    / Date First Revision    : 2019-08-16
+	    Data Ultima Revisione  / Date Last Revision     : 2020-03-18
+	    Version                / Version                : V2.1
+	    ------------------------------------------------------------------------------------------------
+	    Note
+	    
+	    ------------------------------------------------------------------------------------------------
+	    Storico Lavori
+	    V1.0 2019/08/16: Blocco Preparato
+	    V1.1 2019/08/29: Blocco Testato
+	    V2.0 2019/09/12: Blocco Migliorato
+	    V2.1 2020/03/18: Aggiunto Descizione In Inglese
+	    ------------------------------------------------------------------------------------------------
+	    *)
+	END_REGION
+	
+	REGION Logica
+	    // Ingresso Start Conteggio / Input Start Timer
+	    #IO_DatiTimer.IN := #I_StartConteggio;
+	    // Inizializzo Timer / Initialize Counter
+	    IF NOT #IO_DatiTimer.IN AND #IO_DatiTimer.TempoTrascorso >= #IO_DatiTimer.Preset THEN
+	        #IO_DatiTimer.TempoTrascorso := 0.0;
+	        #IO_DatiTimer.O := FALSE;
+	        // Start Conteggio / Start Counter
+	    ELSIF #IO_DatiTimer.TempoTrascorso < #IO_DatiTimer.Preset AND #IO_DatiTimer.TempoTrascorso > 0.0 THEN
+	        #IO_DatiTimer.TempoTrascorso += #I_CicloCPU;
+	        // 
+	    ELSIF #IO_DatiTimer.IN AND #IO_DatiTimer.TempoTrascorso < #IO_DatiTimer.Preset THEN
+	        #IO_DatiTimer.TempoTrascorso += #I_CicloCPU;
+	        #IO_DatiTimer.O := TRUE;
+	    ELSE
+	        #IO_DatiTimer.O := FALSE;
+	    END_IF;
+	END_REGION
+END_FUNCTION
+

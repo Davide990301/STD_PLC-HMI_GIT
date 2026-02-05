@@ -1,0 +1,690 @@
+﻿FUNCTION "GestValvolaFestoVTEM" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_ValvolaFesto_VTEM : Int;
+      K_Valvola : Int;
+   END_VAR
+
+   VAR_TEMP 
+      ValvolaMonostabile : Bool;
+      ValvolaBistabileCentriAperti : Bool;
+      ValvolaBistabileCentriChiusi : Bool;
+      ValvolaBistabileCentriApertiChiusi : Bool;
+   END_VAR
+
+   VAR CONSTANT 
+      CmdPos : Byte := 1;
+      CmdNeg : Byte := 2;
+      CmdBloccato : Byte := 0;
+      CmdScaricoFolle : Byte := 3;
+   END_VAR
+
+
+BEGIN
+	REGION Modifiche BRAIN ELECTRICT
+	    
+	    "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.xEnable := TRUE;
+	    "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.bySetValveMode := 8;
+	    "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.iSetpointValue1 := REAL_TO_INT("Valvola".V[#K_Valvola].Out.CmdPortata)*10;
+	    "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.iSetpointValue2 := REAL_TO_INT("Valvola".V[#K_Valvola].Out.CmdPressione);
+	    "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.xManualAcknowledge := "Valvola".V[#K_Valvola].In.Reset;
+	    
+	    #ValvolaMonostabile := "Valvola".V[#K_Valvola].Prm.K_TipoValvola = "K_TipoValvola_Monostabile";
+	    #ValvolaBistabileCentriAperti := "Valvola".V[#K_Valvola].Prm.K_TipoValvola = "K_TipoValvola_BistabileCentriAperti";
+	    #ValvolaBistabileCentriChiusi := "Valvola".V[#K_Valvola].Prm.K_TipoValvola = "K_TipoValvola_BistabileCentriChiusi";
+	    #ValvolaBistabileCentriApertiChiusi := "Valvola".V[#K_Valvola].Prm.K_TipoValvola = "K_TipoValvola_BistabileCentriApertiEChiusi";
+	    
+	
+	    IF "Valvola".V[#K_Valvola].Out.CmdPos THEN  //Comando positivo
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.bySetAppControl := 1;//Metto la valvola in comando avanti
+	    ELSIF "Valvola".V[#K_Valvola].Out.CmdNeg THEN  //Comando negativo
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.bySetAppControl := 2;//Metto la valvola in comando indietro
+	    ELSIF "Valvola".V[#K_Valvola].Out.CmdScarico THEN  //Comando scarico
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.bySetAppControl := 3;//Metto la valvola in comando indietro    
+	    ELSE  //Comando stop
+	        IF #ValvolaBistabileCentriAperti THEN  //Comando stop in scarico
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.bySetAppControl := 3;//Meto la valvola in folle / scarico aperto
+	        ELSIF #ValvolaBistabileCentriApertiChiusi  OR #ValvolaBistabileCentriChiusi THEN  //Comando stop bloccata
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.bySetAppControl := 0;//Meto la valvola bloccata
+	        END_IF;
+	    END_IF;
+	    
+	    "Valvola".V[#K_Valvola].In.Feedback_PressionePos := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iActualValue1;
+	    "Valvola".V[#K_Valvola].In.Feedback_PressioneNeg := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iActualValue2;
+	    
+	    IF "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet = 1037 THEN
+	        "Valvola".V[#K_Valvola].Allarmi.A["KAllValv_ResetRichiesto"].Stato := True;
+	    END_IF;
+	    
+	END_REGION ;
+	
+	// read protocol data from MT
+	"LeggiBitsNellaWord"(wdata := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.wBusDataFromVTEM0, iStartBit := 0, iEndBit := 5, ivalue => "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iActualValveMode);
+	"ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveMode := INT_TO_BYTE("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iActualValveMode);
+	"LeggiBitsNellaWord"(wdata := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.wBusDataFromVTEM0, iStartBit := 6, iEndBit := 7, ivalue => "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iValveState);
+	"ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveState := INT_TO_BYTE("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iValveState);
+	"LeggiBitsNellaWord"(wdata := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.wBusDataFromVTEM0, iStartBit := 8, iEndBit := 15, ivalue => "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iActualAppState);
+	"ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualAppState := INT_TO_BYTE("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iActualAppState);
+	
+	"LeggiBitsNellaWord"(wdata := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.wBusDataFromVTEM1, iStartBit := 0, iEndBit := 15, ivalue => "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iActualValue1);
+	"LeggiBitsNellaWord"(wdata := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.wBusDataFromVTEM2, iStartBit := 0, iEndBit := 15, ivalue => "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iActualValue2);
+	IF "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.xEnable = FALSE AND (("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iActualValveMode = 61 AND "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet <> "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.stopping) OR "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iActualValveMode = 63 OR "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber = 0) THEN    // goto idle state
+	    IF "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iActualValveMode = 63 AND "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet <> "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.FB_not_enabled THEN     // Exit the TM if it is running while the falling edge of xEnable
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 4;    // exit TransferMode
+	    ELSIF "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iActualValveMode = 61 AND "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber <> 2 AND "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber <> 0 AND "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet <> "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.FB_not_enabled THEN   //Ensure that the last command is iCommandNumber = 2 (Stop)
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 2;    // do nothing (here: command 'stop' to ensure the valve remains stopped and it is the last command the FB sends)
+	    ELSE // IDLE-State: repeated during xEnable = FALSE
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 0;    // IDLE - FB stops overwritting Busdata
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.FB_not_enabled;
+	    END_IF;
+	    
+	ELSE
+	    // Pre-Check of the State of the Motion Terminal
+	    IF "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveMode = 0 AND (BYTE_TO_INT("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveState) = "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eValveState.NotReady) THEN
+	        // The Communication to the Motion Terminal was lost. 
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.no_Communication;
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 2;    // Do Nothing (here: Stop-Command to ensure the valve keeps stopped)
+	    ELSIF "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveMode = 61 AND "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualAppState = 10 THEN
+	        // The WebConfig has write permission -> Access Denied for the PLC 
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.access_denied_WebConfig;
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 2;    // Do Nothing (here: Stop-Command to ensure the valve keeps stopped)
+	    ELSIF "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveMode = 61 AND "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualAppState = 11 THEN
+	        // A Saving Process is executed -> Access Denied for the PLC 
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.access_denied_saving_parametrisation;
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 2;    // Do Nothing (here: Stop-Command to ensure the valve keeps stopped)
+	    ELSIF "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveMode = 61 AND "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualAppState = 15 THEN
+	        // no valve was detected at the addressed slot. 
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.no_valve_detected;
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 2;    // Do Nothing (here: Stop-Command to ensure the valve keeps stopped)
+	        // End of Pre-Check, verification of the desired command. 
+	        
+	    ELSIF "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.xEnable = TRUE AND (BYTE_TO_INT("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.bySetValveMode) > 0) AND (BYTE_TO_INT("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.bySetValveMode) < 61) THEN
+	        //a motion app shall be executed
+	        
+	        // verify the data range for the input value BySetAppControl 
+	        
+	        IF (BYTE_TO_INT("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.bySetAppControl) < 0) OR (BYTE_TO_INT("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.bySetAppControl) > 3) THEN
+	            
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xInvalidInput := TRUE;
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.invalid_SetAppControl;
+	        ELSE
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xInvalidInput := FALSE;
+	        END_IF;
+	        
+	        // analysis of the MT State and definition of specific reaction (= command to MT)
+	        IF "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xInvalidInput THEN
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 2;    // Stop-Command
+	            
+	        ELSIF ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveState = INT_TO_BYTE("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eValveState.Running)) AND ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveMode = "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.bySetValveMode) THEN
+	            // the specified MotionApp is already running
+	            
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 1;        // operation of the MotionApp
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.MA_running;
+	            
+	        ELSIF ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveState = INT_TO_BYTE("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eValveState.Running)) AND ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveMode <> "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.bySetValveMode) THEN
+	            // another than the selected MotionApp is running
+	            
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 2;                // Stop-Command (stopping the other MA in order to start the desired MA)
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.preparing_for_start;
+	            
+	        ELSIF ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveState = INT_TO_BYTE("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eValveState.Configurable)) AND (BYTE_TO_INT("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveMode) = 61) THEN
+	            // valve already operates a MotionApp
+	            
+	            // ( A MotionApp was stopped or an error was acknowledged to reach this state ) 
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 1;                // Operating the MotionApp
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xAcknowledging_in_progress := FALSE;
+	            
+	            // checking if the MotionApp didn't start due to an invalid Command. 
+	            "LeggiBitsNellaWord"(wdata := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.wBusDataFromVTEM0,
+	                                iStartBit := 8,
+	                                iEndBit := 15,
+	                                ivalue => "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iInvalidCommand);
+	            
+	            // Creating the ResponseToSetMode in dependency of the Invalid-Command - Value. 
+	           IF "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iInvalidCommand = 0 THEN
+	               "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.starting; // no invalid command
+	           ELSIF "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iInvalidCommand = 1 THEN
+	               "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.invalid_SetValveMode;
+	           ELSIF "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iInvalidCommand = 2 THEN
+	               "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.invalid_SetAppControl;
+	           ELSIF "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iInvalidCommand = 3 THEN
+	               "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.invalid_SetAppOption;
+	           ELSIF "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iInvalidCommand = 4 THEN
+	               "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.invalid_SetPointValue1;
+	           ELSIF "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iInvalidCommand = 5 THEN
+	               "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.invalid_SetPointValue2;
+	           ELSIF "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iInvalidCommand = 6 THEN
+	               "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.invalid_configuration;
+	           ELSIF "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iInvalidCommand = 10 THEN
+	               "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.access_denied_WebConfig;
+	           ELSIF "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iInvalidCommand = 11 THEN
+	               "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.access_denied_saving_parametrisation;
+	           ELSIF "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iInvalidCommand = 12 THEN
+	               "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.no_license_for_this_MA;
+	           ELSIF "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iInvalidCommand = 13 THEN
+	               "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.all_licenses_in_use;
+	           ELSIF "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iInvalidCommand = 14 THEN
+	               "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.invalid_license_file;
+	           ELSIF "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iInvalidCommand = 15 THEN
+	               "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.no_valve_detected;
+	           ELSIF "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iInvalidCommand = 16 THEN
+	               "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.valve_self_calibration_running;
+	            END_IF;
+	            
+	        ELSIF ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveState = INT_TO_BYTE("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eValveState.Configurable)) AND (BYTE_TO_INT("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveMode) = 63) THEN
+	            // valve uses the transfer mode for parametrization     
+	            
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 4;    // close the Transfer mode - Command
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.preparing_for_start;
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xAcknowledging_in_progress := FALSE;
+	            
+	        ELSIF (("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveState = INT_TO_BYTE("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eValveState.Failure)) OR ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveState = INT_TO_BYTE("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eValveState.NotReady))) AND ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveMode <> 63) THEN
+	            
+	            // An Error occured -> Reading the ErrorCode
+	            IF NOT "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xMalfunctionReading_Done THEN
+	                "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iMalfunctionListEntry := 1;
+	                "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 3;        // read Error - Command;
+	                
+	            ELSE    // the error was already read -> no further action, waiting for acknowledge
+	                "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 2;        // stop-Command 
+	            END_IF;
+	            
+	            // creating the ResponseToSetMode
+	            IF ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveState = INT_TO_BYTE("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eValveState.Failure)) THEN
+	                
+	                "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.failure;
+	                "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xAcknowledging_in_progress := FALSE;
+	            ELSE
+	                //byActualValveState = Not Ready
+	                "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.acknowledge_needed;
+	            END_IF;
+	            
+	        ELSIF (("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveState = INT_TO_BYTE("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eValveState.Failure)) OR ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveState = INT_TO_BYTE("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eValveState.NotReady))) AND (BYTE_TO_INT("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveMode) = 63) THEN
+	            // An Error occured and the MotionTerminal already switched to the Transfer Mode in order to read the ErrorCode
+	            
+	            // creating the ResponseToSetMode
+	            IF "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveState = INT_TO_BYTE("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eValveState.Failure) THEN
+	                "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.failure;
+	                "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xAcknowledging_in_progress := FALSE;
+	            ELSE
+	                "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.acknowledge_needed;
+	            END_IF;
+	            
+	            
+	            // Reading the Transfer Mode-Variables out of the Status-Data.  
+	            "LeggiBitsNellaWord"(wdata := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.wBusDataFromVTEM0,
+	                                iStartBit := 8,
+	                                iEndBit := 12,
+	                                ivalue => "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecChannel);
+	            
+	           "LeggiBitsNellaWord"(wdata := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.wBusDataFromVTEM0,
+	                                iStartBit := 13,
+	                                iEndBit := 15,
+	                                ivalue => "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecTransferCtrl);
+	            
+	           "LeggiBitsNellaWord"(wdata := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.wBusDataFromVTEM1,
+	                                iStartBit := 0,
+	                                iEndBit := 5,
+	                                ivalue => "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecAddressedTargetType);
+	            
+	           "LeggiBitsNellaWord"(wdata := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.wBusDataFromVTEM1,
+	                                iStartBit := 8,
+	                                iEndBit := 15,
+	                                ivalue => "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecIndex);
+	            
+	            
+	           IF ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecChannel = 31) AND ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecTransferCtrl = 2) AND ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecAddressedTargetType = 0) AND ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecIndex = "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iMalfunctionListEntry) THEN
+	                
+	                // The specified Entry of the ErrorList was read. 
+	               "LeggiBitsNellaWord"(wdata := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.wBusDataFromVTEM2,
+	                                    iStartBit := 0,
+	                                    iEndBit := 7,
+	                                    ivalue => "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecMalfunctionCode);
+	                
+	               "LeggiBitsNellaWord"(wdata := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.wBusDataFromVTEM2,
+	                                    iStartBit := 14,
+	                                    iEndBit := 15,
+	                                    ivalue => "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecMalfunctionRating);
+	                
+	               IF ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecMalfunctionRating) = 1 (* active Error*)OR ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecMalfunctionRating = 2) (* inactive Error*)THEN
+	                    // the error was read correctly. 
+	                    
+	                   "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 4;    // close the Transfer Mode
+	                   "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iErrorCode := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecMalfunctionCode;
+	                   "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xMalfunctionReading_Done := TRUE;
+	                    
+	               ELSIF ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecMalfunctionRating = 3) THEN
+	                    // The Entry is a warning -> reading next Entry to find an Error
+	                   "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iMalfunctionListEntry := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iMalfunctionListEntry + 1;
+	                   "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 3;    // read Error - Command;
+	                    
+	                ELSE    // iRecErrorRating = 0 
+	                    // no Entry available in the ErrorList
+	                    "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 4;    // close the Transfer Mode
+	                    "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xMalfunctionReading_Done := TRUE;
+	                END_IF;
+	                
+	            ELSE    // NOT the specified Entry of the ErrorList was read.
+	                IF NOT "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xMalfunctionReading_Done THEN
+	                    "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iMalfunctionListEntry := 1;
+	                    "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 3;        // read Error - Command; 
+	                ELSE
+	                    "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 4;       // close the Transfer Mode
+	                END_IF;
+	            END_IF;
+	            
+	        END_IF;
+	        
+	    ELSIF NOT "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.xEnable AND (BYTE_TO_INT("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.bySetValveMode) > 0) AND (BYTE_TO_INT("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.bySetValveMode) < 61) OR (BYTE_TO_INT("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.bySetValveMode) = 61) THEN
+	        // stop all motion Apps
+	        
+	        IF ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveState = INT_TO_BYTE("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eValveState.Configurable)) OR ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveState = INT_TO_BYTE("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eValveState.Running)) THEN
+	            
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xAcknowledging_in_progress := FALSE;
+	            
+	            IF (BYTE_TO_INT("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveMode) = 61) THEN
+	                // All MotionApps stopped. 
+	                
+	                "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.all_MAs_stopped;
+	                "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 2;    // stop-Command
+	                
+	            ELSIF (BYTE_TO_INT("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveMode) = 63) THEN
+	                // Transfer Mode is active
+	                
+	                "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.all_MAs_stopped;
+	                "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 4;    // close the transfer mode
+	                
+	            ELSE
+	                // MotionApp is active
+	                
+	                "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.stopping;
+	                "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 2;    // stop-Command
+	                
+	            END_IF;
+	            
+	        ELSE // (byActualValveState = eValveState.VS_NotReady OR byActualValveState = eValveState.VS_Failure)
+	            // keep the Valve stopped and read the error
+	            
+	            IF ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveState = INT_TO_BYTE("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eValveState.Failure)) THEN
+	                
+	                "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.failure;
+	                "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xAcknowledging_in_progress := FALSE;
+	                
+	            ELSE
+	                
+	                "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.acknowledge_needed;
+	                
+	            END_IF;
+	            
+	            IF (BYTE_TO_INT("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveMode) <> 63) THEN
+	                // defining the command to be sent to the Motion Terminal
+	                // 
+	                IF NOT "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xMalfunctionReading_Done THEN
+	                    
+	                    "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iMalfunctionListEntry := 1;
+	                    "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 3;        // read Error - Command; 
+	                    
+	                ELSE
+	                    
+	                    "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 2;        // stop-Command 
+	                    
+	                END_IF;
+	                
+	            ELSE // by ActualMode = 63
+	                
+	                // Read transfer variables out from Status data.  
+	                "LeggiBitsNellaWord"(wdata := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.wBusDataFromVTEM0,
+	                                    iStartBit := 8,
+	                                    iEndBit := 12,
+	                                    ivalue => "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecChannel);
+	                
+	               "LeggiBitsNellaWord"(wdata := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.wBusDataFromVTEM0,
+	                                    iStartBit := 13,
+	                                    iEndBit := 15,
+	                                    ivalue => "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecTransferCtrl);
+	                
+	               "LeggiBitsNellaWord"(wdata := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.wBusDataFromVTEM1,
+	                                    iStartBit := 0,
+	                                    iEndBit := 5,
+	                                    ivalue => "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecAddressedTargetType);
+	                
+	               "LeggiBitsNellaWord"(wdata := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.wBusDataFromVTEM1,
+	                                    iStartBit := 8,
+	                                    iEndBit := 15,
+	                                    ivalue => "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecIndex);
+	                
+	               IF ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecChannel = 31) AND ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecTransferCtrl = 2) AND ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecAddressedTargetType = 0) AND ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecIndex = "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iMalfunctionListEntry) THEN
+	                    
+	                    // The specified Entry of the ErrorList was read. 
+	                   "LeggiBitsNellaWord"(wdata := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.wBusDataFromVTEM2,
+	                                        iStartBit := 0,
+	                                        iEndBit := 7,
+	                                        ivalue => "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecMalfunctionCode);
+	                    
+	                   "LeggiBitsNellaWord"(wdata := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.wBusDataFromVTEM2,
+	                                        iStartBit := 14,
+	                                        iEndBit := 15,
+	                                        ivalue => "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecMalfunctionRating);
+	                    
+	                   IF ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecMalfunctionRating = 1) (* active Failure*)OR ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecMalfunctionRating = 2) (* inactive Failure*)THEN
+	                        
+	                       "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 4;    // close the Transfer mode
+	                       "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iErrorCode := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecMalfunctionCode;
+	                       "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xMalfunctionReading_Done := TRUE;
+	                        
+	                   ELSIF ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iRecMalfunctionRating = 3) THEN  // The Entry is a warning   
+	                        
+	                        // reading next Entry to find an Error
+	                       "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iMalfunctionListEntry := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iMalfunctionListEntry + 1;
+	                       "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 3;    // read Error - Command;
+	                        
+	                    ELSE    // iRecErrorRating = 0 -> kein gültiger Eintrag in Fehlerliste
+	                        
+	                        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 4;    // close the Transfer Mode
+	                        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xMalfunctionReading_Done := TRUE;
+	                        
+	                    END_IF;
+	                    
+	                ELSE
+	                    // NOT the specified Entry of the ErrorList was read.
+	                    
+	                    IF NOT "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xMalfunctionReading_Done THEN
+	                        
+	                        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iMalfunctionListEntry := 1;
+	                        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 3;        // read Error - Command; 
+	                        
+	                    ELSE
+	                        
+	                        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 4;       // close the Transfer Mode
+	                        
+	                    END_IF;
+	                END_IF;
+	            END_IF;
+	            
+	        END_IF;
+	        
+	    ELSIF (BYTE_TO_INT("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.bySetValveMode) = 62) THEN       // acknowledge errors
+	        
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xMalfunctionReading_Done := FALSE;        // the ErrorList is resetted with this Mode 
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iErrorCode := 0;
+	        
+	        IF ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveState = INT_TO_BYTE("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eValveState.Running)) THEN
+	            // a MotionApp is running, no Failures that need to be acknowledged. 
+	            
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.all_errors_acknowledged;
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 2;    // Stop-Command as no App-Activity allowed in acknowledge-Mode  
+	            
+	        ELSIF ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveState = INT_TO_BYTE("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eValveState.Configurable)) THEN
+	            // The Motion Terminal is ready, no Failures that need to be acknowledged. 
+	            
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.all_errors_acknowledged;
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 2;    // DoNothing, (here: Stop-Command, to keep the motion terminal in this state)
+	            
+	        ELSIF ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveState = INT_TO_BYTE("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eValveState.NotReady)) THEN
+	            
+	            // The Failure is not active any more. 
+	            IF (BYTE_TO_INT("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveMode) = 63) THEN
+	                // The Motion Terminal is in the Transfer Mode.
+	                // 
+	                "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.preparing_for_acknowledge;
+	                "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 4;    //close Transfer Mode
+	                
+	            ELSE
+	                
+	                // The Failure can be acknowledged
+	                "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.acknowledging;
+	                "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 5;    // Acknowledge-Command 
+	                
+	            END_IF;
+	            
+	        ELSIF ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveState = INT_TO_BYTE("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eValveState.Failure)) THEN
+	            
+	            // The Failure is still active which is why it cannot be acknowledged. 
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.failure_still_active;
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 2;    // Do Nothing (here: Stop-Command, as the MotionApp is already stopped in case of failure) 
+	            
+	        END_IF;
+	        
+	        
+	    ELSIF ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.bySetValveMode = 63) THEN       // 63 (Transfer Mode) not possible with this FB. 
+	        
+	        // no use of transfer mode in this function block possible due to lacking input values (channel, index, etc. )
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.no_TransferMode_with_this_FB;
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 2;    // stop-Command
+	        IF ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveState = INT_TO_BYTE("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eValveState.Configurable)) OR ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveState = INT_TO_BYTE("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eValveState.Failure)) THEN
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xAcknowledging_in_progress := FALSE;
+	        END_IF;
+	        
+	    ELSE    // no valid Mode
+	        
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.invalid_SetValveMode;
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 2;    // stop-Command
+	        
+	        IF ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveState = INT_TO_BYTE("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eValveState.Configurable)) OR ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveState = INT_TO_BYTE("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eValveState.Failure)) THEN
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xAcknowledging_in_progress := FALSE;
+	        END_IF;
+	        
+	    END_IF;
+	    
+	    
+	    // If the Motion Terminal's state indicates acknowledgable errors (ValveState = Not Ready), 
+	    // the input xManualAcknowledge is analyzed to verify if the error can be acknowledged.
+	    // The Commands stated above are overwritten by the acknowledge-command in this case. 
+	    
+	    IF ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveState = INT_TO_BYTE("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eValveState.NotReady)) AND (("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.xManualAcknowledge AND NOT "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xLastManualAcknowledge) OR ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xAcknowledging_in_progress = TRUE)) THEN
+	        // There are Errors that can be acknowledged and the inputs demand to acknowledge the error. 
+	        // ( by a rising edge at xManualAcknowledge)
+	        
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xMalfunctionReading_Done := FALSE;        // the ErrorList is resetted with these inputs
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iErrorCode := 0;
+	        
+	        IF ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveMode = 0) THEN        // No Communication -> DO Nothing
+	            ;
+	        ELSIF ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.byActualValveMode = 63) THEN        // Transfer Mode is active
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xAcknowledging_in_progress := TRUE;
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 4;        // close the transfer mode
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.preparing_for_acknowledge;
+	        ELSE
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xAcknowledging_in_progress := TRUE;
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber := 5;        // Acknowledge-Command
+	            "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eResponseToValveModeSet.acknowledging;
+	        END_IF;
+	    END_IF;
+	END_IF;
+	
+	// reset output iErrorCode also if the acknowledge command was sent from outside this function block
+	IF "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xMalfunctionReading_Done = TRUE AND ("ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iValveState = "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eValveState.Configurable OR "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iValveState = "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.eValveState.Running) THEN
+	    "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iErrorCode := 0;
+	    "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xMalfunctionReading_Done := FALSE;
+	END_IF;
+	
+	"ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.xLastManualAcknowledge := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.xManualAcknowledge;
+	
+	CASE "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.iResponseToValveModeSet OF
+	    0:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'reserved';
+	    1:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'invalid_SetValveMode';
+	    2:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'invalid_SetAppControl';
+	    3:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'invalid_SetAppOption';
+	    4:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'invalid_SetPointValue1';
+	    5:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'invalid_SetPointValue2';
+	    6:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'invalid_configuration';
+	    10:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'access_denied_WebConfig';
+	    11:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'access_denied_saving_parametrisation';
+	    12:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'no_license_for_this_MA';
+	    13:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'all_licenses_in_use';
+	    14:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'invalid_license_file';
+	    15:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'no_valve_detected';
+	    16:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'valve_self_calibration_running';
+	    1020:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'no_TransferMode_with_this_FB';
+	    1031:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'preparing_for_start';
+	    1032:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'starting';
+	    1033:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'MA_running';
+	    1034:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'Transfermode_running';
+	    1035:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'stopping';
+	    1036:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'all_MAs_stopped';
+	    1037:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'acknowledge_needed';
+	    1038:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'failure';
+	    1040:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'preparing_for_acknowledge';
+	    1041:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'acknowledging';
+	    1042:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'all_errors_acknowledged';
+	    1043:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'failure_still_active';
+	    1050:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'no_Communication';
+	    1051:
+	        "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Output.sResponseToValveModeSet := 'FB_not_enabled';
+	END_CASE;
+	
+	CASE "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iCommandNumber OF
+	    0:  // idle    
+	        ;
+	        
+	    1:  // Operation of the MotionApp 
+	        // creation of the operation command
+	        "ScriviBitsNellaWord"(iValue := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.bySetValveMode,
+	                            iStartBit := 0,
+	                            iEndBit := 5,
+	                            wDataWord := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].InOut.wBusDataToVTEM0);                     // bySetMode
+	        
+	      "ScriviBitsNellaWord"(iValue := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.bySetAppControl,
+	                            iStartBit := 6,
+	                            iEndBit := 7,
+	                            wDataWord := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].InOut.wBusDataToVTEM0);               // bySetAppControl
+	        
+	      "ScriviBitsNellaWord"(iValue := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.bySetAppOption,
+	                            iStartBit := 8,
+	                            iEndBit := 15,
+	                            wDataWord := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].InOut.wBusDataToVTEM0);               // bySetValveType
+	        
+	      "ScriviBitsNellaWord"(iValue := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.iSetpointValue1,
+	                            iStartBit := 0,
+	                            iEndBit := 15,
+	                            wDataWord := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].InOut.wBusDataToVTEM1);               // bySetValveType
+	        
+	        
+	      "ScriviBitsNellaWord"(iValue := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Input.iSetpointValue2,
+	                            iStartBit := 0,
+	                            iEndBit := 15,
+	                            wDataWord := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].InOut.wBusDataToVTEM2);               // bySetValveType
+	        
+	        
+	        
+	    2:  // Stop-Command
+	        
+	        "ScriviBitsNellaWord"(iValue := 61,
+	                            iStartBit := 0,
+	                            iEndBit := 5,
+	                            wDataWord := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].InOut.wBusDataToVTEM0);            // Mode = 61
+	        
+	      "ScriviBitsNellaWord"(iValue := 0,
+	                            iStartBit := 6,
+	                            iEndBit := 15,
+	                            wDataWord := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].InOut.wBusDataToVTEM0);            // (empty)
+	        
+	      "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].InOut.wBusDataToVTEM1 := 0;                                                                                    // (empty)
+	      "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].InOut.wBusDataToVTEM2 := 0;                                                                                    // (empty)
+	        
+	    3:  // Read the first FailureCode in the Transfer Mode
+	        
+	        "ScriviBitsNellaWord"(iValue := 63,
+	                            iStartBit := 0,
+	                            iEndBit := 5,
+	                            wDataWord := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].InOut.wBusDataToVTEM0);                // Mode = 63
+	        
+	      "ScriviBitsNellaWord"(iValue := 0,
+	                            iStartBit := 6,
+	                            iEndBit := 7,
+	                            wDataWord := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].InOut.wBusDataToVTEM0);                 // (empty)
+	        
+	      "ScriviBitsNellaWord"(iValue := 31,
+	                            iStartBit := 8,
+	                            iEndBit := 12,
+	                            wDataWord := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].InOut.wBusDataToVTEM0);               // Channel = 31
+	        
+	      "ScriviBitsNellaWord"(iValue := 2,
+	                            iStartBit := 13,
+	                            iEndBit := 15,
+	                            wDataWord := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].InOut.wBusDataToVTEM0);               // TransferCtrl = 2 (upload)
+	        
+	      "ScriviBitsNellaWord"(iValue := 0,
+	                            iStartBit := 0,
+	                            iEndBit := 7,
+	                            wDataWord := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].InOut.wBusDataToVTEM1);                 // AddressedAppType = 0
+	        
+	      "ScriviBitsNellaWord"(iValue := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].Static.iMalfunctionListEntry,
+	                            iStartBit := 8,
+	                            iEndBit := 15,
+	                            wDataWord := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].InOut.wBusDataToVTEM1);  // Index = ErrorListEntry
+	        
+	      "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].InOut.wBusDataToVTEM2 := 0;                                                                                        // TransferValue = 0 (because of upload)
+	        
+	        
+	    4:  // Close the Transfer Mode  
+	        "ScriviBitsNellaWord"(iValue := 63,
+	                            iStartBit := 0,
+	                            iEndBit := 5,
+	                            wDataWord := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].InOut.wBusDataToVTEM0);            // Mode = 63
+	        
+	      "ScriviBitsNellaWord"(iValue := 0,
+	                            iStartBit := 6,
+	                            iEndBit := 7,
+	                            wDataWord := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].InOut.wBusDataToVTEM0);             // (empty)
+	        
+	      "ScriviBitsNellaWord"(iValue := 0,
+	                            iStartBit := 8,
+	                            iEndBit := 12,
+	                            wDataWord := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].InOut.wBusDataToVTEM0);            // Channel = 0
+	        
+	      "ScriviBitsNellaWord"(iValue := 3,
+	                            iStartBit := 13,
+	                            iEndBit := 15,
+	                            wDataWord := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].InOut.wBusDataToVTEM0);           // TransferCtrl = 3 (done)
+	        
+	      "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].InOut.wBusDataToVTEM1 := 0;                                                                                    // (empty)
+	      "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].InOut.wBusDataToVTEM2 := 0;                                                                                    // (empty)
+	        
+	    5:  // Acknowledge-Command
+	        "ScriviBitsNellaWord"(iValue := 62,
+	                            iStartBit := 0,
+	                            iEndBit := 5,
+	                            wDataWord := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].InOut.wBusDataToVTEM0);        // Mode = 62
+	        
+	      "ScriviBitsNellaWord"(iValue := 0,
+	                            iStartBit := 6,
+	                            iEndBit := 15,
+	                            wDataWord := "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].InOut.wBusDataToVTEM0);        // (empty)
+	      
+	      "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].InOut.wBusDataToVTEM1 := 0;                                                                                // (empty)
+	      "ValvolaFesto_VTEM".V[#K_ValvolaFesto_VTEM].InOut.wBusDataToVTEM2 := 0;
+	END_CASE;
+	
+	
+END_FUNCTION
+

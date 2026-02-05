@@ -1,0 +1,51 @@
+﻿FUNCTION "ScriviBitNellaWord" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      NumBit : Int;
+      StatoBit : Bool;
+   END_VAR
+
+   VAR_IN_OUT 
+      "Word" : Word;
+   END_VAR
+
+
+BEGIN
+	CASE #NumBit OF
+	    0:
+	        #Word.%X0 := #StatoBit;
+	    1:
+	        #Word.%X1 := #StatoBit;
+	    2:
+	        #Word.%X2 := #StatoBit;
+	    3:
+	        #Word.%X3 := #StatoBit;
+	    4:
+	        #Word.%X4 := #StatoBit;
+	    5:
+	        #Word.%X5 := #StatoBit;
+	    6:
+	        #Word.%X6 := #StatoBit;
+	    7:
+	        #Word.%X7 := #StatoBit;
+	    8:
+	        #Word.%X8 := #StatoBit;
+	    9:
+	        #Word.%X9 := #StatoBit;
+	    10:
+	        #Word.%X10 := #StatoBit;
+	    11:
+	        #Word.%X11 := #StatoBit;
+	    12:
+	        #Word.%X12 := #StatoBit;
+	    13:
+	        #Word.%X13 := #StatoBit;
+	    14:
+	        #Word.%X14 := #StatoBit;
+	    15:
+	        #Word.%X15 := #StatoBit;
+	END_CASE;
+	
+END_FUNCTION
+

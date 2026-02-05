@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document>
+  <Engineering version="V21" />
+  <SW.Blocks.FC ID="0">
+    <AttributeList>
+      <Interface>
+        <Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v5">
+          <Section Name="Input" />
+          <Section Name="Output" />
+          <Section Name="InOut" />
+          <Section Name="Temp" />
+          <Section Name="Constant">
+            <Member Name="NonPresente" Datatype="Int">
+              <StartValue>0</StartValue>
+            </Member>
+            <Member Name="Disabilitata" Datatype="Bool">
+              <StartValue>0</StartValue>
+            </Member>
+            <Member Name="NessunConsenso" Datatype="Bool">
+              <StartValue>1</StartValue>
+            </Member>
+            <Member Name="NonRaggiunta" Datatype="Byte">
+              <StartValue>2</StartValue>
+            </Member>
+            <Member Name="Raggiunta" Datatype="Byte">
+              <StartValue>1</StartValue>
+            </Member>
+            <Member Name="Completa" Datatype="Byte">
+              <StartValue>0</StartValue>
+            </Member>
+            <Member Name="SoloStato" Datatype="Byte">
+              <StartValue>1</StartValue>
+            </Member>
+          </Section>
+          <Section Name="Return">
+            <Member Name="Ret_Val" Datatype="Void" />
+          </Section>
+        </Sections>
+      </Interface>
+      <MemoryLayout>Optimized</MemoryLayout>
+      <Name>Main stazioni</Name>
+      <Namespace />
+      <Number>26</Number>
+      <ProgrammingLanguage>LAD</ProgrammingLanguage>
+      <SetENOAutomatically>false</SetENOAutomatically>
+    </AttributeList>
+    <ObjectList>
+      <MultilingualText ID="1" CompositionName="Comment">
+        <ObjectList>
+          <MultilingualTextItem ID="2" CompositionName="Items">
+            <AttributeList>
+              <Culture>de-DE</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="3" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-GB</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="4" CompositionName="Items">
+            <AttributeList>
+              <Culture>es-ES</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="5" CompositionName="Items">
+            <AttributeList>
+              <Culture>fr-FR</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="6" CompositionName="Items">
+            <AttributeList>
+              <Culture>it-IT</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+      <SW.Blocks.CompileUnit ID="7" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource>
+            <StructuredText xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StructuredText/v4">
+              <LineComment UId="21">
+                <Text UId="22"> //Parametrizzazione stazione</Text>
+              </LineComment>
+              <NewLine UId="23" />
+              <LineComment UId="24">
+                <Text UId="25"> "Percorso".Stazione["K_Stazione_PompaAcidificazioneVascaEvaporati"].Prm.CadutaChiamata.DaAnalogicaPer.SogliaMini := #NonRaggiunta;</Text>
+              </LineComment>
+              <NewLine Num="2" UId="26" />
+              <LineComment UId="27">
+                <Text UId="28"> //Richiamo stazione</Text>
+              </LineComment>
+              <NewLine UId="29" />
+              <LineComment UId="30">
+                <Text UId="31"> "GestStazione"(ConsensoMacchina:= #NessunConsenso,</Text>
+              </LineComment>
+              <NewLine UId="32" />
+              <LineComment UId="33">
+                <Text UId="34">                FermaChiamata := #Disabilitata,</Text>
+              </LineComment>
+              <NewLine UId="35" />
+              <LineComment UId="36">
+                <Text UId="37">                K_Stazione := "K_Stazione_PompaAcidificazioneVascaEvaporati",</Text>
+              </LineComment>
+              <NewLine UId="38" />
+              <LineComment UId="39">
+                <Text UId="40">                K_StazionePartner1:=#NonPresente,</Text>
+              </LineComment>
+              <NewLine UId="41" />
+              <LineComment UId="42">
+                <Text UId="43">                K_StazionePartner2:=#NonPresente,</Text>
+              </LineComment>
+              <NewLine UId="44" />
+              <LineComment UId="45">
+                <Text UId="46">                K_Analogica := "K_Analogica_LivelloSerbatoioAcidoCitrico",</Text>
+              </LineComment>
+              <NewLine UId="47" />
+              <LineComment UId="48">
+                <Text UId="49">                K_Paratia := #NonPresente,</Text>
+              </LineComment>
+              <NewLine UId="50" />
+              <LineComment UId="51">
+                <Text UId="52">                K_Motore1 := #NonPresente,</Text>
+              </LineComment>
+              <NewLine UId="53" />
+              <LineComment UId="54">
+                <Text UId="55">                K_Motore2 := "K_Pompa_Citrico_Vasca_Evaporati");</Text>
+              </LineComment>
+              <NewLine Num="2" UId="56" />
+              <LineComment UId="57">
+                <Text UId="58"> //Definizione dei percorsi possibili per la stazione</Text>
+              </LineComment>
+              <NewLine UId="59" />
+              <LineComment UId="60">
+                <Text UId="61"> "Percorso".Stazione["K_Stazione_PompaAcidificazioneVascaEvaporati"].Destinazione["K_Stazione_VascaEvaporati"].IN.Possibile := True;</Text>
+              </LineComment>
+              <NewLine Num="2" UId="62" />
+              <LineComment UId="63">
+                <Text UId="64"> //Visualizzazione hmi a pannello delle strade</Text>
+              </LineComment>
+              <NewLine UId="65" />
+              <LineComment UId="66">
+                <Text UId="67"> "Percorso".Hmi.Visibilità.PompaAcidificazioneVascaEvaporati.VascaEvaporati := "Percorso".Stazione["K_Stazione_PompaAcidificazioneVascaEvaporati"].Destinazione["K_Stazione_VascaEvaporati"].IN.Possibile;</Text>
+              </LineComment>
+            </StructuredText>
+          </NetworkSource>
+          <ProgrammingLanguage>SCL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="8" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="9" CompositionName="Items">
+                <AttributeList>
+                  <Culture>de-DE</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="A" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-GB</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="B" CompositionName="Items">
+                <AttributeList>
+                  <Culture>es-ES</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="C" CompositionName="Items">
+                <AttributeList>
+                  <Culture>fr-FR</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="D" CompositionName="Items">
+                <AttributeList>
+                  <Culture>it-IT</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="E" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="F" CompositionName="Items">
+                <AttributeList>
+                  <Culture>de-DE</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="10" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-GB</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="11" CompositionName="Items">
+                <AttributeList>
+                  <Culture>es-ES</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="12" CompositionName="Items">
+                <AttributeList>
+                  <Culture>fr-FR</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="13" CompositionName="Items">
+                <AttributeList>
+                  <Culture>it-IT</Culture>
+                  <Text>Gestione stazione - PompaAcidificazioneVascaEvaporati</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+      <MultilingualText ID="14" CompositionName="Title">
+        <ObjectList>
+          <MultilingualTextItem ID="15" CompositionName="Items">
+            <AttributeList>
+              <Culture>de-DE</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="16" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-GB</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="17" CompositionName="Items">
+            <AttributeList>
+              <Culture>es-ES</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="18" CompositionName="Items">
+            <AttributeList>
+              <Culture>fr-FR</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="19" CompositionName="Items">
+            <AttributeList>
+              <Culture>it-IT</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+    </ObjectList>
+  </SW.Blocks.FC>
+</Document>

@@ -1,0 +1,47 @@
+﻿FUNCTION "Main produzioni" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_TEMP 
+      NumeroMisuratoreFlusso : Int;
+      DateAndTime : Date_And_Time;
+      Return : Int;
+      CounterCampionature : Int;
+   END_VAR
+
+
+BEGIN
+	#Return := RD_LOC_T(#DateAndTime);
+	
+	IF "Dati produzione".CampionaturaAttuale < 1 THEN
+	    "Dati produzione".CampionaturaAttuale := 1;
+	END_IF;
+	IF "Dati produzione".CampionaturaAttuale > 24 THEN
+	    "Dati produzione".CampionaturaAttuale := 1;
+	END_IF;
+	
+	"T_ON"(I_CicloCPU := "CicloScansioneCPU_I".O_rCicloCpu,
+	       I_StartConteggio :=NOT "Dati produzione".TimerCampionatura.O,
+	       IO_DatiTimer := "Dati produzione".TimerCampionatura);
+	
+	IF "Dati produzione".TimerCampionatura.O THEN
+	    FOR #NumeroMisuratoreFlusso := 1 TO "K_NumPortata" DO
+	        "Dati produzione".Misuratore[#NumeroMisuratoreFlusso].h["Dati produzione".CampionaturaAttuale].MetriCubi := "Portata".P[#NumeroMisuratoreFlusso].Out.TotalizzatoreParzialeAttuale;
+	        "Dati produzione".Misuratore[#NumeroMisuratoreFlusso].h["Dati produzione".CampionaturaAttuale].OrarioCampionatura := #DateAndTime;
+	        "Portata".P[#NumeroMisuratoreFlusso].Hmi.ResetTotalizzatoreParziale := True;
+	    END_FOR;
+	    "Dati produzione".CampionaturaAttuale += 1;
+	END_IF;
+	
+	IF "Dati produzione".ResetCompleto THEN
+	    FOR #NumeroMisuratoreFlusso := 1 TO "K_NumPortata" DO
+	        FOR #CounterCampionature := 1 TO 24 DO
+	            "Dati produzione".Misuratore[#NumeroMisuratoreFlusso].h[#CounterCampionature].MetriCubi := 0;
+	            "Dati produzione".Misuratore[#NumeroMisuratoreFlusso].h[#CounterCampionature].OrarioCampionatura := #DateAndTime;
+	        END_FOR;
+	        "Portata".P[#NumeroMisuratoreFlusso].Hmi.ResetTotalizzatoreParziale := True;
+	    END_FOR;
+	    "Dati produzione".CampionaturaAttuale := 1;
+	    "Dati produzione".ResetCompleto := False;
+	END_IF;
+END_FUNCTION
+

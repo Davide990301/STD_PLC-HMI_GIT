@@ -1,0 +1,20 @@
+﻿FUNCTION "Valvola_I_IngressoVaporeSterilizzatore" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	REGION Ingresso vapore sterilizzatore
+	    REGION Parametri
+	        "Valvola".V["K_Valvola_I"].Prm.SensorLess := True;
+	    END_REGION ;
+	    REGION Gestione
+	        "GestValvola"(K_Valvola := "K_Valvola_I",
+	                      K_TipoValvola := "K_TipoValvola_Monostabile",
+	                      K_Zona := "K_Zona_Sterilizzatore");
+	    END_REGION ;
+	    REGION Uscite
+	        "Valvola_I_ComandoPositivo" := "Valvola".V["K_Valvola_I"].Out.CmdPos;
+	    END_REGION ;
+	END_REGION ;
+END_FUNCTION
+

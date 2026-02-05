@@ -1,0 +1,26 @@
+﻿FUNCTION "GestRicetta_SterilizzatoreTubo" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_TEMP 
+      AbilitazionePompaPistoni : Bool;
+   END_VAR
+
+
+BEGIN
+	                "GestRicetta_LeggiDatoReal"(K_MacchinaARicetta := "K_MacchinaARicetta_Sterilizzatore",
+	                                            K_DatoRicettaReal := "K_DatoRicettaReal_SterilizzatoreTubo_m³TubazioneRiempi",
+	                                            Dato => "Gestione_010102".MetricubiTubazioneRiempimento);
+	                
+	                "GestRicetta_LeggiDatoReal"(K_MacchinaARicetta := "K_MacchinaARicetta_Sterilizzatore",
+	                                            K_DatoRicettaReal := "K_DatoRicettaReal_SterilizzatoreTubo_m³TubazioneSvuota",
+	                                            Dato => "Gestione_010102".MetricubiTubazioneSvuotamento);
+	                
+	                "GestRicetta_LeggiDatoReal"(K_MacchinaARicetta := "K_MacchinaARicetta_Sterilizzatore",
+	                                            K_DatoRicettaReal := "K_DatoRicettaReal_SterilizzatoreTubo_ContropressioneFiltri",
+	                                            Dato => "Gestione_010102".AperturaContropressioneFiltri);
+	                
+	                "GestRicetta_LeggiDatoBool"(K_MacchinaARicetta := "K_MacchinaARicetta_Sterilizzatore",
+	                                            K_DatoRicettaBool := "K_DatoRicettaBool_SterilizzatoreTubo_AbilitazionePompaPistoni",
+	                                            Dato => #AbilitazionePompaPistoni);
+END_FUNCTION
+

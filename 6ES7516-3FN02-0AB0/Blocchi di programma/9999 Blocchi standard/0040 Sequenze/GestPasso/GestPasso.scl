@@ -1,0 +1,104 @@
+﻿FUNCTION "GestPasso" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_PassoAttuale : Int;   // K che indicare il passo attuale
+      K_PassoSuccessivo : Int;   // K che indicare il passo successivo
+      AbilitaSaltapasso : Bool;   // Abilitazione del passo per eseguire il salta passo ad HMI
+      AbilitaPasso : Bool;   // Condizioni necessarie per ebilitare il passo
+      CondizioniPassoEsterne : Bool;   // Appoggio per condizioni esterne attese per incrementare il passo
+      K_Sequenza : Int;   // K che indica la sequenza di cui fa parte il passo
+   END_VAR
+
+   VAR_TEMP 
+      K_SequenzaInt : Int;   // Appoggio della costante della sequenza su una variabil temporanea, filtrata per evitare de
+      CondizioniOk_Ack : Bool;   // Tutte le condizioni sono ok e posso procedere dopo aver atteso la conferma dell'operatore
+      CondizioniOk_NoAck : Bool;   // Tutte le condizioni sono ok e posso procedere senza dover attendere la conferma dell'operatore
+      SaltaPasso : Bool;   // Se viene richiesto il salto delle condizioni del passo da HMI
+      CondizioniOk : Bool;   // La sequenza è pronta per passare al passo successivo
+      IncrementaPasso : Bool;   // Indica che si sono verificate tutte le condizioni per incrementare il passo e che è trascroso il tempo impostato
+      TempoRimanente_TotSec : Real;   // Tempo totale rimanente in secondi
+      TempoRimanente_Min : Real;   // Tempo rimanente solo in minuti
+      TempoRimanente_Sec : Real;   // Tempo rimanente solo in secondi
+   END_VAR
+
+
+BEGIN
+	REGION Diagnostica programmatore
+	    (*Passiamo tutte le costanti di accesso agli array in modo da verificarle e controllarle*)
+	    "Diagnostica"(K_Attuale_ArrayInCuiAccediamo := #K_Sequenza,
+	                  K_NumMax_MassimoValoreDellArrayInCuiAccediamo := "K_NumSequenza",
+	                  K_Tipo_ArrayInCuiAccediamo := "K_TipoSequenza",
+	                  K_Attuale_DiChiAccede := #K_Sequenza,
+	                  K_Tipo_DiChiAccede := #K_Sequenza,
+	                  K_AttualeInterno => #K_SequenzaInt);
+	END_REGION ;
+	REGION Abilitazione passo
+	    "Sequenza".S[#K_SequenzaInt].Dati.AbilitazionePasso := #AbilitaPasso;
+	    "Sequenza".S[#K_SequenzaInt].Hmi.Diagnostica.PassoNonAbilitato := NOT "Sequenza".S[#K_SequenzaInt].Dati.AbilitazionePasso;
+	END_REGION ;
+	REGION Logica di gestione del passo
+	    "Sequenza".S[#K_SequenzaInt].Dati.PrimoGiroPasso := "Sequenza".S[#K_SequenzaInt].Dati.MemoPassoAttuale <> "Sequenza".S[#K_SequenzaInt].Dati.PassoAttuale;
+	    "Sequenza".S[#K_SequenzaInt].Dati.MemoPassoAttuale := "Sequenza".S[#K_SequenzaInt].Dati.PassoAttuale;
+	    IF "Sequenza".S[#K_SequenzaInt].Dati.PassoAttuale = #K_PassoAttuale THEN
+	        REGION Passaggio ad HMI dell'abiitazione a saltare il passo
+	            "Sequenza".S[#K_SequenzaInt].Hmi.SaltaPasso.Abilitato := #AbilitaSaltapasso;
+	        END_REGION ;
+	        REGION Condizioni per il passo successivo
+	            #CondizioniOk := "Sequenza".S[#K_Sequenza].Dati.TutteLeUtenzeInPosizione AND NOT "Sequenza".S[#K_Sequenza].Hmi.BloccaAvanzamento AND "Sequenza".S[#K_Sequenza].Dati.AbilitazionePasso ;
+	            #CondizioniOk_NoAck := #CondizioniOk AND NOT "Sequenza".S[#K_SequenzaInt].Hmi.AttendiAckOpertore.AbilitaFunz;
+	            #CondizioniOk_Ack := #CondizioniOk AND "Sequenza".S[#K_SequenzaInt].Hmi.AttendiAckOpertore.AbilitaFunz AND "Sequenza".S[#K_SequenzaInt].Hmi.AttendiAckOpertore.AckOperatore;
+	            #SaltaPasso := "Sequenza".S[#K_SequenzaInt].Hmi.SaltaPasso.Richiesto;
+	            "Sequenza".S[#K_Sequenza].Dati.TutteLeUtenzeInPosizione := True; //Riabilito il bit dopo averlo controllato.    
+	        END_REGION ;
+	        REGION Incremento passo
+	            #IncrementaPasso := ("Sequenza".S[#K_Sequenza].Prm.Passo[#K_PassoAttuale].Durata.O AND #CondizioniPassoEsterne) OR #SaltaPasso;
+	            "Sequenza".S[#K_Sequenza].Dati.ResettaTuttiFlipFlop := False;
+	            IF "Sequenza".S[#K_SequenzaInt].Dati.PrimoGiroPasso THEN
+	                "Sequenza".S[#K_SequenzaInt].Dati.TempoTerminato_AttesaCondExt := False;
+	            END_IF;
+	            IF #IncrementaPasso AND NOT "Sequenza".S[#K_SequenzaInt].Dati.PrimoGiroPasso THEN
+	                "Sequenza".S[#K_SequenzaInt].Dati.PassoAttuale := #K_PassoSuccessivo;
+	                "Sequenza".S[#K_SequenzaInt].Dati.TempoTerminato_AttesaCondExt :=
+	                "Sequenza".S[#K_SequenzaInt].Hmi.SaltaPasso.Richiesto :=
+	                "Sequenza".S[#K_SequenzaInt].Hmi.AttendiAckOpertore.AckOperatore :=
+	                "Sequenza".S[#K_Sequenza].Dati.TutteLeUtenzeInPosizione := False;
+	                "Sequenza".S[#K_Sequenza].Dati.ResettaTuttiFlipFlop := True;
+	            END_IF;
+	        END_REGION ;
+	        REGION Diagnostica
+	            "Sequenza".S[#K_SequenzaInt].Hmi.Diagnostica.AttesaPortata :=
+	            "Sequenza".S[#K_SequenzaInt].Hmi.Diagnostica.AttesaAnalogica :=
+	            "Sequenza".S[#K_SequenzaInt].Hmi.Diagnostica.AttesaMotore :=
+	            "Sequenza".S[#K_SequenzaInt].Hmi.Diagnostica.AttesaValvola := 0;
+	            "Sequenza".S[#K_SequenzaInt].Hmi.Diagnostica.AttesaExtCondi := NOT #CondizioniPassoEsterne;
+	            "Sequenza".S[#K_SequenzaInt].Hmi.Diagnostica.AttesaTempo := "Sequenza".S[#K_Sequenza].Prm.Passo[#K_PassoAttuale].Durata.IN AND NOT "Sequenza".S[#K_Sequenza].Prm.Passo[#K_PassoAttuale].Durata.O;
+	        END_REGION;
+	        REGION Uscite 
+	            "Sequenza".S[#K_SequenzaInt].Dati.TempoRimanente := "Sequenza".S[#K_Sequenza].Prm.Passo[#K_PassoAttuale].Durata.Preset - "Sequenza".S[#K_Sequenza].Prm.Passo[#K_PassoAttuale].Durata.TempoTrascorso;
+	            #TempoRimanente_TotSec :="Sequenza".S[#K_SequenzaInt].Dati.TempoRimanente;
+	            #TempoRimanente_Min := FLOOR(#TempoRimanente_TotSec / 60);                                              //Ottengo i secondi dividendo per 60 arrotondando per difetto
+	            #TempoRimanente_Sec := REAL_TO_INT(#TempoRimanente_TotSec) MOD 60;                                      //Il risultato della divisione per 60 sono i secondi che eccedono il minuto
+	            "Sequenza".S[#K_SequenzaInt].Hmi.TempoRimanente := #TempoRimanente_Min + (#TempoRimanente_Sec / 100.0); //Compongo il numero con al virgola da mastrore ad HMI
+	            IF "Sequenza".S[#K_SequenzaInt].Prm.Passo[#K_PassoAttuale].Durata.O THEN
+	                "Sequenza".S[#K_SequenzaInt].Dati.TempoTerminato_AttesaCondExt := True;
+	            END_IF;
+	        END_REGION ;
+	    ELSE
+	        "Sequenza".S[#K_Sequenza].Prm.Passo[#K_PassoAttuale].Durata.TempoTrascorso := 0;
+	    END_IF;
+	    IF "Sequenza".S[#K_SequenzaInt].Dati.PassoAttuale = 0 THEN              //Se non sono in un passo specifico.
+	        "Sequenza".S[#K_SequenzaInt].Hmi.SaltaPasso.Abilitato := False;     //Disabilito il salta passo.
+	    END_IF;                                                                 //Per evitare che premere il salta passo accidentalmente faccia partire dal passo 2.
+	    REGION Durata del passo a tempo
+	        IF NOT "Sequenza".S[#K_SequenzaInt].Hmi.BloccaAvanzamento THEN
+	            "T_Counter"(I_CicloCPU := "CicloScansioneCPU_I".O_rCicloCpu,
+	                        I_StartConteggio := #CondizioniOk_NoAck OR #CondizioniOk_Ack OR "Sequenza".S[#K_SequenzaInt].Dati.TempoTerminato_AttesaCondExt,
+	                        IO_DatiTimer := "Sequenza".S[#K_SequenzaInt].Prm.Passo[#K_PassoAttuale].Durata);
+	        END_IF;
+	    END_REGION ;
+	    "Sequenza".S[#K_SequenzaInt].Out.Passo[#K_PassoAttuale].Attivo := "Sequenza".S[#K_SequenzaInt].Dati.PassoAttuale = #K_PassoAttuale;
+	END_REGION ;
+	
+END_FUNCTION
+

@@ -1,0 +1,1704 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document>
+  <Engineering version="V21" />
+  <SW.Blocks.GlobalDB ID="0">
+    <AttributeList>
+      <Interface>
+        <Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v5">
+          <Section Name="Static">
+            <Member Name="Stazione" Datatype="Array[0..&quot;K_NumStazione&quot;] of &quot;Std_Stazione&quot;" Remanence="Retain">
+              <AttributeList>
+                <BooleanAttribute Name="SetPoint" SystemDefined="true">true</BooleanAttribute>
+              </AttributeList>
+              <Sections>
+                <Section Name="None">
+                  <Member Name="IN" Datatype="Struct">
+                    <Member Name="CodiceProdotto" Datatype="Int">
+                      <Subelement Path="0">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="Portata" Datatype="Real">
+                      <Subelement Path="0">
+                        <StartValue>0.0</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>0.0</StartValue>
+                      </Subelement>
+                    </Member>
+                  </Member>
+                  <Member Name="Prm" Datatype="Struct">
+                    <Member Name="Partner" Datatype="Struct">
+                      <Member Name="TipoAssociazione" Datatype="Byte">
+                        <Subelement Path="0">
+                          <StartValue>16#00</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>16#00</StartValue>
+                        </Subelement>
+                      </Member>
+                    </Member>
+                    <Member Name="CadutaChiamata" Datatype="Struct">
+                      <Member Name="DaAnalogicaPer" Datatype="Struct">
+                        <Member Name="SogliaMaxi" Datatype="Byte">
+                          <Subelement Path="0">
+                            <StartValue>16#00</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>16#00</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="SogliaIntMax" Datatype="Byte">
+                          <Subelement Path="0">
+                            <StartValue>16#00</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>16#00</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="SogliaIntMin" Datatype="Byte">
+                          <Subelement Path="0">
+                            <StartValue>16#00</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>16#00</StartValue>
+                          </Subelement>
+                        </Member>
+                        <Member Name="SogliaMini" Datatype="Byte">
+                          <Subelement Path="0">
+                            <StartValue>16#00</StartValue>
+                          </Subelement>
+                          <Subelement Path="1">
+                            <StartValue>16#00</StartValue>
+                          </Subelement>
+                        </Member>
+                      </Member>
+                    </Member>
+                    <Member Name="BypassDestinazione" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="BypassSorgente" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                  </Member>
+                  <Member Name="Hmi" Datatype="Struct">
+                    <Member Name="Abilita" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="ByPassConsensoMacchina" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="Diagnostica" Datatype="Struct">
+                      <Member Name="00-Analogica" Datatype="Bool">
+                        <Subelement Path="0">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="01-Paratia" Datatype="Bool">
+                        <Subelement Path="0">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="02-Motore" Datatype="Bool">
+                        <Subelement Path="0">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="03-Pompa" Datatype="Bool">
+                        <Subelement Path="0">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="04-NessunaStazioneInChiamata" Datatype="Bool">
+                        <Subelement Path="0">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="05-StopChiamataDaPLC" Datatype="Bool">
+                        <Subelement Path="0">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="06-SelettoreHMIStop" Datatype="Bool">
+                        <Subelement Path="0">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="07-MancanzaConsensoMacchina" Datatype="Bool">
+                        <Subelement Path="0">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="08-StazionePartnerNonChiama" Datatype="Bool">
+                        <Subelement Path="0">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                      </Member>
+                      <Member Name="09-" Datatype="Bool">
+                        <Subelement Path="0">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                      </Member>
+                    </Member>
+                  </Member>
+                  <Member Name="Allarmi" Datatype="Struct">
+                    <Member Name="Stato" Datatype="Struct">
+                      <Member Name="ConflittoMultiDest" Datatype="Bool">
+                        <Subelement Path="0">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                      </Member>
+                    </Member>
+                    <Member Name="EnWarnHmi" Datatype="Struct">
+                      <Member Name="ConflittoMultiDest" Datatype="Bool">
+                        <Subelement Path="0">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                        <Subelement Path="1">
+                          <StartValue>FALSE</StartValue>
+                        </Subelement>
+                      </Member>
+                    </Member>
+                    <Member Name="WordHMI" Datatype="Word">
+                      <Subelement Path="0">
+                        <StartValue>16#0000</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>16#0000</StartValue>
+                      </Subelement>
+                    </Member>
+                  </Member>
+                  <Member Name="Destinazione" Datatype="Array[0..&quot;K_NumStazione&quot;] of &quot;Std_Stazioni&quot;">
+                    <Sections>
+                      <Section Name="None">
+                        <Member Name="IN" Datatype="Struct">
+                          <Member Name="Possibile" Datatype="Bool">
+                            <Subelement Path="0,0">
+                              <Comment>
+                                <MultiLanguageText Lang="it-IT">Percorso selezionabile da HMI</MultiLanguageText>
+                              </Comment>
+                              <StartValue>FALSE</StartValue>
+                            </Subelement>
+                            <Subelement Path="0,1">
+                              <StartValue>FALSE</StartValue>
+                            </Subelement>
+                            <Subelement Path="1,0">
+                              <StartValue>FALSE</StartValue>
+                            </Subelement>
+                            <Subelement Path="1,1">
+                              <StartValue>FALSE</StartValue>
+                            </Subelement>
+                          </Member>
+                          <Member Name="Selezionato" Datatype="Bool">
+                            <Subelement Path="0,0">
+                              <Comment>
+                                <MultiLanguageText Lang="it-IT">Percorso selezionato e NON caricato online</MultiLanguageText>
+                              </Comment>
+                              <StartValue>FALSE</StartValue>
+                            </Subelement>
+                            <Subelement Path="0,1">
+                              <StartValue>FALSE</StartValue>
+                            </Subelement>
+                            <Subelement Path="1,0">
+                              <StartValue>FALSE</StartValue>
+                            </Subelement>
+                            <Subelement Path="1,1">
+                              <StartValue>FALSE</StartValue>
+                            </Subelement>
+                          </Member>
+                          <Member Name="Attivo" Datatype="Bool">
+                            <Subelement Path="0,0">
+                              <Comment>
+                                <MultiLanguageText Lang="it-IT">Percorso selezionato e caricato online</MultiLanguageText>
+                              </Comment>
+                              <StartValue>FALSE</StartValue>
+                            </Subelement>
+                            <Subelement Path="0,1">
+                              <StartValue>FALSE</StartValue>
+                            </Subelement>
+                            <Subelement Path="1,0">
+                              <StartValue>FALSE</StartValue>
+                            </Subelement>
+                            <Subelement Path="1,1">
+                              <StartValue>FALSE</StartValue>
+                            </Subelement>
+                          </Member>
+                        </Member>
+                        <Member Name="Prm" Datatype="Struct">
+                          <Member Name="BypassChiamata" Datatype="Bool">
+                            <Subelement Path="0,0">
+                              <StartValue>FALSE</StartValue>
+                            </Subelement>
+                            <Subelement Path="0,1">
+                              <StartValue>FALSE</StartValue>
+                            </Subelement>
+                            <Subelement Path="1,0">
+                              <StartValue>FALSE</StartValue>
+                            </Subelement>
+                            <Subelement Path="1,1">
+                              <StartValue>FALSE</StartValue>
+                            </Subelement>
+                          </Member>
+                        </Member>
+                      </Section>
+                    </Sections>
+                  </Member>
+                  <Member Name="Dati" Datatype="Struct">
+                    <Member Name="DestAttivaPresente" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="SorgAttivaPresente" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="AlmenoUnaSorgenteProgettata" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="AlmenoUnaDestinazioneProgettata" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                  </Member>
+                  <Member Name="OUT" Datatype="Struct">
+                    <Member Name="Chiamata" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                  </Member>
+                  <Member Name="Rif_Inc" Datatype="Struct">
+                    <Member Name="K_Analogica" Datatype="Int">
+                      <Subelement Path="0">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="K_Paratia" Datatype="Int">
+                      <Subelement Path="0">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="K_Motore" Datatype="Int">
+                      <Subelement Path="0">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="K_Pompa" Datatype="Int">
+                      <Subelement Path="0">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="K_Stazione" Datatype="Int">
+                      <Subelement Path="0">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                      <Subelement Path="1">
+                        <StartValue>0</StartValue>
+                      </Subelement>
+                    </Member>
+                  </Member>
+                </Section>
+              </Sections>
+              <Subelement Path="0">
+                <Comment>
+                  <MultiLanguageText Lang="it-IT">Non usare</MultiLanguageText>
+                </Comment>
+              </Subelement>
+            </Member>
+            <Member Name="Hmi" Datatype="Struct">
+              <Member Name="Visibilità" Datatype="Struct">
+                <Member Name="PompaAcidificazioneVascaEvaporati" Datatype="Struct">
+                  <Member Name="VascaEvaporati" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="Acidificazione1" Datatype="Struct">
+                  <Member Name="Serpentino" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="Acidificazione2" Datatype="Struct">
+                  <Member Name="Serpentino" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="Acidificazione3" Datatype="Struct">
+                  <Member Name="Serpentino" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaMix" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="Acidificazione4" Datatype="Struct">
+                  <Member Name="Serpentino" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="BermaProntoFresco" Datatype="Struct">
+                  <Member Name="CatelliLogicon" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CFT10t" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliOhmico" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Goglio" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="BermaPomodoro" Datatype="Struct">
+                  <Member Name="CatelliLogicon" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CFT10t" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliOhmico" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Goglio" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="Cernita1" Datatype="Struct">
+                  <Member Name="IFT6" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="TrituratoD1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="CFT_MVRAEstrazione1" Datatype="Struct">
+                  <Member Name="VascaDecanter" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Vasca30Quintali" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaEvaporati" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CFT10t" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliConcentrato" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliOhmico" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="BermaPomodoro" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="BermaProntoFresco" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Ghizzoni" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PastorizzatoreGoglio2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="CFT_MVRAEstrazione2" Datatype="Struct">
+                  <Member Name="VascaDecanter" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Vasca30Quintali" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaEvaporati" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaSemiconcentrato" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CFT10t" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliLogicon" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliConcentrato" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliOhmico" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Goglio" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="BermaPomodoro" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="BermaProntoFresco" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Ghizzoni" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PastorizzatoreGoglio2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="CFT_MVRBEstrazione1" Datatype="Struct">
+                  <Member Name="VascaDecanter" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Vasca30Quintali" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaSemiconcentrato" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CFT10t" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliLogicon" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliOhmico" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Goglio" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="BermaPomodoro" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="BermaProntoFresco" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Ghizzoni" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PastorizzatoreGoglio2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="CFT_MVRBFinitore1" Datatype="Struct">
+                  <Member Name="VascaDecanter" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Vasca30Quintali" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaSemiconcentrato" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CFT10t" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliLogicon" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliConcentrato" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliOhmico" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Goglio" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="BermaPomodoro" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="BermaProntoFresco" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Ghizzoni" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PastorizzatoreGoglio2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="CFT_MVRBFinitore2" Datatype="Struct">
+                  <Member Name="VascaEvaporati" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliConcentrato" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="FBR200Kg" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="CocleaIFT1_2" Datatype="Struct">
+                  <Member Name="IFT1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="IFT2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="D1" Datatype="Struct">
+                  <Member Name="PompaAlimentazioneHB1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PompaAlimentazioneHB2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PompaAlimentazioneHB1_HB2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="D2" Datatype="Struct">
+                  <Member Name="PompaAlimentazioneHB1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PompaAlimentazioneHB2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PompaAlimentazioneHB1_HB2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="VascaDecanter1" Datatype="Struct">
+                  <Member Name="VascaCrema" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="VascaDecanter2" Datatype="Struct">
+                  <Member Name="VascaCrema" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="VascaDecanter3" Datatype="Struct">
+                  <Member Name="VascaCrema" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="Ghizzoni" Datatype="Struct">
+                  <Member Name="CFT10t" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliLogicon" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliOhmico" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Goglio" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="IFT3" Datatype="Struct">
+                  <Member Name="Lince1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Lince2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Lince3" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="IFT5" Datatype="Struct">
+                  <Member Name="Lince1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Lince3" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="IFT6" Datatype="Struct">
+                  <Member Name="Lince1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Lince2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Lince3" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="Lince1" Datatype="Struct">
+                  <Member Name="Serpentino" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="Lince2" Datatype="Struct">
+                  <Member Name="Serpentino" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="Lince3" Datatype="Struct">
+                  <Member Name="Serpentino" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaMIx" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="Lince4" Datatype="Struct">
+                  <Member Name="Serpentino" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="PICO1" Datatype="Struct">
+                  <Member Name="CFT10t" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliLogicon" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliOhmico" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Goglio" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="BermaPomodoro" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="BermaProntoFresco" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Ghizzoni" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="FBR200Kg" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PastorizzatoreGoglio2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="PICO2" Datatype="Struct">
+                  <Member Name="CFT10t" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliLogicon" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliConcentrato" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliOhmico" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Goglio" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="BermaPomodoro" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="BermaProntoFresco" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Ghizzoni" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="FBR200Kg" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PastorizzatoreGoglio2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="PompaAlimentazioneDecanter" Datatype="Struct">
+                  <Member Name="VascaDecanter" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="PompaAlimentazioneHB1" Datatype="Struct">
+                  <Member Name="HB1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="HB2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="PompaAlimentazioneHB2" Datatype="Struct">
+                  <Member Name="HB1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="HB2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="HB3" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="PompaAlimentazioneHB1_HB2" Datatype="Struct">
+                  <Member Name="HB1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="HB2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="PompaAlimentazioneHB3" Datatype="Struct">
+                  <Member Name="HB3" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="PompaInvio1" Datatype="Struct">
+                  <Member Name="VascaMix" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliConcentrato" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliOhmico" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="BermaPomodoro" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Ghizzoni" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="PompaInvio2" Datatype="Struct">
+                  <Member Name="CFT10t" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliLogicon" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliOhmico" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PastorizzatoreGoglio2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Ghizzoni" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="PompaInvio3" Datatype="Struct">
+                  <Member Name="FMCPolpa" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="BermaPomodoro" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="PompaInvio4" Datatype="Struct">
+                  <Member Name="FMCPolpa" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="PompaInvio5" Datatype="Struct">
+                  <Member Name="CFT10t" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliLogicon" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliOhmico" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="BermaPomodoro" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="BermaProntoFresco" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Ghizzoni" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Goglio" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="PompaInvio6" Datatype="Struct">
+                  <Member Name="BermaProntoFresco" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Ghizzoni" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Goglio" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="FBR200Kg" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PastorizzatoreGoglio2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="PompaInvio7" Datatype="Struct">
+                  <Member Name="CatelliLogicon" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliOhmico" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Goglio" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="BermaProntoFresco" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Ghizzoni" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="FBR200Kg" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PastorizzatoreGoglio2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="PompaNastroIFT1_2" Datatype="Struct">
+                  <Member Name="D1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="D2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="PompaRecuperoIFT1" Datatype="Struct">
+                  <Member Name="SgrondatoreP54" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="SgrondatoreP55" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="PompaRecuperoIFT2" Datatype="Struct">
+                  <Member Name="SgrondatoreP54" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="SgrondatoreP55" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="PompaRecuperoPizza" Datatype="Struct">
+                  <Member Name="VascaDecanter" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="Salsina1" Datatype="Struct">
+                  <Member Name="Serpentino" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="Salsina2" Datatype="Struct">
+                  <Member Name="Serpentino" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="Salsina3" Datatype="Struct">
+                  <Member Name="Serpentino" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaMIx" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="Salsina4" Datatype="Struct">
+                  <Member Name="Serpentino" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="Scrambler" Datatype="Struct">
+                  <Member Name="Lince1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Lince2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Lince3" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="Separapelli1Sx" Datatype="Struct">
+                  <Member Name="IFT3" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="IFT4" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="IFT5" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Scrambler" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="Separapelli2Dx" Datatype="Struct">
+                  <Member Name="IFT3" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="IFT4" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="IFT5" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Scrambler" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="Serpentino" Datatype="Struct">
+                  <Member Name="PompaInvio1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PompaInvio2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PompaInvio3" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PompaInvio4" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PompaInvio5" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="SgrondatoreP54" Datatype="Struct">
+                  <Member Name="Lince1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Lince2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Lince3" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="SgrondatoreP55" Datatype="Struct">
+                  <Member Name="Lince2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Lince3" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="T150_1/2EffettoP05" Datatype="Struct">
+                  <Member Name="VascaDecanter" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaEvaporati" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Ghizzoni" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaSemiconcentrato" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="T150_1/2EffettoP07" Datatype="Struct">
+                  <Member Name="VascaDecanter" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaEvaporati" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliOhmico" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Ghizzoni" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaSemiconcentrato" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="BermaPomodoro" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="BermaProntoFresco" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="T150_3EffettofinitoreP02" Datatype="Struct">
+                  <Member Name="VascaEvaporati" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliConcentrato" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliOhmico" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaSemiconcentrato" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="BermaPomodoro" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaDecanter" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="TorchioSgrondatoreP54" Datatype="Struct">
+                  <Member Name="Lince3" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="TorchioScrambler" Datatype="Struct">
+                  <Member Name="Lince1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="TrituratoD1" Datatype="Struct">
+                  <Member Name="D1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="TrituratoD2" Datatype="Struct">
+                  <Member Name="D2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="TrituratoBrovatrice" Datatype="Struct">
+                  <Member Name="D1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="D2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="Vasca30Quintali" Datatype="Struct">
+                  <Member Name="Serpentino" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="VascaDecanter" Datatype="Struct">
+                  <Member Name="VascaEvaporati" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Vasca30Quintali" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaPolpa1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Decanter1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Decanter2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Decanter3" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="VascaEvaporatiP134" Datatype="Struct">
+                  <Member Name="CatelliOhmico" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="VascaEvaporatiP135" Datatype="Struct">
+                  <Member Name="CatelliConcentrato" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="VascaMix" Datatype="Struct">
+                  <Member Name="PICO1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PICO2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="VascaPolpa1" Datatype="Struct">
+                  <Member Name="PompaInvio1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PompaInvio2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PompaInvio3" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PompaInvio4" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PompaInvio5" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PompaInvio6" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PompaInvio7" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="VascaPolpa2" Datatype="Struct">
+                  <Member Name="PompaInvio1" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PompaInvio2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PompaInvio3" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PompaInvio4" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PompaInvio5" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PompaInvio6" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="PompaInvio7" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="PompaCrema1" Datatype="Struct">
+                  <Member Name="CatelliConcentrato" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliOhmico" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="BermaPomodoro" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="VascaMix" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="PompaCrema2" Datatype="Struct">
+                  <Member Name="CatelliLogicon" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliOhmico" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CFT10t" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="PompaCrema3" Datatype="Struct">
+                  <Member Name="BermaPomodoro" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="FMCPolpa" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="PompaCrema4" Datatype="Struct">
+                  <Member Name="FMCPolpa" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="PompaCrema5" Datatype="Struct">
+                  <Member Name="CFT10t" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliLogicon" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="CatelliOhmico" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Goglio" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="BermaPomodoro" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="BermaProntoFresco" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                  <Member Name="Ghizzoni" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="IFT4" Datatype="Struct">
+                  <Member Name="Lince2" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+                <Member Name="PompaConcentrato1" Datatype="Struct">
+                  <Member Name="VascaMix" Datatype="Bool">
+                    <StartValue>FALSE</StartValue>
+                  </Member>
+                </Member>
+              </Member>
+              <Member Name="Comandi" Datatype="Struct">
+                <Member Name="K_StazioneAttuale" Datatype="Int">
+                  <StartValue>0</StartValue>
+                </Member>
+                <Member Name="RicercaSorgentiDest" Datatype="Bool">
+                  <StartValue>FALSE</StartValue>
+                </Member>
+                <Member Name="SceltaSorgDest_PopupAperto" Datatype="Bool">
+                  <StartValue>FALSE</StartValue>
+                </Member>
+                <Member Name="ElencoSorgentiPossibili" Datatype="Array[0..15] of Int">
+                  <Subelement Path="0">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="1">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="2">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="3">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="4">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="5">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="6">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="7">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="8">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="9">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="10">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="11">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="12">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="13">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="14">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="15">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                </Member>
+                <Member Name="ElencoDestinazioniPossibili" Datatype="Array[0..15] of Int">
+                  <Subelement Path="0">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="1">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="2">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="3">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="4">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="5">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="6">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="7">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="8">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="9">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="10">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="11">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="12">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="13">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="14">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                  <Subelement Path="15">
+                    <StartValue>0</StartValue>
+                  </Subelement>
+                </Member>
+                <Member Name="SceltaTraSorgentiPossibili" Datatype="Array[0..15] of Bool">
+                  <Subelement Path="0">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="1">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="2">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="3">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="4">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="5">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="6">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="7">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="8">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="9">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="10">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="11">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="12">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="13">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="14">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="15">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                </Member>
+                <Member Name="SceltaTraDestinazioniPossibili" Datatype="Array[0..15] of Bool">
+                  <Subelement Path="0">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="1">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="2">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="3">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="4">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="5">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="6">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="7">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="8">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="9">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="10">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="11">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="12">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="13">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="14">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                  <Subelement Path="15">
+                    <StartValue>FALSE</StartValue>
+                  </Subelement>
+                </Member>
+                <Member Name="CaricaInLavoro" Datatype="Bool">
+                  <StartValue>FALSE</StartValue>
+                </Member>
+                <Member Name="ResettaTuttoOffline" Datatype="Bool">
+                  <StartValue>FALSE</StartValue>
+                </Member>
+                <Member Name="RipristinaOnline" Datatype="Bool">
+                  <StartValue>FALSE</StartValue>
+                </Member>
+                <Member Name="CompilaVerificaConflitti" Datatype="Bool">
+                  <StartValue>FALSE</StartValue>
+                </Member>
+              </Member>
+            </Member>
+          </Section>
+        </Sections>
+      </Interface>
+      <MemoryLayout>Optimized</MemoryLayout>
+      <MemoryReserve>100</MemoryReserve>
+      <Name>Percorso</Name>
+      <Namespace />
+      <Number>9</Number>
+      <ProgrammingLanguage>DB</ProgrammingLanguage>
+    </AttributeList>
+    <ObjectList>
+      <MultilingualText ID="1" CompositionName="Comment">
+        <ObjectList>
+          <MultilingualTextItem ID="2" CompositionName="Items">
+            <AttributeList>
+              <Culture>de-DE</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="3" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-GB</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="4" CompositionName="Items">
+            <AttributeList>
+              <Culture>es-ES</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="5" CompositionName="Items">
+            <AttributeList>
+              <Culture>fr-FR</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="6" CompositionName="Items">
+            <AttributeList>
+              <Culture>it-IT</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+      <MultilingualText ID="7" CompositionName="Title">
+        <ObjectList>
+          <MultilingualTextItem ID="8" CompositionName="Items">
+            <AttributeList>
+              <Culture>de-DE</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="9" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-GB</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="A" CompositionName="Items">
+            <AttributeList>
+              <Culture>es-ES</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="B" CompositionName="Items">
+            <AttributeList>
+              <Culture>fr-FR</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="C" CompositionName="Items">
+            <AttributeList>
+              <Culture>it-IT</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+    </ObjectList>
+  </SW.Blocks.GlobalDB>
+</Document>

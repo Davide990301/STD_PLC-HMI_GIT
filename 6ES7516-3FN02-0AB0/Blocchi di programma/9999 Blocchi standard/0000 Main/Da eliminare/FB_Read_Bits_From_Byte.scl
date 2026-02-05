@@ -1,0 +1,73 @@
+﻿FUNCTION_BLOCK "FB_Read_Bits_From_Byte"
+{ S7_Optimized_Access := 'FALSE' }
+AUTHOR : JEBU
+FAMILY : VTEMdc
+VERSION : 1.0
+   VAR_INPUT 
+      byData { ExternalVisible := 'False'} : Byte;
+      iStartBit { ExternalVisible := 'False'} : Int;
+      iEndBit { ExternalVisible := 'False'} : Int;
+   END_VAR
+
+   VAR_OUTPUT 
+      byValue { ExternalVisible := 'False'} : Byte;
+      xError { ExternalVisible := 'False'} : Bool := true;
+   END_VAR
+
+   VAR_TEMP 
+      byTempData : Byte;
+      axTempBit AT byTempData : Array[0..7] of Bool;
+      iTempVal : Int;
+      i : Int;
+   END_VAR
+
+
+BEGIN
+	(*****************************************************************************************************
+	
+	FESTO SE & Co. KG, Esslingen
+	Copyright (c) 2019. All rights reserved.
+	
+	Product:            Motion Terminal VTEM
+	Description:        Function block for reading a value out of a certain section of a BYTE
+	
+	Object version:     1.00
+	Last change:        2017
+	======================================================================================================
+	                                       H I S T O R Y
+	======================================================================================================
+	Version:            1.00
+	Date:               2017
+	Change/Activity:    - created
+	Release:            _._.2
+	Author:             H.W.
+	======================================================================================================
+	
+	*****************************************************************************************************)
+	
+	IF (#iStartBit < 0) OR (#iStartBit > 7) OR (#iEndBit < 0) OR (#iEndBit > 7) OR (#iStartBit > #iEndBit) THEN
+	    
+	    // the specified target area is invalid
+	    #iTempVal := 0;
+	    #xError := TRUE;
+	    
+	ELSE
+	    
+	    // initialize function
+	    #xError := FALSE;
+	    #iTempVal := 0;
+	    #byTempData := #byData;
+	    
+	    FOR #i := #iStartBit TO #iEndBit DO
+	        // read specified bits and calculate return value
+	        #iTempVal := #iTempVal + (BOOL_TO_INT(#axTempBit[#i]) * REAL_TO_INT(EXP((#i - #iStartBit) * LN(2))));
+	    END_FOR;
+	    
+	END_IF;
+	
+	// return read value or error indicator (-1)
+	#byValue := INT_TO_BYTE(#iTempVal);
+	
+	
+END_FUNCTION_BLOCK
+

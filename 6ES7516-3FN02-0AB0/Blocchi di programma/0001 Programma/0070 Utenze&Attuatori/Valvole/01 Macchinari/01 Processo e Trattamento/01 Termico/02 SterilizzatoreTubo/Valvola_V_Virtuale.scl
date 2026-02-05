@@ -1,0 +1,24 @@
+﻿FUNCTION "Valvola_V_Virtuale" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_TEMP 
+      Consenso_A_Riempitrice : Bool;
+   END_VAR
+
+
+BEGIN
+	REGION Virtuale
+	    REGION Parametri
+	        "Valvola".V["K_Valvola_V"].Prm.SensorLess := True;
+	    END_REGION ;
+	    REGION Gestione
+	        "GestValvola"(K_Valvola := "K_Valvola_V",
+	                      K_TipoValvola := "K_TipoValvola_Monostabile",
+	                      K_Zona := "K_Zona_Sterilizzatore");
+	    END_REGION ;
+	    REGION Uscite
+	        #Consenso_A_Riempitrice := "Valvola".V["K_Valvola_V"].Out.CmdPos;
+	    END_REGION ;
+	END_REGION ;
+END_FUNCTION
+

@@ -1,0 +1,8 @@
+﻿FUNCTION "GestTema" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	"Tema".TemaAttuale := "K_Tema_StdDubit";
+END_FUNCTION
+

@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document>
+  <Engineering version="V21" />
+  <SW.Types.PlcStruct ID="0">
+    <AttributeList>
+      <Interface>
+        <Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v5">
+          <Section Name="None">
+            <Member Name="Prm" Datatype="Struct">
+              <Member Name="IsteresiComando" Datatype="Real" />
+              <Member Name="SogliaAltaVelcoità" Datatype="Real" />
+              <Member Name="UnitàMisura" Datatype="&quot;Std_UnitàDiMisura&quot;" />
+            </Member>
+            <Member Name="Dati" Datatype="Struct">
+              <Member Name="PosAttuale" Datatype="Real" />
+              <Member Name="IncrementaUscita" Datatype="Bool" />
+              <Member Name="QuotaSopraSoglia" Datatype="Bool" />
+              <Member Name="QuotaSogliaVeloce" Datatype="Bool" />
+              <Member Name="MemSalitaLenta" Datatype="Bool" />
+              <Member Name="MemSalitaVeloce" Datatype="Bool" />
+              <Member Name="MemDiscesaLenta" Datatype="Bool" />
+              <Member Name="MemDiscesaVeloce" Datatype="Bool" />
+              <Member Name="SpostamentoAttuale" Datatype="Real" />
+              <Member Name="PosizionePrecedente" Datatype="Real" />
+              <Member Name="SpostatmentoTot" Datatype="Real">
+                <AttributeList>
+                  <BooleanAttribute Name="SetPoint" SystemDefined="true">true</BooleanAttribute>
+                </AttributeList>
+              </Member>
+              <Member Name="BloccoRichiamato" Datatype="Bool" />
+            </Member>
+            <Member Name="Hmi" Datatype="Struct">
+              <Member Name="Auto" Datatype="Bool" />
+              <Member Name="Man" Datatype="Bool" />
+              <Member Name="PulsanteIncrementa" Datatype="Bool" />
+              <Member Name="PulsanteDecrementa" Datatype="Bool" />
+            </Member>
+            <Member Name="Allarmi" Datatype="Struct">
+              <Member Name="TimerRitMov" Datatype="&quot;Std_stTimer&quot;" />
+              <Member Name="PresetSoglie" Datatype="Struct">
+                <Member Name="MinimoSpostamento" Datatype="Real" />
+              </Member>
+              <Member Name="A" Datatype="Array[0..&quot;K_NumAllarmiPerParatie&quot;] of &quot;Std_PrmAllarmeStd&quot;">
+                <Sections>
+                  <Section Name="None" />
+                </Sections>
+                <Subelement Path="1">
+                  <Comment>
+                    <MultiLanguageText Lang="it-IT">OvertimeMovimento</MultiLanguageText>
+                  </Comment>
+                </Subelement>
+                <Subelement Path="2">
+                  <Comment>
+                    <MultiLanguageText Lang="it-IT">TermicoIntervenuto</MultiLanguageText>
+                  </Comment>
+                </Subelement>
+                <Subelement Path="3">
+                  <Comment>
+                    <MultiLanguageText Lang="it-IT">SezionatoreAperto</MultiLanguageText>
+                  </Comment>
+                </Subelement>
+              </Member>
+              <Member Name="WordHMI" Datatype="Word" />
+            </Member>
+            <Member Name="Rif_Inc" Datatype="Struct">
+              <Member Name="K_AnalogicaPosAttuale" Datatype="Int">
+                <Comment>
+                  <MultiLanguageText Lang="it-IT">indica la posizione attuale della paratia</MultiLanguageText>
+                </Comment>
+              </Member>
+              <Member Name="K_AnalogicaRiferimento" Datatype="Int">
+                <Comment>
+                  <MultiLanguageText Lang="it-IT">Indica le soglie che vengono utilizzate dalla paratia</MultiLanguageText>
+                </Comment>
+              </Member>
+              <Member Name="K_StazioneRiferimento" Datatype="Int" />
+            </Member>
+          </Section>
+        </Sections>
+      </Interface>
+      <Name>Std_Paratia</Name>
+      <Namespace />
+    </AttributeList>
+    <ObjectList>
+      <MultilingualText ID="1" CompositionName="Comment">
+        <ObjectList>
+          <MultilingualTextItem ID="2" CompositionName="Items">
+            <AttributeList>
+              <Culture>de-DE</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="3" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-GB</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="4" CompositionName="Items">
+            <AttributeList>
+              <Culture>es-ES</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="5" CompositionName="Items">
+            <AttributeList>
+              <Culture>fr-FR</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="6" CompositionName="Items">
+            <AttributeList>
+              <Culture>it-IT</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+      <MultilingualText ID="7" CompositionName="Title">
+        <ObjectList>
+          <MultilingualTextItem ID="8" CompositionName="Items">
+            <AttributeList>
+              <Culture>de-DE</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="9" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-GB</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="A" CompositionName="Items">
+            <AttributeList>
+              <Culture>es-ES</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="B" CompositionName="Items">
+            <AttributeList>
+              <Culture>fr-FR</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="C" CompositionName="Items">
+            <AttributeList>
+              <Culture>it-IT</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+    </ObjectList>
+  </SW.Types.PlcStruct>
+</Document>

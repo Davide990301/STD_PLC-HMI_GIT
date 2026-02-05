@@ -1,0 +1,53 @@
+﻿FUNCTION "GestFlowMeterHendressHauser" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_Flowmeter : Int;
+      HwSubModule_Totalizer_1 : HW_SUBMODULE;
+      HwSubModule_ControlTotalizer_1 : HW_SUBMODULE;
+      HwSubModule_Totalizer_2 : HW_SUBMODULE;
+      HwSubModule_ControlTotalizer_2 : HW_SUBMODULE;
+      HwSubModule_Totalizer_3 : HW_SUBMODULE;
+      HwSubModule_ControlTotalizer_3 : HW_SUBMODULE;
+      HwSubModule_Velocity : HW_SUBMODULE;
+      HwSubModule_Corrected_volume_flow : HW_SUBMODULE;
+      HwSubModule_Volume_flow : HW_SUBMODULE;
+      HwSubModule_Mass_flow : HW_SUBMODULE;
+   END_VAR
+
+   VAR_TEMP 
+      Record0 : Array[0..1] of DWord;
+      Record1 : Array[0..1] of DWord;
+      Record2 : Array[0..1] of DWord;
+      Record3 : Array[0..1] of DWord;
+      Record4 : Array[0..1] of DWord;
+      Record5 : Array[0..1] of DWord;
+      Record6 : Array[0..1] of DWord;
+      Record7 : Array[0..1] of DWord;
+      RetVal : Array[0..10] of Int;
+   END_VAR
+
+
+BEGIN
+	#RetVal[0] := DPRD_DAT(LADDR := #HwSubModule_Totalizer_1, RECORD => #Record0);
+	#RetVal[1] := DPRD_DAT(LADDR := #HwSubModule_Totalizer_2, RECORD => #Record1);
+	#RetVal[2] := DPRD_DAT(LADDR := #HwSubModule_Totalizer_3, RECORD => #Record2);
+	#RetVal[3] := DPRD_DAT(LADDR := #HwSubModule_Velocity, RECORD => #Record3);
+	#RetVal[4] := DPRD_DAT(LADDR := #HwSubModule_Corrected_volume_flow, RECORD => #Record4);
+	#RetVal[5] := DPRD_DAT(LADDR := #HwSubModule_Volume_flow, RECORD => #Record5);
+	#RetVal[6] := DPRD_DAT(LADDR := #HwSubModule_Mass_flow, RECORD => #Record6);
+	
+	"FlowMeter".FlowMeter[#K_Flowmeter].Totalizer_1             := DWORD_TO_REAL(#Record0[0]);
+	"FlowMeter".FlowMeter[#K_Flowmeter].Totalizer_2             := DWORD_TO_REAL(#Record1[0]);
+	"FlowMeter".FlowMeter[#K_Flowmeter].Totalizer_3             := DWORD_TO_REAL(#Record2[0]);
+	"FlowMeter".FlowMeter[#K_Flowmeter].Velocity                := DWORD_TO_REAL(#Record3[0]);
+	"FlowMeter".FlowMeter[#K_Flowmeter].Corrected_Volume_Flow   := DWORD_TO_REAL(#Record4[0]);
+	"FlowMeter".FlowMeter[#K_Flowmeter].Volume_flow             := DWORD_TO_REAL(#Record5[0]);
+	"FlowMeter".FlowMeter[#K_Flowmeter].Mass_Flow               := DWORD_TO_REAL(#Record6[0]);
+	
+	
+	#RetVal[7] := DPWR_DAT(LADDR := #HwSubModule_ControlTotalizer_1, RECORD := "FlowMeter".FlowMeter[#K_Flowmeter].ControlTotalizzatore_1);
+	#RetVal[8] := DPWR_DAT(LADDR := #HwSubModule_ControlTotalizer_2, RECORD := "FlowMeter".FlowMeter[#K_Flowmeter].ControlTotalizzatore_2);
+	#RetVal[9] := DPWR_DAT(LADDR := #HwSubModule_ControlTotalizer_3, RECORD := "FlowMeter".FlowMeter[#K_Flowmeter].ControlTotalizzatore_3);
+END_FUNCTION
+

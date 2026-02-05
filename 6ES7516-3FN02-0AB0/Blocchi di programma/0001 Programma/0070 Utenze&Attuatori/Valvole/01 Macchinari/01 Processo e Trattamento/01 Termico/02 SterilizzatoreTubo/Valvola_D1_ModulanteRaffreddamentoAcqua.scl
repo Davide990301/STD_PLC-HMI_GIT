@@ -1,0 +1,22 @@
+﻿FUNCTION "Valvola_D1_ModulanteRaffreddamentoAcqua" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	REGION Modulante raffreddamento acqua
+	    REGION Parametri
+	        "Valvola".V["K_Valvola_D1"].Prm.SensorLess := True;
+	    END_REGION ;
+	    REGION Gestione
+	        "GestValvola"(K_Valvola := "K_Valvola_D1",
+	                      K_TipoValvola := "K_TipoValvola_Modulante",
+	                      K_Zona := "K_Zona_Sterilizzatore");
+	    END_REGION ;
+	    REGION Uscite
+	        "GestValvola_ScriviPaw"(K_Valvola := "K_Valvola_D1",
+	                                K_TipoOutValvola := "K_TipoOutValvola_Portata",
+	                                Paw => "ModulanteRaffreddamentoAcqua_Apertura");
+	    END_REGION ;
+	END_REGION ;
+END_FUNCTION
+

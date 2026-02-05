@@ -1,0 +1,99 @@
+﻿FUNCTION_BLOCK "FB_Read_Bits_From_Word"
+{ S7_Optimized_Access := 'FALSE' }
+AUTHOR : JEBU
+FAMILY : VTEMdc
+VERSION : 1.01
+   VAR_INPUT 
+      wData { ExternalVisible := 'False'} : Word;
+      iStartBit { ExternalVisible := 'False'} : Int;
+      iEndBit { ExternalVisible := 'False'} : Int;
+   END_VAR
+
+   VAR_OUTPUT 
+      iValue { ExternalVisible := 'False'} : Int;
+      xError { ExternalVisible := 'False'} : Bool := TRUE;
+   END_VAR
+
+   VAR_TEMP 
+      wDataIn : Word;
+      abyDataIn AT wDataIn : Array[0..1] of Byte;
+      wTempData : Word;
+      axTempBit AT wTempData : Array[0..15] of Bool;
+      abyTempByte AT wTempData : Array[0..1] of Byte;
+      iTempVal : Int;
+      i : Int;
+      wData00 : Word;
+      wData01 : Word;
+      wWordData : Word;
+   END_VAR
+
+
+BEGIN
+	(*****************************************************************************************************
+	
+	FESTO SE & Co. KG, Esslingen
+	Copyright (c) 2019. All rights reserved.
+	
+	Product:            Motion Terminal VTEM
+	Description:        Function block for reading a value out of a certain section of a WORD
+	
+	Object version:     1.01
+	Last change:        2019-04
+	======================================================================================================
+	                                       H I S T O R Y
+	======================================================================================================
+	Version:            1.01
+	Date:               2019-04
+	Change/Activity:    - Changes iValue, xError from InOut to Out (#2222801)
+	Release:            _._.3
+	Author:             JEBU
+	------------------------------------------------------------------------------------------------------
+	Version:            1.00
+	Date:               2017
+	Change/Activity:    - created
+	Release:            _._.2
+	Author:             H.W.
+	======================================================================================================
+	
+	*****************************************************************************************************)
+	
+	IF (#iStartBit < 0) OR (#iStartBit > 15) OR (#iEndBit < 0) OR (#iEndBit > 15) OR (#iStartBit > #iEndBit) THEN
+	    
+	    // the specified target area is invalid
+	    #iTempVal := 0;
+	    #xError := TRUE;
+	    
+	ELSIF (#iStartBit = 0) AND (#iEndBit = 15) THEN
+	    // load value directly if a entire word shall uploaded
+	    
+	    //rotate high and low byte of the read data
+	    #wData00 := SHR(IN := #wData, N := 8);
+	    #wData01 := SHL(IN := #wData, N := 8);
+	    #wWordData := #wData00 OR #wData01;
+	    
+	    #iTempVal := WORD_TO_INT(#wWordData);
+	    #xError := FALSE;
+	    
+	ELSE
+	    
+	    // initialize function
+	    #iTempVal := 0;
+	    #xError := FALSE;
+	    #wDataIn := #wData;
+	    
+	    #abyTempByte[0] := #abyDataIn[0];
+	    #abyTempByte[1] := #abyDataIn[1];
+	    
+	    FOR #i := #iStartBit TO #iEndBit DO
+	        // read specified bits and calculate return value
+	        #iTempVal := #iTempVal + (BOOL_TO_INT(#axTempBit[#i]) * REAL_TO_INT(EXP((#i - #iStartBit) * LN(2))));
+	    END_FOR;
+	    
+	END_IF;
+	
+	// return read value or error indicator (-1)
+	#iValue := #iTempVal;
+	
+	
+END_FUNCTION_BLOCK
+
