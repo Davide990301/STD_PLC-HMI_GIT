@@ -9,7 +9,7 @@
       <SW.Tags.PlcUserConstant ID="1" CompositionName="UserConstants">
         <AttributeList>
           <DataTypeName>Int</DataTypeName>
-          <Name>K_ComunicazioneS7_Qci</Name>
+          <Name>K_ComunicazioneS7_St1_Qci</Name>
           <Value>1</Value>
         </AttributeList>
         <ObjectList>
@@ -24,7 +24,7 @@
               <MultilingualTextItem ID="4" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
-                  <Text />
+                  <Text>St1_qci</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="5" CompositionName="Items">
@@ -42,7 +42,7 @@
               <MultilingualTextItem ID="7" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
-                  <Text />
+                  <Text>St1_qci</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -52,7 +52,7 @@
       <SW.Tags.PlcUserConstant ID="8" CompositionName="UserConstants">
         <AttributeList>
           <DataTypeName>Int</DataTypeName>
-          <Name>K_ComunicazioneS7_RobopackCFT</Name>
+          <Name>K_ComunicazioneS7_St1_Robopack</Name>
           <Value>2</Value>
         </AttributeList>
         <ObjectList>
@@ -67,7 +67,7 @@
               <MultilingualTextItem ID="B" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
-                  <Text />
+                  <Text>St1_robopack</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="C" CompositionName="Items">
@@ -85,7 +85,7 @@
               <MultilingualTextItem ID="E" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
-                  <Text />
+                  <Text>St1_robopack</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>

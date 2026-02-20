@@ -1429,7 +1429,7 @@
                     <Token Text="[" UId="52" />
                     <Access Scope="GlobalConstant" UId="53">
                       <Constant UId="54">
-                        <ConstantValue UId="56">KAllZona_CentralinaSicurezza</ConstantValue>
+                        <ConstantValue UId="56">KAllZone_CentralinaSicurezza</ConstantValue>
                       </Constant>
                     </Access>
                     <Token Text="]" UId="57" />
@@ -1504,7 +1504,7 @@
                     <Token Text="[" UId="112" />
                     <Access Scope="GlobalConstant" UId="113">
                       <Constant UId="114">
-                        <ConstantValue UId="116">KAllZona_CicloNonInserito</ConstantValue>
+                        <ConstantValue UId="116">KAllZone_CicloNonInserito</ConstantValue>
                       </Constant>
                     </Access>
                     <Token Text="]" UId="117" />
@@ -1563,7 +1563,7 @@
                     <Token Text="[" UId="160" />
                     <Access Scope="GlobalConstant" UId="161">
                       <Constant UId="162">
-                        <ConstantValue UId="164">KAllZona_PressostatoGenerale</ConstantValue>
+                        <ConstantValue UId="164">KAllZone_PressostatoGenerale</ConstantValue>
                       </Constant>
                     </Access>
                     <Token Text="]" UId="165" />

@@ -24,7 +24,7 @@
               <MultilingualTextItem ID="4" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
-                  <Text />
+                  <Text>Agitatorbasqueproduct</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="5" CompositionName="Items">
@@ -42,7 +42,7 @@
               <MultilingualTextItem ID="7" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
-                  <Text />
+                  <Text>Agitatorevascaprodotto</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -67,7 +67,7 @@
               <MultilingualTextItem ID="B" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
-                  <Text />
+                  <Text>Monopump</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="C" CompositionName="Items">
@@ -85,7 +85,7 @@
               <MultilingualTextItem ID="E" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
-                  <Text />
+                  <Text>Pompamono</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -341,49 +341,6 @@
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="38" CompositionName="Items">
-                <AttributeList>
-                  <Culture>it-IT</Culture>
-                  <Text />
-                </AttributeList>
-              </MultilingualTextItem>
-            </ObjectList>
-          </MultilingualText>
-        </ObjectList>
-      </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="39" CompositionName="UserConstants">
-        <AttributeList>
-          <DataTypeName>Int</DataTypeName>
-          <Name>K_Motore_HelloWorld</Name>
-          <Value>9</Value>
-        </AttributeList>
-        <ObjectList>
-          <MultilingualText ID="3A" CompositionName="Comment">
-            <ObjectList>
-              <MultilingualTextItem ID="3B" CompositionName="Items">
-                <AttributeList>
-                  <Culture>de-DE</Culture>
-                  <Text />
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="3C" CompositionName="Items">
-                <AttributeList>
-                  <Culture>en-GB</Culture>
-                  <Text />
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="3D" CompositionName="Items">
-                <AttributeList>
-                  <Culture>es-ES</Culture>
-                  <Text />
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="3E" CompositionName="Items">
-                <AttributeList>
-                  <Culture>fr-FR</Culture>
-                  <Text />
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="3F" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
                   <Text />

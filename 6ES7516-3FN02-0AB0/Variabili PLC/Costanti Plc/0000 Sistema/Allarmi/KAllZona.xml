@@ -9,7 +9,7 @@
       <SW.Tags.PlcUserConstant ID="1" CompositionName="UserConstants">
         <AttributeList>
           <DataTypeName>Int</DataTypeName>
-          <Name>KAllZona_CentralinaSicurezza</Name>
+          <Name>KAllZone_CentralinaSicurezza</Name>
           <Value>1</Value>
         </AttributeList>
         <ObjectList>
@@ -52,7 +52,7 @@
       <SW.Tags.PlcUserConstant ID="8" CompositionName="UserConstants">
         <AttributeList>
           <DataTypeName>Int</DataTypeName>
-          <Name>KAllZona_PressostatoGenerale</Name>
+          <Name>KAllZone_PressostatoGenerale</Name>
           <Value>3</Value>
         </AttributeList>
         <ObjectList>
@@ -95,7 +95,7 @@
       <SW.Tags.PlcUserConstant ID="F" CompositionName="UserConstants">
         <AttributeList>
           <DataTypeName>Int</DataTypeName>
-          <Name>KAllZona_CicloNonInserito</Name>
+          <Name>KAllZone_CicloNonInserito</Name>
           <Value>2</Value>
         </AttributeList>
         <ObjectList>

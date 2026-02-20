@@ -768,9 +768,9 @@
                           <Token Text="]" UId="577" />
                         </Component>
                         <Token Text="." UId="578" />
-                        <Component Name="Dati" UId="579" />
+                        <Component Name="In" UId="579" />
                         <Token Text="." UId="580" />
-                        <Component Name="FrequenzaRichiesta" UId="581" />
+                        <Component Name="CmdVelocitaRich" UId="581" />
                       </Symbol>
                     </Access>
                   </Parameter>

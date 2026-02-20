@@ -53,7 +53,7 @@
         <AttributeList>
           <DataTypeName>Int</DataTypeName>
           <Name>K_NumAllarmiPerMotori</Name>
-          <Value>14</Value>
+          <Value>32</Value>
         </AttributeList>
         <ObjectList>
           <MultilingualText ID="9" CompositionName="Comment">

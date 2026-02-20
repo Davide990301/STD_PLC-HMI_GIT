@@ -24,7 +24,7 @@
               <MultilingualTextItem ID="4" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
-                  <Text />
+                  <Text>Level tank product</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="5" CompositionName="Items">
@@ -42,7 +42,7 @@
               <MultilingualTextItem ID="7" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
-                  <Text />
+                  <Text>Livello vasca prodotto</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -67,7 +67,7 @@
               <MultilingualTextItem ID="B" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
-                  <Text />
+                  <Text>Infeed product filter pressure</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="C" CompositionName="Items">
@@ -85,7 +85,7 @@
               <MultilingualTextItem ID="E" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
-                  <Text />
+                  <Text>Pressione ingresso filtri prodotto</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -104,31 +104,31 @@
               <MultilingualTextItem ID="11" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
-                  <Text />
+                  <Text>Ausgangsdruck Produktfilter</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="12" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
-                  <Text />
+                  <Text>Product filters outlet pressure</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="13" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
-                  <Text />
+                  <Text>Presión de salida de los filtros del producto</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="14" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
-                  <Text />
+                  <Text>Pression de sortie filtres produit</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="15" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
-                  <Text />
+                  <Text>Pressione uscita filtri prodotto</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -147,31 +147,31 @@
               <MultilingualTextItem ID="18" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
-                  <Text />
+                  <Text>DurchflussEingangProdukt</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="19" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
-                  <Text />
+                  <Text>ProductInputRange</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="1A" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
-                  <Text />
+                  <Text>CaudalEntradaProducto</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="1B" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
-                  <Text />
+                  <Text>DébitEntréeProduit</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="1C" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
-                  <Text />
+                  <Text>PortataIngressoProdotto</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -190,31 +190,31 @@
               <MultilingualTextItem ID="1F" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
-                  <Text />
+                  <Text>Drucksicherheiteingangsterilisator</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="20" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
-                  <Text />
+                  <Text>Pressuresafetysterilizerinput</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="21" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
-                  <Text />
+                  <Text>Presiónseguridadentradaesterilizador</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="22" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
-                  <Text />
+                  <Text>Pressionsécuritéentréestérilisateur</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="23" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
-                  <Text />
+                  <Text>Pressionesicurezzaingressosterilizzatore</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -233,31 +233,31 @@
               <MultilingualTextItem ID="26" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
-                  <Text />
+                  <Text>Druck gegendruckeingangpumpekolben</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="27" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
-                  <Text />
+                  <Text>Pressurebackpressurepistonpumpinlet</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="28" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
-                  <Text />
+                  <Text>Presióncontrapresiónentradabombapistones</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="29" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
-                  <Text />
+                  <Text>Pression contre-pressionentréepompepistons</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="2A" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
-                  <Text />
+                  <Text>Pressionecontropressioneingressopompapistoni</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -276,31 +276,31 @@
               <MultilingualTextItem ID="2D" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
-                  <Text />
+                  <Text>Druck gegendruckendearbeitslinie</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="2E" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
-                  <Text />
+                  <Text>Pressurebackpressureworklineend</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="2F" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
-                  <Text />
+                  <Text>Presióncontrapresiónfinallíneatrabajo</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="30" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
-                  <Text />
+                  <Text>Pression contre-pressionfinlignetravail</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="31" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
-                  <Text />
+                  <Text>Pressionecontropressionefinelinealavoro</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -319,31 +319,31 @@
               <MultilingualTextItem ID="34" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
-                  <Text />
+                  <Text>Temperaturausgangsterilisatorprozess</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="35" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
-                  <Text />
+                  <Text>Outputtemperaturesterilizerprocess</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="36" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
-                  <Text />
+                  <Text>Temperaturasalidaesterilizadorproceso</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="37" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
-                  <Text />
+                  <Text>Températuresortiestérilisateurprocessus</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="38" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
-                  <Text />
+                  <Text>Temperaturauscitasterilizzatoreprocesso</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -362,31 +362,31 @@
               <MultilingualTextItem ID="3B" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
-                  <Text />
+                  <Text>Temperaturwassermantel</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="3C" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
-                  <Text />
+                  <Text>Warmwatertemperature</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="3D" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
-                  <Text />
+                  <Text>Temperaturaaguacalda</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="3E" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
-                  <Text />
+                  <Text>Températureeauchaud</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="3F" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
-                  <Text />
+                  <Text>Temperaturaacquacalda</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -405,31 +405,31 @@
               <MultilingualTextItem ID="42" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
-                  <Text />
+                  <Text>Temperatureingangstopp</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="43" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
-                  <Text />
+                  <Text>Stationinputtemperature</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="44" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
-                  <Text />
+                  <Text>Temperaturaentradasosta</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="45" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
-                  <Text />
+                  <Text>Températureentréestase</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="46" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
-                  <Text />
+                  <Text>Temperaturaingressososta</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -448,31 +448,31 @@
               <MultilingualTextItem ID="49" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
-                  <Text />
+                  <Text>Temperaturausgangstopp</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="4A" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
-                  <Text />
+                  <Text>Outputstoptemperature</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="4B" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
-                  <Text />
+                  <Text>Temperaturasalidasosta</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="4C" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
-                  <Text />
+                  <Text>Températuresortiestate</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="4D" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
-                  <Text />
+                  <Text>Temperaturauscitasosta</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -491,31 +491,31 @@
               <MultilingualTextItem ID="50" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
-                  <Text />
+                  <Text>Temperaturausgangsterilisatorstorization</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="51" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
-                  <Text />
+                  <Text>Outputtemperaturesterilizerstoricize</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="52" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
-                  <Text />
+                  <Text>Temperaturasalidaesterilizadorhistorizar</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="53" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
-                  <Text />
+                  <Text>Températuresortiestérilisateurhistoriser</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="54" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
-                  <Text />
+                  <Text>Temperaturauscitasterilizzatorestoricizzare</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -534,31 +534,31 @@
               <MultilingualTextItem ID="57" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
-                  <Text />
+                  <Text>Temperaturausgangkühlerprozess</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="58" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
-                  <Text />
+                  <Text>Outputtemperaturechillerprocess</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="59" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
-                  <Text />
+                  <Text>Temperaturasalidarefrigeradorproceso</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="5A" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
-                  <Text />
+                  <Text>Température sortie refroidisseur processus</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="5B" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
-                  <Text />
+                  <Text>Temperaturauscitaraffredatoreprocesso</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -577,31 +577,31 @@
               <MultilingualTextItem ID="5E" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
-                  <Text />
+                  <Text>Temperaturlinienende</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="5F" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
-                  <Text />
+                  <Text>Lineendtemperature</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="60" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
-                  <Text />
+                  <Text>Temperaturafinelínea</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="61" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
-                  <Text />
+                  <Text>Températurefinligne</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="62" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
-                  <Text />
+                  <Text>Temperaturafinelinea</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -620,31 +620,31 @@
               <MultilingualTextItem ID="65" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
-                  <Text />
+                  <Text>Temperaturbarrierendampfvalvwechsel</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="66" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
-                  <Text />
+                  <Text>Barriertemperaturevaporevalvexchange</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="67" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
-                  <Text />
+                  <Text>Temperaturabarrerasvaporvalvintercambio</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="68" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
-                  <Text />
+                  <Text>Températurebarrièrevapeurvalveéchange</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="69" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
-                  <Text />
+                  <Text>Temperaturabarrierevaporevalvscambio</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -663,31 +663,31 @@
               <MultilingualTextItem ID="6C" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
-                  <Text />
+                  <Text>Temperaturbarrierendampfschlauchinschlauch</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="6D" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
-                  <Text />
+                  <Text>Barriertemperaturevaporetubeintube</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="6E" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
-                  <Text />
+                  <Text>Temperaturabarrerasvaportubointubo</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="6F" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
-                  <Text />
+                  <Text>Températurebarrièrevapeurtubeintube</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="70" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
-                  <Text />
+                  <Text>Temperaturabarrierevaporetubointubo</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -706,31 +706,31 @@
               <MultilingualTextItem ID="73" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
-                  <Text />
+                  <Text>Temperaturausgangsteuerungstorisierung</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="74" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
-                  <Text />
+                  <Text>Outputstockingstoricization temperature</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="75" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
-                  <Text />
+                  <Text>Temperaturasalidasostahistorización</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="76" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
-                  <Text />
+                  <Text>Températuresortiestathistorisation</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="77" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
-                  <Text />
+                  <Text>Temperaturauscitasostastoricizzazione</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -749,31 +749,31 @@
               <MultilingualTextItem ID="7A" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
-                  <Text />
+                  <Text>Temperaturanfragewassermantel</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="7B" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
-                  <Text />
+                  <Text>Warmwaterrequesttemperature</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="7C" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
-                  <Text />
+                  <Text>Temperaturasolicitudaguacalda</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="7D" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
-                  <Text />
+                  <Text>Températuredemandeeauchaud</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="7E" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
-                  <Text />
+                  <Text>Temperaturarichiestaacquacalda</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -792,31 +792,31 @@
               <MultilingualTextItem ID="81" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
-                  <Text />
+                  <Text>Füllstandbehälterkalk</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="82" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
-                  <Text />
+                  <Text>Warmservoylevel</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="83" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
-                  <Text />
+                  <Text>Niveldepósitocaldo</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="84" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
-                  <Text />
+                  <Text>Niveauréservoirchaud</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="85" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
-                  <Text />
+                  <Text>Livelloserbatoiocaldo</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>

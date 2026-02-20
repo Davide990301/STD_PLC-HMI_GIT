@@ -96,217 +96,193 @@
               </Access>
               <Token Text=";" UId="47" />
               <NewLine UId="48" />
-              <Blank Num="12" UId="49" />
-              <Access Scope="Call" UId="50">
-                <CallInfo UId="51" BlockType="FC">
-                  <Instance Scope="GlobalVariable" UId="53">
-                    <Component Name="PassiLavaggio_010102" UId="52" />
-                  </Instance>
-                  <Token Text="(" UId="54" />
-                  <Token Text=")" UId="55" />
-                </CallInfo>
-              </Access>
-              <Token Text=";" UId="56" />
-              <NewLine UId="57" />
-              <Blank Num="8" UId="58" />
-              <Token Text="END_REGION" UId="59" />
-              <Blank UId="60" />
-              <Text UId="61">;</Text>
-              <NewLine UId="62" />
-              <Blank Num="8" UId="63" />
-              <Token Text="REGION" UId="64" />
-              <Blank UId="65" />
-              <Text UId="66">Uscite</Text>
-              <NewLine UId="67" />
-              <Blank Num="12" UId="68" />
-              <Access Scope="GlobalVariable" UId="69">
-                <Symbol UId="70">
-                  <Component Name="ZonaSterilizzatore_SegnalazioneLavaggio" UId="71">
-                    <BooleanAttribute Name="HasQuotes" UId="72">true</BooleanAttribute>
+              <Blank Num="8" UId="49" />
+              <Token Text="END_REGION" UId="50" />
+              <Blank UId="51" />
+              <Text UId="52">;</Text>
+              <NewLine UId="53" />
+              <Blank Num="8" UId="54" />
+              <Token Text="REGION" UId="55" />
+              <Blank UId="56" />
+              <Text UId="57">Uscite</Text>
+              <NewLine UId="58" />
+              <Blank Num="12" UId="59" />
+              <Access Scope="GlobalVariable" UId="60">
+                <Symbol UId="61">
+                  <Component Name="ZonaSterilizzatore_SegnalazioneLavaggio" UId="62">
+                    <BooleanAttribute Name="HasQuotes" UId="63">true</BooleanAttribute>
                   </Component>
                 </Symbol>
               </Access>
-              <Blank UId="73" />
-              <Token Text=":=" UId="74" />
-              <Blank UId="75" />
-              <Access Scope="GlobalVariable" UId="76">
-                <Symbol UId="77">
-                  <Component Name="Sequenza" UId="78">
-                    <BooleanAttribute Name="HasQuotes" UId="79">true</BooleanAttribute>
+              <Blank UId="64" />
+              <Token Text=":=" UId="65" />
+              <Blank UId="66" />
+              <Access Scope="GlobalVariable" UId="67">
+                <Symbol UId="68">
+                  <Component Name="Sequenza" UId="69">
+                    <BooleanAttribute Name="HasQuotes" UId="70">true</BooleanAttribute>
                   </Component>
-                  <Token Text="." UId="80" />
-                  <Component Name="S" UId="81">
-                    <Token Text="[" UId="82" />
-                    <Access Scope="GlobalConstant" UId="83">
-                      <Constant UId="84">
-                        <ConstantValue UId="86">K_Sequenza_Lavaggio</ConstantValue>
+                  <Token Text="." UId="71" />
+                  <Component Name="S" UId="72">
+                    <Token Text="[" UId="73" />
+                    <Access Scope="GlobalConstant" UId="74">
+                      <Constant UId="75">
+                        <ConstantValue UId="77">K_Sequenza_Lavaggio</ConstantValue>
                       </Constant>
                     </Access>
-                    <Token Text="]" UId="87" />
+                    <Token Text="]" UId="78" />
                   </Component>
-                  <Token Text="." UId="88" />
-                  <Component Name="Out" UId="89" />
-                  <Token Text="." UId="90" />
-                  <Component Name="SequenzaAvviata" UId="91" />
+                  <Token Text="." UId="79" />
+                  <Component Name="Out" UId="80" />
+                  <Token Text="." UId="81" />
+                  <Component Name="SequenzaAvviata" UId="82" />
                 </Symbol>
               </Access>
-              <Token Text=";" UId="92" />
-              <NewLine UId="93" />
-              <Blank Num="8" UId="94" />
-              <Token Text="END_REGION" UId="95" />
-              <Blank UId="96" />
-              <Text UId="97">;</Text>
-              <NewLine UId="98" />
-              <Blank Num="4" UId="99" />
-              <Token Text="END_REGION" UId="100" />
-              <Blank UId="101" />
-              <Text UId="102">; </Text>
-              <NewLine UId="103" />
-              <Blank Num="4" UId="104" />
-              <Token Text="REGION" UId="105" />
-              <Blank UId="106" />
-              <Text UId="107">Produzione</Text>
-              <NewLine UId="108" />
-              <Blank Num="8" UId="109" />
-              <Token Text="REGION" UId="110" />
-              <Blank UId="111" />
-              <Text UId="112">Gestione</Text>
-              <NewLine UId="113" />
-              <Blank Num="12" UId="114" />
-              <Access Scope="Call" UId="115">
-                <CallInfo UId="116" BlockType="FC">
-                  <Instance Scope="GlobalVariable" UId="118">
-                    <Component Name="GestSequenza" UId="117" />
+              <Token Text=";" UId="83" />
+              <NewLine UId="84" />
+              <Blank Num="8" UId="85" />
+              <Token Text="END_REGION" UId="86" />
+              <Blank UId="87" />
+              <Text UId="88">;</Text>
+              <NewLine UId="89" />
+              <Blank Num="4" UId="90" />
+              <Token Text="END_REGION" UId="91" />
+              <Blank UId="92" />
+              <Text UId="93">; </Text>
+              <NewLine UId="94" />
+              <Blank Num="4" UId="95" />
+              <Token Text="REGION" UId="96" />
+              <Blank UId="97" />
+              <Text UId="98">Produzione</Text>
+              <NewLine UId="99" />
+              <Blank Num="8" UId="100" />
+              <Token Text="REGION" UId="101" />
+              <Blank UId="102" />
+              <Text UId="103">Gestione</Text>
+              <NewLine UId="104" />
+              <Blank Num="12" UId="105" />
+              <Access Scope="Call" UId="106">
+                <CallInfo UId="107" BlockType="FC">
+                  <Instance Scope="GlobalVariable" UId="109">
+                    <Component Name="GestSequenza" UId="108" />
                   </Instance>
-                  <Token Text="(" UId="119" />
-                  <NamelessParameter UId="120">
-                    <Access Scope="GlobalConstant" UId="121">
-                      <Constant Name="K_Sequenza_Produzione" UId="122" />
+                  <Token Text="(" UId="110" />
+                  <NamelessParameter UId="111">
+                    <Access Scope="GlobalConstant" UId="112">
+                      <Constant Name="K_Sequenza_Produzione" UId="113" />
                     </Access>
                   </NamelessParameter>
-                  <Token Text=")" UId="125" />
+                  <Token Text=")" UId="116" />
                 </CallInfo>
               </Access>
-              <Token Text=";" UId="126" />
-              <NewLine UId="127" />
-              <Blank Num="12" UId="128" />
-              <Access Scope="Call" UId="129">
-                <CallInfo UId="130" BlockType="FC">
-                  <Instance Scope="GlobalVariable" UId="132">
-                    <Component Name="PassiProduzione_010102" UId="131" />
-                  </Instance>
-                  <Token Text="(" UId="133" />
-                  <Token Text=")" UId="134" />
-                </CallInfo>
-              </Access>
-              <Token Text=";" UId="135" />
-              <NewLine UId="136" />
-              <Blank Num="8" UId="137" />
-              <Token Text="END_REGION" UId="138" />
-              <Blank UId="139" />
-              <Text UId="140">;</Text>
-              <NewLine UId="141" />
-              <Blank Num="8" UId="142" />
-              <Token Text="REGION" UId="143" />
-              <Blank UId="144" />
-              <Text UId="145">Parametri</Text>
-              <NewLine UId="146" />
-              <Blank Num="12" UId="147" />
-              <Access Scope="GlobalVariable" UId="148">
-                <Symbol UId="149">
-                  <Component Name="Sequenza" UId="150">
-                    <BooleanAttribute Name="HasQuotes" UId="151">true</BooleanAttribute>
+              <Token Text=";" UId="117" />
+              <NewLine UId="118" />
+              <Blank Num="8" UId="119" />
+              <Token Text="END_REGION" UId="120" />
+              <Blank UId="121" />
+              <Text UId="122">;</Text>
+              <NewLine UId="123" />
+              <Blank Num="8" UId="124" />
+              <Token Text="REGION" UId="125" />
+              <Blank UId="126" />
+              <Text UId="127">Parametri</Text>
+              <NewLine UId="128" />
+              <Blank Num="12" UId="129" />
+              <Access Scope="GlobalVariable" UId="130">
+                <Symbol UId="131">
+                  <Component Name="Sequenza" UId="132">
+                    <BooleanAttribute Name="HasQuotes" UId="133">true</BooleanAttribute>
                   </Component>
-                  <Token Text="." UId="152" />
-                  <Component Name="S" UId="153">
-                    <Token Text="[" UId="154" />
-                    <Access Scope="GlobalConstant" UId="155">
-                      <Constant UId="156">
-                        <ConstantValue UId="158">K_Sequenza_Produzione</ConstantValue>
+                  <Token Text="." UId="134" />
+                  <Component Name="S" UId="135">
+                    <Token Text="[" UId="136" />
+                    <Access Scope="GlobalConstant" UId="137">
+                      <Constant UId="138">
+                        <ConstantValue UId="140">K_Sequenza_Produzione</ConstantValue>
                       </Constant>
                     </Access>
-                    <Token Text="]" UId="159" />
+                    <Token Text="]" UId="141" />
                   </Component>
-                  <Token Text="." UId="160" />
-                  <Component Name="Hmi" UId="161" />
-                  <Token Text="." UId="162" />
-                  <Component Name="AvviaSequenzaDisabilitato" UId="163" />
+                  <Token Text="." UId="142" />
+                  <Component Name="Hmi" UId="143" />
+                  <Token Text="." UId="144" />
+                  <Component Name="AvviaSequenzaDisabilitato" UId="145" />
                 </Symbol>
               </Access>
-              <Blank UId="164" />
-              <Token Text=":=" UId="165" />
+              <Blank UId="146" />
+              <Token Text=":=" UId="147" />
+              <Blank UId="148" />
+              <Token Text="NOT" UId="149" />
+              <Blank UId="150" />
+              <Access Scope="GlobalVariable" UId="151">
+                <Symbol UId="152">
+                  <Component Name="Gestione_010102" UId="153">
+                    <BooleanAttribute Name="HasQuotes" UId="154">true</BooleanAttribute>
+                  </Component>
+                  <Token Text="." UId="155" />
+                  <Component Name="AbilitazioneProduzione" UId="156" />
+                </Symbol>
+              </Access>
+              <Token Text=";" UId="157" />
+              <NewLine UId="158" />
+              <Blank Num="8" UId="159" />
+              <Token Text="END_REGION" UId="160" />
+              <Blank UId="161" />
+              <Text UId="162">;</Text>
+              <NewLine UId="163" />
+              <Blank Num="8" UId="164" />
+              <Token Text="REGION" UId="165" />
               <Blank UId="166" />
-              <Token Text="NOT" UId="167" />
-              <Blank UId="168" />
-              <Access Scope="GlobalVariable" UId="169">
-                <Symbol UId="170">
-                  <Component Name="Gestione_010102" UId="171">
-                    <BooleanAttribute Name="HasQuotes" UId="172">true</BooleanAttribute>
-                  </Component>
-                  <Token Text="." UId="173" />
-                  <Component Name="AbilitazioneProduzione" UId="174" />
-                </Symbol>
-              </Access>
-              <Token Text=";" UId="175" />
-              <NewLine UId="176" />
-              <Blank Num="8" UId="177" />
-              <Token Text="END_REGION" UId="178" />
-              <Blank UId="179" />
-              <Text UId="180">;</Text>
-              <NewLine UId="181" />
-              <Blank Num="8" UId="182" />
-              <Token Text="REGION" UId="183" />
-              <Blank UId="184" />
-              <Text UId="185">Uscite</Text>
-              <NewLine UId="186" />
-              <Blank Num="12" UId="187" />
-              <Access Scope="GlobalVariable" UId="188">
-                <Symbol UId="189">
-                  <Component Name="ZonaSterilizzatore_SegnalazioneProduzione" UId="190">
-                    <BooleanAttribute Name="HasQuotes" UId="191">true</BooleanAttribute>
+              <Text UId="167">Uscite</Text>
+              <NewLine UId="168" />
+              <Blank Num="12" UId="169" />
+              <Access Scope="GlobalVariable" UId="170">
+                <Symbol UId="171">
+                  <Component Name="ZonaSterilizzatore_SegnalazioneProduzione" UId="172">
+                    <BooleanAttribute Name="HasQuotes" UId="173">true</BooleanAttribute>
                   </Component>
                 </Symbol>
               </Access>
-              <Blank UId="192" />
-              <Token Text=":=" UId="193" />
-              <Blank UId="194" />
-              <Access Scope="GlobalVariable" UId="195">
-                <Symbol UId="196">
-                  <Component Name="Sequenza" UId="197">
-                    <BooleanAttribute Name="HasQuotes" UId="198">true</BooleanAttribute>
+              <Blank UId="174" />
+              <Token Text=":=" UId="175" />
+              <Blank UId="176" />
+              <Access Scope="GlobalVariable" UId="177">
+                <Symbol UId="178">
+                  <Component Name="Sequenza" UId="179">
+                    <BooleanAttribute Name="HasQuotes" UId="180">true</BooleanAttribute>
                   </Component>
-                  <Token Text="." UId="199" />
-                  <Component Name="S" UId="200">
-                    <Token Text="[" UId="201" />
-                    <Access Scope="GlobalConstant" UId="202">
-                      <Constant UId="203">
-                        <ConstantValue UId="205">K_Sequenza_Produzione</ConstantValue>
+                  <Token Text="." UId="181" />
+                  <Component Name="S" UId="182">
+                    <Token Text="[" UId="183" />
+                    <Access Scope="GlobalConstant" UId="184">
+                      <Constant UId="185">
+                        <ConstantValue UId="187">K_Sequenza_Produzione</ConstantValue>
                       </Constant>
                     </Access>
-                    <Token Text="]" UId="206" />
+                    <Token Text="]" UId="188" />
                   </Component>
-                  <Token Text="." UId="207" />
-                  <Component Name="Out" UId="208" />
-                  <Token Text="." UId="209" />
-                  <Component Name="SequenzaAvviata" UId="210" />
+                  <Token Text="." UId="189" />
+                  <Component Name="Out" UId="190" />
+                  <Token Text="." UId="191" />
+                  <Component Name="SequenzaAvviata" UId="192" />
                 </Symbol>
               </Access>
-              <Token Text=";" UId="211" />
-              <NewLine UId="212" />
-              <Blank Num="8" UId="213" />
-              <Token Text="END_REGION" UId="214" />
-              <Blank UId="215" />
-              <Text UId="216">;</Text>
-              <NewLine UId="217" />
-              <Blank Num="4" UId="218" />
-              <Token Text="END_REGION" UId="219" />
-              <Blank UId="220" />
-              <Text UId="221">;</Text>
-              <NewLine UId="222" />
-              <Token Text="END_REGION" UId="223" />
-              <Blank UId="224" />
-              <Text UId="225">;</Text>
-              <NewLine UId="226" />
+              <Token Text=";" UId="193" />
+              <NewLine UId="194" />
+              <Blank Num="8" UId="195" />
+              <Token Text="END_REGION" UId="196" />
+              <Blank UId="197" />
+              <Text UId="198">;</Text>
+              <NewLine UId="199" />
+              <Blank Num="4" UId="200" />
+              <Token Text="END_REGION" UId="201" />
+              <Blank UId="202" />
+              <Text UId="203">;</Text>
+              <NewLine UId="204" />
+              <Token Text="END_REGION" UId="205" />
+              <Blank UId="206" />
+              <Text UId="207">;</Text>
+              <NewLine UId="208" />
             </StructuredText>
           </NetworkSource>
           <ProgrammingLanguage>SCL</ProgrammingLanguage>

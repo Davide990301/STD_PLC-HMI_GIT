@@ -18,31 +18,31 @@
               <MultilingualTextItem ID="3" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
-                  <Text />
+                  <Text>Anzahl der vorhandenen analogs</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="4" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
-                  <Text />
+                  <Text>Number of analogue present</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="5" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
-                  <Text />
+                  <Text>Número de analógicas presentes</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="6" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
-                  <Text />
+                  <Text>Nombre d'analogiques présents</Text>
                 </AttributeList>
               </MultilingualTextItem>
               <MultilingualTextItem ID="7" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
-                  <Text />
+                  <Text>Numero di analogiche presenti</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -96,7 +96,7 @@
         <AttributeList>
           <DataTypeName>Int</DataTypeName>
           <Name>K_NumZona</Name>
-          <Value>1</Value>
+          <Value>2</Value>
         </AttributeList>
         <ObjectList>
           <MultilingualText ID="10" CompositionName="Comment">

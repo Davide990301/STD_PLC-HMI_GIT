@@ -500,7 +500,7 @@ BEGIN
 	    //Comando uscite quando sono uguali tra loro
 	    IF "Pid".P[#K_PidInt].Prm.K_TipoAccoppiamentoUscitePid = "K_TipoAccoppiamentoUscitePid_Uguali" THEN
 	        IF "Pid".P[#K_PidInt].In.K_Motore1 > 0 THEN
-	            "Motore".M["Pid".P[#K_PidInt].In.K_Motore1].In.CmdVelocitaRich := #StatoUscitaPid;
+	            //"Motore".M["Pid".P[#K_PidInt].In.K_Motore1].In.CmdVelocitaRich := #StatoUscitaPid;
 	            // DISABILITIAMO PERCHE SE ABBIAMO IL FF BIAS L'USCITA NON DIPENDE PIU UNICAMENTE DAL PID
 	            // IF "Pid".P[#K_PidInt].Prm.MinOut < "Motore".M["Pid".P[#K_PidInt].In.K_Motore1].Prm.Generali.MinimaFrequenza THEN
 	            //     "Pid".P[#K_PidInt].Prm.MinOut := "Motore".M["Pid".P[#K_PidInt].In.K_Motore1].Prm.Generali.MinimaFrequenza;
@@ -511,7 +511,7 @@ BEGIN
 	            IF "Pid".P[#K_PidInt].Prm.ComandaUtenzaInUscita THEN
 	                "Motore".M["Pid".P[#K_PidInt].In.K_Motore1].In.CmdPosRich := #PID_LMN_REAL > 1.0;
 	            END_IF;
-	            IF (NOT "Motore".M["Pid".P[#K_PidInt].In.K_Motore1].Hmi.StatoCmd.Auto OR NOT "Motore".M["Pid".P[#K_PidInt].In.K_Motore1].In.ConsMovimentoPos) OR
+	            IF (NOT "Motore".M["Pid".P[#K_PidInt].In.K_Motore1].Out.Pronto OR NOT "Motore".M["Pid".P[#K_PidInt].In.K_Motore1].In.ConsMovimentoPos) OR
 	                (NOT "Pid".P[#K_PidInt].Prm.ComandaUtenzaInUscita AND NOT "Motore".M["Pid".P[#K_PidInt].In.K_Motore1].Out.CmdPosMotore)THEN
 	                #OggettoTecnologicoPID.ManualEnable := True;
 	                #OggettoTecnologicoPID.ManualValue := 0.0;

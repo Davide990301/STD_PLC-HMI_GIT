@@ -340,9 +340,9 @@
                     <Token Text="]" UId="228" />
                   </Component>
                   <Token Text="." UId="229" />
-                  <Component Name="Hmi" UId="230" />
+                  <Component Name="HMI" UId="230" />
                   <Token Text="." UId="231" />
-                  <Component Name="StatoMotore" UId="232" />
+                  <Component Name="Stato" UId="232" />
                 </Symbol>
               </Access>
               <Blank UId="233" />

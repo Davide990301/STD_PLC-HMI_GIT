@@ -404,7 +404,7 @@
                       <Token Text="[" UId="25" />
                       <Access Scope="GlobalConstant" UId="26">
                         <Constant UId="27">
-                          <ConstantValue UId="29">K_ComunicazioneS7_Qci</ConstantValue>
+                          <ConstantValue UId="29">K_ComunicazioneS7_St1_Qci</ConstantValue>
                         </Constant>
                       </Access>
                       <Token Text="]" UId="30" />
@@ -423,7 +423,7 @@
                   </Parameter>
                   <Token Text="," UId="40" />
                   <NewLine UId="41" />
-                  <Blank Num="28" UId="42" />
+                  <Blank Num="32" UId="42" />
                   <Parameter Name="PuntatoreAreadatiRecivePartner" UId="43">
                     <Blank UId="44" />
                     <Token Text=":=" UId="45" />
@@ -436,7 +436,7 @@
                   </Parameter>
                   <Token Text="," UId="51" />
                   <NewLine UId="52" />
-                  <Blank Num="28" UId="53" />
+                  <Blank Num="32" UId="53" />
                   <Parameter Name="PuntatoreAreadatiSendLocale" UId="54">
                     <Blank UId="55" />
                     <Token Text=":=" UId="56" />
@@ -449,7 +449,7 @@
                   </Parameter>
                   <Token Text="," UId="62" />
                   <NewLine UId="63" />
-                  <Blank Num="28" UId="64" />
+                  <Blank Num="32" UId="64" />
                   <Parameter Name="PuntatoreAreadatiSendPartner" UId="65">
                     <Blank UId="66" />
                     <Token Text=":=" UId="67" />
@@ -462,7 +462,7 @@
                   </Parameter>
                   <Token Text="," UId="73" />
                   <NewLine UId="74" />
-                  <Blank Num="28" UId="75" />
+                  <Blank Num="32" UId="75" />
                   <Parameter Name="PuntatoreAreadatiReciveLocale" UId="76">
                     <Blank UId="77" />
                     <Token Text=":=" UId="78" />
@@ -563,7 +563,7 @@
                       <Token Text="[" UId="25" />
                       <Access Scope="GlobalConstant" UId="26">
                         <Constant UId="27">
-                          <ConstantValue UId="29">K_ComunicazioneS7_RobopackCFT</ConstantValue>
+                          <ConstantValue UId="29">K_ComunicazioneS7_St1_Robopack</ConstantValue>
                         </Constant>
                       </Access>
                       <Token Text="]" UId="30" />
@@ -582,7 +582,7 @@
                   </Parameter>
                   <Token Text="," UId="40" />
                   <NewLine UId="41" />
-                  <Blank Num="36" UId="42" />
+                  <Blank Num="37" UId="42" />
                   <Parameter Name="PuntatoreAreadatiRecivePartner" UId="43">
                     <Blank UId="44" />
                     <Token Text=":=" UId="45" />
@@ -595,7 +595,7 @@
                   </Parameter>
                   <Token Text="," UId="51" />
                   <NewLine UId="52" />
-                  <Blank Num="36" UId="53" />
+                  <Blank Num="37" UId="53" />
                   <Parameter Name="PuntatoreAreadatiSendLocale" UId="54">
                     <Blank UId="55" />
                     <Token Text=":=" UId="56" />
@@ -608,7 +608,7 @@
                   </Parameter>
                   <Token Text="," UId="62" />
                   <NewLine UId="63" />
-                  <Blank Num="36" UId="64" />
+                  <Blank Num="37" UId="64" />
                   <Parameter Name="PuntatoreAreadatiSendPartner" UId="65">
                     <Blank UId="66" />
                     <Token Text=":=" UId="67" />
@@ -621,7 +621,7 @@
                   </Parameter>
                   <Token Text="," UId="73" />
                   <NewLine UId="74" />
-                  <Blank Num="36" UId="75" />
+                  <Blank Num="37" UId="75" />
                   <Parameter Name="PuntatoreAreadatiReciveLocale" UId="76">
                     <Blank UId="77" />
                     <Token Text=":=" UId="78" />
