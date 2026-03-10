@@ -14,63 +14,9 @@
                       <Subelement Path="0">
                         <StartValue>0.0</StartValue>
                       </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="2">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="3">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="4">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="5">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="6">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="7">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="8">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="9">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
                     </Member>
                     <Member Name="SogliaAltaVelcoità" Datatype="Real">
                       <Subelement Path="0">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="2">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="3">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="4">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="5">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="6">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="7">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="8">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="9">
                         <StartValue>0.0</StartValue>
                       </Subelement>
                     </Member>
@@ -84,63 +30,9 @@
                                   <Subelement Path="0">
                                     <StartValue>0</StartValue>
                                   </Subelement>
-                                  <Subelement Path="1">
-                                    <StartValue>0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="2">
-                                    <StartValue>0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="3">
-                                    <StartValue>0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="4">
-                                    <StartValue>0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="5">
-                                    <StartValue>0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="6">
-                                    <StartValue>0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="7">
-                                    <StartValue>0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="8">
-                                    <StartValue>0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="9">
-                                    <StartValue>0</StartValue>
-                                  </Subelement>
                                 </Member>
                                 <Member Name="Valore" Datatype="Real">
                                   <Subelement Path="0">
-                                    <StartValue>0.0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="1">
-                                    <StartValue>0.0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="2">
-                                    <StartValue>0.0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="3">
-                                    <StartValue>0.0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="4">
-                                    <StartValue>0.0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="5">
-                                    <StartValue>0.0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="6">
-                                    <StartValue>0.0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="7">
-                                    <StartValue>0.0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="8">
-                                    <StartValue>0.0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="9">
                                     <StartValue>0.0</StartValue>
                                   </Subelement>
                                 </Member>
@@ -152,63 +44,9 @@
                               <Subelement Path="0">
                                 <StartValue>FALSE</StartValue>
                               </Subelement>
-                              <Subelement Path="1">
-                                <StartValue>FALSE</StartValue>
-                              </Subelement>
-                              <Subelement Path="2">
-                                <StartValue>FALSE</StartValue>
-                              </Subelement>
-                              <Subelement Path="3">
-                                <StartValue>FALSE</StartValue>
-                              </Subelement>
-                              <Subelement Path="4">
-                                <StartValue>FALSE</StartValue>
-                              </Subelement>
-                              <Subelement Path="5">
-                                <StartValue>FALSE</StartValue>
-                              </Subelement>
-                              <Subelement Path="6">
-                                <StartValue>FALSE</StartValue>
-                              </Subelement>
-                              <Subelement Path="7">
-                                <StartValue>FALSE</StartValue>
-                              </Subelement>
-                              <Subelement Path="8">
-                                <StartValue>FALSE</StartValue>
-                              </Subelement>
-                              <Subelement Path="9">
-                                <StartValue>FALSE</StartValue>
-                              </Subelement>
                             </Member>
                             <Member Name="Calcola" Datatype="Bool">
                               <Subelement Path="0">
-                                <StartValue>FALSE</StartValue>
-                              </Subelement>
-                              <Subelement Path="1">
-                                <StartValue>FALSE</StartValue>
-                              </Subelement>
-                              <Subelement Path="2">
-                                <StartValue>FALSE</StartValue>
-                              </Subelement>
-                              <Subelement Path="3">
-                                <StartValue>FALSE</StartValue>
-                              </Subelement>
-                              <Subelement Path="4">
-                                <StartValue>FALSE</StartValue>
-                              </Subelement>
-                              <Subelement Path="5">
-                                <StartValue>FALSE</StartValue>
-                              </Subelement>
-                              <Subelement Path="6">
-                                <StartValue>FALSE</StartValue>
-                              </Subelement>
-                              <Subelement Path="7">
-                                <StartValue>FALSE</StartValue>
-                              </Subelement>
-                              <Subelement Path="8">
-                                <StartValue>FALSE</StartValue>
-                              </Subelement>
-                              <Subelement Path="9">
                                 <StartValue>FALSE</StartValue>
                               </Subelement>
                             </Member>
@@ -216,33 +54,6 @@
                           <Member Name="Dati" Datatype="Struct">
                             <Member Name="FattoreDiConversione" Datatype="Real">
                               <Subelement Path="0">
-                                <StartValue>0.0</StartValue>
-                              </Subelement>
-                              <Subelement Path="1">
-                                <StartValue>0.0</StartValue>
-                              </Subelement>
-                              <Subelement Path="2">
-                                <StartValue>0.0</StartValue>
-                              </Subelement>
-                              <Subelement Path="3">
-                                <StartValue>0.0</StartValue>
-                              </Subelement>
-                              <Subelement Path="4">
-                                <StartValue>0.0</StartValue>
-                              </Subelement>
-                              <Subelement Path="5">
-                                <StartValue>0.0</StartValue>
-                              </Subelement>
-                              <Subelement Path="6">
-                                <StartValue>0.0</StartValue>
-                              </Subelement>
-                              <Subelement Path="7">
-                                <StartValue>0.0</StartValue>
-                              </Subelement>
-                              <Subelement Path="8">
-                                <StartValue>0.0</StartValue>
-                              </Subelement>
-                              <Subelement Path="9">
                                 <StartValue>0.0</StartValue>
                               </Subelement>
                             </Member>
@@ -254,63 +65,9 @@
                                   <Subelement Path="0">
                                     <StartValue>0</StartValue>
                                   </Subelement>
-                                  <Subelement Path="1">
-                                    <StartValue>0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="2">
-                                    <StartValue>0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="3">
-                                    <StartValue>0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="4">
-                                    <StartValue>0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="5">
-                                    <StartValue>0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="6">
-                                    <StartValue>0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="7">
-                                    <StartValue>0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="8">
-                                    <StartValue>0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="9">
-                                    <StartValue>0</StartValue>
-                                  </Subelement>
                                 </Member>
                                 <Member Name="Valore" Datatype="Real">
                                   <Subelement Path="0">
-                                    <StartValue>0.0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="1">
-                                    <StartValue>0.0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="2">
-                                    <StartValue>0.0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="3">
-                                    <StartValue>0.0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="4">
-                                    <StartValue>0.0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="5">
-                                    <StartValue>0.0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="6">
-                                    <StartValue>0.0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="7">
-                                    <StartValue>0.0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="8">
-                                    <StartValue>0.0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="9">
                                     <StartValue>0.0</StartValue>
                                   </Subelement>
                                 </Member>
@@ -326,159 +83,24 @@
                       <Subelement Path="0">
                         <StartValue>0.0</StartValue>
                       </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="2">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="3">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="4">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="5">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="6">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="7">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="8">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="9">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
                     </Member>
                     <Member Name="IncrementaUscita" Datatype="Bool">
                       <Subelement Path="0">
                         <StartValue>TRUE</StartValue>
-                      </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>TRUE</StartValue>
-                      </Subelement>
-                      <Subelement Path="2">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="3">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="4">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="5">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="6">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="7">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="8">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="9">
-                        <StartValue>FALSE</StartValue>
                       </Subelement>
                     </Member>
                     <Member Name="QuotaSopraSoglia" Datatype="Bool">
                       <Subelement Path="0">
                         <StartValue>TRUE</StartValue>
                       </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>TRUE</StartValue>
-                      </Subelement>
-                      <Subelement Path="2">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="3">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="4">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="5">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="6">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="7">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="8">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="9">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
                     </Member>
                     <Member Name="QuotaSogliaVeloce" Datatype="Bool">
                       <Subelement Path="0">
                         <StartValue>TRUE</StartValue>
                       </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>TRUE</StartValue>
-                      </Subelement>
-                      <Subelement Path="2">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="3">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="4">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="5">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="6">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="7">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="8">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="9">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
                     </Member>
                     <Member Name="MemSalitaLenta" Datatype="Bool">
                       <Subelement Path="0">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="2">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="3">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="4">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="5">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="6">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="7">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="8">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="9">
                         <StartValue>FALSE</StartValue>
                       </Subelement>
                     </Member>
@@ -486,63 +108,9 @@
                       <Subelement Path="0">
                         <StartValue>FALSE</StartValue>
                       </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="2">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="3">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="4">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="5">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="6">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="7">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="8">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="9">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
                     </Member>
                     <Member Name="MemDiscesaLenta" Datatype="Bool">
                       <Subelement Path="0">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="2">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="3">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="4">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="5">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="6">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="7">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="8">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="9">
                         <StartValue>FALSE</StartValue>
                       </Subelement>
                     </Member>
@@ -550,63 +118,9 @@
                       <Subelement Path="0">
                         <StartValue>FALSE</StartValue>
                       </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="2">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="3">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="4">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="5">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="6">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="7">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="8">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="9">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
                     </Member>
                     <Member Name="SpostamentoAttuale" Datatype="Real">
                       <Subelement Path="0">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="2">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="3">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="4">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="5">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="6">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="7">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="8">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="9">
                         <StartValue>0.0</StartValue>
                       </Subelement>
                     </Member>
@@ -614,95 +128,14 @@
                       <Subelement Path="0">
                         <StartValue>0.0</StartValue>
                       </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="2">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="3">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="4">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="5">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="6">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="7">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="8">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="9">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
                     </Member>
                     <Member Name="SpostatmentoTot" Datatype="Real">
                       <Subelement Path="0">
                         <StartValue>0.0</StartValue>
                       </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="2">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="3">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="4">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="5">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="6">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="7">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="8">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="9">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
                     </Member>
                     <Member Name="BloccoRichiamato" Datatype="Bool">
                       <Subelement Path="0">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="2">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="3">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="4">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="5">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="6">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="7">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="8">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="9">
                         <StartValue>FALSE</StartValue>
                       </Subelement>
                     </Member>
@@ -712,63 +145,9 @@
                       <Subelement Path="0">
                         <StartValue>FALSE</StartValue>
                       </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="2">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="3">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="4">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="5">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="6">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="7">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="8">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="9">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
                     </Member>
                     <Member Name="Man" Datatype="Bool">
                       <Subelement Path="0">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="2">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="3">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="4">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="5">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="6">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="7">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="8">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="9">
                         <StartValue>FALSE</StartValue>
                       </Subelement>
                     </Member>
@@ -776,63 +155,9 @@
                       <Subelement Path="0">
                         <StartValue>FALSE</StartValue>
                       </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="2">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="3">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="4">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="5">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="6">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="7">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="8">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="9">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
                     </Member>
                     <Member Name="PulsanteDecrementa" Datatype="Bool">
                       <Subelement Path="0">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="2">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="3">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="4">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="5">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="6">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="7">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="8">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="9">
                         <StartValue>FALSE</StartValue>
                       </Subelement>
                     </Member>
@@ -845,63 +170,9 @@
                             <Subelement Path="0">
                               <StartValue>FALSE</StartValue>
                             </Subelement>
-                            <Subelement Path="1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="4">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="5">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="6">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="7">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="8">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="9">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
                           </Member>
                           <Member Name="O" Datatype="Bool">
                             <Subelement Path="0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="4">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="5">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="6">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="7">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="8">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="9">
                               <StartValue>FALSE</StartValue>
                             </Subelement>
                           </Member>
@@ -909,63 +180,9 @@
                             <Subelement Path="0">
                               <StartValue>0.0</StartValue>
                             </Subelement>
-                            <Subelement Path="1">
-                              <StartValue>0.0</StartValue>
-                            </Subelement>
-                            <Subelement Path="2">
-                              <StartValue>0.0</StartValue>
-                            </Subelement>
-                            <Subelement Path="3">
-                              <StartValue>0.0</StartValue>
-                            </Subelement>
-                            <Subelement Path="4">
-                              <StartValue>0.0</StartValue>
-                            </Subelement>
-                            <Subelement Path="5">
-                              <StartValue>0.0</StartValue>
-                            </Subelement>
-                            <Subelement Path="6">
-                              <StartValue>0.0</StartValue>
-                            </Subelement>
-                            <Subelement Path="7">
-                              <StartValue>0.0</StartValue>
-                            </Subelement>
-                            <Subelement Path="8">
-                              <StartValue>0.0</StartValue>
-                            </Subelement>
-                            <Subelement Path="9">
-                              <StartValue>0.0</StartValue>
-                            </Subelement>
                           </Member>
                           <Member Name="TempoTrascorso" Datatype="Real">
                             <Subelement Path="0">
-                              <StartValue>0.0</StartValue>
-                            </Subelement>
-                            <Subelement Path="1">
-                              <StartValue>0.0</StartValue>
-                            </Subelement>
-                            <Subelement Path="2">
-                              <StartValue>0.0</StartValue>
-                            </Subelement>
-                            <Subelement Path="3">
-                              <StartValue>0.0</StartValue>
-                            </Subelement>
-                            <Subelement Path="4">
-                              <StartValue>0.0</StartValue>
-                            </Subelement>
-                            <Subelement Path="5">
-                              <StartValue>0.0</StartValue>
-                            </Subelement>
-                            <Subelement Path="6">
-                              <StartValue>0.0</StartValue>
-                            </Subelement>
-                            <Subelement Path="7">
-                              <StartValue>0.0</StartValue>
-                            </Subelement>
-                            <Subelement Path="8">
-                              <StartValue>0.0</StartValue>
-                            </Subelement>
-                            <Subelement Path="9">
                               <StartValue>0.0</StartValue>
                             </Subelement>
                           </Member>
@@ -975,33 +192,6 @@
                     <Member Name="PresetSoglie" Datatype="Struct">
                       <Member Name="MinimoSpostamento" Datatype="Real">
                         <Subelement Path="0">
-                          <StartValue>0.0</StartValue>
-                        </Subelement>
-                        <Subelement Path="1">
-                          <StartValue>0.0</StartValue>
-                        </Subelement>
-                        <Subelement Path="2">
-                          <StartValue>0.0</StartValue>
-                        </Subelement>
-                        <Subelement Path="3">
-                          <StartValue>0.0</StartValue>
-                        </Subelement>
-                        <Subelement Path="4">
-                          <StartValue>0.0</StartValue>
-                        </Subelement>
-                        <Subelement Path="5">
-                          <StartValue>0.0</StartValue>
-                        </Subelement>
-                        <Subelement Path="6">
-                          <StartValue>0.0</StartValue>
-                        </Subelement>
-                        <Subelement Path="7">
-                          <StartValue>0.0</StartValue>
-                        </Subelement>
-                        <Subelement Path="8">
-                          <StartValue>0.0</StartValue>
-                        </Subelement>
-                        <Subelement Path="9">
                           <StartValue>0.0</StartValue>
                         </Subelement>
                       </Member>
@@ -1022,114 +212,6 @@
                             <Subelement Path="0,3">
                               <StartValue>FALSE</StartValue>
                             </Subelement>
-                            <Subelement Path="1,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="1,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="1,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="1,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="2,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="2,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="2,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="2,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="3,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="3,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="3,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="3,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="4,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="4,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="4,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="4,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="5,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="5,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="5,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="5,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="6,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="6,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="6,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="6,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="7,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="7,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="7,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="7,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="8,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="8,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="8,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="8,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="9,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="9,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="9,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="9,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
                           </Member>
                           <Member Name="Stato" Datatype="Bool">
                             <Subelement Path="0,0">
@@ -1142,114 +224,6 @@
                               <StartValue>FALSE</StartValue>
                             </Subelement>
                             <Subelement Path="0,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="1,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="1,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="1,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="1,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="2,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="2,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="2,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="2,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="3,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="3,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="3,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="3,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="4,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="4,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="4,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="4,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="5,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="5,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="5,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="5,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="6,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="6,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="6,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="6,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="7,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="7,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="7,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="7,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="8,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="8,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="8,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="8,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="9,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="9,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="9,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="9,3">
                               <StartValue>FALSE</StartValue>
                             </Subelement>
                           </Member>
@@ -1266,114 +240,6 @@
                             <Subelement Path="0,3">
                               <StartValue>FALSE</StartValue>
                             </Subelement>
-                            <Subelement Path="1,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="1,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="1,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="1,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="2,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="2,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="2,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="2,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="3,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="3,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="3,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="3,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="4,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="4,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="4,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="4,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="5,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="5,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="5,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="5,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="6,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="6,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="6,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="6,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="7,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="7,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="7,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="7,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="8,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="8,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="8,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="8,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="9,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="9,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="9,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="9,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
                           </Member>
                           <Member Name="EnWarnHmi" Datatype="Bool">
                             <Subelement Path="0,0">
@@ -1386,114 +252,6 @@
                               <StartValue>FALSE</StartValue>
                             </Subelement>
                             <Subelement Path="0,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="1,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="1,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="1,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="1,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="2,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="2,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="2,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="2,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="3,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="3,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="3,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="3,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="4,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="4,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="4,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="4,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="5,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="5,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="5,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="5,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="6,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="6,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="6,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="6,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="7,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="7,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="7,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="7,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="8,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="8,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="8,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="8,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="9,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="9,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="9,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="9,3">
                               <StartValue>FALSE</StartValue>
                             </Subelement>
                           </Member>
@@ -1510,147 +268,12 @@
                             <Subelement Path="0,3">
                               <StartValue>FALSE</StartValue>
                             </Subelement>
-                            <Subelement Path="1,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="1,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="1,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="1,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="2,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="2,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="2,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="2,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="3,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="3,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="3,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="3,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="4,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="4,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="4,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="4,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="5,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="5,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="5,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="5,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="6,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="6,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="6,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="6,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="7,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="7,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="7,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="7,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="8,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="8,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="8,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="8,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="9,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="9,1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="9,2">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="9,3">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
                           </Member>
                         </Section>
                       </Sections>
                     </Member>
                     <Member Name="WordHMI" Datatype="Word">
                       <Subelement Path="0">
-                        <StartValue>16#0000</StartValue>
-                      </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>16#0000</StartValue>
-                      </Subelement>
-                      <Subelement Path="2">
-                        <StartValue>16#0000</StartValue>
-                      </Subelement>
-                      <Subelement Path="3">
-                        <StartValue>16#0000</StartValue>
-                      </Subelement>
-                      <Subelement Path="4">
-                        <StartValue>16#0000</StartValue>
-                      </Subelement>
-                      <Subelement Path="5">
-                        <StartValue>16#0000</StartValue>
-                      </Subelement>
-                      <Subelement Path="6">
-                        <StartValue>16#0000</StartValue>
-                      </Subelement>
-                      <Subelement Path="7">
-                        <StartValue>16#0000</StartValue>
-                      </Subelement>
-                      <Subelement Path="8">
-                        <StartValue>16#0000</StartValue>
-                      </Subelement>
-                      <Subelement Path="9">
                         <StartValue>16#0000</StartValue>
                       </Subelement>
                     </Member>
@@ -1660,95 +283,14 @@
                       <Subelement Path="0">
                         <StartValue>0</StartValue>
                       </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>3</StartValue>
-                      </Subelement>
-                      <Subelement Path="2">
-                        <StartValue>0</StartValue>
-                      </Subelement>
-                      <Subelement Path="3">
-                        <StartValue>0</StartValue>
-                      </Subelement>
-                      <Subelement Path="4">
-                        <StartValue>0</StartValue>
-                      </Subelement>
-                      <Subelement Path="5">
-                        <StartValue>0</StartValue>
-                      </Subelement>
-                      <Subelement Path="6">
-                        <StartValue>0</StartValue>
-                      </Subelement>
-                      <Subelement Path="7">
-                        <StartValue>0</StartValue>
-                      </Subelement>
-                      <Subelement Path="8">
-                        <StartValue>0</StartValue>
-                      </Subelement>
-                      <Subelement Path="9">
-                        <StartValue>0</StartValue>
-                      </Subelement>
                     </Member>
                     <Member Name="K_AnalogicaRiferimento" Datatype="Int">
                       <Subelement Path="0">
                         <StartValue>0</StartValue>
                       </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>0</StartValue>
-                      </Subelement>
-                      <Subelement Path="2">
-                        <StartValue>0</StartValue>
-                      </Subelement>
-                      <Subelement Path="3">
-                        <StartValue>0</StartValue>
-                      </Subelement>
-                      <Subelement Path="4">
-                        <StartValue>0</StartValue>
-                      </Subelement>
-                      <Subelement Path="5">
-                        <StartValue>0</StartValue>
-                      </Subelement>
-                      <Subelement Path="6">
-                        <StartValue>0</StartValue>
-                      </Subelement>
-                      <Subelement Path="7">
-                        <StartValue>0</StartValue>
-                      </Subelement>
-                      <Subelement Path="8">
-                        <StartValue>0</StartValue>
-                      </Subelement>
-                      <Subelement Path="9">
-                        <StartValue>0</StartValue>
-                      </Subelement>
                     </Member>
                     <Member Name="K_StazioneRiferimento" Datatype="Int">
                       <Subelement Path="0">
-                        <StartValue>0</StartValue>
-                      </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>0</StartValue>
-                      </Subelement>
-                      <Subelement Path="2">
-                        <StartValue>0</StartValue>
-                      </Subelement>
-                      <Subelement Path="3">
-                        <StartValue>0</StartValue>
-                      </Subelement>
-                      <Subelement Path="4">
-                        <StartValue>0</StartValue>
-                      </Subelement>
-                      <Subelement Path="5">
-                        <StartValue>0</StartValue>
-                      </Subelement>
-                      <Subelement Path="6">
-                        <StartValue>0</StartValue>
-                      </Subelement>
-                      <Subelement Path="7">
-                        <StartValue>0</StartValue>
-                      </Subelement>
-                      <Subelement Path="8">
-                        <StartValue>0</StartValue>
-                      </Subelement>
-                      <Subelement Path="9">
                         <StartValue>0</StartValue>
                       </Subelement>
                     </Member>

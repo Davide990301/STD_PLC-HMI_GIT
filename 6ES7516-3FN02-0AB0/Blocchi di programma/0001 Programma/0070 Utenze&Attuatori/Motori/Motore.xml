@@ -14,57 +14,9 @@
                       <Subelement Path="0">
                         <StartValue>16#0000</StartValue>
                       </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>16#0000</StartValue>
-                      </Subelement>
-                      <Subelement Path="2">
-                        <StartValue>16#0000</StartValue>
-                      </Subelement>
-                      <Subelement Path="3">
-                        <StartValue>16#0000</StartValue>
-                      </Subelement>
-                      <Subelement Path="4">
-                        <StartValue>16#0000</StartValue>
-                      </Subelement>
-                      <Subelement Path="5">
-                        <StartValue>16#0000</StartValue>
-                      </Subelement>
-                      <Subelement Path="6">
-                        <StartValue>16#0000</StartValue>
-                      </Subelement>
-                      <Subelement Path="7">
-                        <StartValue>16#0000</StartValue>
-                      </Subelement>
-                      <Subelement Path="8">
-                        <StartValue>16#0000</StartValue>
-                      </Subelement>
                     </Member>
                     <Member Name="CTW1" Datatype="Word">
                       <Subelement Path="0">
-                        <StartValue>16#0000</StartValue>
-                      </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>16#0000</StartValue>
-                      </Subelement>
-                      <Subelement Path="2">
-                        <StartValue>16#0000</StartValue>
-                      </Subelement>
-                      <Subelement Path="3">
-                        <StartValue>16#0000</StartValue>
-                      </Subelement>
-                      <Subelement Path="4">
-                        <StartValue>16#0000</StartValue>
-                      </Subelement>
-                      <Subelement Path="5">
-                        <StartValue>16#0000</StartValue>
-                      </Subelement>
-                      <Subelement Path="6">
-                        <StartValue>16#0000</StartValue>
-                      </Subelement>
-                      <Subelement Path="7">
-                        <StartValue>16#0000</StartValue>
-                      </Subelement>
-                      <Subelement Path="8">
                         <StartValue>16#0000</StartValue>
                       </Subelement>
                     </Member>
@@ -74,47 +26,6 @@
               <Subelement Path="0">
                 <Comment>
                   <MultiLanguageText Lang="it-IT">NON USARE</MultiLanguageText>
-                </Comment>
-              </Subelement>
-              <Subelement Path="1">
-                <Comment>
-                  <MultiLanguageText Lang="en-GB">Motor 1 in english version</MultiLanguageText>
-                  <MultiLanguageText Lang="it-IT">AgitatoreVascaProdotto</MultiLanguageText>
-                </Comment>
-              </Subelement>
-              <Subelement Path="2">
-                <Comment>
-                  <MultiLanguageText Lang="it-IT">PompaMono</MultiLanguageText>
-                </Comment>
-              </Subelement>
-              <Subelement Path="3">
-                <Comment>
-                  <MultiLanguageText Lang="it-IT">CentrifugaLavaggio</MultiLanguageText>
-                </Comment>
-              </Subelement>
-              <Subelement Path="4">
-                <Comment>
-                  <MultiLanguageText Lang="it-IT">PompaPistoni</MultiLanguageText>
-                </Comment>
-              </Subelement>
-              <Subelement Path="5">
-                <Comment>
-                  <MultiLanguageText Lang="it-IT">PompaOlio</MultiLanguageText>
-                </Comment>
-              </Subelement>
-              <Subelement Path="6">
-                <Comment>
-                  <MultiLanguageText Lang="it-IT">PompaRicircoloAcquaCalda</MultiLanguageText>
-                </Comment>
-              </Subelement>
-              <Subelement Path="7">
-                <Comment>
-                  <MultiLanguageText Lang="it-IT">PompaRilancioTorre</MultiLanguageText>
-                </Comment>
-              </Subelement>
-              <Subelement Path="8">
-                <Comment>
-                  <MultiLanguageText Lang="it-IT">AspiratorePompaPistoni</MultiLanguageText>
                 </Comment>
               </Subelement>
             </Member>

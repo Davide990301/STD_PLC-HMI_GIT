@@ -17,9 +17,6 @@
                       <Subelement Path="0">
                         <StartValue>FALSE</StartValue>
                       </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
                     </Member>
                   </Member>
                   <Member Name="Prm" Datatype="Struct">
@@ -27,23 +24,14 @@
                       <Subelement Path="0">
                         <StartValue>1.0</StartValue>
                       </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>1.0</StartValue>
-                      </Subelement>
                     </Member>
                     <Member Name="Setpoint_Parziale" Datatype="Real">
                       <Subelement Path="0">
                         <StartValue>0.0</StartValue>
                       </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>1000.0</StartValue>
-                      </Subelement>
                     </Member>
                     <Member Name="LitriInVolo" Datatype="Real">
                       <Subelement Path="0">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="1">
                         <StartValue>0.0</StartValue>
                       </Subelement>
                     </Member>
@@ -57,15 +45,9 @@
                                   <Subelement Path="0">
                                     <StartValue>0</StartValue>
                                   </Subelement>
-                                  <Subelement Path="1">
-                                    <StartValue>0</StartValue>
-                                  </Subelement>
                                 </Member>
                                 <Member Name="Valore" Datatype="Real">
                                   <Subelement Path="0">
-                                    <StartValue>0.0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="1">
                                     <StartValue>0.0</StartValue>
                                   </Subelement>
                                 </Member>
@@ -77,15 +59,9 @@
                               <Subelement Path="0">
                                 <StartValue>FALSE</StartValue>
                               </Subelement>
-                              <Subelement Path="1">
-                                <StartValue>FALSE</StartValue>
-                              </Subelement>
                             </Member>
                             <Member Name="Calcola" Datatype="Bool">
                               <Subelement Path="0">
-                                <StartValue>FALSE</StartValue>
-                              </Subelement>
-                              <Subelement Path="1">
                                 <StartValue>FALSE</StartValue>
                               </Subelement>
                             </Member>
@@ -93,9 +69,6 @@
                           <Member Name="Dati" Datatype="Struct">
                             <Member Name="FattoreDiConversione" Datatype="Real">
                               <Subelement Path="0">
-                                <StartValue>0.0</StartValue>
-                              </Subelement>
-                              <Subelement Path="1">
                                 <StartValue>0.0</StartValue>
                               </Subelement>
                             </Member>
@@ -107,15 +80,9 @@
                                   <Subelement Path="0">
                                     <StartValue>0</StartValue>
                                   </Subelement>
-                                  <Subelement Path="1">
-                                    <StartValue>0</StartValue>
-                                  </Subelement>
                                 </Member>
                                 <Member Name="Valore" Datatype="Real">
                                   <Subelement Path="0">
-                                    <StartValue>0.0</StartValue>
-                                  </Subelement>
-                                  <Subelement Path="1">
                                     <StartValue>0.0</StartValue>
                                   </Subelement>
                                 </Member>
@@ -131,15 +98,77 @@
                       <Subelement Path="0">
                         <StartValue>FALSE</StartValue>
                       </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
                     </Member>
                     <Member Name="ResetTotalizzatoreParziale" Datatype="Bool">
                       <Subelement Path="0">
                         <StartValue>FALSE</StartValue>
                       </Subelement>
-                      <Subelement Path="1">
+                    </Member>
+                  </Member>
+                  <Member Name="Dati" Datatype="Struct">
+                    <Member Name="PortataAttuale" Datatype="Real">
+                      <Subelement Path="0">
+                        <StartValue>0.0</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="RimanenteParziale" Datatype="Real">
+                      <Subelement Path="0">
+                        <StartValue>0.0</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="Impulso" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="TriggerConteggioImpulso" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="PortataLMin" Datatype="Real">
+                      <Subelement Path="0">
+                        <StartValue>0.0</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="PortataLSec" Datatype="Real">
+                      <Subelement Path="0">
+                        <StartValue>0.0</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="TDurataImpulso" Datatype="&quot;Std_stTimer&quot;">
+                      <Sections>
+                        <Section Name="None">
+                          <Member Name="IN" Datatype="Bool">
+                            <Subelement Path="0">
+                              <StartValue>FALSE</StartValue>
+                            </Subelement>
+                          </Member>
+                          <Member Name="O" Datatype="Bool">
+                            <Subelement Path="0">
+                              <StartValue>FALSE</StartValue>
+                            </Subelement>
+                          </Member>
+                          <Member Name="Preset" Datatype="Real">
+                            <Subelement Path="0">
+                              <StartValue>0.0</StartValue>
+                            </Subelement>
+                          </Member>
+                          <Member Name="TempoTrascorso" Datatype="Real">
+                            <Subelement Path="0">
+                              <StartValue>0.0</StartValue>
+                            </Subelement>
+                          </Member>
+                        </Section>
+                      </Sections>
+                    </Member>
+                    <Member Name="MDistanzaImpulsi" Datatype="Bool">
+                      <Subelement Path="0">
+                        <StartValue>FALSE</StartValue>
+                      </Subelement>
+                    </Member>
+                    <Member Name="FPDistanzaImpulsi" Datatype="Bool">
+                      <Subelement Path="0">
                         <StartValue>FALSE</StartValue>
                       </Subelement>
                     </Member>
@@ -152,15 +181,9 @@
                             <Subelement Path="0,0">
                               <StartValue>FALSE</StartValue>
                             </Subelement>
-                            <Subelement Path="1,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
                           </Member>
                           <Member Name="Stato" Datatype="Bool">
                             <Subelement Path="0,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="1,0">
                               <StartValue>FALSE</StartValue>
                             </Subelement>
                           </Member>
@@ -168,23 +191,14 @@
                             <Subelement Path="0,0">
                               <StartValue>FALSE</StartValue>
                             </Subelement>
-                            <Subelement Path="1,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
                           </Member>
                           <Member Name="EnWarnHmi" Datatype="Bool">
                             <Subelement Path="0,0">
                               <StartValue>FALSE</StartValue>
                             </Subelement>
-                            <Subelement Path="1,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
                           </Member>
                           <Member Name="EnCadutaCiclo" Datatype="Bool">
                             <Subelement Path="0,0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="1,0">
                               <StartValue>FALSE</StartValue>
                             </Subelement>
                           </Member>
@@ -195,113 +209,6 @@
                       <Subelement Path="0">
                         <StartValue>16#0000</StartValue>
                       </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>16#0000</StartValue>
-                      </Subelement>
-                    </Member>
-                  </Member>
-                  <Member Name="Dati" Datatype="Struct">
-                    <Member Name="PortataAttuale" Datatype="Real">
-                      <Subelement Path="0">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>-1.085069</StartValue>
-                      </Subelement>
-                    </Member>
-                    <Member Name="RimanenteParziale" Datatype="Real">
-                      <Subelement Path="0">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>-54515.0</StartValue>
-                      </Subelement>
-                    </Member>
-                    <Member Name="Impulso" Datatype="Bool">
-                      <Subelement Path="0">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                    </Member>
-                    <Member Name="TriggerConteggioImpulso" Datatype="Bool">
-                      <Subelement Path="0">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                    </Member>
-                    <Member Name="PortataLMin" Datatype="Real">
-                      <Subelement Path="0">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>-0.01808449</StartValue>
-                      </Subelement>
-                    </Member>
-                    <Member Name="PortataLSec" Datatype="Real">
-                      <Subelement Path="0">
-                        <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>-0.000302011</StartValue>
-                      </Subelement>
-                    </Member>
-                    <Member Name="TDurataImpulso" Datatype="&quot;Std_stTimer&quot;">
-                      <Sections>
-                        <Section Name="None">
-                          <Member Name="IN" Datatype="Bool">
-                            <Subelement Path="0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                          </Member>
-                          <Member Name="O" Datatype="Bool">
-                            <Subelement Path="0">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                            <Subelement Path="1">
-                              <StartValue>FALSE</StartValue>
-                            </Subelement>
-                          </Member>
-                          <Member Name="Preset" Datatype="Real">
-                            <Subelement Path="0">
-                              <StartValue>0.0</StartValue>
-                            </Subelement>
-                            <Subelement Path="1">
-                              <StartValue>0.0</StartValue>
-                            </Subelement>
-                          </Member>
-                          <Member Name="TempoTrascorso" Datatype="Real">
-                            <Subelement Path="0">
-                              <StartValue>0.0</StartValue>
-                            </Subelement>
-                            <Subelement Path="1">
-                              <StartValue>0.0</StartValue>
-                            </Subelement>
-                          </Member>
-                        </Section>
-                      </Sections>
-                    </Member>
-                    <Member Name="MDistanzaImpulsi" Datatype="Bool">
-                      <Subelement Path="0">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                    </Member>
-                    <Member Name="FPDistanzaImpulsi" Datatype="Bool">
-                      <Subelement Path="0">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>FALSE</StartValue>
-                      </Subelement>
                     </Member>
                   </Member>
                   <Member Name="Out" Datatype="Struct">
@@ -309,32 +216,20 @@
                       <Subelement Path="0">
                         <StartValue>0.0</StartValue>
                       </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>55515.0</StartValue>
-                      </Subelement>
                     </Member>
                     <Member Name="TotalizzatoreParzialeAttuale" Datatype="Real">
                       <Subelement Path="0">
                         <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>55515.0</StartValue>
                       </Subelement>
                     </Member>
                     <Member Name="TotalizzatoreParzialeRaggiunto" Datatype="Bool">
                       <Subelement Path="0">
                         <StartValue>FALSE</StartValue>
                       </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>TRUE</StartValue>
-                      </Subelement>
                     </Member>
                     <Member Name="PortataAttuale" Datatype="Real">
                       <Subelement Path="0">
                         <StartValue>0.0</StartValue>
-                      </Subelement>
-                      <Subelement Path="1">
-                        <StartValue>-1.085069</StartValue>
                       </Subelement>
                     </Member>
                   </Member>
@@ -343,11 +238,6 @@
               <Subelement Path="0">
                 <Comment>
                   <MultiLanguageText Lang="it-IT">NON USARE</MultiLanguageText>
-                </Comment>
-              </Subelement>
-              <Subelement Path="1">
-                <Comment>
-                  <MultiLanguageText Lang="it-IT">PortataIngresso</MultiLanguageText>
                 </Comment>
               </Subelement>
             </Member>

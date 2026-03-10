@@ -13,22 +13,6 @@
               <AttributeList>
                 <BooleanAttribute Name="SetPoint" SystemDefined="true">true</BooleanAttribute>
               </AttributeList>
-              <Sections>
-                <Section Name="Input" />
-                <Section Name="Output" />
-                <Section Name="InOut" />
-                <Section Name="Static" />
-              </Sections>
-              <Subelement Path="1">
-                <Comment>
-                  <MultiLanguageText Lang="it-IT">QCI</MultiLanguageText>
-                </Comment>
-              </Subelement>
-              <Subelement Path="2">
-                <Comment>
-                  <MultiLanguageText Lang="it-IT">Riempitrice</MultiLanguageText>
-                </Comment>
-              </Subelement>
             </Member>
           </Section>
           <Section Name="Temp">
@@ -116,7 +100,7 @@
               <Blank UId="40" />
               <Access Scope="LiteralConstant" UId="41">
                 <Constant UId="42">
-                  <ConstantValue UId="44">1</ConstantValue>
+                  <ConstantValue UId="44">0</ConstantValue>
                 </Constant>
               </Access>
               <Blank UId="45" />
@@ -393,351 +377,33 @@
           </MultilingualText>
         </ObjectList>
       </SW.Blocks.CompileUnit>
-      <SW.Blocks.CompileUnit ID="14" CompositionName="CompileUnits">
-        <AttributeList>
-          <NetworkSource>
-            <StructuredText xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StructuredText/v4">
-              <Access Scope="Call" UId="21">
-                <CallInfo UId="22" BlockType="FB" Name="GestGestPut">
-                  <Instance Scope="LocalVariable" UId="23">
-                    <Component Name="C" UId="24">
-                      <Token Text="[" UId="25" />
-                      <Access Scope="GlobalConstant" UId="26">
-                        <Constant UId="27">
-                          <ConstantValue UId="29">K_ComunicazioneS7_St1_Qci</ConstantValue>
-                        </Constant>
-                      </Access>
-                      <Token Text="]" UId="30" />
-                    </Component>
-                  </Instance>
-                  <Token Text="(" UId="31" />
-                  <Parameter Name="Id_Hardware" UId="32">
-                    <Blank UId="33" />
-                    <Token Text=":=" UId="34" />
-                    <Blank UId="35" />
-                    <Access Scope="LiteralConstant" UId="36">
-                      <Constant UId="37">
-                        <ConstantValue UId="39">16#101</ConstantValue>
-                      </Constant>
-                    </Access>
-                  </Parameter>
-                  <Token Text="," UId="40" />
-                  <NewLine UId="41" />
-                  <Blank Num="32" UId="42" />
-                  <Parameter Name="PuntatoreAreadatiRecivePartner" UId="43">
-                    <Blank UId="44" />
-                    <Token Text=":=" UId="45" />
-                    <Blank UId="46" />
-                    <Access Scope="LiteralConstant" UId="47">
-                      <Constant UId="48">
-                        <ConstantValue UId="50">P#DB9001.DBX0.0 BYTE 208</ConstantValue>
-                      </Constant>
-                    </Access>
-                  </Parameter>
-                  <Token Text="," UId="51" />
-                  <NewLine UId="52" />
-                  <Blank Num="32" UId="53" />
-                  <Parameter Name="PuntatoreAreadatiSendLocale" UId="54">
-                    <Blank UId="55" />
-                    <Token Text=":=" UId="56" />
-                    <Blank UId="57" />
-                    <Access Scope="LiteralConstant" UId="58">
-                      <Constant UId="59">
-                        <ConstantValue UId="61">P#DB9000.dbx0.0  BYTE 208</ConstantValue>
-                      </Constant>
-                    </Access>
-                  </Parameter>
-                  <Token Text="," UId="62" />
-                  <NewLine UId="63" />
-                  <Blank Num="32" UId="64" />
-                  <Parameter Name="PuntatoreAreadatiSendPartner" UId="65">
-                    <Blank UId="66" />
-                    <Token Text=":=" UId="67" />
-                    <Blank UId="68" />
-                    <Access Scope="LiteralConstant" UId="69">
-                      <Constant UId="70">
-                        <ConstantValue UId="72">P#DB9001.DBX208.0 BYTE 204</ConstantValue>
-                      </Constant>
-                    </Access>
-                  </Parameter>
-                  <Token Text="," UId="73" />
-                  <NewLine UId="74" />
-                  <Blank Num="32" UId="75" />
-                  <Parameter Name="PuntatoreAreadatiReciveLocale" UId="76">
-                    <Blank UId="77" />
-                    <Token Text=":=" UId="78" />
-                    <Blank UId="79" />
-                    <Access Scope="LiteralConstant" UId="80">
-                      <Constant UId="81">
-                        <ConstantValue UId="83">P#DB9000.DBX208.0 BYTE 204</ConstantValue>
-                      </Constant>
-                    </Access>
-                  </Parameter>
-                  <Token Text=")" UId="84" />
-                </CallInfo>
-              </Access>
-              <Token Text=";" UId="85" />
-            </StructuredText>
-          </NetworkSource>
-          <ProgrammingLanguage>SCL</ProgrammingLanguage>
-        </AttributeList>
+      <MultilingualText ID="14" CompositionName="Title">
         <ObjectList>
-          <MultilingualText ID="15" CompositionName="Comment">
-            <ObjectList>
-              <MultilingualTextItem ID="16" CompositionName="Items">
-                <AttributeList>
-                  <Culture>de-DE</Culture>
-                  <Text />
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="17" CompositionName="Items">
-                <AttributeList>
-                  <Culture>en-GB</Culture>
-                  <Text />
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="18" CompositionName="Items">
-                <AttributeList>
-                  <Culture>es-ES</Culture>
-                  <Text />
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="19" CompositionName="Items">
-                <AttributeList>
-                  <Culture>fr-FR</Culture>
-                  <Text />
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="1A" CompositionName="Items">
-                <AttributeList>
-                  <Culture>it-IT</Culture>
-                  <Text />
-                </AttributeList>
-              </MultilingualTextItem>
-            </ObjectList>
-          </MultilingualText>
-          <MultilingualText ID="1B" CompositionName="Title">
-            <ObjectList>
-              <MultilingualTextItem ID="1C" CompositionName="Items">
-                <AttributeList>
-                  <Culture>de-DE</Culture>
-                  <Text />
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="1D" CompositionName="Items">
-                <AttributeList>
-                  <Culture>en-GB</Culture>
-                  <Text />
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="1E" CompositionName="Items">
-                <AttributeList>
-                  <Culture>es-ES</Culture>
-                  <Text />
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="1F" CompositionName="Items">
-                <AttributeList>
-                  <Culture>fr-FR</Culture>
-                  <Text />
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="20" CompositionName="Items">
-                <AttributeList>
-                  <Culture>it-IT</Culture>
-                  <Text>Comunicazione con QCI</Text>
-                </AttributeList>
-              </MultilingualTextItem>
-            </ObjectList>
-          </MultilingualText>
-        </ObjectList>
-      </SW.Blocks.CompileUnit>
-      <SW.Blocks.CompileUnit ID="21" CompositionName="CompileUnits">
-        <AttributeList>
-          <NetworkSource>
-            <StructuredText xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StructuredText/v4">
-              <Access Scope="Call" UId="21">
-                <CallInfo UId="22" BlockType="FB" Name="GestGestPut">
-                  <Instance Scope="LocalVariable" UId="23">
-                    <Component Name="C" UId="24">
-                      <Token Text="[" UId="25" />
-                      <Access Scope="GlobalConstant" UId="26">
-                        <Constant UId="27">
-                          <ConstantValue UId="29">K_ComunicazioneS7_St1_Robopack</ConstantValue>
-                        </Constant>
-                      </Access>
-                      <Token Text="]" UId="30" />
-                    </Component>
-                  </Instance>
-                  <Token Text="(" UId="31" />
-                  <Parameter Name="Id_Hardware" UId="32">
-                    <Blank UId="33" />
-                    <Token Text=":=" UId="34" />
-                    <Blank UId="35" />
-                    <Access Scope="LiteralConstant" UId="36">
-                      <Constant UId="37">
-                        <ConstantValue UId="39">16#102</ConstantValue>
-                      </Constant>
-                    </Access>
-                  </Parameter>
-                  <Token Text="," UId="40" />
-                  <NewLine UId="41" />
-                  <Blank Num="37" UId="42" />
-                  <Parameter Name="PuntatoreAreadatiRecivePartner" UId="43">
-                    <Blank UId="44" />
-                    <Token Text=":=" UId="45" />
-                    <Blank UId="46" />
-                    <Access Scope="LiteralConstant" UId="47">
-                      <Constant UId="48">
-                        <ConstantValue UId="50">P#DB9001.DBX0.0 BYTE 208</ConstantValue>
-                      </Constant>
-                    </Access>
-                  </Parameter>
-                  <Token Text="," UId="51" />
-                  <NewLine UId="52" />
-                  <Blank Num="37" UId="53" />
-                  <Parameter Name="PuntatoreAreadatiSendLocale" UId="54">
-                    <Blank UId="55" />
-                    <Token Text=":=" UId="56" />
-                    <Blank UId="57" />
-                    <Access Scope="LiteralConstant" UId="58">
-                      <Constant UId="59">
-                        <ConstantValue UId="61">p#DB9000.dbx0.0  BYTE 208</ConstantValue>
-                      </Constant>
-                    </Access>
-                  </Parameter>
-                  <Token Text="," UId="62" />
-                  <NewLine UId="63" />
-                  <Blank Num="37" UId="64" />
-                  <Parameter Name="PuntatoreAreadatiSendPartner" UId="65">
-                    <Blank UId="66" />
-                    <Token Text=":=" UId="67" />
-                    <Blank UId="68" />
-                    <Access Scope="LiteralConstant" UId="69">
-                      <Constant UId="70">
-                        <ConstantValue UId="72">P#DB9001.DBX208.0 BYTE 204</ConstantValue>
-                      </Constant>
-                    </Access>
-                  </Parameter>
-                  <Token Text="," UId="73" />
-                  <NewLine UId="74" />
-                  <Blank Num="37" UId="75" />
-                  <Parameter Name="PuntatoreAreadatiReciveLocale" UId="76">
-                    <Blank UId="77" />
-                    <Token Text=":=" UId="78" />
-                    <Blank UId="79" />
-                    <Access Scope="LiteralConstant" UId="80">
-                      <Constant UId="81">
-                        <ConstantValue UId="83">P#DB9000.DBX208.0 BYTE 204</ConstantValue>
-                      </Constant>
-                    </Access>
-                  </Parameter>
-                  <Token Text=")" UId="84" />
-                </CallInfo>
-              </Access>
-              <Token Text=";" UId="85" />
-            </StructuredText>
-          </NetworkSource>
-          <ProgrammingLanguage>SCL</ProgrammingLanguage>
-        </AttributeList>
-        <ObjectList>
-          <MultilingualText ID="22" CompositionName="Comment">
-            <ObjectList>
-              <MultilingualTextItem ID="23" CompositionName="Items">
-                <AttributeList>
-                  <Culture>de-DE</Culture>
-                  <Text />
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="24" CompositionName="Items">
-                <AttributeList>
-                  <Culture>en-GB</Culture>
-                  <Text />
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="25" CompositionName="Items">
-                <AttributeList>
-                  <Culture>es-ES</Culture>
-                  <Text />
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="26" CompositionName="Items">
-                <AttributeList>
-                  <Culture>fr-FR</Culture>
-                  <Text />
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="27" CompositionName="Items">
-                <AttributeList>
-                  <Culture>it-IT</Culture>
-                  <Text />
-                </AttributeList>
-              </MultilingualTextItem>
-            </ObjectList>
-          </MultilingualText>
-          <MultilingualText ID="28" CompositionName="Title">
-            <ObjectList>
-              <MultilingualTextItem ID="29" CompositionName="Items">
-                <AttributeList>
-                  <Culture>de-DE</Culture>
-                  <Text />
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="2A" CompositionName="Items">
-                <AttributeList>
-                  <Culture>en-GB</Culture>
-                  <Text />
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="2B" CompositionName="Items">
-                <AttributeList>
-                  <Culture>es-ES</Culture>
-                  <Text />
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="2C" CompositionName="Items">
-                <AttributeList>
-                  <Culture>fr-FR</Culture>
-                  <Text />
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="2D" CompositionName="Items">
-                <AttributeList>
-                  <Culture>it-IT</Culture>
-                  <Text>Comunicazione con ROBOPACK</Text>
-                </AttributeList>
-              </MultilingualTextItem>
-            </ObjectList>
-          </MultilingualText>
-        </ObjectList>
-      </SW.Blocks.CompileUnit>
-      <MultilingualText ID="2E" CompositionName="Title">
-        <ObjectList>
-          <MultilingualTextItem ID="2F" CompositionName="Items">
+          <MultilingualTextItem ID="15" CompositionName="Items">
             <AttributeList>
               <Culture>de-DE</Culture>
               <Text />
             </AttributeList>
           </MultilingualTextItem>
-          <MultilingualTextItem ID="30" CompositionName="Items">
+          <MultilingualTextItem ID="16" CompositionName="Items">
             <AttributeList>
               <Culture>en-GB</Culture>
               <Text />
             </AttributeList>
           </MultilingualTextItem>
-          <MultilingualTextItem ID="31" CompositionName="Items">
+          <MultilingualTextItem ID="17" CompositionName="Items">
             <AttributeList>
               <Culture>es-ES</Culture>
               <Text />
             </AttributeList>
           </MultilingualTextItem>
-          <MultilingualTextItem ID="32" CompositionName="Items">
+          <MultilingualTextItem ID="18" CompositionName="Items">
             <AttributeList>
               <Culture>fr-FR</Culture>
               <Text />
             </AttributeList>
           </MultilingualTextItem>
-          <MultilingualTextItem ID="33" CompositionName="Items">
+          <MultilingualTextItem ID="19" CompositionName="Items">
             <AttributeList>
               <Culture>it-IT</Culture>
               <Text />

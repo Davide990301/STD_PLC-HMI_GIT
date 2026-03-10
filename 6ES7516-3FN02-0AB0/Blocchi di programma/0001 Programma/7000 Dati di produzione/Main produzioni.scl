@@ -24,7 +24,7 @@ BEGIN
 	       IO_DatiTimer := "Dati produzione".TimerCampionatura);
 	
 	IF "Dati produzione".TimerCampionatura.O THEN
-	    FOR #NumeroMisuratoreFlusso := 1 TO "K_NumPortata" DO
+	    FOR #NumeroMisuratoreFlusso := 0 TO "K_NumPortata" DO
 	        "Dati produzione".Misuratore[#NumeroMisuratoreFlusso].h["Dati produzione".CampionaturaAttuale].MetriCubi := "Portata".P[#NumeroMisuratoreFlusso].Out.TotalizzatoreParzialeAttuale;
 	        "Dati produzione".Misuratore[#NumeroMisuratoreFlusso].h["Dati produzione".CampionaturaAttuale].OrarioCampionatura := #DateAndTime;
 	        "Portata".P[#NumeroMisuratoreFlusso].Hmi.ResetTotalizzatoreParziale := True;
@@ -33,7 +33,7 @@ BEGIN
 	END_IF;
 	
 	IF "Dati produzione".ResetCompleto THEN
-	    FOR #NumeroMisuratoreFlusso := 1 TO "K_NumPortata" DO
+	    FOR #NumeroMisuratoreFlusso := 0 TO "K_NumPortata" DO
 	        FOR #CounterCampionature := 1 TO 24 DO
 	            "Dati produzione".Misuratore[#NumeroMisuratoreFlusso].h[#CounterCampionature].MetriCubi := 0;
 	            "Dati produzione".Misuratore[#NumeroMisuratoreFlusso].h[#CounterCampionature].OrarioCampionatura := #DateAndTime;

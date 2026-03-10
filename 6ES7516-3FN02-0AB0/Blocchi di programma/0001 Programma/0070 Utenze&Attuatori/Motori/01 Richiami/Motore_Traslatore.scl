@@ -1,15 +1,15 @@
-FUNCTION "Motore_Sitronic" : Void
+FUNCTION "Motore_Traslatore" : Void
 { S7_Optimized_Access := 'TRUE' }
 VERSION : 0.1
 
 BEGIN
-	REGION Motore_Sitronic
+	REGION Motore_Traslatore
 		REGION Ingressi
 		END_REGION ;
 		REGION Gestione
-			"GestMotore"(K_Motore := "K_Motore_Sitronic",
+			"GestMotore"(K_Motore := "K_Motore_Traslatore",
 			             K_TipoMotore := "K_TipoMotore_InverterSiemens",
-			             K_Zona := "K_Zona_MagazzinoPalette");
+			             K_Zona := "K_Zona_Generale");
 		END_REGION ;
 		REGION Uscite
 		END_REGION ;

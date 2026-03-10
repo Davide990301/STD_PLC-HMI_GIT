@@ -37,7 +37,7 @@ BEGIN
 	        "Valvola".Funzioni.DefaultPrm := False;
 	    END_IF;
 	    IF "Valvola".Funzioni.TuttiInAutoMode THEN
-	        FOR #CounterValvole := 1 TO "K_NumValvola" DO
+	        FOR #CounterValvole := 0 TO "K_NumValvola" DO
 	            "Valvola".V[#CounterValvole].Hmi.StatoCmd.StatoFromHmi := 1;
 	        END_FOR;
 	        "Valvola".Funzioni.TuttiInAutoMode := False;

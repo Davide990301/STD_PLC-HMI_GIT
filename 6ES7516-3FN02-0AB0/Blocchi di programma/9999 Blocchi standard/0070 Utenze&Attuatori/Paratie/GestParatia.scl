@@ -32,7 +32,7 @@ VERSION : 0.1
 
 BEGIN
 	REGION Diagnostica programmatore
-	    (*Passiamo tutte le costanti di accesso agli array in modo da verificarle e controllarle*)
+	    (*Passiamo tutte le costanti di accesso agli array in modo da verificarle e controllarle!*)
 	    "Diagnostica"(K_Attuale_ArrayInCuiAccediamo := #K_Analogica,
 	                  K_NumMax_MassimoValoreDellArrayInCuiAccediamo := "K_NumAnalogica",
 	                  K_Tipo_ArrayInCuiAccediamo := "K_TipoAnalogica",

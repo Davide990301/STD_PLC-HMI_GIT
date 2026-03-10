@@ -1,15 +1,15 @@
-FUNCTION "Motore_Pippo" : Void
+FUNCTION "Motore_Sollevatore" : Void
 { S7_Optimized_Access := 'TRUE' }
 VERSION : 0.1
 
 BEGIN
-	REGION Motore_Pippo
+	REGION Motore_Sollevatore
 		REGION Ingressi
 		END_REGION ;
 		REGION Gestione
-			"GestMotore"(K_Motore := "K_Motore_Pippo",
+			"GestMotore"(K_Motore := "K_Motore_Sollevatore",
 			             K_TipoMotore := "K_TipoMotore_InverterSiemens",
-			             K_Zona := "K_Zona_Sterilizzatore");
+			             K_Zona := "K_Zona_Generale");
 		END_REGION ;
 		REGION Uscite
 		END_REGION ;
