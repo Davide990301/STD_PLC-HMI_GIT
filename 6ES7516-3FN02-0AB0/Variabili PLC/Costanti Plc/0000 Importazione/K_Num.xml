@@ -6,40 +6,40 @@
       <Name>K_Num</Name>
     </AttributeList>
     <ObjectList>
-      <SW.Tags.PlcUserConstant ID="1F2" CompositionName="UserConstants">
+      <SW.Tags.PlcUserConstant ID="9C4" CompositionName="UserConstants">
         <AttributeList>
           <DataTypeName>Int</DataTypeName>
           <Name>K_NumAnalogica</Name>
-          <Value>0</Value>
+          <Value>1</Value>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="1F3" CompositionName="Comment">
+          <MultilingualText ID="9C5" CompositionName="Comment">
             <ObjectList>
-              <MultilingualTextItem ID="1F4" CompositionName="Items">
+              <MultilingualTextItem ID="9C6" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="1F5" CompositionName="Items">
+              <MultilingualTextItem ID="9C7" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="1F6" CompositionName="Items">
+              <MultilingualTextItem ID="9C8" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="1F7" CompositionName="Items">
+              <MultilingualTextItem ID="9C9" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="1F8" CompositionName="Items">
+              <MultilingualTextItem ID="9CA" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
                   <Text></Text>
@@ -49,40 +49,40 @@
           </MultilingualText>
         </ObjectList>
       </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="1F9" CompositionName="UserConstants">
+      <SW.Tags.PlcUserConstant ID="9CB" CompositionName="UserConstants">
         <AttributeList>
           <DataTypeName>Int</DataTypeName>
           <Name>K_NumComunicazione</Name>
-          <Value>0</Value>
+          <Value>2</Value>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="1FA" CompositionName="Comment">
+          <MultilingualText ID="9CC" CompositionName="Comment">
             <ObjectList>
-              <MultilingualTextItem ID="1FB" CompositionName="Items">
+              <MultilingualTextItem ID="9CD" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="1FC" CompositionName="Items">
+              <MultilingualTextItem ID="9CE" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="1FD" CompositionName="Items">
+              <MultilingualTextItem ID="9CF" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="1FE" CompositionName="Items">
+              <MultilingualTextItem ID="9D0" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="1FF" CompositionName="Items">
+              <MultilingualTextItem ID="9D1" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
                   <Text></Text>
@@ -92,40 +92,40 @@
           </MultilingualText>
         </ObjectList>
       </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="200" CompositionName="UserConstants">
+      <SW.Tags.PlcUserConstant ID="9D2" CompositionName="UserConstants">
         <AttributeList>
           <DataTypeName>Int</DataTypeName>
           <Name>K_NumComunicazioneS7</Name>
-          <Value>0</Value>
+          <Value>3</Value>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="201" CompositionName="Comment">
+          <MultilingualText ID="9D3" CompositionName="Comment">
             <ObjectList>
-              <MultilingualTextItem ID="202" CompositionName="Items">
+              <MultilingualTextItem ID="9D4" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="203" CompositionName="Items">
+              <MultilingualTextItem ID="9D5" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="204" CompositionName="Items">
+              <MultilingualTextItem ID="9D6" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="205" CompositionName="Items">
+              <MultilingualTextItem ID="9D7" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="206" CompositionName="Items">
+              <MultilingualTextItem ID="9D8" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
                   <Text></Text>
@@ -135,40 +135,40 @@
           </MultilingualText>
         </ObjectList>
       </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="207" CompositionName="UserConstants">
+      <SW.Tags.PlcUserConstant ID="9D9" CompositionName="UserConstants">
         <AttributeList>
           <DataTypeName>Int</DataTypeName>
           <Name>K_NumConsenso</Name>
-          <Value>0</Value>
+          <Value>4</Value>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="208" CompositionName="Comment">
+          <MultilingualText ID="9DA" CompositionName="Comment">
             <ObjectList>
-              <MultilingualTextItem ID="209" CompositionName="Items">
+              <MultilingualTextItem ID="9DB" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="20A" CompositionName="Items">
+              <MultilingualTextItem ID="9DC" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="20B" CompositionName="Items">
+              <MultilingualTextItem ID="9DD" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="20C" CompositionName="Items">
+              <MultilingualTextItem ID="9DE" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="20D" CompositionName="Items">
+              <MultilingualTextItem ID="9DF" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
                   <Text></Text>
@@ -178,40 +178,40 @@
           </MultilingualText>
         </ObjectList>
       </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="20E" CompositionName="UserConstants">
+      <SW.Tags.PlcUserConstant ID="9E0" CompositionName="UserConstants">
         <AttributeList>
           <DataTypeName>Int</DataTypeName>
           <Name>K_NumDispositivoProfinet</Name>
-          <Value>0</Value>
+          <Value>5</Value>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="20F" CompositionName="Comment">
+          <MultilingualText ID="9E1" CompositionName="Comment">
             <ObjectList>
-              <MultilingualTextItem ID="210" CompositionName="Items">
+              <MultilingualTextItem ID="9E2" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="211" CompositionName="Items">
+              <MultilingualTextItem ID="9E3" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="212" CompositionName="Items">
+              <MultilingualTextItem ID="9E4" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="213" CompositionName="Items">
+              <MultilingualTextItem ID="9E5" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="214" CompositionName="Items">
+              <MultilingualTextItem ID="9E6" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
                   <Text></Text>
@@ -221,40 +221,40 @@
           </MultilingualText>
         </ObjectList>
       </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="215" CompositionName="UserConstants">
+      <SW.Tags.PlcUserConstant ID="9E7" CompositionName="UserConstants">
         <AttributeList>
           <DataTypeName>Int</DataTypeName>
           <Name>K_NumMacchinaARicetta</Name>
-          <Value>0</Value>
+          <Value>6</Value>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="216" CompositionName="Comment">
+          <MultilingualText ID="9E8" CompositionName="Comment">
             <ObjectList>
-              <MultilingualTextItem ID="217" CompositionName="Items">
+              <MultilingualTextItem ID="9E9" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="218" CompositionName="Items">
+              <MultilingualTextItem ID="9EA" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="219" CompositionName="Items">
+              <MultilingualTextItem ID="9EB" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="21A" CompositionName="Items">
+              <MultilingualTextItem ID="9EC" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="21B" CompositionName="Items">
+              <MultilingualTextItem ID="9ED" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
                   <Text></Text>
@@ -264,40 +264,40 @@
           </MultilingualText>
         </ObjectList>
       </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="21C" CompositionName="UserConstants">
+      <SW.Tags.PlcUserConstant ID="9EE" CompositionName="UserConstants">
         <AttributeList>
           <DataTypeName>Int</DataTypeName>
           <Name>K_NumMotore</Name>
-          <Value>0</Value>
+          <Value>7</Value>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="21D" CompositionName="Comment">
+          <MultilingualText ID="9EF" CompositionName="Comment">
             <ObjectList>
-              <MultilingualTextItem ID="21E" CompositionName="Items">
+              <MultilingualTextItem ID="9F0" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="21F" CompositionName="Items">
+              <MultilingualTextItem ID="9F1" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="220" CompositionName="Items">
+              <MultilingualTextItem ID="9F2" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="221" CompositionName="Items">
+              <MultilingualTextItem ID="9F3" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="222" CompositionName="Items">
+              <MultilingualTextItem ID="9F4" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
                   <Text></Text>
@@ -307,40 +307,83 @@
           </MultilingualText>
         </ObjectList>
       </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="223" CompositionName="UserConstants">
+      <SW.Tags.PlcUserConstant ID="9F5" CompositionName="UserConstants">
+        <AttributeList>
+          <DataTypeName>Int</DataTypeName>
+          <Name>K_NumNum</Name>
+          <Value>15</Value>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="9F6" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="9F7" CompositionName="Items">
+                <AttributeList>
+                  <Culture>de-DE</Culture>
+                  <Text></Text>
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="9F8" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-GB</Culture>
+                  <Text></Text>
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="9F9" CompositionName="Items">
+                <AttributeList>
+                  <Culture>es-ES</Culture>
+                  <Text></Text>
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="9FA" CompositionName="Items">
+                <AttributeList>
+                  <Culture>fr-FR</Culture>
+                  <Text></Text>
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="9FB" CompositionName="Items">
+                <AttributeList>
+                  <Culture>it-IT</Culture>
+                  <Text></Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Tags.PlcUserConstant>
+      <SW.Tags.PlcUserConstant ID="9FC" CompositionName="UserConstants">
         <AttributeList>
           <DataTypeName>Int</DataTypeName>
           <Name>K_NumParatia</Name>
-          <Value>0</Value>
+          <Value>9</Value>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="224" CompositionName="Comment">
+          <MultilingualText ID="9FD" CompositionName="Comment">
             <ObjectList>
-              <MultilingualTextItem ID="225" CompositionName="Items">
+              <MultilingualTextItem ID="9FE" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="226" CompositionName="Items">
+              <MultilingualTextItem ID="9FF" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="227" CompositionName="Items">
+              <MultilingualTextItem ID="A00" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="228" CompositionName="Items">
+              <MultilingualTextItem ID="A01" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="229" CompositionName="Items">
+              <MultilingualTextItem ID="A02" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
                   <Text></Text>
@@ -350,40 +393,40 @@
           </MultilingualText>
         </ObjectList>
       </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="22A" CompositionName="UserConstants">
+      <SW.Tags.PlcUserConstant ID="A03" CompositionName="UserConstants">
         <AttributeList>
           <DataTypeName>Int</DataTypeName>
           <Name>K_NumPid</Name>
-          <Value>0</Value>
+          <Value>10</Value>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="22B" CompositionName="Comment">
+          <MultilingualText ID="A04" CompositionName="Comment">
             <ObjectList>
-              <MultilingualTextItem ID="22C" CompositionName="Items">
+              <MultilingualTextItem ID="A05" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="22D" CompositionName="Items">
+              <MultilingualTextItem ID="A06" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="22E" CompositionName="Items">
+              <MultilingualTextItem ID="A07" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="22F" CompositionName="Items">
+              <MultilingualTextItem ID="A08" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="230" CompositionName="Items">
+              <MultilingualTextItem ID="A09" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
                   <Text></Text>
@@ -393,40 +436,40 @@
           </MultilingualText>
         </ObjectList>
       </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="231" CompositionName="UserConstants">
+      <SW.Tags.PlcUserConstant ID="A0A" CompositionName="UserConstants">
         <AttributeList>
           <DataTypeName>Int</DataTypeName>
           <Name>K_NumPortata</Name>
-          <Value>0</Value>
+          <Value>11</Value>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="232" CompositionName="Comment">
+          <MultilingualText ID="A0B" CompositionName="Comment">
             <ObjectList>
-              <MultilingualTextItem ID="233" CompositionName="Items">
+              <MultilingualTextItem ID="A0C" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="234" CompositionName="Items">
+              <MultilingualTextItem ID="A0D" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="235" CompositionName="Items">
+              <MultilingualTextItem ID="A0E" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="236" CompositionName="Items">
+              <MultilingualTextItem ID="A0F" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="237" CompositionName="Items">
+              <MultilingualTextItem ID="A10" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
                   <Text></Text>
@@ -436,40 +479,40 @@
           </MultilingualText>
         </ObjectList>
       </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="238" CompositionName="UserConstants">
+      <SW.Tags.PlcUserConstant ID="A11" CompositionName="UserConstants">
         <AttributeList>
           <DataTypeName>Int</DataTypeName>
           <Name>K_NumSegnaliMacchina</Name>
-          <Value>0</Value>
+          <Value>12</Value>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="239" CompositionName="Comment">
+          <MultilingualText ID="A12" CompositionName="Comment">
             <ObjectList>
-              <MultilingualTextItem ID="23A" CompositionName="Items">
+              <MultilingualTextItem ID="A13" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="23B" CompositionName="Items">
+              <MultilingualTextItem ID="A14" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="23C" CompositionName="Items">
+              <MultilingualTextItem ID="A15" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="23D" CompositionName="Items">
+              <MultilingualTextItem ID="A16" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="23E" CompositionName="Items">
+              <MultilingualTextItem ID="A17" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
                   <Text></Text>
@@ -479,40 +522,40 @@
           </MultilingualText>
         </ObjectList>
       </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="23F" CompositionName="UserConstants">
+      <SW.Tags.PlcUserConstant ID="A18" CompositionName="UserConstants">
         <AttributeList>
           <DataTypeName>Int</DataTypeName>
           <Name>K_NumSensore</Name>
-          <Value>0</Value>
+          <Value>13</Value>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="240" CompositionName="Comment">
+          <MultilingualText ID="A19" CompositionName="Comment">
             <ObjectList>
-              <MultilingualTextItem ID="241" CompositionName="Items">
+              <MultilingualTextItem ID="A1A" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="242" CompositionName="Items">
+              <MultilingualTextItem ID="A1B" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="243" CompositionName="Items">
+              <MultilingualTextItem ID="A1C" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="244" CompositionName="Items">
+              <MultilingualTextItem ID="A1D" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="245" CompositionName="Items">
+              <MultilingualTextItem ID="A1E" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
                   <Text></Text>
@@ -522,40 +565,40 @@
           </MultilingualText>
         </ObjectList>
       </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="246" CompositionName="UserConstants">
+      <SW.Tags.PlcUserConstant ID="A1F" CompositionName="UserConstants">
         <AttributeList>
           <DataTypeName>Int</DataTypeName>
           <Name>K_NumSequenza</Name>
-          <Value>0</Value>
+          <Value>14</Value>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="247" CompositionName="Comment">
+          <MultilingualText ID="A20" CompositionName="Comment">
             <ObjectList>
-              <MultilingualTextItem ID="248" CompositionName="Items">
+              <MultilingualTextItem ID="A21" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="249" CompositionName="Items">
+              <MultilingualTextItem ID="A22" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="24A" CompositionName="Items">
+              <MultilingualTextItem ID="A23" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="24B" CompositionName="Items">
+              <MultilingualTextItem ID="A24" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="24C" CompositionName="Items">
+              <MultilingualTextItem ID="A25" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
                   <Text></Text>
@@ -565,40 +608,40 @@
           </MultilingualText>
         </ObjectList>
       </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="24D" CompositionName="UserConstants">
+      <SW.Tags.PlcUserConstant ID="A26" CompositionName="UserConstants">
         <AttributeList>
           <DataTypeName>Int</DataTypeName>
           <Name>K_NumValvola</Name>
-          <Value>0</Value>
+          <Value>15</Value>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="24E" CompositionName="Comment">
+          <MultilingualText ID="A27" CompositionName="Comment">
             <ObjectList>
-              <MultilingualTextItem ID="24F" CompositionName="Items">
+              <MultilingualTextItem ID="A28" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="250" CompositionName="Items">
+              <MultilingualTextItem ID="A29" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="251" CompositionName="Items">
+              <MultilingualTextItem ID="A2A" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="252" CompositionName="Items">
+              <MultilingualTextItem ID="A2B" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
                   <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="253" CompositionName="Items">
+              <MultilingualTextItem ID="A2C" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
                   <Text></Text>
