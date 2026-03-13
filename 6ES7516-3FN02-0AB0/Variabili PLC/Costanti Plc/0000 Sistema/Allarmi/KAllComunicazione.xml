@@ -6,40 +6,40 @@
       <Name>KAllComunicazione</Name>
     </AttributeList>
     <ObjectList>
-      <SW.Tags.PlcUserConstant ID="9A1" CompositionName="UserConstants">
+      <SW.Tags.PlcUserConstant ID="1" CompositionName="UserConstants">
         <AttributeList>
           <DataTypeName>Int</DataTypeName>
           <Name>KAllComun_PUT_Alarm</Name>
           <Value>1</Value>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="9A2" CompositionName="Comment">
+          <MultilingualText ID="2" CompositionName="Comment">
             <ObjectList>
-              <MultilingualTextItem ID="9A3" CompositionName="Items">
+              <MultilingualTextItem ID="3" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
                   <Text>PUT_Alarm</Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="9A4" CompositionName="Items">
+              <MultilingualTextItem ID="4" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
                   <Text>PUT_Alarm</Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="9A5" CompositionName="Items">
+              <MultilingualTextItem ID="5" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
                   <Text>PUT_Alarm</Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="9A6" CompositionName="Items">
+              <MultilingualTextItem ID="6" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
                   <Text>PUT_Alarm</Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="9A7" CompositionName="Items">
+              <MultilingualTextItem ID="7" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
                   <Text>PUT_Alarm</Text>
@@ -49,40 +49,40 @@
           </MultilingualText>
         </ObjectList>
       </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="9A8" CompositionName="UserConstants">
+      <SW.Tags.PlcUserConstant ID="8" CompositionName="UserConstants">
         <AttributeList>
           <DataTypeName>Int</DataTypeName>
           <Name>KAllComun_Get_Alarm</Name>
           <Value>2</Value>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="9A9" CompositionName="Comment">
+          <MultilingualText ID="9" CompositionName="Comment">
             <ObjectList>
-              <MultilingualTextItem ID="9AA" CompositionName="Items">
+              <MultilingualTextItem ID="A" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
                   <Text>Get_Alarm</Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="9AB" CompositionName="Items">
+              <MultilingualTextItem ID="B" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
                   <Text>Get_Alarm</Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="9AC" CompositionName="Items">
+              <MultilingualTextItem ID="C" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
                   <Text>Get_Alarm</Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="9AD" CompositionName="Items">
+              <MultilingualTextItem ID="D" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
                   <Text>Get_Alarm</Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="9AE" CompositionName="Items">
+              <MultilingualTextItem ID="E" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
                   <Text>Get_Alarm</Text>
@@ -92,602 +92,43 @@
           </MultilingualText>
         </ObjectList>
       </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="9AF" CompositionName="UserConstants">
-        <AttributeList>
-          <DataTypeName>Int</DataTypeName>
-          <Name>KALLComunicazione_03</Name>
-          <Value>3</Value>
-        </AttributeList>
-        <ObjectList>
-          <MultilingualText ID="9B0" CompositionName="Comment">
-            <ObjectList>
-              <MultilingualTextItem ID="9B1" CompositionName="Items">
-                <AttributeList>
-                  <Culture>de-DE</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9B2" CompositionName="Items">
-                <AttributeList>
-                  <Culture>en-GB</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9B3" CompositionName="Items">
-                <AttributeList>
-                  <Culture>es-ES</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9B4" CompositionName="Items">
-                <AttributeList>
-                  <Culture>fr-FR</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9B5" CompositionName="Items">
-                <AttributeList>
-                  <Culture>it-IT</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-            </ObjectList>
-          </MultilingualText>
-        </ObjectList>
-      </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="9B6" CompositionName="UserConstants">
-        <AttributeList>
-          <DataTypeName>Int</DataTypeName>
-          <Name>KALLComunicazione_04</Name>
-          <Value>4</Value>
-        </AttributeList>
-        <ObjectList>
-          <MultilingualText ID="9B7" CompositionName="Comment">
-            <ObjectList>
-              <MultilingualTextItem ID="9B8" CompositionName="Items">
-                <AttributeList>
-                  <Culture>de-DE</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9B9" CompositionName="Items">
-                <AttributeList>
-                  <Culture>en-GB</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9BA" CompositionName="Items">
-                <AttributeList>
-                  <Culture>es-ES</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9BB" CompositionName="Items">
-                <AttributeList>
-                  <Culture>fr-FR</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9BC" CompositionName="Items">
-                <AttributeList>
-                  <Culture>it-IT</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-            </ObjectList>
-          </MultilingualText>
-        </ObjectList>
-      </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="9BD" CompositionName="UserConstants">
+      <SW.Tags.PlcUserConstant ID="F" CompositionName="UserConstants">
         <AttributeList>
           <DataTypeName>Int</DataTypeName>
           <Name>KAllComun_Watchdog</Name>
           <Value>5</Value>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="9BE" CompositionName="Comment">
+          <MultilingualText ID="10" CompositionName="Comment">
             <ObjectList>
-              <MultilingualTextItem ID="9BF" CompositionName="Items">
+              <MultilingualTextItem ID="11" CompositionName="Items">
                 <AttributeList>
                   <Culture>de-DE</Culture>
                   <Text>Watchdog</Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="9C0" CompositionName="Items">
+              <MultilingualTextItem ID="12" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-GB</Culture>
                   <Text>Watchdog</Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="9C1" CompositionName="Items">
+              <MultilingualTextItem ID="13" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-ES</Culture>
                   <Text>Watchdog</Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="9C2" CompositionName="Items">
+              <MultilingualTextItem ID="14" CompositionName="Items">
                 <AttributeList>
                   <Culture>fr-FR</Culture>
                   <Text>Watchdog</Text>
                 </AttributeList>
               </MultilingualTextItem>
-              <MultilingualTextItem ID="9C3" CompositionName="Items">
+              <MultilingualTextItem ID="15" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
                   <Text>Watchdog</Text>
-                </AttributeList>
-              </MultilingualTextItem>
-            </ObjectList>
-          </MultilingualText>
-        </ObjectList>
-      </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="9C4" CompositionName="UserConstants">
-        <AttributeList>
-          <DataTypeName>Int</DataTypeName>
-          <Name>KALLComunicazione_06</Name>
-          <Value>6</Value>
-        </AttributeList>
-        <ObjectList>
-          <MultilingualText ID="9C5" CompositionName="Comment">
-            <ObjectList>
-              <MultilingualTextItem ID="9C6" CompositionName="Items">
-                <AttributeList>
-                  <Culture>de-DE</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9C7" CompositionName="Items">
-                <AttributeList>
-                  <Culture>en-GB</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9C8" CompositionName="Items">
-                <AttributeList>
-                  <Culture>es-ES</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9C9" CompositionName="Items">
-                <AttributeList>
-                  <Culture>fr-FR</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9CA" CompositionName="Items">
-                <AttributeList>
-                  <Culture>it-IT</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-            </ObjectList>
-          </MultilingualText>
-        </ObjectList>
-      </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="9CB" CompositionName="UserConstants">
-        <AttributeList>
-          <DataTypeName>Int</DataTypeName>
-          <Name>KALLComunicazione_07</Name>
-          <Value>7</Value>
-        </AttributeList>
-        <ObjectList>
-          <MultilingualText ID="9CC" CompositionName="Comment">
-            <ObjectList>
-              <MultilingualTextItem ID="9CD" CompositionName="Items">
-                <AttributeList>
-                  <Culture>de-DE</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9CE" CompositionName="Items">
-                <AttributeList>
-                  <Culture>en-GB</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9CF" CompositionName="Items">
-                <AttributeList>
-                  <Culture>es-ES</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9D0" CompositionName="Items">
-                <AttributeList>
-                  <Culture>fr-FR</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9D1" CompositionName="Items">
-                <AttributeList>
-                  <Culture>it-IT</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-            </ObjectList>
-          </MultilingualText>
-        </ObjectList>
-      </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="9D2" CompositionName="UserConstants">
-        <AttributeList>
-          <DataTypeName>Int</DataTypeName>
-          <Name>KALLComunicazione_08</Name>
-          <Value>8</Value>
-        </AttributeList>
-        <ObjectList>
-          <MultilingualText ID="9D3" CompositionName="Comment">
-            <ObjectList>
-              <MultilingualTextItem ID="9D4" CompositionName="Items">
-                <AttributeList>
-                  <Culture>de-DE</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9D5" CompositionName="Items">
-                <AttributeList>
-                  <Culture>en-GB</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9D6" CompositionName="Items">
-                <AttributeList>
-                  <Culture>es-ES</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9D7" CompositionName="Items">
-                <AttributeList>
-                  <Culture>fr-FR</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9D8" CompositionName="Items">
-                <AttributeList>
-                  <Culture>it-IT</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-            </ObjectList>
-          </MultilingualText>
-        </ObjectList>
-      </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="9D9" CompositionName="UserConstants">
-        <AttributeList>
-          <DataTypeName>Int</DataTypeName>
-          <Name>KALLComunicazione_09</Name>
-          <Value>9</Value>
-        </AttributeList>
-        <ObjectList>
-          <MultilingualText ID="9DA" CompositionName="Comment">
-            <ObjectList>
-              <MultilingualTextItem ID="9DB" CompositionName="Items">
-                <AttributeList>
-                  <Culture>de-DE</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9DC" CompositionName="Items">
-                <AttributeList>
-                  <Culture>en-GB</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9DD" CompositionName="Items">
-                <AttributeList>
-                  <Culture>es-ES</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9DE" CompositionName="Items">
-                <AttributeList>
-                  <Culture>fr-FR</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9DF" CompositionName="Items">
-                <AttributeList>
-                  <Culture>it-IT</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-            </ObjectList>
-          </MultilingualText>
-        </ObjectList>
-      </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="9E0" CompositionName="UserConstants">
-        <AttributeList>
-          <DataTypeName>Int</DataTypeName>
-          <Name>KALLComunicazione_10</Name>
-          <Value>10</Value>
-        </AttributeList>
-        <ObjectList>
-          <MultilingualText ID="9E1" CompositionName="Comment">
-            <ObjectList>
-              <MultilingualTextItem ID="9E2" CompositionName="Items">
-                <AttributeList>
-                  <Culture>de-DE</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9E3" CompositionName="Items">
-                <AttributeList>
-                  <Culture>en-GB</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9E4" CompositionName="Items">
-                <AttributeList>
-                  <Culture>es-ES</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9E5" CompositionName="Items">
-                <AttributeList>
-                  <Culture>fr-FR</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9E6" CompositionName="Items">
-                <AttributeList>
-                  <Culture>it-IT</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-            </ObjectList>
-          </MultilingualText>
-        </ObjectList>
-      </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="9E7" CompositionName="UserConstants">
-        <AttributeList>
-          <DataTypeName>Int</DataTypeName>
-          <Name>KALLComunicazione_11</Name>
-          <Value>11</Value>
-        </AttributeList>
-        <ObjectList>
-          <MultilingualText ID="9E8" CompositionName="Comment">
-            <ObjectList>
-              <MultilingualTextItem ID="9E9" CompositionName="Items">
-                <AttributeList>
-                  <Culture>de-DE</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9EA" CompositionName="Items">
-                <AttributeList>
-                  <Culture>en-GB</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9EB" CompositionName="Items">
-                <AttributeList>
-                  <Culture>es-ES</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9EC" CompositionName="Items">
-                <AttributeList>
-                  <Culture>fr-FR</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9ED" CompositionName="Items">
-                <AttributeList>
-                  <Culture>it-IT</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-            </ObjectList>
-          </MultilingualText>
-        </ObjectList>
-      </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="9EE" CompositionName="UserConstants">
-        <AttributeList>
-          <DataTypeName>Int</DataTypeName>
-          <Name>KALLComunicazione_12</Name>
-          <Value>12</Value>
-        </AttributeList>
-        <ObjectList>
-          <MultilingualText ID="9EF" CompositionName="Comment">
-            <ObjectList>
-              <MultilingualTextItem ID="9F0" CompositionName="Items">
-                <AttributeList>
-                  <Culture>de-DE</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9F1" CompositionName="Items">
-                <AttributeList>
-                  <Culture>en-GB</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9F2" CompositionName="Items">
-                <AttributeList>
-                  <Culture>es-ES</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9F3" CompositionName="Items">
-                <AttributeList>
-                  <Culture>fr-FR</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9F4" CompositionName="Items">
-                <AttributeList>
-                  <Culture>it-IT</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-            </ObjectList>
-          </MultilingualText>
-        </ObjectList>
-      </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="9F5" CompositionName="UserConstants">
-        <AttributeList>
-          <DataTypeName>Int</DataTypeName>
-          <Name>KALLComunicazione_13</Name>
-          <Value>13</Value>
-        </AttributeList>
-        <ObjectList>
-          <MultilingualText ID="9F6" CompositionName="Comment">
-            <ObjectList>
-              <MultilingualTextItem ID="9F7" CompositionName="Items">
-                <AttributeList>
-                  <Culture>de-DE</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9F8" CompositionName="Items">
-                <AttributeList>
-                  <Culture>en-GB</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9F9" CompositionName="Items">
-                <AttributeList>
-                  <Culture>es-ES</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9FA" CompositionName="Items">
-                <AttributeList>
-                  <Culture>fr-FR</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9FB" CompositionName="Items">
-                <AttributeList>
-                  <Culture>it-IT</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-            </ObjectList>
-          </MultilingualText>
-        </ObjectList>
-      </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="9FC" CompositionName="UserConstants">
-        <AttributeList>
-          <DataTypeName>Int</DataTypeName>
-          <Name>KALLComunicazione_14</Name>
-          <Value>14</Value>
-        </AttributeList>
-        <ObjectList>
-          <MultilingualText ID="9FD" CompositionName="Comment">
-            <ObjectList>
-              <MultilingualTextItem ID="9FE" CompositionName="Items">
-                <AttributeList>
-                  <Culture>de-DE</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="9FF" CompositionName="Items">
-                <AttributeList>
-                  <Culture>en-GB</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="A00" CompositionName="Items">
-                <AttributeList>
-                  <Culture>es-ES</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="A01" CompositionName="Items">
-                <AttributeList>
-                  <Culture>fr-FR</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="A02" CompositionName="Items">
-                <AttributeList>
-                  <Culture>it-IT</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-            </ObjectList>
-          </MultilingualText>
-        </ObjectList>
-      </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="A03" CompositionName="UserConstants">
-        <AttributeList>
-          <DataTypeName>Int</DataTypeName>
-          <Name>KALLComunicazione_15</Name>
-          <Value>15</Value>
-        </AttributeList>
-        <ObjectList>
-          <MultilingualText ID="A04" CompositionName="Comment">
-            <ObjectList>
-              <MultilingualTextItem ID="A05" CompositionName="Items">
-                <AttributeList>
-                  <Culture>de-DE</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="A06" CompositionName="Items">
-                <AttributeList>
-                  <Culture>en-GB</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="A07" CompositionName="Items">
-                <AttributeList>
-                  <Culture>es-ES</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="A08" CompositionName="Items">
-                <AttributeList>
-                  <Culture>fr-FR</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="A09" CompositionName="Items">
-                <AttributeList>
-                  <Culture>it-IT</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-            </ObjectList>
-          </MultilingualText>
-        </ObjectList>
-      </SW.Tags.PlcUserConstant>
-      <SW.Tags.PlcUserConstant ID="A0A" CompositionName="UserConstants">
-        <AttributeList>
-          <DataTypeName>Int</DataTypeName>
-          <Name>KALLComunicazione_16</Name>
-          <Value>16</Value>
-        </AttributeList>
-        <ObjectList>
-          <MultilingualText ID="A0B" CompositionName="Comment">
-            <ObjectList>
-              <MultilingualTextItem ID="A0C" CompositionName="Items">
-                <AttributeList>
-                  <Culture>de-DE</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="A0D" CompositionName="Items">
-                <AttributeList>
-                  <Culture>en-GB</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="A0E" CompositionName="Items">
-                <AttributeList>
-                  <Culture>es-ES</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="A0F" CompositionName="Items">
-                <AttributeList>
-                  <Culture>fr-FR</Culture>
-                  <Text></Text>
-                </AttributeList>
-              </MultilingualTextItem>
-              <MultilingualTextItem ID="A10" CompositionName="Items">
-                <AttributeList>
-                  <Culture>it-IT</Culture>
-                  <Text></Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
