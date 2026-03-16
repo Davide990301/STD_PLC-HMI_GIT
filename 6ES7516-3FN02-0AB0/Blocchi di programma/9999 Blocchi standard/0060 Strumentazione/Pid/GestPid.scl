@@ -4,7 +4,7 @@ VERSION : 0.1
    VAR_INPUT 
       K_Zona : Int;   // Passare la costante che indica la zona in cui lavora il pid
       K_Pid : Int;   // Passare la costante che indica il numero del PID
-      K_Analogica : Int;   // Passare la costante che indica il numero del PID
+      K_Analogica : Int;   // Passare la costante che indica il numero dell'analogica
    END_VAR
 
    VAR_IN_OUT 
