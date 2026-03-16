@@ -1,0 +1,280 @@
+﻿FUNCTION "GestParatia_Posizionamenti" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_TEMP 
+      NumeroParatia : Int;   // Numero attuale della paratia usato nei cicli
+      IndiceLince : Int;
+      MiaLinceDest : Int;
+      SetpointAutomatico : Real;   // Setopoint passato alla paratia attualmente
+      PercentualeScartata : Real;   // Totale del prodotto che attualmente viene scartato
+      PercentualeGestita : Real;
+      PercentualeScartataPrecedentemente : Real;
+      PercentualeGestitaPrecedentemente : Real;
+      DistanzaDalTarget : Real;   // DIstanza tra l'apertura della paratia attuale e la percentuale a cui deve portarsi
+      PercGestitaPrecMaggioreZero : Bool;
+      Target : Real;   // Posizione percentuale della paratia a cui portarsi
+      TargetPrecedente : Real;   // Apertura della paratia precedente da cui partire ad aprire per quella successiva
+      ScartoPesatoDaColmare : Real;   // Scarto totale distribuito
+      TargetTotale : Real;   // Totale del target richiesto
+      ForzataChiusa : Bool;
+      NumeroParatieConfigurate : Int;   // Numero di paratie configurate fuori dal blocco
+      NumeroParatieAbilitate : Real;   // Numero di paratie abilitate al funzionamento
+      NumeroParatieAperte : Int;
+      NumeroParatieApertePrecedentemente : Int;
+      TargetParatiaAttuale : Real;   // Utilizzato per confrontare il valore per i limiti
+      TargetParatiaPrecedente : Real;   // Utilizzato per confrontare il valore per i limiti
+      PulsanteIncrementaPremuto : Bool;
+      PulsanteDecrementaPremuto : Bool;
+      CicloIncrementoNecessario : Bool;
+      CicloDecrementoNecessario : Bool;
+      KParatia : Int;
+      DisabilitaAltriAllarmi : Bool;
+      MioProdotto : Real;
+      NumeroQuota : Int;
+      NumeroParatiaRichiesta : Int;
+      TotalePesi : Real;
+      ProdottoRichiesto : Array[0.."K_NumParatia"] of Real;
+      UltimaQuotaValida : Int;
+      QuotaTrovata : Array[0.."K_NumParatia"] of Int;
+      ProdottoTotale : Real;
+      TargetExtraRidistributito : Real;
+      TargetRichiesto : Real;
+   END_VAR
+
+
+BEGIN
+	REGION Inizializzazione dati paratie
+	    IF "Paratia".Funzioni.PosizionamentiAutomatici THEN
+	        #NumeroParatieConfigurate := 0;                                                                                             //Inizializzo il numero di paratie configurate
+	        #NumeroParatieAbilitate := 0.0;                                                                                             //Inizializzo il numero di paratie abilitate
+	        #CicloDecrementoNecessario :=
+	        #CicloIncrementoNecessario := False;
+	        FOR #NumeroParatia := 1 TO "K_NumParatia" DO                                                                                //Per ogni paratia dell'array
+	            IF "Paratia".Posizionamento.Paratia[#NumeroParatia].K_Paratia <> 0 THEN                                                 //Se il valore è diverso da zero signifca che la paratia è inserita
+	                #NumeroParatieConfigurate += 1;                                                                                     //Conto ogni paratia configurata
+	                "Paratia".Posizionamento.Paratia[#NumeroParatia].PosizioneAttuale :=                                                //Intanto leggo
+	                "Paratia".P["Paratia".Posizionamento.Paratia[#NumeroParatia].K_Paratia].Dati.PosizioneAttuale;                      //la posizione attuale
+	                "Paratia".P["Paratia".Posizionamento.Paratia[#NumeroParatia].K_Paratia].Hmi.SetpointBloccato := True;               //Setopoint bloccato da HMI perchè calcolato
+	                IF "Paratia".Posizionamento.Paratia[#NumeroParatia].Abilitazione THEN                                               //Se la partia è abilitata al fuzionamento
+	                    #NumeroParatieAbilitate += 1;                                                                                   //la conto
+	                ELSE                                                                                                                //altrimenti
+	                    "Paratia".Posizionamento.Paratia[#NumeroParatia].Target := 0.0;                                                 //azzero il target
+	                END_IF;
+	                REGION Gestione dei target automatici
+	                    #MiaLinceDest := 0;
+	                    FOR #IndiceLince := 0 TO "K_NumLinci" DO
+	                        IF "Paratia".Posizionamento.Paratia[#NumeroParatia].VersoLince[#IndiceLince].PercorsoAttivo THEN
+	                            #MiaLinceDest := #IndiceLince;
+	                        END_IF;
+	                    END_FOR;
+	
+	                    IF "Paratia".Posizionamento.TargetAutomatico THEN
+	                        IF #MiaLinceDest <> 0 THEN
+	                            #TargetRichiesto := "Paratia".ProdottoNecessario.Lince[#MiaLinceDest].ProdottoRichiestoASorgenti + "Paratia".ProdottoNecessario.Lince[#MiaLinceDest].TotaleProdottoExtraTraSorgenti;
+	                            "Paratia".Posizionamento.Paratia[#NumeroParatia].Target := LIMIT_REAL(IN := #TargetRichiesto, MN := 0, MX := "Paratia".Posizionamento.Paratia[#NumeroParatia].MassimoProdottoGestibile);
+	                        ELSE
+	                            "Paratia".Posizionamento.Paratia[#NumeroParatia].Target := 0.0;
+	                        END_IF;
+	                    END_IF;
+	                END_REGION ;
+	                REGION Gestione lettura dei pulsanti premuta
+	                    IF NOT "Paratia".Posizionamento.TargetAutomatico THEN
+	                        #PulsanteIncrementaPremuto := "Paratia".P["Paratia".Posizionamento.Paratia[#NumeroParatia].K_Paratia].In.PulsanteIncrementa OR
+	                        "Paratia".P["Paratia".Posizionamento.Paratia[#NumeroParatia].K_Paratia].Hmi.PulsanteIncrementa;
+	                        #PulsanteDecrementaPremuto := "Paratia".P["Paratia".Posizionamento.Paratia[#NumeroParatia].K_Paratia].In.PulsanteDecrementa OR
+	                        "Paratia".P["Paratia".Posizionamento.Paratia[#NumeroParatia].K_Paratia].Hmi.PulsanteDecrementa;
+	                        "Paratia".Posizionamento.Paratia[#NumeroParatia].PulsanteIncrementa_Premuto := #PulsanteIncrementaPremuto;
+	                        "Paratia".Posizionamento.Paratia[#NumeroParatia].PulsanteDecrementa_Premuto := #PulsanteDecrementaPremuto;
+	                        IF "Paratia".Posizionamento.Paratia[#NumeroParatia].PulsanteIncrementa_Premuto AND NOT "Paratia".Posizionamento.Paratia[#NumeroParatia].PulsanteIncrementa_Precedente THEN
+	                            IF "Paratia".Posizionamento.Paratia[#NumeroParatia].Target < "Paratia".Posizionamento.Paratia[#NumeroParatia].MassimoProdottoGestibile THEN
+	                                #CicloDecrementoNecessario := True;
+	                                "Paratia".Posizionamento.Paratia[#NumeroParatia].Target += #NumeroParatieAbilitate;
+	                            END_IF;
+	                            IF "Paratia".Posizionamento.Paratia[#NumeroParatia].PulsanteDecrementa_Premuto AND NOT "Paratia".Posizionamento.Paratia[#NumeroParatia].PulsanteDecrementa_Precedente THEN
+	                                #CicloIncrementoNecessario := True;
+	                                "Paratia".Posizionamento.Paratia[#NumeroParatia].Target -= #NumeroParatieAbilitate;
+	                            END_IF;
+	                        END_IF;
+	                        "Paratia".Posizionamento.Paratia[#NumeroParatia].PulsanteIncrementa_Precedente := "Paratia".Posizionamento.Paratia[#NumeroParatia].PulsanteIncrementa_Premuto;
+	                        "Paratia".Posizionamento.Paratia[#NumeroParatia].PulsanteDecrementa_Precedente := "Paratia".Posizionamento.Paratia[#NumeroParatia].PulsanteDecrementa_Premuto;
+	                    END_IF;
+	                END_REGION ;
+	            END_IF;                                                                                                                 //
+	        END_FOR;                                                                                                                    //
+	        IF "Paratia".Posizionamento.EquidistribuzioneCarico THEN                                                                    //Se viene richiesto di equidistribuire 
+	            FOR #NumeroParatia := 1 TO #NumeroParatieConfigurate DO                                                                 //per ogni paratia configurata
+	                IF "Paratia".Posizionamento.Paratia[#NumeroParatia].Abilitazione THEN                                               //controllo se è abilitata
+	                    "Paratia".Posizionamento.Paratia[#NumeroParatia].Target := 100.0 / #NumeroParatieAbilitate;                     //e in caso assegno il valore
+	                END_IF;                                                                                                             //
+	            END_FOR;                                                                                                                //
+	        END_IF;
+	    ELSE
+	        FOR #NumeroParatia := 1 TO "K_NumParatia" DO                                                                                //Per ogni paratia dell'array
+	            "Paratia".P[#NumeroParatia].Hmi.SetpointBloccato := False;                                                              //Setopoint NON bloccato da HMI perchè calcolato
+	        END_FOR;
+	    END_IF;
+	END_REGION ;                                                                                                                        //
+	REGION Calcolo percentuali di apertura per ogni paratia                                                                             //
+	    IF "Paratia".Funzioni.PosizionamentiAutomatici THEN
+	        #TargetPrecedente := #PercentualeScartata := #SetpointAutomatico := 0.0;                                                    //Pulizia dei dati
+	        #NumeroParatieAperte := 0;                                                                                                  //Pulizia dei dati
+	        #PercentualeScartataPrecedentemente := "Paratia".Posizionamento.PercentualeScartata;                                        //Rileggo la percetnuale scartata
+	        #PercentualeGestitaPrecedentemente := "Paratia".Posizionamento.PercentualeGestita;                                          //Rileggo la percetnuale gestita
+	        #NumeroParatieApertePrecedentemente := "Paratia".Posizionamento.NumeroParatieAperte;                                        //Rileggo il numero di paratie aperte
+	        FOR #NumeroParatia := 1 TO #NumeroParatieConfigurate DO                                                                     //Per ogni paratia che devo gestire
+	            IF "Paratia".Posizionamento.Paratia[#NumeroParatia].Target <> 0.0 THEN
+	                IF #CicloIncrementoNecessario THEN
+	                    "Paratia".Posizionamento.Paratia[#NumeroParatia].Target += 1;
+	                END_IF;
+	                IF #CicloDecrementoNecessario THEN
+	                    "Paratia".Posizionamento.Paratia[#NumeroParatia].Target -= 1;
+	                END_IF;
+	            END_IF;
+	            #Target := "Paratia".Posizionamento.Paratia[#NumeroParatia].Target;                                                     //Leggo il target da HMI
+	            #PercGestitaPrecMaggioreZero := #PercentualeGestitaPrecedentemente > 0.0;                                               //Per evitare divisioni per zero
+	            IF #NumeroParatieApertePrecedentemente = 1 THEN                                                                         //Se c'è solo una paratia aperta
+	                #ScartoPesatoDaColmare := 100.0 - #Target;                                                                          //L'unica paratia aperta si prende tutto lo scarto
+	            ELSIF #PercGestitaPrecMaggioreZero THEN                                                                                 //Altrimenti
+	                #ScartoPesatoDaColmare := (#PercentualeScartataPrecedentemente / #PercentualeGestitaPrecedentemente) * #Target;     //Le paratie aperta suddividono il carico in proporzione
+	            ELSE
+	                #ScartoPesatoDaColmare := 0.0;
+	            END_IF;
+	            IF NOT "Paratia".Posizionamento.AbilitazioneGestioneScarti THEN
+	                #ScartoPesatoDaColmare := 0.0;
+	            END_IF;
+	            "Paratia".Posizionamento.Paratia[#NumeroParatia].PercentualeDaTarget := #Target;                                        //Scrivo il target comandato
+	            "Paratia".Posizionamento.Paratia[#NumeroParatia].PercentualeDaScarto := #ScartoPesatoDaColmare;                         //Scrivo lo scarto che questa paratia deve compensare
+	            "Paratia".Posizionamento.Paratia[#NumeroParatia].OffsetDaPrecedente := #TargetPrecedente;                               //Scrivo la percentuale per offset posizionametno
+	            "Paratia".Posizionamento.Paratia[#NumeroParatia].Diagnostica.PresaInCaricoDiExtraProdotto := #ScartoPesatoDaColmare > 0.0;
+	            #MioProdotto := #Target + #ScartoPesatoDaColmare;                                                                       //Calcolo il prodotto effettivo che ricevo
+	            IF #MioProdotto > "Paratia".Posizionamento.Paratia[#NumeroParatia].MassimoProdottoGestibile THEN                        //Se supera il massimo prodotto che posso gestire
+	                #MioProdotto := "Paratia".Posizionamento.Paratia[#NumeroParatia].MassimoProdottoGestibile;                          //Limito
+	                "Paratia".Posizionamento.Paratia[#NumeroParatia].Diagnostica.MassimoValoreApertura := True;                         //Alzo la diagnostica per segnalare
+	            ELSE                                                                                                                    //Altrimenti
+	                "Paratia".Posizionamento.Paratia[#NumeroParatia].Diagnostica.MassimoValoreApertura := False;                        //Resetto la diagnostica
+	            END_IF;
+	            IF "Paratia".Posizionamento.Paratia[#NumeroParatia].StatoAperta THEN
+	                "Paratia".Posizionamento.Paratia[#NumeroParatia].Richieste.PercProdottoRichiesto := #MioProdotto;
+	            ELSE
+	                "Paratia".Posizionamento.Paratia[#NumeroParatia].Richieste.PercProdottoRichiesto := 0.0;
+	            END_IF;
+	            IF "Paratia".Posizionamento.AbilitazioneCalcoloDistribuzione THEN
+	                #SetpointAutomatico := "Paratia".Posizionamento.Paratia[#NumeroParatia].Richieste.QuotaTrovata;                     //Percentuale trovata in base alla distribuzione sul trasporto
+	            ELSE
+	                #SetpointAutomatico := #TargetPrecedente + #MioProdotto;
+	            END_IF;
+	            IF #SetpointAutomatico > 0 THEN
+	                "Paratia".Posizionamento.Paratia[#NumeroParatia].PercentualeDaGestire := #Target + #ScartoPesatoDaColmare;
+	                IF "Paratia".Posizionamento.Paratia[#NumeroParatia].PercentualeDaGestire > "Paratia".Posizionamento.Paratia[#NumeroParatia].MassimoProdottoGestibile THEN
+	                    "Paratia".Posizionamento.Paratia[#NumeroParatia].PercentualeDaGestire := "Paratia".Posizionamento.Paratia[#NumeroParatia].MassimoProdottoGestibile;
+	                END_IF;
+	            ELSE
+	                "Paratia".Posizionamento.Paratia[#NumeroParatia].PercentualeDaGestire := 0.0;
+	            END_IF;
+	            #ForzataChiusa := "Paratia".P["Paratia".Posizionamento.Paratia[#NumeroParatia].K_Paratia].Dati.ForzataChiusa;           //Appoggio il valore sulla temporanea
+	            "Paratia".Posizionamento.Paratia[#NumeroParatia].Diagnostica.ParatiaForzataChiusa := #ForzataChiusa;
+	            IF NOT #ForzataChiusa AND #Target > 0.0 THEN                                                                            //Se la paratia non deve essere chiusa
+	                "Paratia".P["Paratia".Posizionamento.Paratia[#NumeroParatia].K_Paratia].In.SetpointAuto := #SetpointAutomatico;     //Mando la paratia al target calcolato
+	                #TargetPrecedente += #Target + #ScartoPesatoDaColmare;                                                              //E salvo il target per dopo
+	                #NumeroParatieAperte += 1;                                                                                          //Conto per sapere quante partie ho aperte
+	                #PercentualeGestita += #Target;                                                                                     //Incremento per sapere quanto sto gestendo
+	                "Paratia".Posizionamento.Paratia[#NumeroParatia].StatoAperta := True;
+	            ELSE                                                                                                                    //Altrimenti
+	                "Paratia".P["Paratia".Posizionamento.Paratia[#NumeroParatia].K_Paratia].In.SetpointAuto := 0.0;                     //Le chiedo di chiudersi
+	                #PercentualeScartata += #Target;                                                                                    //E calcolo il target da recuperare
+	                "Paratia".Posizionamento.Paratia[#NumeroParatia].StatoAperta := False;
+	            END_IF;                                                                                                                 //
+	        END_FOR;                                                                                                                    //
+	        "Paratia".Posizionamento.PercentualeScartata := #PercentualeScartata;                                                       //Appoggio lo scarto totale per il ciclo successivo
+	        "Paratia".Posizionamento.PercentualeGestita := #PercentualeGestita;                                                         //Appoggio il gestito totale per il ciclo successivo
+	        "Paratia".Posizionamento.NumeroParatieAperte := #NumeroParatieAperte;                                                       //Appoggio il numero di paratie aperte per il ciclo successivo
+	    ELSE
+	        FOR #NumeroParatia := 1 TO #NumeroParatieConfigurate DO
+	            "Paratia".Posizionamento.Paratia[#NumeroParatia].StatoAperta := False;
+	        END_FOR;
+	    END_IF;
+	END_REGION ;                                                                                                                    //
+	REGION Diagnostica
+	    FOR #NumeroParatia := 1 TO #NumeroParatieConfigurate DO
+	        #KParatia := "Paratia".Posizionamento.Paratia[#NumeroParatia].K_Paratia;
+	        "Paratia".Posizionamento.Paratia[#NumeroParatia].Diagnostica.TermicoScattato := "Paratia".P[#KParatia].Allarmi.A[2].Stato;
+	        "Paratia".Posizionamento.Paratia[#NumeroParatia].Diagnostica.SezionatoreAperto := "Paratia".P[#KParatia].Allarmi.A[3].Stato;
+	        "Paratia".Posizionamento.Paratia[#NumeroParatia].Diagnostica.OvertimeMovimento := "Paratia".P[#KParatia].Allarmi.A[1].Stato;
+	        "Paratia".Posizionamento.Paratia[#NumeroParatia].Diagnostica.ParatiaDisabilitata := NOT "Paratia".Posizionamento.Paratia[#NumeroParatia].Abilitazione;
+	        "Paratia".Posizionamento.Paratia[#NumeroParatia].Diagnostica.ParatiaNonInAutomatico := NOT "Paratia".P[#KParatia].Hmi.Auto;
+	        "Paratia".Posizionamento.Paratia[#NumeroParatia].Diagnostica.ParatiaForzataChiusa := NOT "Paratia".Posizionamento.Paratia[#NumeroParatia].StatoAperta;
+	        "Paratia".Posizionamento.Paratia[#NumeroParatia].Diagnostica.GestioneScartiDisabilitata := NOT "Paratia".Posizionamento.AbilitazioneGestioneScarti;
+	        
+	        #DisabilitaAltriAllarmi := False;
+	        
+	        IF "Paratia".Posizionamento.Paratia[#NumeroParatia].Diagnostica.ParatiaNonInAutomatico OR
+	            "Paratia".Posizionamento.Paratia[#NumeroParatia].Diagnostica.ParatiaDisabilitata OR
+	            "Paratia".Posizionamento.Paratia[#NumeroParatia].Diagnostica.ParatiaForzataChiusa
+	        THEN
+	            "Paratia".Posizionamento.Paratia[#NumeroParatia].Diagnostica.GestioneScartiDisabilitata :=
+	            "Paratia".Posizionamento.Paratia[#NumeroParatia].Diagnostica.PresaInCaricoDiExtraProdotto :=
+	            "Paratia".Posizionamento.Paratia[#NumeroParatia].Diagnostica.MassimoValoreApertura := False;
+	        END_IF;
+	        
+	    END_FOR;
+	END_REGION ;
+	REGION Gestione del target                                                                                                      //Gestione del limite del target
+	    IF "Paratia".Funzioni.PosizionamentiAutomatici THEN
+	        FOR #NumeroParatia := 1 TO #NumeroParatieConfigurate DO                                                                     //Per ogni paratia gestita
+	            IF "Paratia".Posizionamento.Paratia[#NumeroParatia].Target > 100.0 THEN
+	                "Paratia".Posizionamento.Paratia[#NumeroParatia].Target := 100.0;
+	            END_IF;
+	            IF "Paratia".Posizionamento.Paratia[#NumeroParatia].Target < 0.0 THEN
+	                "Paratia".Posizionamento.Paratia[#NumeroParatia].Target := 0.0;
+	            END_IF;
+	            #TargetTotale += "Paratia".Posizionamento.Paratia[#NumeroParatia].Target;                                               //Incremento il target richiesto
+	        END_FOR;                                                                                                                    //
+	        IF #TargetTotale > 100.0 THEN                                                                                               //Se il target è maggiore di 100
+	            FOR #NumeroParatia := 1 TO #NumeroParatieConfigurate DO                                                                 //Verifico ogni paratia per vedere chi è cambiato
+	                #TargetParatiaAttuale := "Paratia".Posizionamento.Paratia[#NumeroParatia].Target;                                   //Leggo il target della paratia attuale
+	                #TargetParatiaPrecedente := "Paratia".Posizionamento.Paratia[#NumeroParatia].TargetOld;                             //Leggo quanto valeva al giro precedente
+	                IF #TargetParatiaAttuale <> #TargetParatiaPrecedente THEN                                                           //Se il valore è cambiato
+	                    #TargetParatiaAttuale := #TargetParatiaPrecedente;                                                              //Lo rimetto al valore di prima
+	                END_IF;                                                                                                             //
+	                "Paratia".Posizionamento.Paratia[#NumeroParatia].Target := #TargetParatiaAttuale;                                   //Riscrivo con il valore corretto, se necessario.
+	            END_FOR;                                                                                                                //
+	        ELSE                                                                                                                        //Se il target non ha sforzato il massimo
+	            FOR #NumeroParatia := 1 TO #NumeroParatieConfigurate DO                                                                 //Per ogno paratia
+	                "Paratia".Posizionamento.Paratia[#NumeroParatia].TargetOld :=                                                       //Sovrascrivo il valore precedente
+	                "Paratia".Posizionamento.Paratia[#NumeroParatia].Target;                                                            //Con il valore attuale (per il prossimo giro)
+	            END_FOR;                                                                                                                //
+	        END_IF;
+	        "Paratia".Posizionamento.ProdottoAssegnato := #TargetTotale;
+	        "Paratia".Posizionamento.ProdottoNonAssegnato := 100.0 - #TargetTotale;
+	    END_IF;
+	END_REGION ;
+	REGION Posizionamento con distribuzione del nastro
+	    #ProdottoTotale := 0.0;
+	    FOR #NumeroQuota := 0 TO 99 DO
+	        #ProdottoTotale += "Paratia".Posizionamento.DistribuzioneProdottoNastro.Quota[#NumeroQuota];
+	    END_FOR;
+	    FOR #NumeroParatiaRichiesta := 0 TO "K_NumParatia" DO
+	        #ProdottoRichiesto[#NumeroParatiaRichiesta] := #ProdottoTotale * "Paratia".Posizionamento.Paratia[#NumeroParatiaRichiesta].Richieste.PercProdottoRichiesto / 100.0;
+	    END_FOR;
+	    FOR #NumeroParatiaRichiesta := 0 TO "K_NumParatia" DO
+	        #QuotaTrovata[#NumeroParatiaRichiesta] := 0;
+	    END_FOR;
+	    #TotalePesi := 0.0;
+	    #NumeroParatiaRichiesta := 0;
+	    FOR #NumeroQuota := 0 TO 99 DO
+	        #TotalePesi += "Paratia".Posizionamento.DistribuzioneProdottoNastro.Quota[#NumeroQuota];
+	        IF #NumeroParatiaRichiesta <= "K_NumParatia" THEN
+	            IF #TotalePesi > #ProdottoRichiesto[#NumeroParatiaRichiesta] THEN
+	                #NumeroParatiaRichiesta += 1;
+	                #TotalePesi := 0;
+	            ELSE
+	                #QuotaTrovata[#NumeroParatiaRichiesta] := #NumeroQuota + 1;
+	            END_IF;
+	        END_IF;
+	    END_FOR;
+	    FOR #NumeroParatiaRichiesta := 0 TO "K_NumParatia" DO
+	        "Paratia".Posizionamento.Paratia[#NumeroParatiaRichiesta].Richieste.QuotaTrovata := #QuotaTrovata[#NumeroParatiaRichiesta];
+	    END_FOR;
+	END_REGION ;
+END_FUNCTION
+

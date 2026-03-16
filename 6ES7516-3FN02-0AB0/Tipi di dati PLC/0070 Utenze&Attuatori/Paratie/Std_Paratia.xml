@@ -6,34 +6,93 @@
       <Interface>
         <Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v5">
           <Section Name="None">
+            <Member Name="In" Datatype="Struct">
+              <Member Name="SetpointAuto" Datatype="Real" />
+              <Member Name="PulsanteIncrementa" Datatype="Bool" />
+              <Member Name="PulsanteDecrementa" Datatype="Bool" />
+              <Member Name="TermicoIntervenuto" Datatype="Bool" />
+              <Member Name="FinecorsaPositivo" Datatype="Bool" />
+              <Member Name="FinecorsaNegativo" Datatype="Bool" />
+              <Member Name="AbilitazioneMovimento" Datatype="Bool" />
+            </Member>
             <Member Name="Prm" Datatype="Struct">
               <Member Name="IsteresiComando" Datatype="Real" />
-              <Member Name="SogliaAltaVelcoità" Datatype="Real" />
-              <Member Name="UnitàMisura" Datatype="&quot;Std_UnitàDiMisura&quot;" />
+              <Member Name="UnitaMisura" Datatype="&quot;Std_UnitàDiMisura&quot;" />
+              <Member Name="AbilitazioneInterpolazione" Datatype="Bool">
+                <AttributeList>
+                  <BooleanAttribute Name="SetPoint" SystemDefined="true">true</BooleanAttribute>
+                </AttributeList>
+                <StartValue>False</StartValue>
+              </Member>
+              <Member Name="Interpolazione" Datatype="Array[0..5] of Struct">
+                <Member Name="Setpoint" Datatype="Real">
+                  <Subelement Path="0">
+                    <StartValue>0.0</StartValue>
+                  </Subelement>
+                  <Subelement Path="1">
+                    <StartValue>20.0</StartValue>
+                  </Subelement>
+                  <Subelement Path="2">
+                    <StartValue>40.0</StartValue>
+                  </Subelement>
+                  <Subelement Path="3">
+                    <StartValue>60.0</StartValue>
+                  </Subelement>
+                  <Subelement Path="4">
+                    <StartValue>80.0</StartValue>
+                  </Subelement>
+                  <Subelement Path="5">
+                    <StartValue>100.0</StartValue>
+                  </Subelement>
+                </Member>
+                <Member Name="Valore" Datatype="Real">
+                  <Subelement Path="0">
+                    <StartValue>0.0</StartValue>
+                  </Subelement>
+                  <Subelement Path="1">
+                    <StartValue>20.0</StartValue>
+                  </Subelement>
+                  <Subelement Path="2">
+                    <StartValue>40.0</StartValue>
+                  </Subelement>
+                  <Subelement Path="3">
+                    <StartValue>60.0</StartValue>
+                  </Subelement>
+                  <Subelement Path="4">
+                    <StartValue>80.0</StartValue>
+                  </Subelement>
+                  <Subelement Path="5">
+                    <StartValue>100.0</StartValue>
+                  </Subelement>
+                </Member>
+              </Member>
             </Member>
             <Member Name="Dati" Datatype="Struct">
-              <Member Name="PosAttuale" Datatype="Real" />
+              <Member Name="AnalogicaReale" Datatype="Real" />
+              <Member Name="PosizioneAttuale" Datatype="Real" />
               <Member Name="IncrementaUscita" Datatype="Bool" />
-              <Member Name="QuotaSopraSoglia" Datatype="Bool" />
-              <Member Name="QuotaSogliaVeloce" Datatype="Bool" />
-              <Member Name="MemSalitaLenta" Datatype="Bool" />
-              <Member Name="MemSalitaVeloce" Datatype="Bool" />
-              <Member Name="MemDiscesaLenta" Datatype="Bool" />
-              <Member Name="MemDiscesaVeloce" Datatype="Bool" />
-              <Member Name="SpostamentoAttuale" Datatype="Real" />
               <Member Name="PosizionePrecedente" Datatype="Real" />
-              <Member Name="SpostatmentoTot" Datatype="Real">
+              <Member Name="DeltaMovimentoTotale" Datatype="Real">
                 <AttributeList>
                   <BooleanAttribute Name="SetPoint" SystemDefined="true">true</BooleanAttribute>
                 </AttributeList>
               </Member>
-              <Member Name="BloccoRichiamato" Datatype="Bool" />
+              <Member Name="DeltaMovimentoTotalePrecedente" Datatype="Real" />
+              <Member Name="VerificaOvertime" Datatype="Bool" />
+              <Member Name="InAllarme" Datatype="Bool" />
+              <Member Name="ForzataChiusa" Datatype="Bool">
+                <Comment>
+                  <MultiLanguageText Lang="it-IT">La paratia viene chiusa da condizioni esterne</MultiLanguageText>
+                </Comment>
+              </Member>
             </Member>
             <Member Name="Hmi" Datatype="Struct">
               <Member Name="Auto" Datatype="Bool" />
               <Member Name="Man" Datatype="Bool" />
               <Member Name="PulsanteIncrementa" Datatype="Bool" />
               <Member Name="PulsanteDecrementa" Datatype="Bool" />
+              <Member Name="Simulazione" Datatype="Bool" />
+              <Member Name="SetpointBloccato" Datatype="Bool" />
             </Member>
             <Member Name="Allarmi" Datatype="Struct">
               <Member Name="TimerRitMov" Datatype="&quot;Std_stTimer&quot;" />
@@ -46,21 +105,25 @@
                 </Sections>
                 <Subelement Path="1">
                   <Comment>
-                    <MultiLanguageText Lang="it-IT">OvertimeMovimento</MultiLanguageText>
+                    <MultiLanguageText Lang="it-IT">Overtime di movimento</MultiLanguageText>
                   </Comment>
                 </Subelement>
                 <Subelement Path="2">
                   <Comment>
-                    <MultiLanguageText Lang="it-IT">TermicoIntervenuto</MultiLanguageText>
+                    <MultiLanguageText Lang="it-IT">Termico intervenuto</MultiLanguageText>
                   </Comment>
                 </Subelement>
                 <Subelement Path="3">
                   <Comment>
-                    <MultiLanguageText Lang="it-IT">SezionatoreAperto</MultiLanguageText>
+                    <MultiLanguageText Lang="it-IT">Sezionatore aperto</MultiLanguageText>
                   </Comment>
                 </Subelement>
               </Member>
               <Member Name="WordHMI" Datatype="Word" />
+            </Member>
+            <Member Name="Out" Datatype="Struct">
+              <Member Name="CmdPos" Datatype="Bool" />
+              <Member Name="CmdNeg" Datatype="Bool" />
             </Member>
             <Member Name="Rif_Inc" Datatype="Struct">
               <Member Name="K_AnalogicaPosAttuale" Datatype="Int">

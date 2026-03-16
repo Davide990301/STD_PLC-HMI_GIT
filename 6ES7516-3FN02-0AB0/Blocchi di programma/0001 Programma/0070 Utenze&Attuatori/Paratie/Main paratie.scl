@@ -1,0 +1,59 @@
+﻿FUNCTION "Main paratie" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_TEMP 
+      IndiceParatia : Int;
+      DatiOrdinamento : Struct
+         IndiceDaScrivere : Int;
+         "K_Paratia(InOrdine)" : Array[0.."K_NumParatia"] of Int;
+      END_STRUCT;
+   END_VAR
+
+
+BEGIN
+	REGION Comune
+	    REGION Gestione delle posizioni delle paratie
+	        IF "Paratia".Posizionamento.Inizializza THEN
+	            FOR #IndiceParatia := 0 TO "K_NumParatia" DO
+	                "Paratia".Posizionamento.Paratia[#IndiceParatia].K_Paratia := 0;
+	            END_FOR;
+	        END_IF;
+	        //L'ordinamento della paratia è da monte verso valle (flusso prodotto).
+	        //Perciò la prima paratia è la prima che viene colpita dal prodotto.
+	        "Paratia".Posizionamento.Paratia[1].K_Paratia := "K_Paratia_Esempio";              //Assegno la paratia 1 alla Cubettatrice
+	        "Paratia".Posizionamento.Paratia[2].K_Paratia := "K_Paratia_Esempio";                      //Assegno la paratia 2 alla IFT8
+	        "Paratia".Posizionamento.Paratia[3].K_Paratia := "K_Paratia_Esempio";                      //Assegno la paratia 3 alla IFT9
+	        "Paratia".Posizionamento.Paratia[4].K_Paratia := "K_Paratia_Esempio";                      //Assegno la paratia 4 alla IFT7
+	        "Paratia".Posizionamento.Paratia[5].K_Paratia := "K_Paratia_Esempio";                      //Assegno la paratia 5 alla IFT6
+	        "Paratia".Posizionamento.Paratia[1].Abilitazione :=                                     //Abilitazione iniziale della paratia Cubettatrice
+	        "Paratia".Posizionamento.Paratia[2].Abilitazione :=                                     //Abilitazione iniziale della paratia IFT8         
+	        "Paratia".Posizionamento.Paratia[4].Abilitazione :=                                     //Abilitazione iniziale della paratia IFT9
+	        "Paratia".Posizionamento.Paratia[5].Abilitazione := True;                               //Abilitazione iniziale della paratia IFT6
+	        "GestParatia_Posizionamenti"();
+	        "CalcoloProdottoRichiesto"();
+	        
+	    END_REGION ;
+	    REGION Default paramter                                                                     //Elenco dei valori impostati in fase di avviamento
+	        IF "Paratia".Funzioni.DefaultPrm THEN                                                   //Parametro di avviamento al default
+	            FOR #IndiceParatia := 0 TO "K_NumParatia" DO                                        //Per ogni paratia presente
+	                "Paratia".P[#IndiceParatia].Allarmi.TimerRitMov.Preset := 5;                    //Controllo lo spostamento ogni 5 secondi
+	                "Paratia".P[#IndiceParatia].Allarmi.PresetSoglie.MinimoSpostamento := 5;        //Che deve essere di almeno il 5%
+	                "Paratia".P[#IndiceParatia].Prm.IsteresiComando := 10.0;                        //Che deve essere di almeno il 5%
+	            END_FOR;                                                                            //
+	            "Paratia".Funzioni.DefaultPrm := False;                                             //Rimetto a zero il parametro
+	        END_IF;
+	    END_REGION ;
+	    REGION Tutte in automatico                                                                  //Imposta tutte le paratie in automatico
+	        IF "Paratia".Funzioni.TutteInAuto THEN                                                  //Parametro di avviamento
+	            FOR #IndiceParatia := 0 TO "K_NumParatia" DO                                        //Scansiona tutte le paratie
+	                "Paratia".P[#IndiceParatia].Hmi.Auto := True;                                   //Imposta l'automatico attivo
+	                "Paratia".P[#IndiceParatia].Hmi.Man :=                                          //Resetta il manuale
+	                "Paratia".P[#IndiceParatia].Hmi.Simulazione := False;                           //Resetta la simulazione
+	            END_FOR;
+	            "Paratia".Funzioni.TutteInAuto := False;                                             //Rimetto a zero il parametro
+	        END_IF;
+	    END_REGION ;
+	END_REGION ;
+	
+END_FUNCTION
+

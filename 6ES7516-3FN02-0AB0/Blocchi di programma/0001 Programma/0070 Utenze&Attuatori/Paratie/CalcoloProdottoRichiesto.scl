@@ -1,0 +1,105 @@
+﻿FUNCTION "CalcoloProdottoRichiesto" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_TEMP 
+      NumeroLince : Int;
+      ProdottoRichiestoTotale : Real;
+      ProdottoRichiestoTotalePrecedente : Real;
+      NumeroParatia : Int;
+      NumeroSorgenti : Int;
+      ProdottoASorgenteRichiesto : Real;
+      ProdottoASorgenteMassimo : Real;
+      ProdottoASorgenteInEccesso : Real;
+      TotaleProdottoOltreMax : Real;
+      MassimoProdottoGestibileDallaLince : Real;
+      PercorsoAttivo : Bool;
+      ParatiaAperta : Bool;
+      TotaleProdottoNonGestito : Real;
+      TotaleRelativoDiChiPuòGestireExtra : Real;
+      TotaleProdottoExtraTraSorgenti : Real;
+   END_VAR
+
+
+BEGIN
+	REGION Parametrizzazione dei dati
+	    // "Paratia".ProdottoNecessario.Lince[1].PercentualeAttuale := "Analogiche".AnalogArray["K_Analogica_LivelloLince1"]."Analogica Attuale";
+	    // "Paratia".ProdottoNecessario.Lince[1].PercentualeMassima := "Analogiche".AnalogArray["K_Analogica_LivelloLince1"].SogliaIntMax;
+	    // "Paratia".ProdottoNecessario.Lince[1].ChiamataProdotto := "StatoMacchine".Lince_1 = 1;
+	    // "Paratia".ProdottoNecessario.Lince[2].PercentualeAttuale := "Analogiche".AnalogArray["K_Analogica_LivelloLince2"]."Analogica Attuale";
+	    // "Paratia".ProdottoNecessario.Lince[2].PercentualeMassima := "Analogiche".AnalogArray["K_Analogica_LivelloLince2"].SogliaIntMax;
+	    // "Paratia".ProdottoNecessario.Lince[2].ChiamataProdotto := "StatoMacchine".Lince_2 = 1;
+	    // "Paratia".ProdottoNecessario.Lince[3].PercentualeAttuale := "Analogiche".AnalogArray["K_Analogica_LivelloLince3"]."Analogica Attuale";
+	    // "Paratia".ProdottoNecessario.Lince[3].PercentualeMassima := "Analogiche".AnalogArray["K_Analogica_LivelloLince3"].SogliaIntMax;
+	    // "Paratia".ProdottoNecessario.Lince[3].ChiamataProdotto := "StatoMacchine".Lince_3 = 1;
+	    
+	    // "Paratia".Posizionamento.Paratia["K_PosParatia_IFT6"].VersoLince[1].PercorsoAttivo := "DB2 INSTRADATORE IN LAVORO".Instradatore."LINCE 1".IFT6 AND "StatoMacchine".IFT6 = 1;
+	    // "Paratia".Posizionamento.Paratia["K_PosParatia_IFT6"].VersoLince[3].PercorsoAttivo := "DB2 INSTRADATORE IN LAVORO".Instradatore."LINCE 3".IFT6 AND "StatoMacchine".IFT6 = 1;
+	    // "Paratia".Posizionamento.Paratia["K_PosParatia_IFT7"].VersoLince[1].PercorsoAttivo := "DB2 INSTRADATORE IN LAVORO".Instradatore."LINCE 1".IFT7 AND "StatoMacchine".IFT_7 = 1;
+	    // "Paratia".Posizionamento.Paratia["K_PosParatia_IFT7"].VersoLince[3].PercorsoAttivo := "DB2 INSTRADATORE IN LAVORO".Instradatore."LINCE 3".IFT7 AND "StatoMacchine".IFT_7 = 1;
+	    // "Paratia".Posizionamento.Paratia["K_PosParatia_IFT8"].VersoLince[2].PercorsoAttivo := "DB2 INSTRADATORE IN LAVORO".Instradatore."LINCE 2".IFT8 AND "StatoMacchine".IFT_8 = 1;
+	    // "Paratia".Posizionamento.Paratia["K_PosParatia_IFT8"].VersoLince[3].PercorsoAttivo := "DB2 INSTRADATORE IN LAVORO".Instradatore."LINCE 3".IFT8 AND "StatoMacchine".IFT_8 = 1;
+	    // "Paratia".Posizionamento.Paratia["K_PosParatia_Cubettatrice"].VersoLince[2].PercorsoAttivo := "DB2 INSTRADATORE IN LAVORO".Instradatore."LINCE 2".Cubettatrice AND "StatoMacchine".Cubettatrice = 1;
+	END_REGION ;
+	REGION Verifico nella paratie il prodotto che posso assegnare
+	    #TotaleProdottoNonGestito := 0.0;
+	    FOR #NumeroLince := 0 TO "K_NumLinci" DO
+	        #NumeroSorgenti := 0;
+	        #MassimoProdottoGestibileDallaLince := 0.0;
+	        #TotaleProdottoExtraTraSorgenti := 0.0;
+	        FOR #NumeroParatia := 0 TO "K_NumParatia" DO
+	            #PercorsoAttivo := "Paratia".Posizionamento.Paratia[#NumeroParatia].VersoLince[#NumeroLince].PercorsoAttivo;
+	            IF #PercorsoAttivo THEN
+	                #NumeroSorgenti += 1;
+	                #ProdottoASorgenteMassimo := "Paratia".Posizionamento.Paratia[#NumeroParatia].MassimoProdottoGestibile;
+	                #MassimoProdottoGestibileDallaLince += #ProdottoASorgenteMassimo;
+	                #ProdottoASorgenteRichiesto := "Paratia".ProdottoNecessario.Lince[#NumeroLince].ProdottoRichiestoASorgenti;
+	                #ProdottoASorgenteInEccesso := #ProdottoASorgenteRichiesto - #ProdottoASorgenteMassimo;
+	                "Paratia".Posizionamento.Paratia[#NumeroParatia].VersoLince[#NumeroLince].ProdottoOltreMax := LIMIT_REAL(IN := #ProdottoASorgenteInEccesso, MN := 0, MX := 100);
+	            ELSE
+	                "Paratia".Posizionamento.Paratia[#NumeroParatia].VersoLince[#NumeroLince].ProdottoOltreMax := 0.0;
+	            END_IF;
+	            #TotaleProdottoExtraTraSorgenti += "Paratia".Posizionamento.Paratia[#NumeroParatia].VersoLince[#NumeroLince].ProdottoOltreMax;
+	        END_FOR;
+	        "Paratia".ProdottoNecessario.Lince[#NumeroLince].#TotaleProdottoExtraTraSorgenti := #TotaleProdottoExtraTraSorgenti;
+	        "Paratia".ProdottoNecessario.Lince[#NumeroLince].ProdottoNonGestibile := LIMIT_REAL(IN := "Paratia".ProdottoNecessario.Lince[#NumeroLince].ProdottoRichiestoRelativo - #MassimoProdottoGestibileDallaLince, MN := 0, MX := 100);
+	        "Paratia".ProdottoNecessario.Lince[#NumeroLince].MassimoProdottoGestibile := #MassimoProdottoGestibileDallaLince;
+	        "Paratia".ProdottoNecessario.Lince[#NumeroLince].NumeroSorgentiAttive := #NumeroSorgenti;
+	        "Paratia".ProdottoNecessario.Lince[#NumeroLince].AlimentataDalleParatie := #NumeroSorgenti > 0;
+	        
+	        #TotaleProdottoNonGestito += "Paratia".ProdottoNecessario.Lince[#NumeroLince].ProdottoNonGestibile;
+	    END_FOR;
+	    "Paratia".ProdottoNecessario.ProdottoExtraNonGestito := #TotaleProdottoNonGestito;
+	END_REGION ;
+	REGION Calcolo della richiesta di prodotto effettiva
+	    #ProdottoRichiestoTotalePrecedente := "Paratia".ProdottoNecessario.TotaleRichiesta;
+	    #ProdottoRichiestoTotale := #TotaleRelativoDiChiPuòGestireExtra := 0.0;
+	    FOR #NumeroLince := 0 TO "K_NumLinci" DO
+	        IF "Paratia".ProdottoNecessario.Lince[#NumeroLince].ChiamataProdotto AND "Paratia".ProdottoNecessario.Lince[#NumeroLince].AlimentataDalleParatie THEN
+	            "Paratia".ProdottoNecessario.Lince[#NumeroLince].ProdottoRichiestoAssoluto :=
+	            LIMIT_REAL(IN := "Paratia".ProdottoNecessario.Lince[#NumeroLince].PercentualeMassima - "Paratia".ProdottoNecessario.Lince[#NumeroLince].PercentualeAttuale, MN := 0.0, MX := "Paratia".ProdottoNecessario.Lince[#NumeroLince].MassimoProdottoGestibile);
+	            "Paratia".ProdottoNecessario.Lince[#NumeroLince].ProdottoRichiestoRelativo := LIMIT_REAL(IN := "Paratia".ProdottoNecessario.Lince[#NumeroLince].ProdottoRichiestoAssoluto / #ProdottoRichiestoTotalePrecedente * 100.0, MX:= 100, MN := 0);
+	            IF "Paratia".ProdottoNecessario.Lince[#NumeroLince].ProdottoNonGestibile = 0 THEN
+	                #TotaleRelativoDiChiPuòGestireExtra += "Paratia".ProdottoNecessario.Lince[#NumeroLince].ProdottoRichiestoRelativo;
+	                #TotaleRelativoDiChiPuòGestireExtra := LIMIT_REAL(IN:=#TotaleRelativoDiChiPuòGestireExtra, MX:= 100, MN := 0);
+	                "Paratia".ProdottoNecessario.Lince[#NumeroLince].ProdottoRichiestoRelativoConExtra := "Paratia".ProdottoNecessario.Lince[#NumeroLince].ProdottoRichiestoRelativo + (
+	                "Paratia".ProdottoNecessario.Lince[#NumeroLince].ProdottoRichiestoRelativo / "Paratia".ProdottoNecessario.TotaleRelativoDiChiPuòGestireExtra * "Paratia".ProdottoNecessario.ProdottoExtraNonGestito);
+	                "Paratia".ProdottoNecessario.Lince[#NumeroLince].ProdottoRichiestoASorgenti := "Paratia".ProdottoNecessario.Lince[#NumeroLince].ProdottoRichiestoRelativoConExtra / "Paratia".ProdottoNecessario.Lince[#NumeroLince].NumeroSorgentiAttive;
+	                "Paratia".ProdottoNecessario.Lince[#NumeroLince].ProdottoRichiestoRelativoConExtra := LIMIT_REAL(IN := "Paratia".ProdottoNecessario.Lince[#NumeroLince].ProdottoRichiestoRelativoConExtra, MN := 0, MX := 100);
+	            ELSE
+	                "Paratia".ProdottoNecessario.Lince[#NumeroLince].ProdottoRichiestoASorgenti := "Paratia".ProdottoNecessario.Lince[#NumeroLince].ProdottoRichiestoRelativo / "Paratia".ProdottoNecessario.Lince[#NumeroLince].NumeroSorgentiAttive;
+	            END_IF;
+	        ELSE
+	            "Paratia".ProdottoNecessario.Lince[#NumeroLince].ProdottoRichiestoASorgenti :=
+	            "Paratia".ProdottoNecessario.Lince[#NumeroLince].ProdottoRichiestoAssoluto :=
+	            "Paratia".ProdottoNecessario.Lince[#NumeroLince].ProdottoRichiestoRelativo := 0.0;
+	        END_IF;
+	        FOR #NumeroParatia := 0 TO "K_NumParatia" DO
+	            #TotaleProdottoOltreMax += "Paratia".Posizionamento.Paratia[#NumeroParatia].VersoLince[#NumeroLince].ProdottoOltreMax;
+	        END_FOR;
+	        #ProdottoRichiestoTotale += "Paratia".ProdottoNecessario.Lince[#NumeroLince].ProdottoRichiestoAssoluto;
+	    END_FOR;
+	    "Paratia".ProdottoNecessario.TotaleRichiesta := #ProdottoRichiestoTotale;
+	    "Paratia".ProdottoNecessario.TotaleRelativoDiChiPuòGestireExtra := #TotaleRelativoDiChiPuòGestireExtra;
+	END_REGION ;
+END_FUNCTION
+
