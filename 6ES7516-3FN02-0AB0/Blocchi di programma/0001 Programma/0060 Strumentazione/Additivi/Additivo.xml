@@ -6,22 +6,7 @@
       <Interface>
         <Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v5">
           <Section Name="Static">
-            <Member Name="A" Datatype="Array[0..&quot;K_NumAdditivo&quot;] of &quot;Std_Additivo&quot;">
-              <Sections>
-                <Section Name="None">
-                  <Member Name="Attuale" Datatype="Real">
-                    <Subelement Path="0">
-                      <StartValue>0.0</StartValue>
-                    </Subelement>
-                  </Member>
-                  <Member Name="Allarme" Datatype="Bool">
-                    <Subelement Path="0">
-                      <StartValue>FALSE</StartValue>
-                    </Subelement>
-                  </Member>
-                </Section>
-              </Sections>
-            </Member>
+            <Member Name="A" Datatype="Array[0..&quot;K_NumAdditivo&quot;] of &quot;Std_Additivo&quot;" />
           </Section>
         </Sections>
       </Interface>

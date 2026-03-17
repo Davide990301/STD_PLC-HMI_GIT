@@ -6,8 +6,37 @@
       <Interface>
         <Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v5">
           <Section Name="None">
-            <Member Name="Attuale" Datatype="Real" />
-            <Member Name="Allarme" Datatype="Bool" />
+            <Member Name="In" Datatype="Struct">
+              <Member Name="appo" Datatype="Bool" />
+            </Member>
+            <Member Name="Prm" Datatype="Struct">
+              <Member Name="PercentualeAdditivoRich" Datatype="Real">
+                <Comment>
+                  <MultiLanguageText Lang="it-IT">Percentuale di additivo richiesto</MultiLanguageText>
+                </Comment>
+              </Member>
+            </Member>
+            <Member Name="Dati" Datatype="Struct">
+              <Member Name="appo" Datatype="Bool" />
+            </Member>
+            <Member Name="Allarmi" Datatype="Struct">
+              <Member Name="A" Datatype="Array[0..&quot;K_NumAllarmiPerAdditivi&quot;] of &quot;Std_PrmAllarmeStd&quot;" />
+              <Member Name="WordHMI" Datatype="Word">
+                <StartValue>16#0000</StartValue>
+              </Member>
+            </Member>
+            <Member Name="Out" Datatype="Struct">
+              <Member Name="AttualeAdditivo" Datatype="Real">
+                <Comment>
+                  <MultiLanguageText Lang="it-IT">PortataAttualeTeorica(ql.i/h)</MultiLanguageText>
+                </Comment>
+              </Member>
+            </Member>
+            <Member Name="Rif_Inc" Datatype="Struct">
+              <Member Name="K_Analogica" Datatype="Int" />
+              <Member Name="K_Motore" Datatype="Int" />
+              <Member Name="K_Pid" Datatype="Int" />
+            </Member>
           </Section>
         </Sections>
       </Interface>
