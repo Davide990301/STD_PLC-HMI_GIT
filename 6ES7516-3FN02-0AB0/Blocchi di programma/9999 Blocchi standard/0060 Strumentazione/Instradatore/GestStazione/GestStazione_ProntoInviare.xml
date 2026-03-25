@@ -5,42 +5,25 @@
     <AttributeList>
       <Interface>
         <Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v5">
-          <Section Name="Input" />
+          <Section Name="Input">
+            <Member Name="ProntoAdInviare" Datatype="Bool" />
+            <Member Name="K_Stazione" Datatype="Int" />
+          </Section>
           <Section Name="Output" />
           <Section Name="InOut" />
-          <Section Name="Temp" />
-          <Section Name="Constant">
-            <Member Name="NonPresente" Datatype="Int">
-              <StartValue>0</StartValue>
-            </Member>
-            <Member Name="Disabilitata" Datatype="Bool">
-              <StartValue>0</StartValue>
-            </Member>
-            <Member Name="NessunConsenso" Datatype="Bool">
-              <StartValue>1</StartValue>
-            </Member>
-            <Member Name="NonRaggiunta" Datatype="Byte">
-              <StartValue>2</StartValue>
-            </Member>
-            <Member Name="Raggiunta" Datatype="Byte">
-              <StartValue>1</StartValue>
-            </Member>
-            <Member Name="Completa" Datatype="Byte">
-              <StartValue>0</StartValue>
-            </Member>
-            <Member Name="SoloStato" Datatype="Byte">
-              <StartValue>1</StartValue>
-            </Member>
+          <Section Name="Temp">
+            <Member Name="DestinazioneAttuale" Datatype="Int" />
           </Section>
+          <Section Name="Constant" />
           <Section Name="Return">
             <Member Name="Ret_Val" Datatype="Void" />
           </Section>
         </Sections>
       </Interface>
       <MemoryLayout>Optimized</MemoryLayout>
-      <Name>Main stazioni</Name>
+      <Name>GestStazione_ProntoInviare</Name>
       <Namespace />
-      <Number>26</Number>
+      <Number>414</Number>
       <ProgrammingLanguage>LAD</ProgrammingLanguage>
       <SetENOAutomatically>false</SetENOAutomatically>
     </AttributeList>
@@ -83,69 +66,138 @@
         <AttributeList>
           <NetworkSource>
             <StructuredText xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StructuredText/v4">
-              <LineComment UId="21">
-                <Text UId="22"> //Parametrizzazione stazione</Text>
+              <Token Text="FOR" UId="21" />
+              <Blank UId="22" />
+              <Access Scope="LocalVariable" UId="23">
+                <Symbol UId="24">
+                  <Component Name="DestinazioneAttuale" UId="25" />
+                </Symbol>
+              </Access>
+              <Blank UId="26" />
+              <Token Text=":=" UId="27" />
+              <Blank UId="28" />
+              <Access Scope="LiteralConstant" UId="29">
+                <Constant UId="30">
+                  <ConstantValue UId="32">0</ConstantValue>
+                </Constant>
+              </Access>
+              <Blank UId="33" />
+              <Token Text="TO" UId="34" />
+              <Blank UId="35" />
+              <Access Scope="GlobalConstant" UId="36">
+                <Constant Name="K_NumStazione" UId="37" />
+              </Access>
+              <Blank UId="40" />
+              <Token Text="DO" UId="41" />
+              <Blank UId="42" />
+              <LineComment UId="43">
+                <Text UId="44">Sfoglio tutte le stazioni</Text>
               </LineComment>
-              <NewLine UId="23" />
-              <LineComment UId="24">
-                <Text UId="25"> "Percorso".Stazione["K_Stazione_PompaAcidificazioneVascaEvaporati"].Prm.CadutaChiamata.DaAnalogicaPer.SogliaMini := #NonRaggiunta;</Text>
+              <NewLine UId="45" />
+              <Blank Num="4" UId="46" />
+              <Token Text="IF" UId="47" />
+              <Blank UId="48" />
+              <Access Scope="GlobalVariable" UId="49">
+                <Symbol UId="50">
+                  <Component Name="Percorso" UId="51">
+                    <BooleanAttribute Name="HasQuotes" UId="52">true</BooleanAttribute>
+                  </Component>
+                  <Token Text="." UId="53" />
+                  <Component Name="Stazione" UId="54">
+                    <Token Text="[" UId="55" />
+                    <Access Scope="LocalVariable" UId="56">
+                      <Symbol UId="57">
+                        <Component Name="K_Stazione" UId="58" />
+                      </Symbol>
+                    </Access>
+                    <Token Text="]" UId="59" />
+                  </Component>
+                  <Token Text="." UId="60" />
+                  <Component Name="Destinazione" UId="61">
+                    <Token Text="[" UId="62" />
+                    <Access Scope="LocalVariable" UId="63">
+                      <Symbol UId="64">
+                        <Component Name="DestinazioneAttuale" UId="65" />
+                      </Symbol>
+                    </Access>
+                    <Token Text="]" UId="66" />
+                  </Component>
+                  <Token Text="." UId="67" />
+                  <Component Name="IN" UId="68" />
+                  <Token Text="." UId="69" />
+                  <Component Name="Attivo" UId="70" />
+                </Symbol>
+              </Access>
+              <Blank UId="71" />
+              <Token Text="THEN" UId="72" />
+              <Blank Num="3" UId="73" />
+              <LineComment UId="74">
+                <Text UId="75">Se la strada verso la destinazione è attiva (quindi selezionata e caricata in lavoro)</Text>
               </LineComment>
-              <NewLine Num="2" UId="26" />
-              <LineComment UId="27">
-                <Text UId="28"> //Richiamo stazione</Text>
+              <NewLine UId="76" />
+              <Blank Num="8" UId="77" />
+              <Token Text="IF" UId="78" />
+              <Blank UId="79" />
+              <Token Text="NOT" UId="80" />
+              <Blank UId="81" />
+              <Access Scope="LocalVariable" UId="82">
+                <Symbol UId="83">
+                  <Component Name="ProntoAdInviare" UId="84" />
+                </Symbol>
+              </Access>
+              <Blank UId="85" />
+              <Token Text="THEN" UId="86" />
+              <Blank Num="61" UId="87" />
+              <LineComment UId="88">
+                <Text UId="89">E ho il parametro in ingresso che chiede di fermare la destinazione</Text>
               </LineComment>
-              <NewLine UId="29" />
-              <LineComment UId="30">
-                <Text UId="31"> "GestStazione"(ConsensoMacchina:= #NessunConsenso,</Text>
+              <NewLine UId="90" />
+              <Blank Num="12" UId="91" />
+              <Access Scope="GlobalVariable" UId="92">
+                <Symbol UId="93">
+                  <Component Name="Percorso" UId="94">
+                    <BooleanAttribute Name="HasQuotes" UId="95">true</BooleanAttribute>
+                  </Component>
+                  <Token Text="." UId="96" />
+                  <Component Name="Stazione" UId="97">
+                    <Token Text="[" UId="98" />
+                    <Access Scope="LocalVariable" UId="99">
+                      <Symbol UId="100">
+                        <Component Name="DestinazioneAttuale" UId="101" />
+                      </Symbol>
+                    </Access>
+                    <Token Text="]" UId="102" />
+                  </Component>
+                  <Token Text="." UId="103" />
+                  <Component Name="IN" UId="104" />
+                  <Token Text="." UId="105" />
+                  <Component Name="SorgenteNonPronta" UId="106" />
+                </Symbol>
+              </Access>
+              <Blank UId="107" />
+              <Token Text=":=" UId="108" />
+              <Blank UId="109" />
+              <Access Scope="LiteralConstant" UId="110">
+                <Constant UId="111">
+                  <ConstantValue UId="113">True</ConstantValue>
+                </Constant>
+              </Access>
+              <Token Text=";" UId="114" />
+              <Blank Num="13" UId="115" />
+              <LineComment UId="116">
+                <Text UId="117">Fermo la destinazione</Text>
               </LineComment>
-              <NewLine UId="32" />
-              <LineComment UId="33">
-                <Text UId="34">                FermaChiamata := #Disabilitata,</Text>
-              </LineComment>
-              <NewLine UId="35" />
-              <LineComment UId="36">
-                <Text UId="37">                K_Stazione := "K_Stazione_PompaAcidificazioneVascaEvaporati",</Text>
-              </LineComment>
-              <NewLine UId="38" />
-              <LineComment UId="39">
-                <Text UId="40">                K_StazionePartner1:=#NonPresente,</Text>
-              </LineComment>
-              <NewLine UId="41" />
-              <LineComment UId="42">
-                <Text UId="43">                K_StazionePartner2:=#NonPresente,</Text>
-              </LineComment>
-              <NewLine UId="44" />
-              <LineComment UId="45">
-                <Text UId="46">                K_Analogica := "K_Analogica_LivelloSerbatoioAcidoCitrico",</Text>
-              </LineComment>
-              <NewLine UId="47" />
-              <LineComment UId="48">
-                <Text UId="49">                K_Paratia := #NonPresente,</Text>
-              </LineComment>
-              <NewLine UId="50" />
-              <LineComment UId="51">
-                <Text UId="52">                K_Motore1 := #NonPresente,</Text>
-              </LineComment>
-              <NewLine UId="53" />
-              <LineComment UId="54">
-                <Text UId="55">                K_Motore2 := "K_Pompa_Citrico_Vasca_Evaporati");</Text>
-              </LineComment>
-              <NewLine Num="2" UId="56" />
-              <LineComment UId="57">
-                <Text UId="58"> //Definizione dei percorsi possibili per la stazione</Text>
-              </LineComment>
-              <NewLine UId="59" />
-              <LineComment UId="60">
-                <Text UId="61"> "Percorso".Stazione["K_Stazione_PompaAcidificazioneVascaEvaporati"].Destinazione["K_Stazione_VascaEvaporati"].IN.Possibile := True;</Text>
-              </LineComment>
-              <NewLine Num="2" UId="62" />
-              <LineComment UId="63">
-                <Text UId="64"> //Visualizzazione hmi a pannello delle strade</Text>
-              </LineComment>
-              <NewLine UId="65" />
-              <LineComment UId="66">
-                <Text UId="67"> "Percorso".Hmi.Visibilità.PompaAcidificazioneVascaEvaporati.VascaEvaporati := "Percorso".Stazione["K_Stazione_PompaAcidificazioneVascaEvaporati"].Destinazione["K_Stazione_VascaEvaporati"].IN.Possibile;</Text>
-              </LineComment>
+              <NewLine UId="118" />
+              <Blank Num="8" UId="119" />
+              <Token Text="END_IF" UId="120" />
+              <Token Text=";" UId="121" />
+              <NewLine UId="122" />
+              <Blank Num="4" UId="123" />
+              <Token Text="END_IF" UId="124" />
+              <Token Text=";" UId="125" />
+              <NewLine UId="126" />
+              <Token Text="END_FOR" UId="127" />
+              <Token Text=";" UId="128" />
             </StructuredText>
           </NetworkSource>
           <ProgrammingLanguage>SCL</ProgrammingLanguage>
@@ -214,7 +266,7 @@
               <MultilingualTextItem ID="13" CompositionName="Items">
                 <AttributeList>
                   <Culture>it-IT</Culture>
-                  <Text>Gestione stazione - PompaAcidificazioneVascaEvaporati</Text>
+                  <Text>Codice necessario ad arrestare la chimata della destinazione a valle</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>

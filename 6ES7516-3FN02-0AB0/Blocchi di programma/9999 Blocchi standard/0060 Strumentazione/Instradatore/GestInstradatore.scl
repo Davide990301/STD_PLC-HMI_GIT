@@ -1,0 +1,171 @@
+﻿FUNCTION "GestInstradatore" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_TEMP 
+      Counter1_Righe : Int;
+      Counter2_Colonne : Int;
+      NumSorgDaScrivere : Int;
+      NumDestDaScrivere : Int;
+      NumeroMassimoIndiceLinea : Int;
+      NumeroMassimoIndiceColonna : Int;
+      Counter1Pari : Bool;
+      Counter2Pari : Bool;
+      AlmenoUnaDestSelezionata : Bool;
+      CounterDestinPresente : Int;
+      UltimaStazioneVerde_Dest : Int;
+      MemoCheckEseguito : Bool;
+      StazioneConSorgenteAttiva : Bool;
+      CounterSorgentiAttive : Int;
+      UltimaStazioneVerde_Sorg : Int;
+      StazioneAttuale : Int;
+      DestinazioneAttuale : Int;
+      SorgenteUtilizzata : Array[0.."K_NumStazione"] of Bool;
+      ColoreLinea1 : Int;
+      ColoreLinea2 : Int;
+      ColorePercorsoAttivo : Int;
+      ColoreX : Int;
+      RigaTrovata : Int;
+      ColonnaTrovata : Int;
+      ContatoreCercaRiga : Int;
+      CounterStazioni : Int;
+      NumeroSorgentiTrovate : Int;
+      NumeroDestinazioniTrovate : Int;
+      CounterCleaner : Int;
+      K_StazioneSorg : Int;
+      K_StazioneDest : Int;
+      PercorsoAttivo : Bool;
+      PercorsoSelezionato : Bool;
+      StazioneDaResettare : Int;
+      DestinazioneDaResettare : Int;
+      KDestinazioneAttuale : Int;
+   END_VAR
+
+   VAR CONSTANT 
+      XGrigia : Int := 3;
+      XVerde : Int := 7;
+      XAzzurra : Int := 1;
+      XRosa : Int := 5;
+      NoXGrigia : Int := 2;
+      NoXVerde : Int := 6;
+      NoXAzzurra : Int := 0;
+      NoXRosa : Int := 4;
+      NumStazioniPopUpInstradatore : Int := 15;
+   END_VAR
+
+
+BEGIN
+	REGION Instradatore classico
+	    REGION Ricerca sorgenti e destinazioni per popup
+	        // IF "Percorso".Hmi.Comandi.RicercaSorgentiDest THEN
+	        //     FOR #CounterCleaner := 0 TO 15 DO
+	        //         "Percorso".Hmi.Comandi.ElencoSorgentiPossibili[#CounterCleaner] := 0;
+	        //         "Percorso".Hmi.Comandi.ElencoDestinazioniPossibili[#CounterCleaner] := 0;
+	        //     END_FOR;
+	        //     #NumeroSorgentiTrovate := 0;
+	        //     #NumeroDestinazioniTrovate := 0;
+	        //     FOR #CounterStazioni := 0 TO "K_NumStazione" DO
+	        //         IF "Percorso".Stazione[#CounterStazioni].Destinazione["Percorso".Hmi.Comandi.K_StazioneAttuale].IN.Possibile THEN
+	        //             "Percorso".Hmi.Comandi.ElencoSorgentiPossibili[#NumeroSorgentiTrovate] := #CounterStazioni;
+	        //             #NumeroSorgentiTrovate += 1;
+	        //         END_IF;
+	        //         IF "Percorso".Stazione["Percorso".Hmi.Comandi.K_StazioneAttuale].Destinazione[#CounterStazioni].IN.Possibile THEN
+	        //             "Percorso".Hmi.Comandi.ElencoDestinazioniPossibili[#NumeroDestinazioniTrovate] := #CounterStazioni;
+	        //             #NumeroDestinazioniTrovate += 1;
+	        //         END_IF;
+	        //     END_FOR;
+	        //     FOR #CounterStazioni := 0 TO #NumStazioniPopUpInstradatore DO //Leggo selezione percorso
+	                
+	        //         #K_StazioneSorg := "Percorso".Hmi.Comandi.ElencoSorgentiPossibili[#CounterStazioni];
+	        //         #K_StazioneDest := "Percorso".Hmi.Comandi.K_StazioneAttuale;
+	        //         #PercorsoSelezionato := "Percorso".Stazione[#K_StazioneSorg].Destinazione[#K_StazioneDest].IN.Selezionato;
+	        //         "Percorso".Hmi.Comandi.SceltaTraSorgentiPossibili[#CounterStazioni] := #PercorsoSelezionato;
+	                
+	        //         #K_StazioneDest := "Percorso".Hmi.Comandi.ElencoDestinazioniPossibili[#CounterStazioni];
+	        //         #K_StazioneSorg := "Percorso".Hmi.Comandi.K_StazioneAttuale;
+	        //         #PercorsoSelezionato := "Percorso".Stazione[#K_StazioneSorg].Destinazione[#K_StazioneDest].IN.Selezionato;
+	        //         "Percorso".Hmi.Comandi.SceltaTraDestinazioniPossibili[#CounterStazioni] := #PercorsoSelezionato;
+	                
+	        //     END_FOR;
+	        //     "Percorso".Hmi.RicercaSorgentiDest := False;
+	        // END_IF;
+	        // IF "Percorso".Hmi.SceltaSorgDest_PopupAperto THEN
+	        //     FOR #CounterStazioni := 0 TO #NumStazioniPopUpInstradatore DO //Scrivo selezione del percorso
+	                
+	        //         #PercorsoAttivo := "Percorso".Hmi.SceltaTraSorgentiPossibili[#CounterStazioni];
+	        //         #K_StazioneSorg := "Percorso".Hmi.ElencoSorgentiPossibili[#CounterStazioni];
+	        //         #K_StazioneDest := "Percorso".Hmi.K_StazioneAttuale;
+	        //         "Percorso".Stazione[#K_StazioneSorg].Destinazione[#K_StazioneDest].IN.Selezionato := #PercorsoAttivo;
+	                
+	        //         #PercorsoAttivo := "Percorso".Hmi.SceltaTraDestinazioniPossibili[#CounterStazioni];
+	        //         #K_StazioneDest := "Percorso".Hmi.ElencoDestinazioniPossibili[#CounterStazioni];
+	        //         #K_StazioneSorg := "Percorso".Hmi.K_StazioneAttuale;
+	        //         "Percorso".Stazione[#K_StazioneSorg].Destinazione[#K_StazioneDest].IN.Selezionato := #PercorsoAttivo;
+	        //     END_FOR;
+	        // END_IF;
+	    END_REGION ;
+	END_REGION ;
+	
+	
+	
+	REGION Caricamento instradatore in lavoro
+	    IF "Percorso".Hmi.CaricaInLavoro THEN
+	        FOR #StazioneAttuale := 0 TO "K_NumStazione" DO
+	            FOR #DestinazioneAttuale := 0 TO "K_NumStazione" DO
+	                "Percorso".Stazione[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Attivo := "Percorso".Stazione[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Possibile AND "Percorso".Stazione[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Selezionato;
+	            END_FOR;
+	        END_FOR;
+	        "Percorso".Hmi.CaricaInLavoro := False;
+	    END_IF;
+	END_REGION
+	REGION Resetta tutto offline
+	    IF "Percorso".Hmi.ResettaTuttoOffline THEN
+	        FOR #StazioneAttuale := 0 TO "K_NumStazione" DO
+	            FOR #DestinazioneAttuale := 0 TO "K_NumStazione" DO
+	                "Percorso".Stazione[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Selezionato := False;
+	            END_FOR;
+	        END_FOR;
+	        "Percorso".Hmi.ResettaTuttoOffline := False;
+	    END_IF;
+	END_REGION
+	REGION Ripristina online
+	    IF "Percorso".Hmi.RipristinaOnline THEN
+	        FOR #StazioneAttuale := 0 TO "K_NumStazione" DO
+	            FOR #DestinazioneAttuale := 0 TO "K_NumStazione" DO
+	                "Percorso".Stazione[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Selezionato := "Percorso".Stazione[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Attivo;
+	            END_FOR;
+	        END_FOR;
+	        "Percorso".Hmi.ResettaTuttoOffline := False;
+	        "Percorso".Hmi.RipristinaOnline := False;
+	    END_IF;
+	END_REGION
+	REGION Update generale
+	    IF "Zona".Comuni.UpdateGenerale THEN
+	        FOR #StazioneAttuale := 0 TO "K_NumStazione" DO
+	            FOR #DestinazioneAttuale := 0 TO "K_NumStazione" DO
+	                "Percorso".Stazione[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Possibile := False;
+	            END_FOR;
+	        END_FOR;
+	    END_IF;
+	END_REGION
+	REGION Compila e verifica conflitti
+	    IF "Percorso".Hmi.CompilaVerificaConflitti THEN
+	        
+	        "ArrayBoolCleaner"(ArrayLenght:="K_NumStazione",
+	                           Array=>#SorgenteUtilizzata);
+	        
+	        FOR #StazioneAttuale := 0 TO "K_NumStazione" DO
+	            FOR #DestinazioneAttuale := 0 TO "K_NumStazione" DO
+	                IF "Percorso".Stazione[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Selezionato THEN
+	                    IF #SorgenteUtilizzata[#DestinazioneAttuale] THEN
+	                        "Percorso".Stazione[#DestinazioneAttuale].Allarmi.Stato.ConflittoMultiDest := true;
+	                    END_IF;
+	                    #SorgenteUtilizzata[#DestinazioneAttuale] := True;
+	                END_IF;
+	            END_FOR;
+	        END_FOR;
+	        "Percorso".Hmi.CompilaVerificaConflitti := False;
+	    END_IF;
+	END_REGION
+	
+END_FUNCTION
+

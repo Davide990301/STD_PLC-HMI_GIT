@@ -1,0 +1,42 @@
+﻿FUNCTION "Main stazioni" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_TEMP 
+      CounterStazioni : Int;
+      CounterDestinazioni : Int;
+      K_Analogica : Int;
+      DisabilitaStazioneAdditiva : Bool;
+      CondizioniTimeout : Bool;
+   END_VAR
+
+
+BEGIN
+	IF "Percorso".Funzioni.Inizializza THEN
+	    FOR #CounterStazioni := 0 TO "K_NumStazione" DO
+	        FOR #CounterDestinazioni := 0 TO "K_NumStazione" DO
+	            "Percorso".Stazione[#CounterStazioni].Destinazione[#CounterDestinazioni].IN.Possibile := False;
+	        END_FOR;
+	        "Percorso".Stazione[#CounterStazioni].Hmi.Diagnostica.TroppoPieno :=
+	        "Percorso".Stazione[#CounterStazioni].Dati.InvioAdditivo.Abilitazione :=
+	        "Percorso".Stazione[#CounterStazioni].Dati.InvioAdditivo.Attiva :=
+	        "Percorso".Stazione[#CounterStazioni].Dati.RicezioneAdditivo.Attiva :=
+	        "Percorso".Stazione[#CounterStazioni].Dati.GestionePrioritàAttiva.DaDestinazione :=
+	        "Percorso".Stazione[#CounterStazioni].Dati.GestionePrioritàAttiva.DaSorgente :=
+	        "Percorso".Stazione[#CounterStazioni].Dati.AlmenoUnaDestinazioneProgettata :=
+	        "Percorso".Stazione[#CounterStazioni].Dati.AlmenoUnaSorgenteProgettata :=
+	        "Percorso".Stazione[#CounterStazioni].Prm.AbilitazionePriorità.SuEstrazioni :=
+	        "Percorso".Stazione[#CounterStazioni].Prm.AbilitazionePriorità.SugliArrivi :=
+	        "Percorso".Stazione[#CounterStazioni].Prm.IgnoraDestinazione :=
+	        "Percorso".Stazione[#CounterStazioni].Prm.ByPassChiamataDestinazione := False;
+	        "Percorso".Stazione[#CounterStazioni].Dati.K_StazioneDestinazione :=
+	        "Percorso".Stazione[#CounterStazioni].Dati.InvioAdditivo.K_StazioneRiferimento1 :=
+	        "Percorso".Stazione[#CounterStazioni].Dati.RicezioneAdditivo.K_StazioneRiferimento := 0;
+	        "Percorso".Stazione[#CounterStazioni].IN.SorgenteNonPronta :=
+	        "Percorso".Stazione[#CounterStazioni].IN.LivelloDestinazioneSuperiorePriorità :=
+	        "Percorso".Stazione[#CounterStazioni].IN.LivelloSorgenteInferiorePriorità := False;
+	    END_FOR;
+	    "Percorso".Hmi.AggiornaConfigurazione := True;
+	    "Percorso".Funzioni.Inizializza := False;
+	END_IF;
+END_FUNCTION
+
