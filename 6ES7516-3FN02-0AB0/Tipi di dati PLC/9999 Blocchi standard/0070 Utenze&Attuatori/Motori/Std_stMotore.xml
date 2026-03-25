@@ -28,9 +28,31 @@
               <Member Name="AnticadutaON" Datatype="Bool" />
               <Member Name="AnticadutaOFF" Datatype="Bool" />
               <Member Name="CinghiaRotta" Datatype="Bool" />
-              <Member Name="SezAperto" Datatype="Bool" />
-              <Member Name="TerVentolaOff" Datatype="Bool" />
-              <Member Name="DriverFault" Datatype="Bool" />
+              <Member Name="CoppiaSuperata" Datatype="Bool">
+                <Comment>
+                  <MultiLanguageText Lang="it-IT">Ingresso digitale di coppia superata</MultiLanguageText>
+                </Comment>
+              </Member>
+              <Member Name="SezAperto" Datatype="Bool">
+                <Comment>
+                  <MultiLanguageText Lang="it-IT">Ingresso digitale per sezionatore motore</MultiLanguageText>
+                </Comment>
+              </Member>
+              <Member Name="TerMotoreOff" Datatype="Bool">
+                <Comment>
+                  <MultiLanguageText Lang="it-IT">Scatto termico motore</MultiLanguageText>
+                </Comment>
+              </Member>
+              <Member Name="TerVentolaOff" Datatype="Bool">
+                <Comment>
+                  <MultiLanguageText Lang="it-IT">Scatto termico della servoventola</MultiLanguageText>
+                </Comment>
+              </Member>
+              <Member Name="DriverFault" Datatype="Bool">
+                <Comment>
+                  <MultiLanguageText Lang="it-IT">Ingresso digitale per fault inverter</MultiLanguageText>
+                </Comment>
+              </Member>
               <Member Name="DriverWarning" Datatype="Bool" />
               <Member Name="NoComunInv" Datatype="Bool" />
               <Member Name="NoComunEnc" Datatype="Bool" />

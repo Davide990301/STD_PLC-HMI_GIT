@@ -612,7 +612,7 @@
         <AttributeList>
           <DataTypeName>Int</DataTypeName>
           <Name>K_NumAllarmiPerAdditivi</Name>
-          <Value>2</Value>
+          <Value>3</Value>
         </AttributeList>
         <ObjectList>
           <MultilingualText ID="64" CompositionName="Comment">
