@@ -59,7 +59,7 @@
                 ()
             ];
             { S7_Setpoint := "False" }
-            UnitàMisura : _.Std_UnitàDiMisura := (
+            UnitaMisura : _.Std_UnitaDiMisura := (
                 In := (
                     UmCode := 40505
                 ),

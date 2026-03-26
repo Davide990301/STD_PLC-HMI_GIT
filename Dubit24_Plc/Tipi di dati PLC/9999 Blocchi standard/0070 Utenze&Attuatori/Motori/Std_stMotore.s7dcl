@@ -70,7 +70,7 @@
         Prm : STRUCT
             Quote : Array[0.._.K_NumCamma] of Real;
             { S7_Setpoint := "False" }
-            UnitàMisura : _.Std_UnitàDiMisura;
+            UnitaMisura : _.Std_UnitaDiMisura;
             Mech : STRUCT
                 Direction : Bool;
                 EndLess : Bool;

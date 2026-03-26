@@ -1,4 +1,4 @@
-﻿FUNCTION "GestUnitàMisura_IdentificaGrandezza" : DInt
+﻿FUNCTION "GestUnitaMisura_IdentificaGrandezza" : DInt
 { S7_Optimized_Access := 'TRUE' }
 VERSION : 0.1
    VAR_INPUT 
@@ -14,6 +14,6 @@ VERSION : 0.1
 BEGIN
 	//Da rivedere quando la grandezza supereà il numero nove, tenere presente il bit di segno
 	#VariabileStringa := DINT_TO_STRING(#UmCode);
-	#GestUnitàMisura_IdentificaGrandezza := STRING_TO_DINT(#VariabileStringa[2]);
+	#GestUnitaMisura_IdentificaGrandezza := STRING_TO_DINT(#VariabileStringa[2]);
 END_FUNCTION
 

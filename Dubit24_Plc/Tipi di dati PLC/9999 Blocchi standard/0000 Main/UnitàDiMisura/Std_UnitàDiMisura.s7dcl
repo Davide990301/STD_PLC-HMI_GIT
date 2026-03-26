@@ -1,5 +1,5 @@
 ﻿TYPE
-    Std_UnitàDiMisura : STRUCT
+    Std_UnitaDiMisura : STRUCT
         { S7_Setpoint := "False" }
         In : _.Std_ValoreConUm;
         Hmi : STRUCT

@@ -32,7 +32,7 @@
                 RampDownRate : Real;
             END_STRUCT;
             { S7_Setpoint := "False" }
-            UnitàMisura : _.Std_UnitàDiMisura := (
+            UnitaMisura : _.Std_UnitaDiMisura := (
                 Out := (
                     UmCode := 3
                 )

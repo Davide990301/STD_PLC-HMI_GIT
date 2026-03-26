@@ -1,8 +1,8 @@
-﻿FUNCTION "GestUnitàMisura_CalcolaFattoreConversione" : Void
+﻿FUNCTION "GestUnitaMisura_CalcolaFattoreConversione" : Void
 { S7_Optimized_Access := 'TRUE' }
 VERSION : 0.1
    VAR_IN_OUT 
-      UnitàMisura : "Std_UnitàDiMisura";
+      UnitàMisura : "Std_UnitaDiMisura";
    END_VAR
 
    VAR_TEMP 

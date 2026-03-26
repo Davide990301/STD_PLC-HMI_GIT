@@ -125,7 +125,7 @@ BEGIN
 	    "Analogica".A[#K_AnalogicaInt].Prm.UnitàMisura.In.Valore := "Analogica".A[#K_AnalogicaInt].Prm.FiltroUscita.ValoreFiltrato;
 	END_REGION
 	REGION Unità di misura
-	    "GestUnitàMisura"("Analogica".A[#K_AnalogicaInt].Prm.UnitàMisura);
+	    "GestUnitaMisura"("Analogica".A[#K_AnalogicaInt].Prm.UnitàMisura);
 	END_REGION ;
 	REGION Uscita
 	    "Analogica".A[#K_AnalogicaInt].Out.AnalogicaAttuale := "Analogica".A[#K_AnalogicaInt].Prm.UnitàMisura.Out;
