@@ -109,7 +109,7 @@ BEGIN
 	            END_FOR;                                                                                                                //
 	        END_IF;
 	    ELSE
-	        FOR #NumeroParatia := 1 TO "K_NumParatia" DO                                                                                //Per ogni paratia dell'array
+	        FOR #NumeroParatia := 0 TO "K_NumParatia" DO                                                                                //Per ogni paratia dell'array
 	            "Paratia".P[#NumeroParatia].Hmi.SetpointBloccato := False;                                                              //Setopoint NON bloccato da HMI perchè calcolato
 	        END_FOR;
 	    END_IF;
