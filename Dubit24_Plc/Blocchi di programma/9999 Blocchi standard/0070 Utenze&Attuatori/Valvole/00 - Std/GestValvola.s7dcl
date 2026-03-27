@@ -380,7 +380,7 @@ FUNCTION "GestValvola" : Void
                                       Allarme := "Valvola".V[#K_ValvolaInt].Allarmi.A[#CounterAllarme],
                                       NumAllarme := #CounterAllarme,
                                       K_Zona := #K_ZonaInt,
-                                      WordHmi := "Valvola".V[#K_ValvolaInt].Allarmi.WordHMI);
+                                      WordHmi := "Valvola".V[#K_ValvolaInt].Allarmi.WordHMI_2);
                 END_FOR;
             END_REGION ;
         END_REGION ;

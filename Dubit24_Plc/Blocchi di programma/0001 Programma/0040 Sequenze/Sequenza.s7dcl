@@ -150,7 +150,6 @@ DATA_BLOCK Sequenza
         S[0].Allarmi."A"[0].Silenziato := FALSE;
         S[0].Allarmi."A"[0].EnWarnHmi := FALSE;
         S[0].Allarmi."A"[0].EnCadutaCiclo := FALSE;
-        S[0].Allarmi.WordHMI := 16#0000;
         S[0].Out.SequenzaAvviata := FALSE;
         S[0].Out.Passo[0].Attivo := FALSE;
         S[0].Out.Passo[1].Attivo := FALSE;

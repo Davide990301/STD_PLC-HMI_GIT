@@ -437,7 +437,7 @@ BEGIN
 	                          Allarme := "Pid".P[#K_PidInt].Allarmi.A[#CounterAllarme],
 	                          NumAllarme := #CounterAllarme,
 	                          K_Zona := #K_ZonaInt,
-	                          WordHmi := "Pid".P[#K_PidInt].Allarmi.WordHMI);
+	                          WordHmi := "Pid".P[#K_PidInt].Allarmi.WordHMI_1);
 	    END_FOR;
 	END_REGION
 	REGION Caduta ciclo automatico della zona di riferimento   

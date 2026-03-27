@@ -47,9 +47,11 @@
             ];
             AG : Array[0..15] of _.Std_PrmAllarmeStd;
             { S7_Setpoint := "True" }
-            WordHMI : Word;
+            WordHMI_1 : Word;
+            WordHMI_2 : Word;
             { S7_Setpoint := "True" }
-            WordHMI_AG : Word;
+            WordHMI_1_AG : Word;
+            WordHMI_2_AG : Word;
         END_STRUCT;
         { S7_MLC := "MLC_3gE" }
         Out : STRUCT

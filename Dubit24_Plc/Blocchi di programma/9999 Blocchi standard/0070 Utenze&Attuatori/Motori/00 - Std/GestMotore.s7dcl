@@ -509,7 +509,7 @@ FUNCTION "GestMotore" : Void
                                   Allarme := "Motore".M[#K_MotoreInt].Allarmi.A[#CounterAllarme],
                                   NumAllarme := #CounterAllarme,
                                   K_Zona := #K_ZonaInt,
-                                  WordHmi := "Motore".M[#K_MotoreInt].Allarmi.WordHMI);
+                                  WordHmi := "Motore".M[#K_MotoreInt].Allarmi.WordHMI_1);
             END_FOR;
         END_REGION ;
         REGION Motore pronto alla marcia

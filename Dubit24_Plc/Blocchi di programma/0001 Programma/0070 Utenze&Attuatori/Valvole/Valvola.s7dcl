@@ -144,7 +144,7 @@ DATA_BLOCK Valvola
         V[0].Allarmi."A"[4].Silenziato := FALSE;
         V[0].Allarmi."A"[4].EnWarnHmi := FALSE;
         V[0].Allarmi."A"[4].EnCadutaCiclo := FALSE;
-        V[0].Allarmi.WordHMI := 16#0202;
+        V[0].Allarmi.WordHMI_2 := 16#0202;
         V[0].Out.Stato := 1;
         V[0].Out.CmdPos := FALSE;
         V[0].Out.CmdNeg := FALSE;

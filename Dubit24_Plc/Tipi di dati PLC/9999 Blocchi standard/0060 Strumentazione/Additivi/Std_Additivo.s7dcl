@@ -21,8 +21,11 @@
                 { S7_MLC := "MLC_MX" }
                 ()
             ];
-            WordHMI : Word := 16#0000;
         END_STRUCT;
+        { S7_Setpoint := "True" }
+        WordHMI_1 : Word;
+        { S7_Setpoint := "True" }
+        WordHMI_2 : Word;
         Out : STRUCT
             { S7_MLC := "MLC_3iZ" }
             AttualeAdditivo : Real;

@@ -161,7 +161,7 @@ FUNCTION "GestZona" : Void
         END_REGION
         REGION Reset delle strutture HMI - Cumulativo - Sirena
             IF "Zona".Z[#K_ZonaInt].Gen.Reset THEN
-                "Zona".Z[#K_ZonaInt].Allarmi.WordHMI := 0;
+                "Zona".Z[#K_ZonaInt].Allarmi.WordHMI_1 := 0;
                 "Zona".Z[#K_ZonaInt].In.RichiestaLampadaReset :=
                 "Zona".Z[#K_ZonaInt].Out.CumulativoAllarmi :=
                 "Zona".Z[#K_ZonaInt].Out.SirenaSuona := False;
@@ -188,7 +188,7 @@ FUNCTION "GestZona" : Void
                     IF "Zona".Z[#K_ZonaInt].Allarmi.A[#NumBit].EnWarnHmi THEN
                         "ScriviBitNellaWord"(NumBit := #NumBit,
                                              StatoBit := True,
-                                             "Word" := "Zona".Z[#K_ZonaInt].Allarmi.WordHMI);
+                                             "Word" := "Zona".Z[#K_ZonaInt].Allarmi.WordHMI_1);
                     END_IF;
                     IF "Zona".Z[#K_ZonaInt].Allarmi.A[#NumBit].EnCadutaCiclo THEN
                         "Zona".Z[#K_ZonaInt].Out.CumulativoAllarmi := True;
@@ -226,7 +226,7 @@ FUNCTION "GestZona" : Void
                     #StatoZona := 3;
                 END_IF;
             END_IF;
-            IF "Zona".Z[#K_ZonaInt].Allarmi.WordHMI <> 0 THEN//Da rivedere
+            IF "Zona".Z[#K_ZonaInt].Allarmi.WordHMI_1 <> 0 THEN//Da rivedere
                 #StatoZona := 4;
             END_IF;
             IF "Zona".Z[#K_ZonaInt].Out.CumulativoAllarmi THEN

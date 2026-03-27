@@ -144,7 +144,6 @@ DATA_BLOCK Analogica
         "A"[0].Allarmi."A"[5].Silenziato := FALSE;
         "A"[0].Allarmi."A"[5].EnWarnHmi := TRUE;
         "A"[0].Allarmi."A"[5].EnCadutaCiclo := FALSE;
-        "A"[0].Allarmi.WordHMI := 16#0000;
         "A"[0].Out.AnalogicaAttuale.UmCode := 0;
         "A"[0].Out.AnalogicaAttuale.Valore := 0.0;
         "A"[0].Out.SogliaMaxi := FALSE;

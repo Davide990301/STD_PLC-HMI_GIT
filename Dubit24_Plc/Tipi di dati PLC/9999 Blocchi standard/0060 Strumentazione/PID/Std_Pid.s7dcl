@@ -170,7 +170,9 @@
                 ()
             ];
             { S7_Setpoint := "True" }
-            WordHMI : Word;
+            WordHMI_1 : Word;
+            { S7_Setpoint := "True" }
+            WordHMI_2 : Word;
         END_STRUCT;
         Out : STRUCT
             Uscita_DaPid : Real := 0.0;

@@ -14,15 +14,13 @@
         Allarmi : STRUCT
             { S7_Setpoint := "False" }
             "A" : Array[0.._.K_NumAllarmiPerSensori] of _.Std_PrmAllarmeStd;
-            WordHMI : Word := 16#0000;
+            { S7_Setpoint := "True" }
+            WordHMI_1 : Word;
+            { S7_Setpoint := "True" }
+            WordHMI_2 : Word;
         END_STRUCT;
         Out : STRUCT
             PresProd : Bool;
-            Allarmi : STRUCT
-                { S7_Setpoint := "False" }
-                "A" : Array[0.._.K_NumAllarmiPerMotori] of _.Std_PrmAllarmeStd;
-                WordHMI : Word := 16#0000;
-            END_STRUCT;
         END_STRUCT;
         Rif_Inc : STRUCT
             K_Zona : Int;

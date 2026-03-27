@@ -125,7 +125,10 @@
                 (),
                 ()
             ];
-            WordHMI : Word;
+            { S7_Setpoint := "True" }
+            WordHMI_1 : Word;
+            { S7_Setpoint := "True" }
+            WordHMI_2 : Word;
         END_STRUCT;
         { S7_MLC := "MLC_4vz" }
         Out : STRUCT

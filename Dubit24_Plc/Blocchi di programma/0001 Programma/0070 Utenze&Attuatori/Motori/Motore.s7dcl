@@ -181,7 +181,6 @@ DATA_BLOCK Motore
         "M"[0].Allarmi."A"[13].Silenziato := FALSE;
         "M"[0].Allarmi."A"[13].EnWarnHmi := TRUE;
         "M"[0].Allarmi."A"[13].EnCadutaCiclo := FALSE;
-        "M"[0].Allarmi.WordHMI := 16#D0D8;
         "M"[0].Out.Pronto := FALSE;
         "M"[0].Out.Allarme := TRUE;
         "M"[0].Out.Avviso := FALSE;
@@ -372,7 +371,6 @@ DATA_BLOCK Motore
         "M"[1].Allarmi."A"[13].Silenziato := FALSE;
         "M"[1].Allarmi."A"[13].EnWarnHmi := TRUE;
         "M"[1].Allarmi."A"[13].EnCadutaCiclo := FALSE;
-        "M"[1].Allarmi.WordHMI := 16#0000;
         "M"[1].Out.Pronto := TRUE;
         "M"[1].Out.Allarme := FALSE;
         "M"[1].Out.Avviso := FALSE;
@@ -563,7 +561,6 @@ DATA_BLOCK Motore
         "M"[2].Allarmi."A"[13].Silenziato := FALSE;
         "M"[2].Allarmi."A"[13].EnWarnHmi := TRUE;
         "M"[2].Allarmi."A"[13].EnCadutaCiclo := FALSE;
-        "M"[2].Allarmi.WordHMI := 16#0000;
         "M"[2].Out.Pronto := TRUE;
         "M"[2].Out.Allarme := FALSE;
         "M"[2].Out.Avviso := FALSE;

@@ -38,7 +38,6 @@ DATA_BLOCK Portata
         "P"[0].Allarmi."A"[0].Silenziato := FALSE;
         "P"[0].Allarmi."A"[0].EnWarnHmi := FALSE;
         "P"[0].Allarmi."A"[0].EnCadutaCiclo := FALSE;
-        "P"[0].Allarmi.WordHMI := 16#0000;
         "P"[0].Out.TotalizzatoreTotaleAttuale := 0.0;
         "P"[0].Out.TotalizzatoreParzialeAttuale := 0.0;
         "P"[0].Out.TotalizzatoreParzialeRaggiunto := FALSE;

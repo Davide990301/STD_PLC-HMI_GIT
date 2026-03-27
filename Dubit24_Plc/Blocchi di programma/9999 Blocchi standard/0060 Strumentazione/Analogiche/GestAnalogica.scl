@@ -133,7 +133,7 @@ BEGIN
 	REGION Allarmi 
 	    REGION Reset allarmi
 	        IF "Zona".Z[#K_ZonaInt].Gen.Reset THEN  //Reset
-	            "Analogica".A[#K_AnalogicaInt].Allarmi.WordHMI := 0;
+	            "Analogica".A[#K_AnalogicaInt].Allarmi.WordHMI_1 := 0;
 	            FOR #Counter := 1 TO 4 DO
 	                IF "Analogica".A[#K_AnalogicaInt].Prm.ModoResetAllarmeHmi[#Counter] = #ModoResetTramitePulsante THEN
 	                    "Analogica".A[#K_AnalogicaInt].Allarmi.A[#Counter].Stato := False;
@@ -145,7 +145,7 @@ BEGIN
 	        IF "Analogica".A[#K_AnalogicaInt].Scalatura.IngressoAnalogico < -1000.0 OR "Analogica".A[#K_AnalogicaInt].Scalatura.IngressoAnalogico > 32000.0 THEN
 	            IF "Analogica".A[#K_AnalogicaInt].Allarmi.A["KAllAnalog_OutOfRange"].EnWarnHmi THEN
 	                "Analogica".A[#K_AnalogicaInt].Allarmi.A["KAllAnalog_OutOfRange"].Stato := True;
-	                "Analogica".A[#K_AnalogicaInt].Allarmi.WordHMI.%X4 := True;
+	                "Analogica".A[#K_AnalogicaInt].Allarmi.WordHMI_1.%X4 := True;
 	            END_IF;
 	        ELSE
 	            "Analogica".A[#K_AnalogicaInt].Allarmi.A["KAllAnalog_OutOfRange"].Stato := FALSE;
@@ -178,7 +178,7 @@ BEGIN
 	                              Allarme := "Analogica".A[#K_AnalogicaInt].Allarmi.A[#Counter],
 	                              NumAllarme := #Counter,
 	                              K_Zona := #K_ZonaInt,
-	                              WordHmi := "Analogica".A[#K_AnalogicaInt].Allarmi.WordHMI);
+	                              WordHmi := "Analogica".A[#K_AnalogicaInt].Allarmi.WordHMI_1);
 	        END_FOR;
 	    END_REGION ;
 	END_REGION ;

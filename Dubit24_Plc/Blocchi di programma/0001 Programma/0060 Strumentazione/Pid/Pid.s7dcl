@@ -205,7 +205,6 @@ DATA_BLOCK "Pid"
         "P"[0].Allarmi."A"[3].Silenziato := FALSE;
         "P"[0].Allarmi."A"[3].EnWarnHmi := FALSE;
         "P"[0].Allarmi."A"[3].EnCadutaCiclo := FALSE;
-        "P"[0].Allarmi.WordHMI := 16#0000;
         "P"[0].Out.Uscita_DaPid := 0.0;
         "P"[0].Out.Uscita_DaFF := -1.990769;
         "P"[0].Out.Uscita_DaBIAS := 0.0;

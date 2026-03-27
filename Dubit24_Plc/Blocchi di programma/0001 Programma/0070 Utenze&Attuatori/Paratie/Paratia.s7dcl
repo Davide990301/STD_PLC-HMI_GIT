@@ -150,7 +150,6 @@ DATA_BLOCK Paratia
         "P"[0].Allarmi."A"[3].Silenziato := FALSE;
         "P"[0].Allarmi."A"[3].EnWarnHmi := FALSE;
         "P"[0].Allarmi."A"[3].EnCadutaCiclo := FALSE;
-        "P"[0].Allarmi.WordHMI := 16#0000;
         "P"[0].Out.CmdPos := FALSE;
         "P"[0].Out.CmdNeg := FALSE;
         "P"[0].Rif_Inc.K_AnalogicaPosAttuale := 0;
@@ -217,7 +216,6 @@ DATA_BLOCK Paratia
         "P"[1].Allarmi."A"[3].Silenziato := FALSE;
         "P"[1].Allarmi."A"[3].EnWarnHmi := FALSE;
         "P"[1].Allarmi."A"[3].EnCadutaCiclo := FALSE;
-        "P"[1].Allarmi.WordHMI := 16#0000;
         "P"[1].Out.CmdPos := FALSE;
         "P"[1].Out.CmdNeg := FALSE;
         "P"[1].Rif_Inc.K_AnalogicaPosAttuale := 76;
@@ -284,7 +282,6 @@ DATA_BLOCK Paratia
         "P"[2].Allarmi."A"[3].Silenziato := FALSE;
         "P"[2].Allarmi."A"[3].EnWarnHmi := FALSE;
         "P"[2].Allarmi."A"[3].EnCadutaCiclo := FALSE;
-        "P"[2].Allarmi.WordHMI := 16#0000;
         "P"[2].Out.CmdPos := FALSE;
         "P"[2].Out.CmdNeg := FALSE;
         "P"[2].Rif_Inc.K_AnalogicaPosAttuale := 75;
@@ -351,7 +348,6 @@ DATA_BLOCK Paratia
         "P"[3].Allarmi."A"[3].Silenziato := FALSE;
         "P"[3].Allarmi."A"[3].EnWarnHmi := FALSE;
         "P"[3].Allarmi."A"[3].EnCadutaCiclo := FALSE;
-        "P"[3].Allarmi.WordHMI := 16#0000;
         "P"[3].Out.CmdPos := FALSE;
         "P"[3].Out.CmdNeg := FALSE;
         "P"[3].Rif_Inc.K_AnalogicaPosAttuale := 0;
@@ -418,7 +414,6 @@ DATA_BLOCK Paratia
         "P"[4].Allarmi."A"[3].Silenziato := FALSE;
         "P"[4].Allarmi."A"[3].EnWarnHmi := FALSE;
         "P"[4].Allarmi."A"[3].EnCadutaCiclo := FALSE;
-        "P"[4].Allarmi.WordHMI := 16#0000;
         "P"[4].Out.CmdPos := FALSE;
         "P"[4].Out.CmdNeg := FALSE;
         "P"[4].Rif_Inc.K_AnalogicaPosAttuale := 73;
@@ -485,7 +480,6 @@ DATA_BLOCK Paratia
         "P"[5].Allarmi."A"[3].Silenziato := FALSE;
         "P"[5].Allarmi."A"[3].EnWarnHmi := FALSE;
         "P"[5].Allarmi."A"[3].EnCadutaCiclo := FALSE;
-        "P"[5].Allarmi.WordHMI := 16#0000;
         "P"[5].Out.CmdPos := FALSE;
         "P"[5].Out.CmdNeg := FALSE;
         "P"[5].Rif_Inc.K_AnalogicaPosAttuale := 74;
@@ -552,7 +546,6 @@ DATA_BLOCK Paratia
         "P"[6].Allarmi."A"[3].Silenziato := FALSE;
         "P"[6].Allarmi."A"[3].EnWarnHmi := FALSE;
         "P"[6].Allarmi."A"[3].EnCadutaCiclo := FALSE;
-        "P"[6].Allarmi.WordHMI := 16#0000;
         "P"[6].Out.CmdPos := FALSE;
         "P"[6].Out.CmdNeg := FALSE;
         "P"[6].Rif_Inc.K_AnalogicaPosAttuale := 67;
@@ -619,7 +612,6 @@ DATA_BLOCK Paratia
         "P"[7].Allarmi."A"[3].Silenziato := FALSE;
         "P"[7].Allarmi."A"[3].EnWarnHmi := FALSE;
         "P"[7].Allarmi."A"[3].EnCadutaCiclo := FALSE;
-        "P"[7].Allarmi.WordHMI := 16#0000;
         "P"[7].Out.CmdPos := FALSE;
         "P"[7].Out.CmdNeg := FALSE;
         "P"[7].Rif_Inc.K_AnalogicaPosAttuale := 0;
@@ -686,7 +678,6 @@ DATA_BLOCK Paratia
         "P"[8].Allarmi."A"[3].Silenziato := FALSE;
         "P"[8].Allarmi."A"[3].EnWarnHmi := FALSE;
         "P"[8].Allarmi."A"[3].EnCadutaCiclo := FALSE;
-        "P"[8].Allarmi.WordHMI := 16#0000;
         "P"[8].Out.CmdPos := FALSE;
         "P"[8].Out.CmdNeg := FALSE;
         "P"[8].Rif_Inc.K_AnalogicaPosAttuale := 0;
@@ -753,7 +744,6 @@ DATA_BLOCK Paratia
         "P"[9].Allarmi."A"[3].Silenziato := FALSE;
         "P"[9].Allarmi."A"[3].EnWarnHmi := FALSE;
         "P"[9].Allarmi."A"[3].EnCadutaCiclo := FALSE;
-        "P"[9].Allarmi.WordHMI := 16#0000;
         "P"[9].Out.CmdPos := FALSE;
         "P"[9].Out.CmdNeg := FALSE;
         "P"[9].Rif_Inc.K_AnalogicaPosAttuale := 0;

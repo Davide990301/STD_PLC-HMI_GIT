@@ -468,8 +468,8 @@ DATA_BLOCK Zona
         "Z"[0].Allarmi.AG[15].Silenziato := FALSE;
         "Z"[0].Allarmi.AG[15].EnWarnHmi := FALSE;
         "Z"[0].Allarmi.AG[15].EnCadutaCiclo := FALSE;
-        "Z"[0].Allarmi.WordHMI := 16#0000;
-        "Z"[0].Allarmi.WordHMI_AG := 16#0000;
+        "Z"[0].Allarmi.WordHMI_1 := 16#0000;
+        "Z"[0].Allarmi.WordHMI_1_AG := 16#0000;
         "Z"[0].Out.Auto := FALSE;
         "Z"[0].Out.Man := FALSE;
         "Z"[0].Out.Attivo := FALSE;

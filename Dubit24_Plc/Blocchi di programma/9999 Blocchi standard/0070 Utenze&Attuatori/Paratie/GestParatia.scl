@@ -170,8 +170,8 @@ BEGIN
 	        END_IF;
 	    END_REGION ;
 	    REGION Scrittura Word allarmi HMI        
-	        "Paratia".P[#K_Paratia].Allarmi.WordHMI.%X1 := "Paratia".P[#K_Paratia].Allarmi.A["KAllParatia_OvertimeMovimento"].Stato;
-	        "Paratia".P[#K_Paratia].Allarmi.WordHMI.%X2 := "Paratia".P[#K_Paratia].Allarmi.A["KAllParatia_TermicoIntervenuto"].Stato;
+	        "Paratia".P[#K_Paratia].Allarmi.WordHMI_1.%X1 := "Paratia".P[#K_Paratia].Allarmi.A["KAllParatia_OvertimeMovimento"].Stato;
+	        "Paratia".P[#K_Paratia].Allarmi.WordHMI_1.%X2 := "Paratia".P[#K_Paratia].Allarmi.A["KAllParatia_TermicoIntervenuto"].Stato;
 	    END_REGION ;
 	END_REGION ;
 	REGION Appoggio delle uscite
