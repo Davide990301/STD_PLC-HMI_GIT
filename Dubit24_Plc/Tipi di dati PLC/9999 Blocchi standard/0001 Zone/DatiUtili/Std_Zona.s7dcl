@@ -50,8 +50,8 @@
             WordHMI_1 : Word;
             WordHMI_2 : Word;
             { S7_Setpoint := "True" }
-            WordHMI_1_AG : Word;
-            WordHMI_2_AG : Word;
+            WordHMI_Gen_1 : Word;
+            WordHMI_Gen_2 : Word;
         END_STRUCT;
         { S7_MLC := "MLC_3gE" }
         Out : STRUCT
