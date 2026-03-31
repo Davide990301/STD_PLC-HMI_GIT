@@ -48,7 +48,8 @@
                 AlmenoUnaDiagnosticaAttiva : Bool;
                 TimeoutRun : Bool;
             END_STRUCT;
-            WordHMI : Word;
+            WordHMI_1 : Word;
+            WordHMI_2 : Word;
         END_STRUCT;
         Destinazione : Array[0.._.K_NumStazione] of _.Std_Stazioni := [
             (),

@@ -5,7 +5,7 @@
         END_STRUCT;
         Prm : STRUCT
             { S7_Setpoint := "False" }
-            UnitàMisura : _.Std_UnitaDiMisura;
+            UnitaMisura : _.Std_UnitaDiMisura;
         END_STRUCT;
         Hmi : STRUCT
             ForzaPos : Bool;

@@ -30,7 +30,7 @@ BEGIN
 	                  K_AttualeInterno => #K_ZonaInt);
 	END_REGION ;
 	REGION Unità di misura
-	    "GestUnitaMisura"("Sensore".S[#K_SensoreInt].Prm.UnitàMisura);
+	    "GestUnitaMisura"("Sensore".S[#K_SensoreInt].Prm.UnitaMisura);
 	END_REGION ;
 END_FUNCTION
 

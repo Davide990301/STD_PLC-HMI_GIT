@@ -10,13 +10,13 @@ DATA_BLOCK Sensore
     END_VAR
 
         S[0].In.Stato := FALSE;
-        S[0].Prm.UnitàMisura.In.UmCode := 0;
-        S[0].Prm.UnitàMisura.In.Valore := 0.0;
-        S[0].Prm.UnitàMisura.Hmi.Converti := FALSE;
-        S[0].Prm.UnitàMisura.Hmi.Calcola := FALSE;
-        S[0].Prm.UnitàMisura.Dati.FattoreDiConversione := 0.0;
-        S[0].Prm.UnitàMisura.Out.UmCode := 0;
-        S[0].Prm.UnitàMisura.Out.Valore := 0.0;
+        S[0].Prm.UnitaMisura.In.UmCode := 0;
+        S[0].Prm.UnitaMisura.In.Valore := 0.0;
+        S[0].Prm.UnitaMisura.Hmi.Converti := FALSE;
+        S[0].Prm.UnitaMisura.Hmi.Calcola := FALSE;
+        S[0].Prm.UnitaMisura.Dati.FattoreDiConversione := 0.0;
+        S[0].Prm.UnitaMisura.Out.UmCode := 0;
+        S[0].Prm.UnitaMisura.Out.Valore := 0.0;
         S[0].Hmi.ForzaPos := FALSE;
         S[0].Hmi.ForzaNeg := FALSE;
         S[0].Allarmi."A"[0].Abilitato := FALSE;
