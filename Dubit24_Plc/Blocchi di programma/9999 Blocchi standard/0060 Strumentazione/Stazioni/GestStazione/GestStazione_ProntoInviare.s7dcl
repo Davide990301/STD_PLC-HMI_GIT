@@ -18,9 +18,9 @@ FUNCTION "GestStazione_ProntoInviare" : Void
     }
     NETWORK
         FOR #DestinazioneAttuale := 0 TO "K_NumStazione" DO //Sfoglio tutte le stazioni
-            IF "Percorso".Stazione[#K_Stazione].Destinazione[#DestinazioneAttuale].IN.Attivo THEN   //Se la strada verso la destinazione è attiva (quindi selezionata e caricata in lavoro)
+            IF "Percorso".S[#K_Stazione].Destinazione[#DestinazioneAttuale].IN.Attivo THEN   //Se la strada verso la destinazione è attiva (quindi selezionata e caricata in lavoro)
                 IF NOT #ProntoAdInviare THEN                                                             //E ho il parametro in ingresso che chiede di fermare la destinazione
-                    "Percorso".Stazione[#DestinazioneAttuale].IN.SorgenteNonPronta := True;             //Fermo la destinazione
+                    "Percorso".S[#DestinazioneAttuale].IN.SorgenteNonPronta := True;             //Fermo la destinazione
                 END_IF;
             END_IF;
         END_FOR;

@@ -20,7 +20,7 @@ FUNCTION "GestStazione_Additivo" : Void
             REGION Parametri
                 //Parametro per rendere la stazione una stazione additiva.
                 //(Una stazione è additiva quando deve "addizionare" del prodotto additivo (Salamoia-acido-concentrato) con una mandata principale)
-                "Percorso".Stazione[#K_Stazione].Dati.InvioAdditivo.Abilitazione := True;
+                "Percorso".S[#K_Stazione].Dati.InvioAdditivo.Abilitazione := True;
             END_REGION ;
         END_REGION ;
         REGION Richiamo gestione chiamata stazione

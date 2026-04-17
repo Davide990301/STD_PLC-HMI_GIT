@@ -111,7 +111,7 @@ BEGIN
 	    IF "Percorso".Hmi.CaricaInLavoro THEN
 	        FOR #StazioneAttuale := 0 TO "K_NumStazione" DO
 	            FOR #DestinazioneAttuale := 0 TO "K_NumStazione" DO
-	                "Percorso".Stazione[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Attivo := "Percorso".Stazione[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Possibile AND "Percorso".Stazione[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Selezionato;
+	                "Percorso".S[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Attivo := "Percorso".S[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Possibile AND "Percorso".S[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Selezionato;
 	            END_FOR;
 	        END_FOR;
 	        "Percorso".Hmi.CaricaInLavoro := False;
@@ -121,7 +121,7 @@ BEGIN
 	    IF "Percorso".Hmi.ResettaTuttoOffline THEN
 	        FOR #StazioneAttuale := 0 TO "K_NumStazione" DO
 	            FOR #DestinazioneAttuale := 0 TO "K_NumStazione" DO
-	                "Percorso".Stazione[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Selezionato := False;
+	                "Percorso".S[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Selezionato := False;
 	            END_FOR;
 	        END_FOR;
 	        "Percorso".Hmi.ResettaTuttoOffline := False;
@@ -131,7 +131,7 @@ BEGIN
 	    IF "Percorso".Hmi.RipristinaOnline THEN
 	        FOR #StazioneAttuale := 0 TO "K_NumStazione" DO
 	            FOR #DestinazioneAttuale := 0 TO "K_NumStazione" DO
-	                "Percorso".Stazione[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Selezionato := "Percorso".Stazione[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Attivo;
+	                "Percorso".S[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Selezionato := "Percorso".S[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Attivo;
 	            END_FOR;
 	        END_FOR;
 	        "Percorso".Hmi.ResettaTuttoOffline := False;
@@ -142,7 +142,7 @@ BEGIN
 	    IF "Zona".Comuni.UpdateGenerale THEN
 	        FOR #StazioneAttuale := 0 TO "K_NumStazione" DO
 	            FOR #DestinazioneAttuale := 0 TO "K_NumStazione" DO
-	                "Percorso".Stazione[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Possibile := False;
+	                "Percorso".S[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Possibile := False;
 	            END_FOR;
 	        END_FOR;
 	    END_IF;
@@ -155,9 +155,9 @@ BEGIN
 	        
 	        FOR #StazioneAttuale := 0 TO "K_NumStazione" DO
 	            FOR #DestinazioneAttuale := 0 TO "K_NumStazione" DO
-	                IF "Percorso".Stazione[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Selezionato THEN
+	                IF "Percorso".S[#StazioneAttuale].Destinazione[#DestinazioneAttuale].IN.Selezionato THEN
 	                    IF #SorgenteUtilizzata[#DestinazioneAttuale] THEN
-	                        "Percorso".Stazione[#DestinazioneAttuale].Allarmi.Stato.ConflittoMultiDest := true;
+	                        "Percorso".S[#DestinazioneAttuale].Allarmi.Stato.ConflittoMultiDest := true;
 	                    END_IF;
 	                    #SorgenteUtilizzata[#DestinazioneAttuale] := True;
 	                END_IF;

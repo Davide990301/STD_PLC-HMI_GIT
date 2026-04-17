@@ -13,7 +13,7 @@ VERSION : 0.1
 
 BEGIN
 	FOR #Counter := 0 TO "K_NumStazione" DO
-	    IF "Percorso".Stazione[#K_Stazione].Destinazione[#Counter].IN.Attivo THEN
+	    IF "Percorso".S[#K_Stazione].Destinazione[#Counter].IN.Attivo THEN
 	        #K_Trovato:= #Counter;
 	    END_IF;
 	END_FOR;

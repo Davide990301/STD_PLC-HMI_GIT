@@ -5,7 +5,7 @@
 }
 DATA_BLOCK Percorso
     VAR RETAIN
-        Stazione : Array[0.._.K_NumStazione] of _.Std_Stazione;
+        S : Array[0.._.K_NumStazione] of _.Std_Stazione;
     END_VAR
 
     VAR

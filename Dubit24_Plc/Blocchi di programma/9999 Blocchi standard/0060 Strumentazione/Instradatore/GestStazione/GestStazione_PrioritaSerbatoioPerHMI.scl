@@ -26,7 +26,7 @@ BEGIN
 	REGION Ricerca stazioni con le priorità
 	    #OccupazioneArray := 0;
 	    FOR #CounterStazione := 0 TO "K_NumStazione" DO
-	        IF "Percorso".Stazione[#CounterStazione].Prm.AbilitazionePriorità.SuEstrazioni OR "Percorso".Stazione[#CounterStazione].Prm.AbilitazionePriorità.SugliArrivi THEN
+	        IF "Percorso".S[#CounterStazione].Prm.AbilitazionePriorità.SuEstrazioni OR "Percorso".S[#CounterStazione].Prm.AbilitazionePriorità.SugliArrivi THEN
 	            #StazioniConPriorità[#OccupazioneArray] := #CounterStazione;
 	            #OccupazioneArray += 1;
 	        END_IF;
@@ -35,14 +35,14 @@ BEGIN
 	REGION Ricerca sorgenti e destinazioni per la stazione visualizzata
 	    #OccupazioneArray := 0;
 	    FOR #CounterStazione := 0 TO "K_NumStazione" DO
-	        IF "Percorso".Stazione[#CounterStazione].Destinazione[#StazioneVisualizzataHmi].IN.Possibile THEN
+	        IF "Percorso".S[#CounterStazione].Destinazione[#StazioneVisualizzataHmi].IN.Possibile THEN
 	            #StazioniSorgenti[#OccupazioneArray] := #CounterStazione;
 	            #OccupazioneArray += 1;
 	        END_IF;
 	    END_FOR;
 	    #OccupazioneArray := 0;
 	    FOR #CounterStazione := 0 TO "K_NumStazione" DO
-	        IF "Percorso".Stazione[#StazioneVisualizzataHmi].Destinazione[#CounterStazione].IN.Possibile THEN
+	        IF "Percorso".S[#StazioneVisualizzataHmi].Destinazione[#CounterStazione].IN.Possibile THEN
 	            #StazioniDestinazioni[#OccupazioneArray] := #CounterStazione;
 	            #OccupazioneArray += 1;
 	        END_IF;
@@ -61,21 +61,21 @@ BEGIN
 	    IF #LeggiDaPlc THEN
 	        FOR #CounterStazione := 0 TO "K_NumStazione" DO
 	            #StazioneDaElenco := #StazioniSorgenti[#CounterStazione];    //Sfoglio l'elenco di stazioni e mi salvo la k
-	            "PrioritàStazioni".StazioniSorgenti_PrioritàHmi[#CounterStazione] := "Percorso".Stazione[#StazioneDaElenco].Destinazione[#StazioneVisualizzataHmi].Prm.PrioritaRicezioneProdotto;
+	            "PrioritàStazioni".StazioniSorgenti_PrioritàHmi[#CounterStazione] := "Percorso".S[#StazioneDaElenco].Destinazione[#StazioneVisualizzataHmi].Prm.PrioritaRicezioneProdotto;
 	        END_FOR;
 	        FOR #CounterStazione := 0 TO "K_NumStazione" DO
 	            #StazioneDaElenco := #StazioniDestinazioni[#CounterStazione];    //Sfoglio l'elenco di stazioni e mi salvo la k
-	            "PrioritàStazioni".StazioniDestinazioni_PrioritàHmi[#CounterStazione] := "Percorso".Stazione[#StazioneVisualizzataHmi].Destinazione[#StazioneDaElenco].Prm.PrioritaInvioProdotto;
+	            "PrioritàStazioni".StazioniDestinazioni_PrioritàHmi[#CounterStazione] := "Percorso".S[#StazioneVisualizzataHmi].Destinazione[#StazioneDaElenco].Prm.PrioritaInvioProdotto;
 	        END_FOR;
 	    END_IF;
 	    IF #LeggiDaHmi THEN
 	        FOR #CounterStazione := 0 TO "K_NumStazione" DO
 	            #StazioneDaElenco := #StazioniSorgenti[#CounterStazione];    //Sfoglio l'elenco di stazioni e mi salvo la k
-	            "Percorso".Stazione[#StazioneDaElenco].Destinazione[#StazioneVisualizzataHmi].Prm.PrioritaRicezioneProdotto := "PrioritàStazioni".StazioniSorgenti_PrioritàHmi[#CounterStazione];
+	            "Percorso".S[#StazioneDaElenco].Destinazione[#StazioneVisualizzataHmi].Prm.PrioritaRicezioneProdotto := "PrioritàStazioni".StazioniSorgenti_PrioritàHmi[#CounterStazione];
 	        END_FOR;
 	        FOR #CounterStazione := 0 TO "K_NumStazione" DO
 	            #StazioneDaElenco := #StazioniDestinazioni[#CounterStazione];    //Sfoglio l'elenco di stazioni e mi salvo la k
-	            "Percorso".Stazione[#StazioneVisualizzataHmi].Destinazione[#StazioneDaElenco].Prm.PrioritaInvioProdotto := "PrioritàStazioni".StazioniDestinazioni_PrioritàHmi[#CounterStazione];
+	            "Percorso".S[#StazioneVisualizzataHmi].Destinazione[#StazioneDaElenco].Prm.PrioritaInvioProdotto := "PrioritàStazioni".StazioniDestinazioni_PrioritàHmi[#CounterStazione];
 	        END_FOR;
 	    END_IF;
 	    "PrioritàStazioni".Old_StazioniDestinazioni_PrioritàHmi := "PrioritàStazioni".StazioniDestinazioni_PrioritàHmi;
