@@ -45,6 +45,7 @@
                 (),
                 ()
             ];
+            { S7_Setpoint := "False" }
             AG : Array[0.._.K_NumAllarmiGenPerZone] of _.Std_PrmAllarmeStd;
             { S7_Setpoint := "True" }
             WordHMI_1 : Word;
