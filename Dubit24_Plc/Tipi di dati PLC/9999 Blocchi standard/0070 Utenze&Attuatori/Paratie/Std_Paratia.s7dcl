@@ -64,6 +64,12 @@
             PulsanteDecrementa : Bool;
             Simulazione : Bool;
             SetpointBloccato : Bool;
+            InterpolazioniFF : STRUCT
+                IndiceHmiPrec : Int := 0;
+                IndiceHmi : Int := 0;
+                Setpoint : Real := 0.0;
+                Valore : Real := 0.0;
+            END_STRUCT;
         END_STRUCT;
         Allarmi : STRUCT
             { S7_Setpoint := "False" }
@@ -89,6 +95,8 @@
         END_STRUCT;
         Rif_Inc : STRUCT
             K_AnalogicaPosAttuale : Int;
+            { S7_MLC := "MLC_539" }
+            K_Zona : Int;
             K_AnalogicaRiferimento : Int;
             K_StazioneRiferimento : Int;
         END_STRUCT;
