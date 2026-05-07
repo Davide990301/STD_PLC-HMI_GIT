@@ -1,5 +1,5 @@
 ﻿TYPE
-    Priorità : STRUCT
+    Std_Priorita : STRUCT
         Soglia : Real;
         Isteresi : Real;
     END_STRUCT;
