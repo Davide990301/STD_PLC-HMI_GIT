@@ -482,7 +482,7 @@
       <SW.Tags.PlcUserConstant ID="4E" CompositionName="UserConstants">
         <AttributeList>
           <DataTypeName>Int</DataTypeName>
-          <Name>K_NumSegnaliMacchina</Name>
+          <Name>K_NumSegnaleMacchina</Name>
           <Value>12</Value>
         </AttributeList>
         <ObjectList>
