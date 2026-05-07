@@ -3,7 +3,7 @@
   <Engineering version="V21" />
   <SW.Tags.PlcTagTable ID="0">
     <AttributeList>
-      <Name>UnitàDiMisura_Tipi</Name>
+      <Name>UnitaDiMisura_Tipi</Name>
     </AttributeList>
     <ObjectList>
       <SW.Tags.PlcUserConstant ID="1" CompositionName="UserConstants">
