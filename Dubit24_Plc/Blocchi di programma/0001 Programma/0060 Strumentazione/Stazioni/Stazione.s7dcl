@@ -3,7 +3,7 @@
     S7_StandardRetain := "FALSE";
     S7_Version := "0.1"
 }
-DATA_BLOCK Percorso
+DATA_BLOCK Stazione
     VAR RETAIN
         S : Array[0.._.K_NumStazione] of _.Std_Stazione;
     END_VAR

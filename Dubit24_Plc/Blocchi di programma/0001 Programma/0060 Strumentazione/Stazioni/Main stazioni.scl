@@ -11,32 +11,32 @@ VERSION : 0.1
 
 
 BEGIN
-	IF "Percorso".Funzioni.Inizializza THEN
+	IF "Stazione".Funzioni.Inizializza THEN
 	    FOR #CounterStazioni := 0 TO "K_NumStazione" DO
 	        FOR #CounterDestinazioni := 0 TO "K_NumStazione" DO
-	            "Percorso".S[#CounterStazioni].Destinazione[#CounterDestinazioni].IN.Possibile := False;
+	            "Stazione".S[#CounterStazioni].Destinazione[#CounterDestinazioni].IN.Possibile := False;
 	        END_FOR;
-	        "Percorso".S[#CounterStazioni].Hmi.Diagnostica.TroppoPieno :=
-	        "Percorso".S[#CounterStazioni].Dati.InvioAdditivo.Abilitazione :=
-	        "Percorso".S[#CounterStazioni].Dati.InvioAdditivo.Attiva :=
-	        "Percorso".S[#CounterStazioni].Dati.RicezioneAdditivo.Attiva :=
-	        "Percorso".S[#CounterStazioni].Dati.GestionePrioritàAttiva.DaDestinazione :=
-	        "Percorso".S[#CounterStazioni].Dati.GestionePrioritàAttiva.DaSorgente :=
-	        "Percorso".S[#CounterStazioni].Dati.AlmenoUnaDestinazioneProgettata :=
-	        "Percorso".S[#CounterStazioni].Dati.AlmenoUnaSorgenteProgettata :=
-	        "Percorso".S[#CounterStazioni].Prm.AbilitazionePriorità.SuEstrazioni :=
-	        "Percorso".S[#CounterStazioni].Prm.AbilitazionePriorità.SugliArrivi :=
-	        "Percorso".S[#CounterStazioni].Prm.IgnoraDestinazione :=
-	        "Percorso".S[#CounterStazioni].Prm.ByPassChiamataDestinazione := False;
-	        "Percorso".S[#CounterStazioni].Dati.K_StazioneDestinazione :=
-	        "Percorso".S[#CounterStazioni].Dati.InvioAdditivo.K_StazioneRiferimento1 :=
-	        "Percorso".S[#CounterStazioni].Dati.RicezioneAdditivo.K_StazioneRiferimento := 0;
-	        "Percorso".S[#CounterStazioni].IN.SorgenteNonPronta :=
-	        "Percorso".S[#CounterStazioni].IN.LivelloDestinazioneSuperiorePriorità :=
-	        "Percorso".S[#CounterStazioni].IN.LivelloSorgenteInferiorePriorità := False;
+	        "Stazione".S[#CounterStazioni].Hmi.Diagnostica.TroppoPieno :=
+	        "Stazione".S[#CounterStazioni].Dati.InvioAdditivo.Abilitazione :=
+	        "Stazione".S[#CounterStazioni].Dati.InvioAdditivo.Attiva :=
+	        "Stazione".S[#CounterStazioni].Dati.RicezioneAdditivo.Attiva :=
+	        "Stazione".S[#CounterStazioni].Dati.GestionePrioritàAttiva.DaDestinazione :=
+	        "Stazione".S[#CounterStazioni].Dati.GestionePrioritàAttiva.DaSorgente :=
+	        "Stazione".S[#CounterStazioni].Dati.AlmenoUnaDestinazioneProgettata :=
+	        "Stazione".S[#CounterStazioni].Dati.AlmenoUnaSorgenteProgettata :=
+	        "Stazione".S[#CounterStazioni].Prm.AbilitazionePriorità.SuEstrazioni :=
+	        "Stazione".S[#CounterStazioni].Prm.AbilitazionePriorità.SugliArrivi :=
+	        "Stazione".S[#CounterStazioni].Prm.IgnoraDestinazione :=
+	        "Stazione".S[#CounterStazioni].Prm.ByPassChiamataDestinazione := False;
+	        "Stazione".S[#CounterStazioni].Dati.K_StazioneDestinazione :=
+	        "Stazione".S[#CounterStazioni].Dati.InvioAdditivo.K_StazioneRiferimento1 :=
+	        "Stazione".S[#CounterStazioni].Dati.RicezioneAdditivo.K_StazioneRiferimento := 0;
+	        "Stazione".S[#CounterStazioni].IN.SorgenteNonPronta :=
+	        "Stazione".S[#CounterStazioni].IN.LivelloDestinazioneSuperiorePriorità :=
+	        "Stazione".S[#CounterStazioni].IN.LivelloSorgenteInferiorePriorità := False;
 	    END_FOR;
-	    "Percorso".Hmi.AggiornaConfigurazione := True;
-	    "Percorso".Funzioni.Inizializza := False;
+	    "Stazione".Hmi.AggiornaConfigurazione := True;
+	    "Stazione".Funzioni.Inizializza := False;
 	END_IF;
 END_FUNCTION
 
