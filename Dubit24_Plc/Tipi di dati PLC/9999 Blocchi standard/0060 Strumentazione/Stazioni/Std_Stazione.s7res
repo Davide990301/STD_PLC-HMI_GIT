@@ -1,0 +1,17 @@
+﻿MultiLingualTexts:
+  - id: MLC_4We
+    it-IT: Stazione serbatoio che ha raggiunto il livello minimo
+  - id: MLC_3Pd
+    it-IT: Logiche PLC nel richiamo della stazione
+  - id: MLC_4wm
+    it-IT: ConflittoMultiDest
+  - id: MLC_4nL
+    it-IT: AlmenoUnaDiagnosticaAttiva
+  - id: MLC_rs
+    it-IT: K stazione additivo che si è collegata a me
+  - id: MLC_ik
+    it-IT: K stazione additivo che si è collegata a me
+  - id: MLC_4iv
+    it-IT: K stazione additivo che si è collegata a me
+  - id: MLC_4MQ
+    it-IT: K stazione2 per associare più mandate contemporanee

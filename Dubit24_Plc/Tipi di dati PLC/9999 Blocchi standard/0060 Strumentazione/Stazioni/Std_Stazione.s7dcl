@@ -20,7 +20,11 @@
                 AttesaPompaMandata : Bool;
                 NessunaDestinazioneAttiva : Bool;
                 TroppoPieno : Bool;
+                { S7_MLC := "MLC_4We" }
+                TroppoVuoto : Bool;
                 AttesaFeedbackRun : Bool;
+                { S7_MLC := "MLC_3Pd" }
+                CondizionePLC : Bool;
             END_STRUCT;
         END_STRUCT;
         Prm : STRUCT
@@ -38,16 +42,14 @@
             FunzionamentoBatch : Bool;
         END_STRUCT;
         Allarmi : STRUCT
-            Stato : STRUCT
-                ConflittoMultiDest : Bool;
-                AlmenoUnaDiagnosticaAttiva : Bool;
-                TimeoutRun : Bool;
-            END_STRUCT;
-            EnWarnHmi : STRUCT
-                ConflittoMultiDest : Bool;
-                AlmenoUnaDiagnosticaAttiva : Bool;
-                TimeoutRun : Bool;
-            END_STRUCT;
+            { S7_Setpoint := "False" }
+            "A" : Array[0.._.K_NumAllarmiPerStazioni] of _.Std_PrmAllarmeStd := [
+                (),
+                { S7_MLC := "MLC_4wm" }
+                (),
+                { S7_MLC := "MLC_4nL" }
+                ()
+            ];
             WordHMI_1 : Word;
             WordHMI_2 : Word;
         END_STRUCT;
@@ -58,14 +60,20 @@
         Dati : STRUCT
             RicezioneAdditivo : STRUCT
                 Attiva : Bool;
-                K_StazioneRiferimento : Int;
+                { S7_MLC := "MLC_rs" }
+                K_StazioneAdditivo1 : Int;
+                { S7_MLC := "MLC_ik" }
+                K_StazioneAdditivo2 : Int;
+                { S7_MLC := "MLC_4iv" }
+                K_StazioneAdditivo3 : Int;
             END_STRUCT;
             InvioAdditivo : STRUCT
                 Abilitazione : Bool;
                 Attiva : Bool;
                 TuttiRiferimentiOk : Bool;
-                K_StazioneRiferimento1 : Int;
-                K_StazioneRiferimento2 : Int;
+                K_StazioneMandata1 : Int;
+                { S7_MLC := "MLC_4MQ" }
+                K_StazioneMandata2 : Int;
             END_STRUCT;
             DestAttivaPresente : Bool;
             K_StazioneDestinazione : Int;
@@ -89,7 +97,6 @@
             K_Analogica : Int;
             K_Paratia : Int;
             K_Motore : Int;
-            K_Pompa : Int;
             K_Stazione : Int;
         END_STRUCT;
     END_STRUCT;
