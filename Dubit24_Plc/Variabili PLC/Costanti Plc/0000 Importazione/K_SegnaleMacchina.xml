@@ -3,7 +3,7 @@
   <Engineering version="V21" />
   <SW.Tags.PlcTagTable ID="0">
     <AttributeList>
-      <Name>K_SegnaliMacchina</Name>
+      <Name>K_SegnaleMacchina</Name>
     </AttributeList>
   </SW.Tags.PlcTagTable>
 </Document>
