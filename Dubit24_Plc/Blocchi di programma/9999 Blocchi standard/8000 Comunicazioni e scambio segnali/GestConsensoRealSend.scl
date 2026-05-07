@@ -1,0 +1,27 @@
+﻿FUNCTION "GestConsensoRealSend" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_SegnaleMacchina : Int;
+      K_ConsensoRealSend : Int;
+      SegnaleDaInterno : Real;
+   END_VAR
+
+   VAR_OUTPUT 
+      SegnaleVersoEsterno : Real;
+   END_VAR
+
+   VAR_TEMP 
+      Nop : Real;
+   END_VAR
+
+
+BEGIN
+	"GestConsensoReal"(K_SegnaleMacchina := #K_SegnaleMacchina,
+	                   K_Consenso := #K_ConsensoRealSend,
+	                   K_TipoSendReceive := "K_TipoSendRecive_Send",
+	                   SegnaleIn := #SegnaleDaInterno,
+	                   OutSegnale => #SegnaleVersoEsterno);
+	
+END_FUNCTION
+

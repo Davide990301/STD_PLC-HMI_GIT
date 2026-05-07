@@ -60,6 +60,13 @@ VERSION : 0.1
       ConsensoUtenzeComunicazione : Bool;
       VariantTest : Variant;
       Error : Int;
+      ReceiveWatchDog : Bool;
+      SendWatchDog : Bool;
+      NessunSegnaleVersoInterno : Bool;
+   END_VAR
+
+   VAR CONSTANT 
+      NessunSegnaleDaEsterno : Bool := False;
    END_VAR
 
 
@@ -158,8 +165,11 @@ BEGIN
 	                   NDR => #ETH.GET.NDR,
 	                   ERROR => #ETH.GET.ERROR,
 	                   STATUS => #ETH.GET.STATUS,
+	                   // ADDR_1 := P#DB9011.DBX164.0 BYTE 164,
+	                   // RD_1 := P#DB9010.DBX164.0 BYTE 164
 	                   ADDR_1 := #PuntatoreAreadatiSendPartner,
-	                   RD_1 := #PuntatoreAreadatiReciveLocale);
+	                   RD_1 := #PuntatoreAreadatiReciveLocale
+	        );
 	    END_REGION ;
 	    REGION Tentativi di lettura
 	        IF #ETH.GET.NDR THEN                                           //Se la scrittura è avvenuta
@@ -190,17 +200,29 @@ BEGIN
 	END_REGION ;
 	REGION Watchdog bit
 	    IF "SegnaliMacchina".S[#K_SegnaleMacchina].Prm.Watchdog.Bit.Abilitato THEN
-	        #WatchdogBit(Watchdog_Recive := "SegnaliMacchina".S[#K_SegnaleMacchina].SR["K_TipoSendRecive_Receive"].Digitali[0].Out.Segnale,
-	                     Watchdog_Send => "SegnaliMacchina".S[#K_SegnaleMacchina].SR["K_TipoSendRecive_Send"].Digitali[0].Out.Segnale,
+	        "SegnaliMacchina".S[#K_SegnaleMacchina].SR["K_TipoSendRecive_Receive"].Digitali[0].Prm.ComportamentoNoCom := 2; //Mantieni altrimenti flippa
+	        "GestConsensoDigitaleReceive"(K_SegnaleMacchina := #K_SegnaleMacchina,
+	                                      K_ConsensoDigitaleReceive := 0, //Default bit per watchdog lo zero
+	                                      SegnaleDaEsterno :=  "SegnaliMacchina".S[#K_SegnaleMacchina].SR["K_TipoSendRecive_Receive"].Digitali[0].In.Segnale,
+	                                      SegnaleVersoInterno => #ReceiveWatchDog);
+	       
+	        #WatchdogBit(Watchdog_Recive := #ReceiveWatchDog,
+	                     Watchdog_Send => #SendWatchDog,
 	                     Reset := #Reset);
+	        
+	        "GestConsensoDigitaleSend"(K_SegnaleMacchina := #K_SegnaleMacchina,
+	                                   K_ConsensoDigitaleSend := 0, //Default bit per watchdog lo zero
+	                                   SegnaleDaInterno := #SendWatchDog,
+	                                   SegnaleVersoEsterno => #NessunSegnaleVersoInterno);
+	        
 	    ELSE
 	        #WatchdogBit.TimerAllarme.O := #WatchdogBit.Allarme := False;
 	    END_IF;
 	 END_REGION ;
 	 REGION Watchdog incrementale
 	     IF "SegnaliMacchina".S[#K_SegnaleMacchina].Prm.Watchdog.Incrementale.Abilitato THEN
-	         #WatchdogIncrementale(Watchdog_Recive := "SegnaliMacchina".S[#K_SegnaleMacchina].SR["K_TipoSendRecive_Receive"]."DInt"[0],
-	                               Watchdog_Send => "SegnaliMacchina".S[#K_SegnaleMacchina].SR["K_TipoSendRecive_Send"]."DInt"[0],
+	         #WatchdogIncrementale(Watchdog_Recive := "SegnaliMacchina".S[#K_SegnaleMacchina].SR["K_TipoSendRecive_Receive"]."DInt"[0].Out.Segnale,
+	                               Watchdog_Send => "SegnaliMacchina".S[#K_SegnaleMacchina].SR["K_TipoSendRecive_Send"]."DInt"[0].Out.Segnale,
 	                               Reset := #Reset);
 	     ELSE
 	         #WatchdogIncrementale.TimerAllarme.O := #WatchdogIncrementale.Allarme := False;
@@ -222,7 +244,8 @@ BEGIN
 	    IF #ETH.PUT.ERROR THEN                          //Utilizzo l'allarme diretto di uscita dal blocco siemens
 	        #ConsensoUtenzeComunicazione := False;      //perchè si resetta appena la comunicazione riparte
 	    END_IF;
-	    #Allarmi.ConsensoUtenzeComunicazione := #ConsensoUtenzeComunicazione;
+	    "SegnaliMacchina".S[#K_SegnaleMacchina].In.AssenzaComunicazione :=
+	    #Allarmi.ConsensoUtenzeComunicazione := NOT #ConsensoUtenzeComunicazione;
 	END_REGION ;
 	REGION Word allarmi HMI
 	    IF #Reset THEN

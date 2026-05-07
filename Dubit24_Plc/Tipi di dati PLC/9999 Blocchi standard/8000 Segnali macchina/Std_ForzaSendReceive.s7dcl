@@ -1,6 +1,6 @@
 ﻿TYPE
     Std_ForzaSendReceive : STRUCT
         { S7_Setpoint := "False" }
-        Digitali : Array[0..31] of _.Std_Segnale;
+        Digitali : Array[0..31] of _.Std_SegnaleDigitale;
     END_STRUCT;
 END_TYPE

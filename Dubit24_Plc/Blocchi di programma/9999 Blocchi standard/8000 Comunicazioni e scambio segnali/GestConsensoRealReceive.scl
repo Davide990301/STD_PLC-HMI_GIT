@@ -1,0 +1,22 @@
+﻿FUNCTION "GestConsensoRealReceive" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_SegnaleMacchina : Int;
+      K_ConsensoRealReceive : Int;
+      SegnaleDaEsterno : Real;
+   END_VAR
+
+   VAR_OUTPUT 
+      SegnaleVersoInterno : Real;
+   END_VAR
+
+
+BEGIN
+	"GestConsensoReal"(K_SegnaleMacchina := #K_SegnaleMacchina,
+	                   K_Consenso := #K_ConsensoRealReceive,
+	                   K_TipoSendReceive := "K_TipoSendRecive_Receive",
+	                   SegnaleIn := #SegnaleDaEsterno,
+	                   OutSegnale => #SegnaleVersoInterno);
+END_FUNCTION
+

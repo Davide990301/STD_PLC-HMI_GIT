@@ -1,0 +1,26 @@
+﻿TYPE
+    Std_SegnaleReal : STRUCT
+        In : STRUCT
+            Segnale : Real;
+        END_STRUCT;
+        Prm : STRUCT
+            AbilitaScadenzaForzatura : Bool;
+            { S7_Setpoint := "False" }
+            TempoScadenzaForzatura : _.Std_stTimer;
+            {
+                S7_MLC := "MLC_53N";
+                S7_Setpoint := "True"
+            }
+            ComportamentoNoCom : Int;
+        END_STRUCT;
+        Hmi : STRUCT
+            ForzaturaOn : Bool;
+            ForzaturaOff : Bool;
+            ForzaturaValore : Real;
+            Stato : Int;
+        END_STRUCT;
+        Out : STRUCT
+            Segnale : Real;
+        END_STRUCT;
+    END_STRUCT;
+END_TYPE

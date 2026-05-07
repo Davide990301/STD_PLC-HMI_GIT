@@ -1,3 +1,15 @@
 ﻿MultiLingualTexts:
   - id: MLC_3iy
     it-IT: Send e receive
+  - id: MLC_3Jz
+    it-IT: Assenza di comunicazione
+  - id: MLC_yR
+    it-IT: Gestione del watchdog
+  - id: MLC_3UG
+    it-IT: Watchdog a bit
+  - id: MLC_4c7
+    it-IT: 0=Digitali / 1=GetPut / 2=OpcUa
+  - id: MLC_4ue
+    it-IT: I segnali si portano nello stato definito
+  - id: MLC_3ar
+    it-IT: Almeno una forzatura attiva nei segnali

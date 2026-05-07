@@ -5,7 +5,7 @@
 }
 FUNCTION_BLOCK "Main GetPut"
     VAR
-        "C" : Array[0.._.K_NumComunicazioneS7] of _.GestGestPut;
+        "C" : Array[0.._.K_NumComunicazioneS7] of _.GestGetPut;
     END_VAR
     VAR_TEMP
         Reset : Bool;

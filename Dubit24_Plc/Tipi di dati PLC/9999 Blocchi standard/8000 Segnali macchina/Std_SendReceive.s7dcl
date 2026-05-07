@@ -1,13 +1,15 @@
 ﻿TYPE
     Std_SendReceive : STRUCT
         { S7_Setpoint := "False" }
-        Digitali : Array[0..31] of _.Std_Segnale := [
+        Digitali : Array[0..15] of _.Std_SegnaleDigitale := [
             ()
         ];
-        "DInt" : Array[0..19] of DInt := [
+        { S7_Setpoint := "False" }
+        "DInt" : Array[0..15] of _.Std_SegnaleDInt := [
             ()
         ];
-        "Real" : Array[0..19] of Real;
+        { S7_Setpoint := "False" }
+        "Real" : Array[0..15] of _.Std_SegnaleReal;
         Prm : STRUCT
             Abilitazione : Bool;
         END_STRUCT;

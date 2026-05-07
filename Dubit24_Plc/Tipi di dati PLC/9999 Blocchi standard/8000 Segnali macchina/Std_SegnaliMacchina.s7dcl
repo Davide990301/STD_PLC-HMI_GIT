@@ -5,8 +5,14 @@
             (),
             ()
         ];
+        In : STRUCT
+            { S7_MLC := "MLC_3Jz" }
+            AssenzaComunicazione : Bool;
+        END_STRUCT;
         Prm : STRUCT
+            { S7_MLC := "MLC_yR" }
             Watchdog : STRUCT
+                { S7_MLC := "MLC_3UG" }
                 Bit : STRUCT
                     Abilitato : Bool;
                     RestituisciWatchdog : Bool;
@@ -16,7 +22,16 @@
                     Abilitato : Bool;
                 END_STRUCT;
             END_STRUCT;
+            { S7_MLC := "MLC_4c7" }
             TipoComunicazione : Int;
+        END_STRUCT;
+        Hmi : STRUCT
+            Diagnostica : STRUCT
+                { S7_MLC := "MLC_4ue" }
+                "0-AssenzaComunicazione" : Bool;
+                { S7_MLC := "MLC_3ar" }
+                "1-AlmenoUnaForzaturaAttiva" : Bool;
+            END_STRUCT;
         END_STRUCT;
         Allarmi : STRUCT
             { S7_Setpoint := "False" }
@@ -36,7 +51,11 @@
                     EnCadutaCiclo := FALSE
                 ))
             ];
-            WordHmi : Word;
+            WordHmi_1 : Word;
+            WordHmi_2 : Word;
+        END_STRUCT;
+        Rif_Inc : STRUCT
+            K_ComunicazioneS7 : Int;
         END_STRUCT;
     END_STRUCT;
 END_TYPE

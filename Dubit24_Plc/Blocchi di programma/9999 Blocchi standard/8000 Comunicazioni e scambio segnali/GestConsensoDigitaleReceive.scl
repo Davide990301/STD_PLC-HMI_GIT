@@ -1,0 +1,27 @@
+﻿FUNCTION "GestConsensoDigitaleReceive" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      K_SegnaleMacchina : Int;
+      K_ConsensoDigitaleReceive : Int;
+      SegnaleDaEsterno : Bool;   // Stato in ingresso (EX.X, Comuncazioni etc..)
+   END_VAR
+
+   VAR_OUTPUT 
+      SegnaleVersoInterno : Bool;   // Tiene conto di forzature, getput, etc
+   END_VAR
+
+   VAR_TEMP 
+      SegnaleDaRete : Bool;
+   END_VAR
+
+
+BEGIN
+	"GestConsensoDigitale"(K_SegnaleMacchina := #K_SegnaleMacchina,
+	                       K_Consenso := #K_ConsensoDigitaleReceive,
+	                       K_TipoSendReceive := "K_TipoSendRecive_Receive",
+	                       SegnaleIn := #SegnaleDaEsterno,
+	                       OutSegnale => #SegnaleVersoInterno);
+	ENO := #SegnaleVersoInterno;
+END_FUNCTION
+
