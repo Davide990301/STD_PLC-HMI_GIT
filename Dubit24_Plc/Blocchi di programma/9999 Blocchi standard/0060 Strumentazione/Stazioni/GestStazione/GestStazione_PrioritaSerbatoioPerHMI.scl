@@ -21,7 +21,7 @@ BEGIN
 	        #StazioniDestinazioni[#CounterStazione] :=
 	        #StazioniConPriorità[#CounterStazione] := 0;
 	    END_FOR;
-	    #StazioneVisualizzataHmi := "PrioritàStazioni".K_StazioneVisualizzata;
+	    #StazioneVisualizzataHmi := "PrioritaStazioni".K_StazioneVisualizzata;
 	END_REGION ;
 	REGION Ricerca stazioni con le priorità
 	    #OccupazioneArray := 0;
@@ -49,38 +49,38 @@ BEGIN
 	    END_FOR;
 	END_REGION ;
 	REGION Definzione dell'elenco di stazioni da visualizzare ad HMI
-	    "PrioritàStazioni".K_StazioniSorgenti := #StazioniSorgenti;
-	    "PrioritàStazioni".K_StazioniDestinazioni := #StazioniDestinazioni;
-	    "PrioritàStazioni".K_StazioniConPriorità := #StazioniConPriorità;
+	    "PrioritaStazioni".K_StazioniSorgenti := #StazioniSorgenti;
+	    "PrioritaStazioni".K_StazioniDestinazioni := #StazioniDestinazioni;
+	    "PrioritaStazioni".K_StazioniConPriorità := #StazioniConPriorità;
 	END_REGION ;
 	REGION Definzione lettura e scrittura
-	    #LeggiDaPlc := "PrioritàStazioni".Old_K_StazioneVisualizzata <> "PrioritàStazioni".K_StazioneVisualizzata;
+	    #LeggiDaPlc := "PrioritaStazioni".Old_K_StazioneVisualizzata <> "PrioritaStazioni".K_StazioneVisualizzata;
 	    
-	    #LeggiDaHmi :=  ("PrioritàStazioni".Old_StazioniSorgenti_PrioritàHmi <> "PrioritàStazioni".StazioniSorgenti_PrioritàHmi) OR
-	                    ("PrioritàStazioni".Old_StazioniDestinazioni_PrioritàHmi <> "PrioritàStazioni".StazioniDestinazioni_PrioritàHmi);
+	    #LeggiDaHmi :=  ("PrioritaStazioni".Old_StazioniSorgenti_PrioritàHmi <> "PrioritaStazioni".StazioniSorgenti_PrioritàHmi) OR
+	                    ("PrioritaStazioni".Old_StazioniDestinazioni_PrioritàHmi <> "PrioritaStazioni".StazioniDestinazioni_PrioritàHmi);
 	    IF #LeggiDaPlc THEN
 	        FOR #CounterStazione := 0 TO "K_NumStazione" DO
 	            #StazioneDaElenco := #StazioniSorgenti[#CounterStazione];    //Sfoglio l'elenco di stazioni e mi salvo la k
-	            "PrioritàStazioni".StazioniSorgenti_PrioritàHmi[#CounterStazione] := "Stazione".S[#StazioneDaElenco].Destinazione[#StazioneVisualizzataHmi].Prm.PrioritaRicezioneProdotto;
+	            "PrioritaStazioni".StazioniSorgenti_PrioritàHmi[#CounterStazione] := "Stazione".S[#StazioneDaElenco].Destinazione[#StazioneVisualizzataHmi].Prm.PrioritaRicezioneProdotto;
 	        END_FOR;
 	        FOR #CounterStazione := 0 TO "K_NumStazione" DO
 	            #StazioneDaElenco := #StazioniDestinazioni[#CounterStazione];    //Sfoglio l'elenco di stazioni e mi salvo la k
-	            "PrioritàStazioni".StazioniDestinazioni_PrioritàHmi[#CounterStazione] := "Stazione".S[#StazioneVisualizzataHmi].Destinazione[#StazioneDaElenco].Prm.PrioritaInvioProdotto;
+	            "PrioritaStazioni".StazioniDestinazioni_PrioritàHmi[#CounterStazione] := "Stazione".S[#StazioneVisualizzataHmi].Destinazione[#StazioneDaElenco].Prm.PrioritaInvioProdotto;
 	        END_FOR;
 	    END_IF;
 	    IF #LeggiDaHmi THEN
 	        FOR #CounterStazione := 0 TO "K_NumStazione" DO
 	            #StazioneDaElenco := #StazioniSorgenti[#CounterStazione];    //Sfoglio l'elenco di stazioni e mi salvo la k
-	            "Stazione".S[#StazioneDaElenco].Destinazione[#StazioneVisualizzataHmi].Prm.PrioritaRicezioneProdotto := "PrioritàStazioni".StazioniSorgenti_PrioritàHmi[#CounterStazione];
+	            "Stazione".S[#StazioneDaElenco].Destinazione[#StazioneVisualizzataHmi].Prm.PrioritaRicezioneProdotto := "PrioritaStazioni".StazioniSorgenti_PrioritàHmi[#CounterStazione];
 	        END_FOR;
 	        FOR #CounterStazione := 0 TO "K_NumStazione" DO
 	            #StazioneDaElenco := #StazioniDestinazioni[#CounterStazione];    //Sfoglio l'elenco di stazioni e mi salvo la k
-	            "Stazione".S[#StazioneVisualizzataHmi].Destinazione[#StazioneDaElenco].Prm.PrioritaInvioProdotto := "PrioritàStazioni".StazioniDestinazioni_PrioritàHmi[#CounterStazione];
+	            "Stazione".S[#StazioneVisualizzataHmi].Destinazione[#StazioneDaElenco].Prm.PrioritaInvioProdotto := "PrioritaStazioni".StazioniDestinazioni_PrioritàHmi[#CounterStazione];
 	        END_FOR;
 	    END_IF;
-	    "PrioritàStazioni".Old_StazioniDestinazioni_PrioritàHmi := "PrioritàStazioni".StazioniDestinazioni_PrioritàHmi;
-	    "PrioritàStazioni".Old_StazioniSorgenti_PrioritàHmi := "PrioritàStazioni".StazioniSorgenti_PrioritàHmi;
-	    "PrioritàStazioni".Old_K_StazioneVisualizzata := "PrioritàStazioni".K_StazioneVisualizzata;
+	    "PrioritaStazioni".Old_StazioniDestinazioni_PrioritàHmi := "PrioritaStazioni".StazioniDestinazioni_PrioritàHmi;
+	    "PrioritaStazioni".Old_StazioniSorgenti_PrioritàHmi := "PrioritaStazioni".StazioniSorgenti_PrioritàHmi;
+	    "PrioritaStazioni".Old_K_StazioneVisualizzata := "PrioritaStazioni".K_StazioneVisualizzata;
 	END_REGION ;
 	
 END_FUNCTION

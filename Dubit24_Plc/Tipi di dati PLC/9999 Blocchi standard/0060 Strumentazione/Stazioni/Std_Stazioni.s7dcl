@@ -7,9 +7,9 @@
         END_STRUCT;
         Prm : STRUCT
             { S7_Setpoint := "False" }
-            PrioritaInvioProdotto : _.Std_Priorità;
+            PrioritaInvioProdotto : _.Std_Priorita;
             { S7_Setpoint := "False" }
-            PrioritaRicezioneProdotto : _.Std_Priorità;
+            PrioritaRicezioneProdotto : _.Std_Priorita;
         END_STRUCT;
     END_STRUCT;
 END_TYPE
