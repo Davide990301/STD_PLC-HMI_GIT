@@ -9,6 +9,10 @@
                 CoppiaSuperata : Bool;
                 FaultInverter : Bool;
                 FeedbackMarcia : Bool;
+                { S7_MLC := "MLC_348" }
+                FeedbackMarciaServoventola : Bool;
+                { S7_MLC := "MLC_dS" }
+                PastigliaTermica : Bool;
                 TermicoIntervenuto : Bool;
                 TermicoServoventilazione : Bool;
                 PulsantieraLocale : STRUCT
@@ -34,7 +38,13 @@
                 TStart : _.Std_stTimer;
                 Tstop : _.Std_stTimer;
                 TimeOutMarcia : _.Std_stTimer;
+                { S7_MLC := "MLC_3ib" }
+                TimeOutMarciaServoventola : _.Std_stTimer;
                 TStopServoventola : _.Std_stTimer;
+                { S7_MLC := "MLC_3Fv" }
+                TDurataMarciaStella : _.Std_stTimer := (
+                    Preset := 10.0
+                );
                 { S7_Setpoint := "True" }
                 MassimaFrequenza : Real;
                 MinimaFrequenza : Real;
@@ -83,10 +93,14 @@
                 VelManuale : Bool;
                 Posizioni : Bool;
                 Servoventola : Bool;
+                ManualeNegativo : Bool;
+                FeedbackSpeed : Bool;
             END_STRUCT;
             EseguiHomingAsse : Bool;
             CmdPosRich : Bool;
             CmdNegRich : Bool;
+            SiglaMeccanica : String[10];
+            SiglaElettrica : String[10];
             BypassSicurezze : Bool;
         END_STRUCT;
         Dati : STRUCT
@@ -123,6 +137,8 @@
                 (),
                 (),
                 (),
+                (),
+                { S7_MLC := "MLC_44b" }
                 ()
             ];
             { S7_Setpoint := "True" }

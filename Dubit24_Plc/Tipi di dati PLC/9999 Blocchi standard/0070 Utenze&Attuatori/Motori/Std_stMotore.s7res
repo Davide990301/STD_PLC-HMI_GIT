@@ -1,12 +1,22 @@
 ﻿MultiLingualTexts:
   - id: MLC_wP
     it-IT: Ingressi
+  - id: MLC_348
+    it-IT: Feedback di marcia servoventola
+  - id: MLC_dS
+    it-IT: Pastiglia termica del motore
   - id: MLC_k7
     it-IT: Parametri
+  - id: MLC_3ib
+    it-IT: Ritardo Controllo Feedback Marcia servoventola
+  - id: MLC_3Fv
+    it-IT: Durata della marcia a stella con motore stella triangolo
   - id: MLC_qL
     it-IT: Selezioni HMI
   - id: MLC_V7
     it-IT: Allarmi Attivi
+  - id: MLC_44b
+    it-IT: Allarme di inseguimento encoder
   - id: MLC_4vz
     it-IT: Uscite
   - id: MLC_43T

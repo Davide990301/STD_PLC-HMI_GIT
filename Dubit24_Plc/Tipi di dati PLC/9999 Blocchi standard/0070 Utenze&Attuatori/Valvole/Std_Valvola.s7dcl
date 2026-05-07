@@ -18,6 +18,18 @@
             Feedback_PressioneNeg : Real;
             Feedback_PortataPos : Real;
             Feedback_PortataNeg : Real;
+            PulsantieraLocale : STRUCT
+                { S7_MLC := "MLC_vE" }
+                Auto : Bool;
+                Stop : Bool;
+                { S7_MLC := "MLC_36n" }
+                ManPos : Bool;
+                { S7_MLC := "MLC_4Pq" }
+                ManNeg : Bool;
+                StatoFromPuls : Int;
+                StatoPrecedenteHmi : Int;
+                MemoAutomatico : Bool;
+            END_STRUCT;
             Reset : Bool;
         END_STRUCT;
         Prm : STRUCT
@@ -55,6 +67,7 @@
             CmdPos : Bool;
             CmdNeg : Bool;
             BloccoRichiamato : Bool;
+            PulsantieraLocalePresente : Bool;
             InclusaInUnaSequenza : Bool;
             FlipFlop : STRUCT
                 NumeroFlip : STRUCT
@@ -86,8 +99,8 @@
             RichiestaAutoPos : Bool;
             RichiestaAutoNeg : Bool;
             TipoManuale : Int;
-            SiglaMeccanica : String[6];
-            SiglaElettrica : String[6];
+            SiglaMeccanica : String[10];
+            SiglaElettrica : String[10];
             BypassSicurezze : Bool;
         END_STRUCT;
         Allarmi : STRUCT
