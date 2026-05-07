@@ -29,8 +29,8 @@ BEGIN
 	        "Stazione".S[#CounterStazioni].Prm.IgnoraDestinazione :=
 	        "Stazione".S[#CounterStazioni].Prm.ByPassChiamataDestinazione := False;
 	        "Stazione".S[#CounterStazioni].Dati.K_StazioneDestinazione :=
-	        "Stazione".S[#CounterStazioni].Dati.InvioAdditivo.K_StazioneRiferimento1 :=
-	        "Stazione".S[#CounterStazioni].Dati.RicezioneAdditivo.K_StazioneRiferimento := 0;
+	        "Stazione".S[#CounterStazioni].Dati.InvioAdditivo.K_StazioneMandata1 :=
+	        "Stazione".S[#CounterStazioni].Dati.RicezioneAdditivo.K_StazioneAdditivo1 := 0;
 	        "Stazione".S[#CounterStazioni].IN.SorgenteNonPronta :=
 	        "Stazione".S[#CounterStazioni].IN.LivelloDestinazioneSuperiorePriorità :=
 	        "Stazione".S[#CounterStazioni].IN.LivelloSorgenteInferiorePriorità := False;

@@ -17,9 +17,3 @@
     it-IT: Assegnare motore da cui prendere lo stato
   - id: MLC_3UM
     it-IT: Assegnare pompa da cui prendere lo stato
-  - id: MLC_4ZN
-    it-IT: Gestione della chiamata della stazione
-  - id: MLC_4nC
-    it-IT: Diagnostica HMI della stazione
-  - id: MLC_55f
-    it-IT: Riferimenti incrociati

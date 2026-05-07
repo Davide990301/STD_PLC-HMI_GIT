@@ -24,12 +24,14 @@ FUNCTION "GestStazione_ProntoRicevere" : Void
         StazioneRiferimento1_InvioAdditivo : Int;
         StazioneRiferimento2_InvioAdditivo : Int;
         BypassControlloRiferimenti : Bool;
+        K_StazioneAdditivo1 : Int;
+        K_StazioneAdditivo2 : Int;
+        K_StazioneAdditivo3 : Int;
+        { S7_MLC := "MLC_4SC" }
+        Registrato : Bool;
     END_VAR
 
-    {
-        S7_Language := "SCL";
-        S7_NetworkTitle := "MLC_fm"
-    }
+    { S7_Language := "SCL" }
     NETWORK
         REGION Pulizia memorie
             #K_StazioneDestinazione :=
@@ -67,7 +69,20 @@ FUNCTION "GestStazione_ProntoRicevere" : Void
                         IF "Stazione".S[#StazioneRiferimentoAdditiva].Dati.K_StazioneDestinazione = #DestinazioneAttuale THEN            //verifico che abbia la mia stessa destinazione,
                             IF #StazioneRiferimentoAdditiva <> #K_Stazione THEN                                                                 //mi assicuro di saltare la stazione attuale.
                                 #StazioneSorgenteAdditivoPresente := #StazioneRiferimentoAdditivoPresente := True;                              //A questo punto posso dire di avere una stazione ed una destinazione attiva.
-                                "Stazione".S[#StazioneRiferimentoAdditiva].Dati.RicezioneAdditivo.K_StazioneRiferimento := #K_Stazione;  //Scrivo nella stazione che ho trovato la sorgente additivo.
+                                #K_StazioneAdditivo1 := "Stazione".S[#StazioneRiferimentoAdditiva].Dati.RicezioneAdditivo.K_StazioneAdditivo1;
+                                #K_StazioneAdditivo2 := "Stazione".S[#StazioneRiferimentoAdditiva].Dati.RicezioneAdditivo.K_StazioneAdditivo2;
+                                #K_StazioneAdditivo3 := "Stazione".S[#StazioneRiferimentoAdditiva].Dati.RicezioneAdditivo.K_StazioneAdditivo3;
+                                #Registrato := #K_StazioneAdditivo1 = #K_Stazione OR #K_StazioneAdditivo2 = #K_Stazione OR #K_StazioneAdditivo3 = #K_Stazione;
+                                IF #K_StazioneAdditivo1 = 0 AND NOT #Registrato THEN
+                                    "Stazione".S[#StazioneRiferimentoAdditiva].Dati.RicezioneAdditivo.K_StazioneAdditivo1 := #K_Stazione;  //Scrivo nella stazione che ho trovato la sorgente additivo1.
+                                    #Registrato := True;
+                                ELSIF #K_StazioneAdditivo2 = 0 AND NOT #Registrato THEN
+                                    "Stazione".S[#StazioneRiferimentoAdditiva].Dati.RicezioneAdditivo.K_StazioneAdditivo2 := #K_Stazione;  //Scrivo nella stazione che ho trovato la sorgente additivo2.
+                                    #Registrato := True;
+                                ELSIF #K_StazioneAdditivo3 = 0 AND  NOT #Registrato THEN
+                                    "Stazione".S[#StazioneRiferimentoAdditiva].Dati.RicezioneAdditivo.K_StazioneAdditivo3 := #K_Stazione;  //Scrivo nella stazione che ho trovato la sorgente additivo3.
+                                    #Registrato := True;
+                                END_IF;
                                 IF #StazioneRiferimento1_InvioAdditivo = 0 THEN                                                                 //Scrivo nella stazione attuale la k della destinazione di riferimento trovata.
                                     #StazioneRiferimento1_InvioAdditivo := #StazioneRiferimentoAdditiva;
                                 ELSE
@@ -91,12 +106,12 @@ FUNCTION "GestStazione_ProntoRicevere" : Void
         END_REGION ;
         
         //Appoggio di seguito le tempo
-        "Stazione".S[#K_Stazione].Dati.InvioAdditivo.K_StazioneRiferimento1 := #StazioneRiferimento1_InvioAdditivo;
-        "Stazione".S[#K_Stazione].Dati.InvioAdditivo.K_StazioneRiferimento2 := #StazioneRiferimento2_InvioAdditivo;
+        "Stazione".S[#K_Stazione].Dati.InvioAdditivo.K_StazioneMandata1 := #StazioneRiferimento1_InvioAdditivo;
+        "Stazione".S[#K_Stazione].Dati.InvioAdditivo.K_StazioneMandata2 := #StazioneRiferimento2_InvioAdditivo;
         
         "Stazione".S[#K_Stazione].Dati.InvioAdditivo.Attiva := #StazioneRiferimentoAdditivoPresente;
-        "Stazione".S["Stazione".S[#K_Stazione].Dati.InvioAdditivo.K_StazioneRiferimento1].Dati.RicezioneAdditivo.Attiva :=
-        "Stazione".S["Stazione".S[#K_Stazione].Dati.InvioAdditivo.K_StazioneRiferimento2].Dati.RicezioneAdditivo.Attiva := #StazioneSorgenteAdditivoPresente;
+        "Stazione".S["Stazione".S[#K_Stazione].Dati.InvioAdditivo.K_StazioneMandata1].Dati.RicezioneAdditivo.Attiva :=
+        "Stazione".S["Stazione".S[#K_Stazione].Dati.InvioAdditivo.K_StazioneMandata2].Dati.RicezioneAdditivo.Attiva := #StazioneSorgenteAdditivoPresente;
         "Stazione".S[#K_Stazione].Dati.DestAttivaPresente := #AlmenoUnaDestAttiva;
         "Stazione".S[#K_Stazione].Dati.K_StazioneDestinazione := #K_StazioneDestinazione;
     END_NETWORK
@@ -146,9 +161,9 @@ FUNCTION "GestStazione_ProntoRicevere" : Void
     NETWORK
         RUNG wire#powerrail
             Contact( "Stazione".S[#K_Stazione].Dati.InvioAdditivo.Attiva )
-            Contact( "Stazione".S["Stazione".S[#K_Stazione].Dati.InvioAdditivo.K_StazioneRiferimento1].OUT.ProntaAChiamare )
+            Contact( "Stazione".S["Stazione".S[#K_Stazione].Dati.InvioAdditivo.K_StazioneMandata1].OUT.ProntaAChiamare )
             wire#w1
-            Contact( "Stazione".S["Stazione".S[#K_Stazione].Dati.InvioAdditivo.K_StazioneRiferimento2].OUT.ProntaAChiamare )
+            Contact( "Stazione".S["Stazione".S[#K_Stazione].Dati.InvioAdditivo.K_StazioneMandata2].OUT.ProntaAChiamare )
             wire#w2
             Coil( "Stazione".S[#K_Stazione].Dati.InvioAdditivo.TuttiRiferimentiOk )
         END_RUNG
@@ -170,12 +185,21 @@ FUNCTION "GestStazione_ProntoRicevere" : Void
             Contact( "Stazione".S[#K_Stazione].OUT.ProntaAChiamare )
             wire#w1
             Contact( "Stazione".S[#K_Stazione].Dati.RicezioneAdditivo.Attiva )
-            Contact( "Stazione".S["Stazione".S[#K_Stazione].Dati.RicezioneAdditivo.K_StazioneRiferimento].OUT.ProntaAChiamare )
             wire#w2
-            Contact( "Stazione".S["Stazione".S[#K_Stazione].Dati.RicezioneAdditivo.K_StazioneRiferimento].Dati.InvioAdditivo.TuttiRiferimentiOk )
+            Contact( "Stazione".S["Stazione".S[#K_Stazione].Dati.RicezioneAdditivo.K_StazioneAdditivo1].OUT.ProntaAChiamare )
             wire#w3
-            Contact( "Stazione".S[#K_Stazione].Dati.InvioAdditivo.TuttiRiferimentiOk )
+            Contact( "Stazione".S["Stazione".S[#K_Stazione].Dati.RicezioneAdditivo.K_StazioneAdditivo2].OUT.ProntaAChiamare )
             wire#w4
+            Contact( "Stazione".S["Stazione".S[#K_Stazione].Dati.RicezioneAdditivo.K_StazioneAdditivo3].OUT.ProntaAChiamare )
+            wire#w5
+            Contact( "Stazione".S["Stazione".S[#K_Stazione].Dati.RicezioneAdditivo.K_StazioneAdditivo1].Dati.InvioAdditivo.TuttiRiferimentiOk )
+            wire#w6
+            Contact( "Stazione".S["Stazione".S[#K_Stazione].Dati.RicezioneAdditivo.K_StazioneAdditivo2].Dati.InvioAdditivo.TuttiRiferimentiOk )
+            wire#w7
+            Contact( "Stazione".S["Stazione".S[#K_Stazione].Dati.RicezioneAdditivo.K_StazioneAdditivo3].Dati.InvioAdditivo.TuttiRiferimentiOk )
+            wire#w8
+            Contact( "Stazione".S[#K_Stazione].Dati.InvioAdditivo.TuttiRiferimentiOk )
+            wire#w9
             Coil( "Stazione".S[#K_Stazione].OUT.Chiamata )
         END_RUNG
         RUNG wire#powerrail
@@ -186,14 +210,56 @@ FUNCTION "GestStazione_ProntoRicevere" : Void
             Coil( #BypassControlloRiferimenti )
         END_RUNG wire#w1
         RUNG wire#w2
-            Contact( #BypassControlloRiferimenti )
-        END_RUNG wire#w3
-        RUNG wire#w1
-            I_Contact( "Stazione".S[#K_Stazione].Dati.RicezioneAdditivo.Attiva )
+            { S7_Templates := "SrcType := Int" }
+            EQ_Contact(
+                in1 := "Stazione".S[#K_Stazione].Dati.RicezioneAdditivo.K_StazioneAdditivo1,
+                in2 := 0
+            )
         END_RUNG wire#w3
         RUNG wire#w3
-            I_Contact( "Stazione".S[#K_Stazione].Dati.InvioAdditivo.Attiva )
+            { S7_Templates := "SrcType := Int" }
+            EQ_Contact(
+                in1 := "Stazione".S[#K_Stazione].Dati.RicezioneAdditivo.K_StazioneAdditivo2,
+                in2 := 0
+            )
         END_RUNG wire#w4
+        RUNG wire#w4
+            { S7_Templates := "SrcType := Int" }
+            EQ_Contact(
+                in1 := "Stazione".S[#K_Stazione].Dati.RicezioneAdditivo.K_StazioneAdditivo3,
+                in2 := 0
+            )
+        END_RUNG wire#w5
+        RUNG wire#w5
+            { S7_Templates := "SrcType := Int" }
+            EQ_Contact(
+                in1 := "Stazione".S[#K_Stazione].Dati.RicezioneAdditivo.K_StazioneAdditivo1,
+                in2 := 0
+            )
+        END_RUNG wire#w6
+        RUNG wire#w6
+            { S7_Templates := "SrcType := Int" }
+            EQ_Contact(
+                in1 := "Stazione".S[#K_Stazione].Dati.RicezioneAdditivo.K_StazioneAdditivo2,
+                in2 := 0
+            )
+        END_RUNG wire#w7
+        RUNG wire#w7
+            { S7_Templates := "SrcType := Int" }
+            EQ_Contact(
+                in1 := "Stazione".S[#K_Stazione].Dati.RicezioneAdditivo.K_StazioneAdditivo3,
+                in2 := 0
+            )
+        END_RUNG wire#w8
+        RUNG wire#w5
+            Contact( #BypassControlloRiferimenti )
+        END_RUNG wire#w8
+        RUNG wire#w1
+            I_Contact( "Stazione".S[#K_Stazione].Dati.RicezioneAdditivo.Attiva )
+        END_RUNG wire#w8
+        RUNG wire#w8
+            I_Contact( "Stazione".S[#K_Stazione].Dati.InvioAdditivo.Attiva )
+        END_RUNG wire#w9
     END_NETWORK
     {
         S7_Language := "LAD";
@@ -204,12 +270,12 @@ FUNCTION "GestStazione_ProntoRicevere" : Void
         RUNG wire#powerrail
             Contact( "Stazione".S[#K_Stazione].Dati.InvioAdditivo.Attiva )
             wire#w1
-            I_Contact( "Stazione".S["Stazione".S[#K_Stazione].Dati.InvioAdditivo.K_StazioneRiferimento1].OUT.ProntaAChiamare )
+            I_Contact( "Stazione".S["Stazione".S[#K_Stazione].Dati.InvioAdditivo.K_StazioneMandata1].OUT.ProntaAChiamare )
             wire#w2
             Coil( "Stazione".S[#K_Stazione].Hmi.Diagnostica.AttesaPompaMandata )
         END_RUNG
         RUNG wire#w1
-            I_Contact( "Stazione".S["Stazione".S[#K_Stazione].Dati.InvioAdditivo.K_StazioneRiferimento2].OUT.ProntaAChiamare )
+            I_Contact( "Stazione".S["Stazione".S[#K_Stazione].Dati.InvioAdditivo.K_StazioneMandata2].OUT.ProntaAChiamare )
             { S7_Templates := "SrcType := Int" }
             NE_Contact(
                 in1 := #StazioneRiferimento2_InvioAdditivo,
@@ -218,12 +284,36 @@ FUNCTION "GestStazione_ProntoRicevere" : Void
         END_RUNG wire#w2
         RUNG wire#powerrail
             Contact( "Stazione".S[#K_Stazione].Dati.RicezioneAdditivo.Attiva )
-            I_Contact( "Stazione".S["Stazione".S[#K_Stazione].Dati.RicezioneAdditivo.K_StazioneRiferimento].OUT.ProntaAChiamare )
+            wire#w3
+            { S7_Templates := "SrcType := Int" }
+            NE_Contact(
+                in1 := "Stazione".S[#K_Stazione].Dati.RicezioneAdditivo.K_StazioneAdditivo1,
+                in2 := 0
+            )
+            I_Contact( "Stazione".S["Stazione".S[#K_Stazione].Dati.RicezioneAdditivo.K_StazioneAdditivo1].OUT.ProntaAChiamare )
+            wire#w4
             Coil( "Stazione".S[#K_Stazione].Hmi.Diagnostica.AttesaAdditivoPronto )
         END_RUNG
+        RUNG wire#w3
+            { S7_Templates := "SrcType := Int" }
+            NE_Contact(
+                in1 := "Stazione".S[#K_Stazione].Dati.RicezioneAdditivo.K_StazioneAdditivo2,
+                in2 := 0
+            )
+            I_Contact( "Stazione".S["Stazione".S[#K_Stazione].Dati.RicezioneAdditivo.K_StazioneAdditivo2].OUT.ProntaAChiamare )
+        END_RUNG wire#w4
+        RUNG wire#w3
+            { S7_Templates := "SrcType := Int" }
+            NE_Contact(
+                in1 := "Stazione".S[#K_Stazione].Dati.RicezioneAdditivo.K_StazioneAdditivo3,
+                in2 := 0
+            )
+            I_Contact( "Stazione".S["Stazione".S[#K_Stazione].Dati.RicezioneAdditivo.K_StazioneAdditivo3].OUT.ProntaAChiamare )
+        END_RUNG wire#w4
         RUNG wire#powerrail
             Contact( "Stazione".S[#K_Stazione].Dati.AlmenoUnaDestinazioneProgettata )
             I_Contact( #AlmenoUnaDestInChiamata )
+            I_Contact( "Stazione".S[#K_Stazione].Hmi.Diagnostica.TroppoVuoto )
             Coil( "Stazione".S[#K_Stazione].Hmi.Diagnostica.DestinazioneNonPronta )
         END_RUNG
         RUNG wire#powerrail
@@ -252,6 +342,10 @@ FUNCTION "GestStazione_ProntoRicevere" : Void
             Coil( "Stazione".S[#K_Stazione].Hmi.Diagnostica.StazioneAMonteNonPronta )
         END_RUNG
         RUNG wire#powerrail
+            I_Contact( #AttivaChiamata )
+            Coil( "Stazione".S[#K_Stazione].Hmi.Diagnostica.CondizionePLC )
+        END_RUNG
+        RUNG wire#powerrail
             Contact( "Stazione".S[#K_Stazione].Prm.FeedbackRun.Abilitazione )
             Contact( "Stazione".S[#K_Stazione].OUT.Chiamata )
             I_Contact( "Stazione".S[#K_Stazione].OUT.ProntaAChiamare )
@@ -271,20 +365,17 @@ FUNCTION "GestStazione_ProntoRicevere" : Void
             I_Contact( "Stazione".S[#K_Stazione].Hmi.Diagnostica.AttesaAdditivoPronto )
             I_Contact( "Stazione".S[#K_Stazione].Hmi.Diagnostica.AttesaPompaMandata )
             Not()
-            wire#w3
+            wire#w5
             Contact( #PercorsoSelezionato )
-            wire#w4
-            Coil( "Stazione".S[#K_Stazione].Allarmi.Stato.AlmenoUnaDiagnosticaAttiva )
+            wire#w6
+            Coil( "Stazione".S[#K_Stazione].Allarmi.A["KALLStazione_AlmenoUnaDiagnosticaAttiva"].Stato )
         END_RUNG
-        RUNG wire#w3
+        RUNG wire#w5
             I_Contact( "Stazione".S[#K_Stazione].Dati.AlmenoUnaDestinazioneProgettata )
             Contact( "Stazione".S[#K_Stazione].Dati.SorgAttivaPresente )
-        END_RUNG wire#w4
+        END_RUNG wire#w6
     END_NETWORK
-    {
-        S7_Language := "SCL";
-        S7_NetworkTitle := "MLC_3Mm"
-    }
+    { S7_Language := "SCL" }
     NETWORK
         //Ripulisco le memorie di arresto chiamata a causa delle priorità
         IF NOT "Stazione".S[#K_Stazione].Dati.GestionePrioritàAttiva.DaDestinazione THEN
@@ -304,10 +395,7 @@ FUNCTION "GestStazione_ProntoRicevere" : Void
         "Stazione".S[#K_Stazione].Dati.IntMinLivelloTank_DaSorgente := False;
         "Stazione".S[#K_Stazione].Dati.LivelloTank_DaSorgente := 0;
     END_NETWORK
-    {
-        S7_Language := "SCL";
-        S7_NetworkTitle := "MLC_3UT"
-    }
+    { S7_Language := "SCL" }
     NETWORK
         // "Percorso".Stazione[#K_Stazione].Rif_Inc.K_Analogica := #K_Analogica;
         // "Percorso".Stazione[#K_Stazione].Rif_Inc.K_Paratia := #K_Paratia;

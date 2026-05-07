@@ -1,8 +1,8 @@
 ﻿MultiLingualTexts:
   - id: MLC_hB
     it-IT: La stazione è pronta a chiamare ma manca il feedback
-  - id: MLC_fm
-    it-IT: Gestione della chiamata della stazione
+  - id: MLC_4SC
+    it-IT: Mi sono gia registrato nella destinazione
   - id: MLC_3SX
     it-IT: La stazione è pronta a chiamare
   - id: MLC_3Ws
@@ -33,7 +33,3 @@
       Se la stazione è  pronta a chiamare verifico le condizioni per l'eventuale stazione additivo.
       La stazione additivo può essere sia la stazione attuale che la stazione con cui fare il riferimento.
       In entrambi i casi aspetto la stazione partner. Partner può essere la stazione additivo che manda o la stazione master a cui faccio riferimento per mandare.
-  - id: MLC_3Mm
-    it-IT: Pulisco la memoria dopo averla letta
-  - id: MLC_3UT
-    it-IT: Riferimenti incrociati

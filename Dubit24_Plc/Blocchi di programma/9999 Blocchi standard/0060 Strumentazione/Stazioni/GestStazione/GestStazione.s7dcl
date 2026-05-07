@@ -80,10 +80,7 @@ FUNCTION "GestStazione" : Void
         OutOfRange : Int := 5;
     END_VAR
 
-    {
-        S7_Language := "SCL";
-        S7_NetworkTitle := "MLC_4ZN"
-    }
+    { S7_Language := "SCL" }
     NETWORK
         //Pulisco memorie
         #AlmenoUnaDestInChiamata := False;
@@ -213,10 +210,7 @@ FUNCTION "GestStazione" : Void
         
         "Stazione".S[#K_Stazione].OUT.Chiamata := #ValleOk AND #UtenzeOk AND #PartnersOK AND #StazioneOk;
     END_NETWORK
-    {
-        S7_Language := "SCL";
-        S7_NetworkTitle := "MLC_4nC"
-    }
+    { S7_Language := "SCL" }
     NETWORK
         // "Percorso".Stazione[#K_Stazione].Hmi.Diagnostica."00-Analogica" := NOT #AnalogicaOk;
         // "Percorso".Stazione[#K_Stazione].Hmi.Diagnostica."01-Paratia" := NOT #ParatiaOk;
@@ -229,14 +223,10 @@ FUNCTION "GestStazione" : Void
         // "Percorso".Stazione[#K_Stazione].Hmi.Diagnostica."08-StazionePartnerNonChiama" := NOT #StazionePartner1Ok;
         // "Percorso".Stazione[#K_Stazione].Hmi.Diagnostica."09-" := False;
     END_NETWORK
-    {
-        S7_Language := "SCL";
-        S7_NetworkTitle := "MLC_55f"
-    }
+    { S7_Language := "SCL" }
     NETWORK
         "Stazione".S[#K_Stazione].Rif_Inc.K_Analogica := #K_Analogica;
         "Stazione".S[#K_Stazione].Rif_Inc.K_Paratia := #K_Paratia;
         "Stazione".S[#K_Stazione].Rif_Inc.K_Motore := #K_Motore1;
-        "Stazione".S[#K_Stazione].Rif_Inc.K_Pompa := #K_Motore2;
     END_NETWORK
 END_FUNCTION
